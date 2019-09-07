@@ -1,0 +1,29 @@
+{
+  "name": "ual-quasar",
+  "version": "0.0.1",
+  "description": "A Quasar Framework app",
+  "productName": "Quasar App",
+  "cordovaId": "org.cordova.quasar.app",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.18.1",
+    "eosjs2": "^1.0.0",
+    "quasar": "^1.0.0",
+    "ual-eosio-reference-authenticator": "^0.1.2",
+    "ual-ledger": "^0.1.2",
+    "ual-lynx": "^0.2.1",
+    "ual-scatter": "^0.1.5",
+    "ual-token-pocket": "^0.1.1",
+    "universal-authenticator-library": "^0.1.2",
+    "vue-i18n": "^8.0.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0",
+    "babel-loader": "^8.0.6"
+  }
+}
