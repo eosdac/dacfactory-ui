@@ -67,9 +67,15 @@ export default {
         auth => auth.constructor.name == name
       );
       this.$store.commit('ual/setAuthenticator', authenticator);
+      let users;
       try {
         await this.getAuthenticator.init();
-        const users = await this.getAuthenticator.login(this.getTestAccountName);
+        if(this.getTestAccountName){
+          users = await this.getAuthenticator.login(this.getTestAccountName);
+        }
+        else{
+          users = await this.getAuthenticator.login();
+        }
         const accountName = await users[0].getAccountName();
         wallet.loading = false;
         this.$store.commit('ual/setLoggedIn', accountName);
