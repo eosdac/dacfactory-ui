@@ -1,0 +1,27 @@
+{
+  "spec_version": "0.0.7",
+  "manifests": [
+    {
+      "chainId": "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
+      "manifest": {
+        "account": "dacfactoryio",
+        "domain": "https://dev.dacfactory.io",
+        "appmeta": "/app-metadata.json#16f457a409c5c67e3b3da0508fe5969f289c4223e4887c57ed27048378697da4",
+        "whitelist": [
+          {
+            "contract": "eosio.token",
+            "action": "transfer"
+          },
+          {
+            "contract": "kasdactokens",
+            "action": "transfer"
+          },
+          {
+            "contract": "dacfactoryio",
+            "action": ""
+          }
+        ]
+      }
+    }
+  ]
+}

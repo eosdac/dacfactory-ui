@@ -1,0 +1,17 @@
+{
+  "spec_version": "0.7.0",
+  "name": "DAC Factory Test",
+  "shortname": "DFTest",
+  "scope": "/",
+  "apphome": "/",
+  "icon": "/statics/app-logo-128x128.png#f265e468ebe7fe888d53c4e8c42cc7a34f9068b3bc9f9f11ce8abb97ac867d4a",
+  "appIdentifiers": ["io.landeos.registry"],
+  "description": "Testing UAL for dacfactory.io site",
+  "chains": [
+    {
+      "chainId": "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
+      "chainName": "Jungle",
+      "icon": "https://jungletestnet.io/assets/jungle-testnet-logo.svg#99f2bccb955cc5ce71fe989d78bc2d4eb644387284d2aa4bafde65c5078f2e1d"
+    }
+  ]
+}

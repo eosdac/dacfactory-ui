@@ -61,11 +61,16 @@ export default {
   methods:{
     async connectWallet(wallet){
       wallet.loading = true;
+
       let name = wallet.name;
       this.msg = `Connecting to ${name} ...`;
       let authenticator = this.ual.authenticators.find(
         auth => auth.constructor.name == name
       );
+      console.log(authenticator);
+      console.log('shouldRequestAccountName', await authenticator.shouldRequestAccountName());
+
+      
       this.$store.commit('ual/setAuthenticator', authenticator);
       let users;
       try {
