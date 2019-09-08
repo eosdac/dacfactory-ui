@@ -54,7 +54,8 @@ export default {
   computed: {
     ...mapGetters({
       getShow: "ual/getShow",
-      getAuthenticator: "ual/getAuthenticator"
+      getAuthenticator: "ual/getAuthenticator",
+      getTestAccountName: 'ual/getTestAccountName'
     })
   },
   methods:{
@@ -68,7 +69,7 @@ export default {
       this.$store.commit('ual/setAuthenticator', authenticator);
       try {
         await this.getAuthenticator.init();
-        const users = await this.getAuthenticator.login();
+        const users = await this.getAuthenticator.login(this.getTestAccountName);
         const accountName = await users[0].getAccountName();
         wallet.loading = false;
         this.$store.commit('ual/setLoggedIn', accountName);

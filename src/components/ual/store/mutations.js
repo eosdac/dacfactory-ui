@@ -9,3 +9,7 @@ export function setAuthenticator(state, payload) {
 export function setLoggedIn(state, payload) {
     state.loggedIn = payload;
 }
+
+export function setTestAccountName(state, payload) {
+    state.testAccountName = payload;
+}

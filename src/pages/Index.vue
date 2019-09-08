@@ -3,6 +3,7 @@
     <q-btn v-if="!getLoggedIn" label="login" @click="$store.dispatch('ual/login')" />
     <q-btn v-if="getLoggedIn" label="logout" @click="$store.dispatch('ual/logout')" />
     <q-btn v-if="getLoggedIn" label="transfer" @click="transfer" />
+    <q-input type="text" :value="testaccountname" @input="$store.commit('ual/setTestAccountName', $event); testaccountname=$event"/>
     <span>{{getLoggedIn}}</span>
   </q-page>
 </template>
@@ -14,12 +15,21 @@
 import { mapGetters } from "vuex";
 export default {
   name: "PageIndex",
+  data () {
+    return {
+      testaccountname: this.getTestAccountName,
+    }
+  },
   computed: {
     ...mapGetters({
-      getLoggedIn: "ual/getLoggedIn"
+      getLoggedIn: "ual/getLoggedIn",
+      getTestAccountName: 'ual/getTestAccountName'
     })
   },
   methods: {
+    dologin(){
+
+    },
     async transfer() {
       let actions = [
         {
