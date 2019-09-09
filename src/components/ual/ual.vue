@@ -129,11 +129,14 @@ export default {
           users = await authenticator
             .login(this.accountname)
             .catch(e => {
-              console.log("authenticator.login", e);
+              console.log("authenticator login error cause",  e.cause);
               this.error_msg = e;
             });
         } else {
           users = await authenticator.login();
+        }
+        if(!users){
+          return;
         }
         const accountName = await users[0].getAccountName();
         wallet.loading = false;
