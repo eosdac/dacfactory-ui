@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <ual :appName= "appName" :chains="chains" :wallets="wallets"/>
+    <ual :appName= "appName" :chains="chains" :authenticators="authenticators"/>
     <router-view />
   </div>
 </template>
@@ -28,7 +28,7 @@ const chains = [{
     rpcEndpoints: [{
         protocol: 'https',
         host: 'jungle2.cryptolions.io',
-        port: '443',
+        port: 443,
     }]
 }];
 export default {
@@ -37,9 +37,9 @@ export default {
   data () {
     return {
       appName: appName,
-      wallets:[
+      authenticators:[
         new Scatter(chains, {appName: appName}),
-        // new Ledger(chains),
+        new Ledger(chains),
         new Lynx(chains, { appName: appName }),
         new TokenPocket(chains),
         new EOSIOAuth(chains, { appName, protocol: 'eosio' })

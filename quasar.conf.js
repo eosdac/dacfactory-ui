@@ -1,6 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
@@ -53,7 +53,10 @@ module.exports = function (ctx) {
         'QSpace',
         'QCardSection',
         'QSpinner',
-        'QInput'
+        'QInput',
+        'QCarousel',
+        'QCarouselControl',
+        'QCarouselSlide'
 
       ],
 
@@ -78,6 +81,13 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
+        cfg.plugins.push( 
+          new CopyWebpackPlugin([
+              { context: `${__dirname}/src/statics/manifests`,from:'*.*', to:'', toType: 'dir'}
+
+            ]
+           ) 
+        );
       }
     },
 

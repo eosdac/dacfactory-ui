@@ -18,10 +18,14 @@ export async function transact({ state, commit, getters }, payload) {
   });
   console.log(JSON.stringify(payload.actions, null, 2) );
   //sign
+  try{
   let res = await user.signTransaction(
     { actions: payload.actions },
     { broadcast: true }
   );
   console.log(res);
   return res;
+  }catch(e){
+    console.log(e, e.cause)
+  }
 }

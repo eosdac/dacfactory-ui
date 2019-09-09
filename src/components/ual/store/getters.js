@@ -11,9 +11,4 @@ export function getLoggedIn(state) {
 
 }
 
-export function getTestAccountName(state) {
-
-    return state.testAccountName;
-
-}
 

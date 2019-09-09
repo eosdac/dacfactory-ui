@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0",
-    "babel-loader": "^8.0.6"
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.2"
   }
 }

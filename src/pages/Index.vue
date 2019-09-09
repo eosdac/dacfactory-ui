@@ -3,7 +3,7 @@
     <q-btn v-if="!getLoggedIn" label="login" @click="$store.dispatch('ual/login')" />
     <q-btn v-if="getLoggedIn" label="logout" @click="$store.dispatch('ual/logout')" />
     <q-btn v-if="getLoggedIn" label="transfer" @click="transfer" />
-    <q-input type="text" :value="testaccountname" @input="$store.commit('ual/setTestAccountName', $event); testaccountname=$event"/>
+
     <span>{{getLoggedIn}}</span>
   </q-page>
 </template>
@@ -17,7 +17,7 @@ export default {
   name: "PageIndex",
   data () {
     return {
-      testaccountname: this.getTestAccountName,
+
     }
   },
   computed: {
@@ -33,12 +33,12 @@ export default {
     async transfer() {
       let actions = [
         {
-          account: "kasdactokens",
+          account: "eosio.token",
           name: "transfer",
           data: {
             from: this.getLoggedIn,
             to: "piecesnbitss",
-            quantity: "1.0000 KASDAC",
+            quantity: "1.0000 EOS",
             memo: ""
           }
         }
