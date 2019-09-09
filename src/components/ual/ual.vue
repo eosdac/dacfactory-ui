@@ -110,9 +110,9 @@ export default {
       }
     },
     get_authenticator_by_name(name) {
-      return this.ual.authenticators.find(
-        auth => auth.constructor.name == name
-      );
+      return this.ual.authenticators.find(auth =>
+        auth.getStyle().text == name
+        );
     },
     async connectWallet(wallet) {
       wallet.loading = true;
@@ -170,11 +170,11 @@ export default {
     this.authenticators.forEach(w => {
       let obj = w.getStyle();
       obj.loading = false;
-      obj.name = w.constructor.name;
+      obj.name = obj.text;
       this.walletlist.push(obj);
       //init authenticator to check availability
       w.init().then(() => {
-        console.log(`init ${w.constructor.name} done`);
+        console.log(`init ${obj.name} done`);
       });
     });
     this.ual = new UAL(this.chains, this.appName, this.authenticators);

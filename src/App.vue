@@ -39,7 +39,7 @@ export default {
       appName: appName,
       authenticators:[
         new Scatter(chains, {appName: appName}),
-        // new Ledger(chains),
+        new Ledger(chains),
         new Lynx(chains, { appName: appName }),
         new TokenPocket(chains),
         new EOSIOAuth(chains, { appName, protocol: 'eosio' })
