@@ -1,0 +1,17 @@
+{
+  "spec_version": "0.7.0",
+  "name": "DAC Factory Test",
+  "shortname": "DAC Factory",
+  "scope": "/",
+  "apphome": "/",
+  "icon": "/statics/app-logo-128x128.png#f265e468ebe7fe888d53c4e8c42cc7a34f9068b3bc9f9f11ce8abb97ac867d4a",
+  "appIdentifiers": [],
+  "description": "Testing UAL for dacfactory.io site",
+  "chains": [
+    {
+      "chainId": "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
+      "chainName": "Jungle Testnet",
+      "icon": "/junglelogo.ico#5424964fa0198de38ff7297f13a0162247e46e2c0d41f9281ce5d857e2f1034e"
+    }
+  ]
+}
