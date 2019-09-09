@@ -149,7 +149,7 @@ export default {
         let m = "Service unavailable";
         if (this.getAuthenticator) {
           m = this.getAuthenticator.getError() || err;
-          m += ` ${this.getAuthenticator.constructor.name}`;
+          m += ` ${this.getAuthenticator.getStyle().text}`;
           m += ` ${this.getAuthenticator.getOnboardingLink()}`;
         }
         this.error_msg = m;
