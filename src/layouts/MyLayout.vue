@@ -1,7 +1,7 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr FFF">
     <q-header :elevated="false">
-      <q-toolbar >
+      <q-toolbar class="bg-none">
         <q-btn
           flat
           dense
@@ -16,11 +16,30 @@
           Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>
+          <q-btn
+            v-if="!getAccountName"
+            label="login"
+            @click="$store.dispatch('ual/renderLoginModal')"
+            color="secondary"
+            
+          />
+          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName">
+            <q-list>
+              <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
+                <q-item-section >
+                  <q-item-label >Logout</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
+        </div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
+    v-if="false"
       v-model="leftDrawerOpen"
       show-if-above
       bordered
@@ -85,14 +104,19 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container >
       <router-view />
     </q-page-container>
+
+    <q-footer class="bg-red " style="height:40px">
+
+    </q-footer>
   </q-layout>
 </template>
 
 <script>
-import { openURL } from 'quasar'
+import { openURL } from 'quasar';
+import { mapGetters } from "vuex";
 
 export default {
   name: 'MyLayout',
@@ -101,6 +125,11 @@ export default {
       leftDrawerOpen: false
     }
   },
+  computed: {
+    ...mapGetters({
+      getAccountName: "ual/getAccountName"
+    })
+  },
   methods: {
     openURL
   }
@@ -108,4 +137,5 @@ export default {
 </script>
 
 <style>
+
 </style>
