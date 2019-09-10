@@ -1,7 +1,14 @@
 export default {
   //
-  show: false,
-  authenticator: null,
-  loggedIn: false,
+  showLoginModal: false,
+  activeAuthenticator: null,
+  UAL: null,
+  accountName: null,
+  SESSION:{
+    accountName: null,
+    authenticatorName: null,
+    timestamp: null
+  }
+
 
 }

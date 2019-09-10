@@ -1,14 +1,30 @@
-export function getShow(state) {
-    return state.show;
+export function getShouldRenderLoginModal(state) {
+    return state.showLoginModal;
 }
-export function getAuthenticator(state) {
-    return state.authenticator;
+export function getActiveAuthenticator(state) {
+    return state.activeAuthenticator;
 }
 
-export function getLoggedIn(state) {
+export function getAuthenticators(state) {
+    if(state.UAL){
+        return state.UAL.getAuthenticators().availableAuthenticators;
+        // return state.UAL.authenticators;
+    }
+    else{
+        return [];
+    }  
+}
 
-    return state.loggedIn;
+export function getSESSION(state) {
+    return state.SESSION;
+}
 
+export function getUAL(state) {
+    return state.UAL;
+}
+
+export function getAccountName(state) {
+    return state.accountName;
 }
 
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 
 import ual from 'components/ual/store'
 
@@ -15,6 +16,12 @@ export default function (/* { ssrContext } */) {
     modules: {
       ual
     },
+    plugins: [
+      createPersistedState({
+        key: "ual",
+        paths: ["ual.SESSION"]
+      })
+    ],
 
     // enable strict mode (adds overhead!)
     // for dev mode only

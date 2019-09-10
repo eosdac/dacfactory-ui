@@ -1,11 +1,11 @@
 <template>
   <div>
-    <q-dialog v-model="getShow" persistent transition-show="flip-down" transition-hide="flip-up">
+    <q-dialog v-model="getShouldRenderLoginModal" persistent transition-show="flip-down" transition-hide="flip-up">
       <q-card class="text-white" style="width:350px">
         <q-bar class="bg-primary">
           <div>{{bar_msg}}</div>
           <q-space />
-          <q-btn dense flat icon="close" @click="$store.commit('ual/setShow', false); resetUI()">
+          <q-btn dense flat icon="close" @click="$store.commit('ual/setShouldRenderLoginModal', false); resetUI()">
             <q-tooltip content-class="bg-grey text-primary">Close</q-tooltip>
           </q-btn>
         </q-bar>
@@ -16,41 +16,24 @@
             transition-prev="scale"
             transition-next="scale"
             animated
-            arrows
             control-color="red"
             class="no-padding"
           >
-            <q-carousel-slide name="wallet_selection" class="column no-wrap no-padding">
-              
-                
-                  <q-item
-                    v-for="(w, i) in walletlist"
-                    :key="`w${i}`"
-                    :style="'background-color:' + w.background"
-                    @click="handleWalletClick(w)"
-                    clickable
-                    v-ripple
-                    class="rounded-borders q-mb-sm text-center"
-                    :class="{'authenticator_not_available': get_authenticator_by_name(w.name).initError}"
-                  >
-                    <q-item-section avatar>
-                      <q-spinner v-if="w.loading" size="30px" />
-                      <img v-else :src="w.icon" height="30" />
-                    </q-item-section>
-                    <q-item-section :style="'color:'+w.textColor">{{w.text}}</q-item-section>
-                    <q-item-section side>
-                      <div v-if="!get_authenticator_by_name(w.name).initError">x</div>
-                    </q-item-section>
-                  </q-item>
-                
-              
+            <q-carousel-slide name="wallet_selection" class="no-padding">
+                <div v-if="getAuthenticators.length" class="column no-wrap ">
+                  <authenticator-btn v-for="(authenticator,i) in getAuthenticators" :authenticator="authenticator" :key="`${i}auth`" @login="handleAuthenticatorSelection"/>
+                </div>
+                <div v-else class="text-black">
+                  No authenticators are available for your current browser and/or device.
+                </div>
+                              
             </q-carousel-slide>
 
             <q-carousel-slide name="accountname_input" class="column no-wrap justify-between">
               <div class="text-black">Input your accountname</div>
               <q-input type="text" v-model="accountname" autofocus />
               <div class="column">
-                <q-btn label="continue" color="primary" class="full-width" @click="connectWallet(clicked_wallet_btn)"/>
+                <q-btn label="continue" color="primary" class="full-width" @click="connectAuthenticator(authenticator)"/>
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
             </q-carousel-slide>
@@ -71,17 +54,21 @@
 <script>
 import { UAL } from "universal-authenticator-library";
 import { mapGetters } from "vuex";
+import authenticatorBtn from 'components/ual/authenticator-btn';
+
+
 export default {
   name: "UAL",
+  components:{
+    authenticatorBtn
+  },
   props: ["chains", "authenticators", "appName"],
   data() {
     return {
       ual: null,
-      walletlist: [],
+
       bar_msg: "",
       error_msg: "",
-
-      clicked_wallet_btn: null,
 
       slide: "wallet_selection",
       accountname: "",
@@ -91,36 +78,29 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getShow: "ual/getShow",
-      getAuthenticator: "ual/getAuthenticator",
-      getTestAccountName: "ual/getTestAccountName"
+      getShouldRenderLoginModal: "ual/getShouldRenderLoginModal",
+      getActiveAuthenticator: "ual/getActiveAuthenticator",
+      getAuthenticators: "ual/getAuthenticators"
     })
+
   },
   methods: {
-    async handleWalletClick(wallet) {
-      let authenticator = this.get_authenticator_by_name(wallet.name);
+    async handleAuthenticatorSelection(authenticator) {
+      this.authenticator = authenticator;
       let shouldRequestAccountName = await authenticator.shouldRequestAccountName();
       if(shouldRequestAccountName){
-        this.clicked_wallet_btn = wallet;
-        this.bar_msg = wallet.name;
+        this.bar_msg = authenticator.getStyle().text;
         this.slide ="accountname_input";
       }
       else{
-        this.connectWallet(wallet);
+        this.connectAuthenticator(authenticator);
       }
     },
-    get_authenticator_by_name(name) {
-      return this.ual.authenticators.find(auth =>
-        auth.getStyle().text == name
-        );
-    },
-    async connectWallet(wallet) {
-      wallet.loading = true;
-      let name = wallet.name;
-      this.bar_msg = `Connecting to ${name} ...`;
 
-      let authenticator = this.get_authenticator_by_name(name);
-      this.$store.commit("ual/setAuthenticator", authenticator);
+    async connectAuthenticator(authenticator) {
+      let authenticator_name = authenticator.getStyle().text;
+      this.bar_msg = `Connecting to ${authenticator_name} ...`;
+
       let users;
       try {
         console.log("authenticator object", authenticator);
@@ -131,6 +111,7 @@ export default {
             .catch(e => {
               console.log("authenticator login error cause",  e.cause);
               this.error_msg = e;
+              return false;
             });
         } else {
           users = await authenticator.login();
@@ -138,47 +119,38 @@ export default {
         if(!users){
           return;
         }
-        const accountName = await users[0].getAccountName();
-        wallet.loading = false;
-        this.$store.commit("ual/setLoggedIn", accountName);
-        this.$store.commit("ual/setShow", false);
+        
+        const account_name = await users[0].getAccountName();
+        this.$store.commit('ual/setSESSION', {accountName:account_name, authenticatorName: authenticator_name});
+        this.$store.commit("ual/setAccountName", account_name);
+        this.$store.commit("ual/setActiveAuthenticator", authenticator);
+        this.$store.commit("ual/setShouldRenderLoginModal", false);
         this.resetUI();
       } catch (err) {
-        wallet.loading = false;
         this.bar_msg = "";
+        this.authenticator.reset();
         let m = "Service unavailable";
-        if (this.getAuthenticator) {
-          m = this.getAuthenticator.getError() || err;
-          m += ` ${this.getAuthenticator.getStyle().text}`;
-          m += ` ${this.getAuthenticator.getOnboardingLink()}`;
+        if (authenticator) {
+          m = authenticator.getError() || err;
+          m += ` ${authenticator.getStyle().text}`;
+          m += ` ${authenticator.getOnboardingLink()}`;
         }
         this.error_msg = m;
       }
     },
     resetUI() {
-      this.walletlist.forEach(w => {
-        w.loading = false;
-        this.get_authenticator_by_name(w.name).reset();
-      });
-      this.bar_msg = "";
-      this.error_msg = "";
+      this.bar_msg = this.error_msg = this.accountname = "";
       this.slide = "wallet_selection";
-      this.accountname = "";
+
     }
   },
   mounted() {
-    this.authenticators.forEach(w => {
-      let obj = w.getStyle();
-      obj.loading = false;
-      obj.name = obj.text;
-      this.walletlist.push(obj);
-      //init authenticator to check availability
-      w.init().then(() => {
-        console.log(`init ${obj.name} done`);
-      });
-    });
-    this.ual = new UAL(this.chains, this.appName, this.authenticators);
+    this.ual = new UAL(this.chains, this.appName, this.authenticators.map(a => {a.clickedspinner=false;return a;}));
+    console.log('UAL', this.ual)
+    this.$store.commit('ual/setUAL', this.ual);
+    this.$store.dispatch('ual/attemptAutoLogin');
   },
+
   watch: {
     error_msg: function(newv, oldv) {
       console.log("oldv", oldv);

@@ -1,10 +1,25 @@
 <template>
-  <q-page padding>
-    <q-btn v-if="!getLoggedIn" label="login" @click="$store.dispatch('ual/login')" />
-    <q-btn v-if="getLoggedIn" label="logout" @click="$store.dispatch('ual/logout')" />
-    <q-btn v-if="getLoggedIn" label="transfer" @click="transfer" />
+  <q-page padding class="bg-primary ">
+    <div>
+      <div>
+        <div>Welcome To</div>
+        <div>DAC</div>
+        <div>• Factory •</div>
+      </div>
 
-    <span>{{getLoggedIn}}</span>
+      <q-btn
+        v-if="!getAccountName"
+        label="login"
+        @click="$store.dispatch('ual/renderLoginModal')"
+        color="secondary"
+      />
+      <q-btn v-if="getAccountName" label="logout" @click="$store.dispatch('ual/logout')" color="secondary"/>
+
+      <q-btn v-if="getAccountName" label="transfer" @click="transfer" color="info"/>
+
+      <span>{{getAccountName}}</span>
+    </div>
+    <!-- <img src="statics/images/diagonal.svg" width="100%" class="absolute-bottom"/> -->
   </q-page>
 </template>
 
@@ -15,35 +30,30 @@
 import { mapGetters } from "vuex";
 export default {
   name: "PageIndex",
-  data () {
-    return {
-
-    }
+  data() {
+    return {};
   },
   computed: {
     ...mapGetters({
-      getLoggedIn: "ual/getLoggedIn",
-      getTestAccountName: 'ual/getTestAccountName'
+      getAccountName: "ual/getAccountName"
     })
   },
   methods: {
-    dologin(){
-
-    },
+    dologin() {},
     async transfer() {
       let actions = [
         {
           account: "eosio.token",
           name: "transfer",
           data: {
-            from: this.getLoggedIn,
+            from: this.getAccountName,
             to: "piecesnbitss",
             quantity: "1.0000 EOS",
             memo: ""
           }
         }
       ];
-      this.$store.dispatch('ual/transact', {actions: actions})
+      this.$store.dispatch("ual/transact", { actions: actions });
     }
   }
 };
