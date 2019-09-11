@@ -22,6 +22,8 @@
             label="login"
             @click="$store.dispatch('ual/renderLoginModal')"
             color="secondary"
+            :flat="getShouldRenderLoginModal"
+            :loading="getShouldRenderLoginModal"
             
           />
           <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName">
@@ -131,7 +133,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getAccountName: "ual/getAccountName"
+      getAccountName: "ual/getAccountName",
+      getShouldRenderLoginModal: "ual/getShouldRenderLoginModal"
     })
   },
   methods: {

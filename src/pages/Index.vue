@@ -4,7 +4,7 @@
       <div class="q-pa-md">
         <div class="text-center text-white">
           <div class="text-h6">Welcome To</div>
-          <div class="text-weight-bold text-h1">DAC</div>
+          <div class="text-weight-bold text-h1" style="text-shadow: 1px 1px 3px #fff;">DAC</div>
           <div class="text-h5" style="letter-spacing: 3px;">• FACTORY •</div>
 
           <div class="row justify-center text-body1 q-mt-xl">
