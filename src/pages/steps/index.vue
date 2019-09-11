@@ -1,7 +1,8 @@
 <template>
   <q-page padding class="bg-accent">
     <!-- content -->
-    {{getStepsConfig[getActiveStep].title}}
+    <div>Step {{getActiveStep}} of 6</div>
+    <div>{{getStepsConfig[getActiveStep].title}}</div>
   </q-page>
 </template>
 
