@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="bg-accent">
     <!-- content -->
-    {{getActiveStep}}
+    {{getStepsConfig[getActiveStep].title}}
   </q-page>
 </template>
 
@@ -12,6 +12,7 @@ export default {
   computed: {
     ...mapGetters({
       getActiveStep: "factory/getActiveStep",
+      getStepsConfig: "factory/getStepsConfig"
     })
   },
 

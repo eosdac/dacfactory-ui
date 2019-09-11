@@ -1,10 +1,23 @@
 <template>
   <div>
     <q-linear-progress dark :value="getProgressValue" color="secondary" />
-    <div class="q-px-xl q-pb-md row justify-between">
-      <q-space v-if="!shouldDisplayPrevStepBtn"/>
+    <!-- <div class="q-px-md q-pb-md row justify-between">
+      
       <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary" label="go back" class="q-mt-sm" icon="ion-arrow-back" @click="prevStep" />
-      <q-btn color="secondary" :label="`step ${getActiveStep}: create dac`" class="q-mt-sm" icon-right="ion-arrow-forward" @click="nextStep" />
+      <q-space v-else/>
+
+      <q-btn color="secondary" :label="`go to step ${getActiveStep+1}`" class="q-mt-sm" icon-right="ion-arrow-forward" @click="nextStep" />
+    </div> -->
+    <div class="row  items-center">
+      <div class="col-4 text-left q-pl-md q-pb-md">
+        <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary" label="go back" class="q-mt-sm" icon="ion-arrow-back" @click="prevStep" />
+      </div>
+      <div class="col-4 text-center q-pb-md text-h5">
+        Welcome
+      </div>
+      <div class="col-4 text-right q-pr-md q-pb-md">
+        <q-btn color="secondary" :label="`go to step ${getActiveStep+1}`" class="q-mt-sm" icon-right="ion-arrow-forward" @click="nextStep" />
+      </div>
     </div>
     
   </div>

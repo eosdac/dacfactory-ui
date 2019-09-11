@@ -1,16 +1,8 @@
 <template>
   <q-layout view="lHh Lpr fff">
     <q-header :elevated="false">
-      <q-toolbar reveal class="bg-none q-pt-md">
-        <!-- <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn> -->
+      <q-toolbar class="q-pt-md"  :class="{'bg-accent':$route.path.includes('/create/')}">
+
         <img src="~assets/eosdac-logo-white.svg" style="height:42px"/>
         <q-toolbar-title>
           
@@ -110,7 +102,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="bg-accent">
+    <q-footer class="bg-accent q-pt-xs">
       <stepper />
     </q-footer>
   </q-layout>
