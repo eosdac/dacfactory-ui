@@ -106,7 +106,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container >
+    <q-page-container class="text-white">
       <router-view />
     </q-page-container>
 

@@ -2,7 +2,7 @@
   <q-page class="bg-accent full-height">
     <div class="bg-primary">
       <div class="q-pa-md">
-        <div class="text-center text-white">
+        <div class="text-center">
           <div class="text-h6">Welcome To</div>
           <div class="text-weight-bold text-h1" style="text-shadow: 1px 1px 3px #fff;">DAC</div>
           <div class="text-h5" style="letter-spacing: 3px;">• FACTORY •</div>
@@ -14,7 +14,7 @@
           </div>
           <div class="text-body1 q-mt-xl">Get started with these X steps</div>
           <div class="row justify-center q-mt-sm">
-            <q-btn color="secondary" label="create my dac" style="width:180px" class="q-py-sm" />
+            <q-btn color="secondary" label="create my dac" style="width:180px" class="q-py-sm" to="create/step1" />
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="diagonal"></div>
 
-    <div class="row justify-center text-white" style="  margin-top:-160px;">
+    <div class="row justify-center " style="  margin-top:-160px;">
       <div class="bottom-info-box q-mb-md q-pa-md text-center" >
         <div class="text-weight-bold">WHY LAUNCH A DAC?</div>
         <div
@@ -38,6 +38,7 @@
   
 
     <q-dialog
+      
       v-model="showYouTubeVideo"
       persistent
       transition-show="flip-down"
@@ -48,7 +49,7 @@
           <div>info</div>
           <q-space />
           <q-btn dense flat icon="close" @click="showYouTubeVideo=false">
-            <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
+            <q-tooltip content-class="bg-secondary ">Close</q-tooltip>
           </q-btn>
         </q-bar>
         <q-card-section>
