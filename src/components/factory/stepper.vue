@@ -62,10 +62,12 @@ export default {
             this.$store.commit("factory/setActiveStep", stepNumber);
           }
           else{
+            this.$store.commit("factory/setActiveStep", 0);
             this.$router.push('/');
           }
         }
         else{
+          this.$store.commit("factory/setActiveStep", 0);
           this.$router.push('/');
         }
       },

@@ -1,13 +1,19 @@
 <template>
   <q-page padding class="bg-accent">
     <!-- content -->
-    {{$route.params.step}}
+    {{getActiveStep}}
   </q-page>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  methods: {},
+
+  computed: {
+    ...mapGetters({
+      getActiveStep: "factory/getActiveStep",
+    })
+  },
 
 
 };
