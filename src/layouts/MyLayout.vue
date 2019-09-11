@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
     <q-header :elevated="false">
-      <q-toolbar class="q-pt-md"  :class="{'bg-accent':$route.path.includes('/create/')}">
+      <q-toolbar class=""  style="height:60px" :class="{'bg-accent':$route.path.includes('/create/')}">
 
         <img src="~assets/eosdac-logo-white.svg" style="height:42px"/>
         <q-toolbar-title>
@@ -102,7 +102,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="bg-accent q-pt-xs">
+    <q-footer class="bg-accent">
       <stepper />
     </q-footer>
   </q-layout>

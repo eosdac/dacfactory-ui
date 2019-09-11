@@ -1,8 +1,16 @@
 <template>
-  <q-page padding class="bg-accent">
+  <q-page  class="bg-accent column">
     <!-- content -->
-    <div>Step {{getActiveStep}} of 6</div>
-    <div>{{getStepTitle}}</div>
+
+    <div class="row" style="flex:1" >
+      <div style="flex:1" class="bg-accent">
+        <div class="q-pa-md">
+        <div>Step {{getActiveStep}} of 6</div>
+        <div>{{getStepTitle}}</div>
+        </div>
+      </div>
+      <div style="flex:1" class="bg-primary"></div>
+    </div>
   </q-page>
 </template>
 
