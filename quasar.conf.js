@@ -23,7 +23,8 @@ module.exports = function (ctx) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons', // optional, you are not bound to it
+      'ionicons-v4'
     ],
 
     framework: {
@@ -59,7 +60,9 @@ module.exports = function (ctx) {
         'QCarousel',
         'QCarouselControl',
         'QCarouselSlide',
-        'QBtnDropdown'
+        'QBtnDropdown',
+        'QVideo',
+        'QLinearProgress'
 
       ],
 

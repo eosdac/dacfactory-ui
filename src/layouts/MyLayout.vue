@@ -1,8 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr FFF">
+  <q-layout view="lHh Lpr fff">
     <q-header :elevated="false">
-      <q-toolbar class="bg-none">
-        <q-btn
+      <q-toolbar reveal class="bg-none q-pt-md">
+        <!-- <q-btn
           flat
           dense
           round
@@ -10,10 +10,10 @@
           aria-label="Menu"
         >
           <q-icon name="menu" />
-        </q-btn>
-
+        </q-btn> -->
+        <img src="~assets/eosdac-logo-white.svg" style="height:42px"/>
         <q-toolbar-title>
-          Quasar App
+          
         </q-toolbar-title>
 
         <div>
@@ -108,8 +108,8 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="bg-red " style="height:40px">
-
+    <q-footer class="bg-accent">
+      <stepper />
     </q-footer>
   </q-layout>
 </template>
@@ -117,9 +117,13 @@
 <script>
 import { openURL } from 'quasar';
 import { mapGetters } from "vuex";
+import stepper from 'components/factory/stepper'
 
 export default {
   name: 'MyLayout',
+  components:{
+    stepper
+  },
   data () {
     return {
       leftDrawerOpen: false

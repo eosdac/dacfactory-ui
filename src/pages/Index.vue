@@ -1,7 +1,7 @@
 <template>
-  <q-page class="bg-primary position-relative" >
-    <div class="landing-page-wrapper">
-      <div class="q-pa-md" >
+  <q-page class="bg-accent full-height">
+    <div class="bg-primary">
+      <div class="q-pa-md">
         <div class="text-center text-white">
           <div class="text-h6">Welcome To</div>
           <div class="text-weight-bold text-h1">DAC</div>
@@ -17,17 +17,47 @@
             <q-btn color="secondary" label="create my dac" style="width:180px" class="q-py-sm" />
           </div>
         </div>
+      </div>
+      <!-- <q-btn v-if="getAccountName" label="test transfer" @click="transfer" color="info" /> -->
+    </div>
+    <div class="diagonal"></div>
 
-        <q-btn v-if="getAccountName" label="test transfer" @click="transfer" color="info" />
-
+    <div class="row justify-center text-white" style="  margin-top:-160px;">
+      <div class="bottom-info-box q-mb-md q-pa-md text-center" >
+        <div class="text-weight-bold">WHY LAUNCH A DAC?</div>
+        <div
+          class="text-body2 text-weight-light q-mt-sm"
+        >The world of static hierarchies and centralized ownership will be disrupted</div>
+        <div class="q-mt-sm">
+        <q-icon name="ion-logo-youtube" @click="showYouTubeVideo=true" color="secondary" size="42px" class="cursor-pointer"/>
+        <div class="text-secondary q-caption">Learn more</div>
+        </div>
 
       </div>
-
-      <div v-if="true" class="q-mt-lg landing-page-skew mobile-hide" style="z-index:-1"></div>
-
- 
-
     </div>
+  
+
+    <q-dialog
+      v-model="showYouTubeVideo"
+      persistent
+      transition-show="flip-down"
+      transition-hide="flip-up"
+    >
+      <q-card class="text-white"  style="width: 700px; max-width: 80vw;">
+        <q-bar class="bg-secondary">
+          <div>info</div>
+          <q-space />
+          <q-btn dense flat icon="close" @click="showYouTubeVideo=false">
+            <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
+          </q-btn>
+        </q-bar>
+        <q-card-section>
+
+          <q-video src="https://www.youtube.com/embed/PbQpAJOP6iA" style="max-width:700px;max-height:350px;height: 56.25vw; "/>
+       
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -36,10 +66,16 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: "PageIndex",
+  components:{
+
+  },
   data() {
-    return {};
+    return {
+      showYouTubeVideo: false
+    };
   },
   computed: {
     ...mapGetters({
@@ -68,25 +104,18 @@ export default {
 </script>
 
 <style>
-.landing-page-wrapper{
-  position:absolute;
-  width:100%;
-  overflow-y:hidden;
-  top:0;
-  bottom:0;
+.diagonal {
+  height: 400px;
+  background-image: url("../statics/images/diagonal.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: -30px;
 }
-.landing-page-skew{
-  background:#1E2128; border-top:40px solid #763CB5; height:1000px;
-  animation: 1s ease-out 0s 1 skew;
-  animation-fill-mode:forwards;
-}
-
-@keyframes skew {
-    0% {
-        transform: skew(0deg, 0deg);
-    }
-    100% {
-        transform: skew(0deg, -8deg);
-    }
+.bottom-info-box {
+  width: 304px;
+  height: 177px;
+  border: 1px solid var(--q-color-secondary);
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 </style>
