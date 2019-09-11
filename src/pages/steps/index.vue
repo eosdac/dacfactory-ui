@@ -2,7 +2,7 @@
   <q-page padding class="bg-accent">
     <!-- content -->
     <div>Step {{getActiveStep}} of 6</div>
-    <div>{{getStepsConfig[getActiveStep].title}}</div>
+    <div>{{getStepTitle}}</div>
   </q-page>
 </template>
 
@@ -14,7 +14,11 @@ export default {
     ...mapGetters({
       getActiveStep: "factory/getActiveStep",
       getStepsConfig: "factory/getStepsConfig"
-    })
+    }),
+    getStepTitle(){
+      let conf = this.getStepsConfig[this.getActiveStep];
+      return conf ? conf.title : false;
+    }
   },
 
 

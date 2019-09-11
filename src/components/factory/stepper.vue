@@ -9,14 +9,21 @@
       <q-btn color="secondary" :label="`go to step ${getActiveStep+1}`" class="q-mt-sm" icon-right="ion-arrow-forward" @click="nextStep" />
     </div> -->
     <div class="row  items-center">
-      <div class="col-4 text-left q-pl-md q-pb-md">
-        <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary" label="go back" class="q-mt-sm" icon="ion-arrow-back" @click="prevStep" />
+      <div class="col-4 row justify-start q-pl-md q-pb-md">
+        <q-btn v-if="shouldDisplayPrevStepBtn" color="primary"  class="q-mt-sm"  @click="prevStep" >
+          <q-icon name="ion-arrow-back" />
+          <div v-if="$q.screen.gt.xs" class="on-right">go back</div>
+        </q-btn>
       </div>
-      <div class="col-4 text-center q-pb-md text-h5">
-        Welcome
+      <div class="col-4 row justify-center items-center q-pb-md">
+        <div v-if="getStepTitle" class="text-center">{{getStepTitle}}</div>
+        <div v-else class="text-h5">Welcome</div>
       </div>
-      <div class="col-4 text-right q-pr-md q-pb-md">
-        <q-btn color="secondary" :label="`go to step ${getActiveStep+1}`" class="q-mt-sm" icon-right="ion-arrow-forward" @click="nextStep" />
+      <div class="col-4 row justify-end q-pr-md q-pb-md">
+        <q-btn color="primary"  class="q-mt-sm"  @click="nextStep" >
+          <div v-if="$q.screen.gt.xs" class="on-left">{{`go to step ${getActiveStep+1}`}}</div>
+          <q-icon name="ion-arrow-forward" />
+        </q-btn>
       </div>
     </div>
     
@@ -35,6 +42,7 @@ export default {
   computed: {
     ...mapGetters({
       getActiveStep: "factory/getActiveStep",
+      getStepsConfig: "factory/getStepsConfig",
     }),
     shouldDisplayPrevStepBtn: function(){
       return this.getActiveStep && this.getActiveStep > 1;
@@ -42,6 +50,10 @@ export default {
     getProgressValue: function(){
       let v = this.getActiveStep >= 1 ? this.getActiveStep/this.max_steps : 0.05;
       return v;
+    },
+    getStepTitle(){
+      let conf = this.getStepsConfig[this.getActiveStep];
+      return conf ? conf.title : false;
     }
   },
   methods: {
@@ -58,7 +70,8 @@ export default {
       if(prev >= 1){
         this.$router.push(`/create/step${prev}`);
       }
-    },
+    }
+
 
   },
   watch: {
