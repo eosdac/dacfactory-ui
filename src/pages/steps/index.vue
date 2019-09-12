@@ -11,7 +11,7 @@
       </div>
       <div style="flex:1" class="bg-primary">
         <div class="q-pa-md">
-          bla bla bla
+          info step {{getActiveStep}}
         </div>
       </div>
     </div>
