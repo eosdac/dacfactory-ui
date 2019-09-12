@@ -2,6 +2,10 @@ export function setShouldRenderLoginModal(state, payload) {
     state.showLoginModal = payload;
 }
 
+export function setSigningOverlay(state, payload) {
+    state.signingOverlay = Object.assign(state.signingOverlay, payload);
+}
+
 export function setUAL(state, payload) {
     state.UAL = payload;
 }

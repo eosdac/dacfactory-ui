@@ -163,10 +163,7 @@ export default {
     this.ual = new UAL(
       this.chains,
       this.appName,
-      this.authenticators.map(a => {
-        a.clickedspinner = false;
-        return a;
-      })
+      this.authenticators
     );
     console.log("UAL", this.ual);
     this.$store.commit("ual/setUAL", this.ual);

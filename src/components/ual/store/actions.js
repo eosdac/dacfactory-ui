@@ -61,13 +61,13 @@ export async function transact({ state, dispatch, commit }, payload) {
     dispatch('renderLoginModal');
     return;
   }
+  commit('setSigningOverlay', {show: true, msg: 'wait for signature'});
   let user = state.activeAuthenticator.users[0];
   //add authorization to actions if not supplied
   payload.actions.forEach(a => {
     if (!a.authorization) {
       a.authorization = [{ actor: user.accountName, permission: "active" }];
     }
-    // return a;
   });
   console.log(JSON.stringify(payload.actions, null, 2) );
   //sign
@@ -77,9 +77,23 @@ export async function transact({ state, dispatch, commit }, payload) {
       { broadcast: true }
     );
     console.log(res);
+    commit('setSigningOverlay', { msg: 'success'});
+    commit('setSigningOverlay', { show: false});
     return res;
   }catch(e){
     console.log(e, e.cause);
+    commit('setSigningOverlay', { msg: parseError(e) });
+    commit('setSigningOverlay', { show: false});
     return false;
   }
+}
+
+function parseError(error){
+  let cause = 'unknown cause';
+  let error_code ='';
+  if(error.cause){
+    cause = error.cause.reason || error.cause.message || 'Report this error to the eosdac devs to enhance the UX';
+    error_code = cause.code;
+  }
+  return `${error}. ${cause} ${error_code}`;
 }

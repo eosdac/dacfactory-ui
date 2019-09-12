@@ -1,6 +1,11 @@
 export function getShouldRenderLoginModal(state) {
     return state.showLoginModal;
 }
+
+export function getSigningOverlay(state) {
+    return state.signingOverlay;
+}
+
 export function getActiveAuthenticator(state) {
     return state.activeAuthenticator;
 }
