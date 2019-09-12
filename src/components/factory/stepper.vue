@@ -6,7 +6,7 @@
       <div class="col-4 row justify-start q-pl-md q-pb-md">
         <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary"  class="q-mt-sm"  @click="prevStep" >
           <q-icon name="ion-arrow-back" />
-          <div v-if="$q.screen.gt.xs" class="on-right">go back</div>
+          <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">go back</div>
         </q-btn>
       </div>
       <div class="col-4 row justify-center items-center q-pb-md">
@@ -15,7 +15,7 @@
       </div>
       <div class="col-4 row justify-end q-pr-md q-pb-md">
         <q-btn color="secondary"  class="q-mt-sm"  @click="nextStep" >
-          <div v-if="$q.screen.gt.xs" class="on-left">{{`go to step ${getActiveStep+1}`}}</div>
+          <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{`go to step ${getActiveStep+1}`}}</div>
           <q-icon name="ion-arrow-forward" />
         </q-btn>
       </div>
@@ -73,6 +73,7 @@ export default {
       handler: function(r) {
         // console.log('route change:', r);
         if(!r.path.startsWith('/create/') ){
+          this.$store.commit("factory/setActiveStep", 0);
           return;
         }
         let step = this.$route.params.step;

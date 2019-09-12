@@ -53,9 +53,7 @@
           </q-btn>
         </q-bar>
         <q-card-section>
-
           <q-video src="https://www.youtube.com/embed/PbQpAJOP6iA" style="max-width:700px;max-height:350px;height: 56.25vw; "/>
-       
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -75,7 +73,8 @@ export default {
   },
   data() {
     return {
-      showYouTubeVideo: false
+      showYouTubeVideo: false,
+      video_is_loaded: false
     };
   },
   computed: {
