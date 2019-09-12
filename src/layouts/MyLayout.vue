@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
     <q-header :elevated="false">
-      <q-toolbar class=""  style="height:60px" :class="{'bg-accent':$route.path.includes('/create/')}">
+      <q-toolbar style="height:60px" :class="{'bg-accent':$route.path.includes('/create/')}">
 
         <img src="~assets/eosdac-logo-white.svg" style="height:42px"/>
         <q-toolbar-title>

@@ -1,11 +1,12 @@
 <template>
   <q-page  class="bg-accent column">
 
-    <div class="row" style="flex:1" >
+    <div  :class="$q.screen.gt.xs ? 'row': 'column'" style="flex:1" >
       <div style="flex:1" class="bg-accent">
         <div class="q-pa-md">
-        <div class="text-h6 text-weight-thin">Step {{getActiveStep}} of 6</div>
-        <div class="text-h5">{{getStepTitle}}</div>
+          <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
+          <div class="text-h6 text-weight-thin">Step {{getActiveStep}} of 6</div>
+          <div class="text-h5">{{getStepTitle}}</div>
         </div>
       </div>
       <div style="flex:1" class="bg-primary">
