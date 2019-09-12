@@ -61,7 +61,7 @@ export async function transact({ state, dispatch, commit }, payload) {
     dispatch('renderLoginModal');
     return;
   }
-  commit('setSigningOverlay', {show: true, msg: 'wait for signature'});
+  commit('setSigningOverlay', {show: true, status:0, msg: 'wait for signature'});
   let user = state.activeAuthenticator.users[0];
   //add authorization to actions if not supplied
   payload.actions.forEach(a => {
@@ -77,12 +77,12 @@ export async function transact({ state, dispatch, commit }, payload) {
       { broadcast: true }
     );
     console.log(res);
-    commit('setSigningOverlay', { msg: 'success'});
+    commit('setSigningOverlay', { status: 1, msg: 'transaction successful'});
     commit('setSigningOverlay', { show: false});
     return res;
   }catch(e){
     console.log(e, e.cause);
-    commit('setSigningOverlay', { msg: parseError(e) });
+    commit('setSigningOverlay', { status: 2, msg: parseError(e) });
     commit('setSigningOverlay', { show: false});
     return false;
   }
