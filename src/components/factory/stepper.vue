@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-linear-progress dark :value="getProgressValue" color="secondary" />
+    <q-linear-progress dark :value="getProgressValue" size="5px" color="secondary" />
 
     <div class="row  items-center">
       <div class="col-4 row justify-start q-pl-md q-pb-md">

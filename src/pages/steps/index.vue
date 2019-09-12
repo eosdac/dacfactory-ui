@@ -1,16 +1,20 @@
 <template>
   <q-page  class="bg-accent column">
-    <!-- content -->
 
     <div class="row" style="flex:1" >
       <div style="flex:1" class="bg-accent">
         <div class="q-pa-md">
-        <div>Step {{getActiveStep}} of 6</div>
-        <div>{{getStepTitle}}</div>
+        <div class="text-h6 text-weight-thin">Step {{getActiveStep}} of 6</div>
+        <div class="text-h5">{{getStepTitle}}</div>
         </div>
       </div>
-      <div style="flex:1" class="bg-primary"></div>
+      <div style="flex:1" class="bg-primary">
+        <div class="q-pa-md">
+          bla bla bla
+        </div>
+      </div>
     </div>
+
   </q-page>
 </template>
 
