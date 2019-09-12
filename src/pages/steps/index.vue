@@ -7,6 +7,7 @@
           <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
           <div class="text-h6 text-weight-thin">Step {{getActiveStep}} of 6</div>
           <div class="text-h5">{{getStepTitle}}</div>
+          <q-btn label="test trx" @click="transfer" color="secondary" class="q-mt-md" />
         </div>
       </div>
       <div style="flex:1" class="bg-primary">
@@ -25,6 +26,7 @@ export default {
 
   computed: {
     ...mapGetters({
+      getAccountName: "ual/getAccountName",
       getActiveStep: "factory/getActiveStep",
       getStepsConfig: "factory/getStepsConfig"
     }),
@@ -33,6 +35,23 @@ export default {
       return conf ? conf.title : false;
     }
   },
+  methods:{
+    async transfer() {
+      let actions = [
+        {
+          account: "eosio.token",
+          name: "transfer",
+          data: {
+            from: this.getAccountName,
+            to: "piecesnbitss",
+            quantity: "1.0000 EOS",
+            memo: ""
+          }
+        }
+      ];
+      this.$store.dispatch("ual/transact", { actions: actions });
+    }
+  }
 
 
 };

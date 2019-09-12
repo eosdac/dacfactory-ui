@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <!-- <q-btn v-if="getAccountName" label="test transfer" @click="transfer" color="info" /> -->
+      
     </div>
     <div class="diagonal"></div>
 
@@ -85,21 +85,7 @@ export default {
   },
   methods: {
     dologin() {},
-    async transfer() {
-      let actions = [
-        {
-          account: "eosio.token",
-          name: "transfer",
-          data: {
-            from: this.getAccountName,
-            to: "piecesnbitss",
-            quantity: "1.0000 EOS",
-            memo: ""
-          }
-        }
-      ];
-      this.$store.dispatch("ual/transact", { actions: actions });
-    }
+
   }
 };
 </script>
