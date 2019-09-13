@@ -15,9 +15,16 @@
           </q-btn>
         </transition>
       </div>
-      <div class="col-4 row justify-center items-center q-pb-md">
-        <div v-if="getStepTitle" class="text-center">{{getStepTitle}}</div>
+      <div class="col-4 row justify-center items-center q-pb-md overflow-hidden">
+        <transition
+          appear
+          enter-active-class="animated fadeInUp"
+          leave-active-class="animated fadeOutDown"
+          mode="out-in"
+        >
+        <div v-if="getStepTitle" class="text-center" :key="`${getActiveStep}`">{{getStepTitle}}</div>
         <div v-else class="text-h5">Welcome</div>
+        </transition>
       </div>
       <div class="col-4 row justify-end q-pr-md q-pb-md">
         <q-btn color="secondary"  class="q-mt-sm"  @click="nextStep" >
