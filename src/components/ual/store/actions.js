@@ -99,8 +99,6 @@ export async function parseUalError({}, error){
 }
 
 export async function hideSigningOverlay({ commit }, ms=10000) {
-  setTimeout(()=>{
-    commit('setSigningOverlay', { show: false});
-  }, ms)
-  
+  await new Promise(resolve=>{setTimeout(resolve,ms)})
+  commit('setSigningOverlay', { show: false, status:0});
 }

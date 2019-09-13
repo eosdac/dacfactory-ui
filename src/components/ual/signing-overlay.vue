@@ -12,11 +12,12 @@
         <transition
           appear
           enter-active-class="animated fadeInDown"
+
           mode="out-in"
         >
-          <div key="i0" v-if="getSigningOverlay.status === 0"><q-icon  name="vpn_key" color="secondary" size="60px"  class="bounce"/></div>
-          <div key="i1" v-if="getSigningOverlay.status === 1"><q-icon  name="check" color="positive" size="60px" /></div>
-          <div key="i2" v-if="getSigningOverlay.status === 2"><q-icon  name="error_outline" color="negative" size="60px"/></div>
+          <div key="i0" v-if="getSigningOverlay.status === 0"><q-icon  name="vpn_key" color="secondary" size="80px"  class="bounce"/></div>
+          <div key="i1" v-if="getSigningOverlay.status === 1"><q-icon  name="check_circle_outline" color="positive" size="80px" /></div>
+          <div key="i2" v-if="getSigningOverlay.status === 2"><q-icon  name="error_outline" color="negative" size="80px"/></div>
         </transition>
         <transition
           appear
