@@ -63,7 +63,7 @@ export default {
       return this.getActiveStep && this.getActiveStep > 1;
     },
     shouldDisplayNextStepBtn: function(){
-      return this.getActiveStep && this.getActiveStep < this.max_steps;
+      return  this.getActiveStep < this.max_steps;
     },
     getProgressValue: function(){
       let v = this.getActiveStep >= 1 ? this.getActiveStep/this.max_steps : 0.05;
