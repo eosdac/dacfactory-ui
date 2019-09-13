@@ -1,7 +1,7 @@
 <template>
-  <q-page  class="bg-accent column">
 
-    <div  :class="$q.screen.gt.xs ? 'row': 'column'" style="flex:1" >
+  <q-page  class="bg-accent column">
+    <div  :class="$q.screen.gt.xs ? 'row': 'column'" style="flex:1" :key="getActiveStep">
       <div style="flex:1" class="bg-accent">
         <div class="q-pa-md">
           <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
@@ -16,8 +16,8 @@
         </div>
       </div>
     </div>
-
   </q-page>
+  
 </template>
 
 <script>

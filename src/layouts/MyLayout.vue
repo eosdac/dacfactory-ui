@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr fff">
     <q-header :elevated="false">
-      <q-toolbar style="height:60px" :class="$route.path.includes('/create/') ? 'bg-accent' : 'bg-primary'">
+      <q-toolbar style="height:60px" :class="$route.path =='/' ? 'bg-primary' : 'bg-accent'">
 
         <img  src="~assets/eosdac-logo-white.svg" style="height:45px"/>
         <!-- <img v-else src="~assets/eosdac-logo-notext.svg" style="height:45px"/> -->
@@ -106,7 +106,9 @@
     </q-drawer>
 
     <q-page-container class="text-white bg-accent">
+
       <router-view />
+      
     </q-page-container>
 
     <q-footer class="bg-accent">

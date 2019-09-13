@@ -14,28 +14,42 @@
           </div>
           <div class="text-body1 q-mt-xl">Get started with these X steps</div>
           <div class="row justify-center q-mt-sm">
-            <q-btn color="secondary" label="create my dac" style="width:180px" class="q-py-sm" to="create/step1" />
+            <q-btn
+              color="secondary"
+              label="create my dac"
+              style="width:180px"
+              class="q-py-sm"
+              to="create/step1"
+            />
           </div>
         </div>
       </div>
-      
     </div>
     <div class="diagonal"></div>
 
-    <div class="row justify-center " style="  margin-top:-160px;">
-      <div class="bottom-info-box q-mb-md q-pa-md text-center" >
-        <div class="text-weight-bold">WHY LAUNCH A DAC?</div>
-        <div
-          class="text-body2 text-weight-light q-mt-sm"
-        >The world of static hierarchies and centralized ownership will be disrupted</div>
-        <div class="q-mt-sm">
-        <q-icon name="ion-logo-youtube" @click="showYouTubeVideo=true" color="secondary" size="42px" class="cursor-pointer"/>
-        <div class="text-secondary q-caption">Learn more</div>
+    <div class="row justify-center overflow-hidden" style="  margin-top:-160px;">
+      <transition
+        appear
+        enter-active-class="animated fadeInUp"
+      >
+        <div class="bottom-info-box q-mb-md q-pa-md text-center">
+          <div class="text-weight-bold">WHY LAUNCH A DAC?</div>
+          <div
+            class="text-body2 text-weight-light q-mt-sm"
+          >The world of static hierarchies and centralized ownership will be disrupted</div>
+          <div class="q-mt-sm">
+            <q-icon
+              name="ion-logo-youtube"
+              @click="showYouTubeVideo=true"
+              color="secondary"
+              size="42px"
+              class="cursor-pointer"
+            />
+            <div class="text-secondary q-caption">Learn more</div>
+          </div>
         </div>
-
-      </div>
+      </transition>
     </div>
-  
 
     <q-dialog
       v-model="showYouTubeVideo"
@@ -43,7 +57,7 @@
       transition-show="flip-down"
       transition-hide="flip-up"
     >
-      <q-card class="text-white"  style="width: 700px; max-width: 80vw;">
+      <q-card class="text-white" style="width: 700px; max-width: 80vw;">
         <q-bar class="bg-secondary">
           <div>info</div>
           <q-space />
@@ -52,7 +66,10 @@
           </q-btn>
         </q-bar>
         <q-card-section>
-          <q-video src="https://www.youtube.com/embed/PbQpAJOP6iA" style="max-width:700px;max-height:350px;height: 56.25vw; "/>
+          <q-video
+            src="https://www.youtube.com/embed/PbQpAJOP6iA"
+            style="max-width:700px;max-height:350px;height: 56.25vw; "
+          />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -67,9 +84,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "PageIndex",
-  components:{
-
-  },
+  components: {},
   data() {
     return {
       showYouTubeVideo: false,
@@ -82,8 +97,7 @@ export default {
     })
   },
   methods: {
-    dologin() {},
-
+    dologin() {}
   }
 };
 </script>

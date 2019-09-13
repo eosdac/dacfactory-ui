@@ -4,10 +4,16 @@
 
     <div class="row  items-center">
       <div class="col-4 row justify-start q-pl-md q-pb-md">
-        <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary"  class="q-mt-sm"  @click="prevStep" >
-          <q-icon name="ion-arrow-back" />
-          <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">go back</div>
-        </q-btn>
+        <transition
+          appear
+          enter-active-class="animated fadeInLeft"
+          leave-active-class="animated fadeOutLeft"
+        >
+          <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary"  class="q-mt-sm"  @click="prevStep" >
+            <q-icon name="ion-arrow-back" />
+            <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">go back</div>
+          </q-btn>
+        </transition>
       </div>
       <div class="col-4 row justify-center items-center q-pb-md">
         <div v-if="getStepTitle" class="text-center">{{getStepTitle}}</div>
