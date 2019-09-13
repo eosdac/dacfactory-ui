@@ -38,7 +38,6 @@
   
 
     <q-dialog
-      
       v-model="showYouTubeVideo"
       persistent
       transition-show="flip-down"

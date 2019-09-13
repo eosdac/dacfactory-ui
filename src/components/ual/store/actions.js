@@ -77,23 +77,30 @@ export async function transact({ state, dispatch, commit }, payload) {
       { broadcast: true }
     );
     console.log(res);
-    commit('setSigningOverlay', { status: 1, msg: 'transaction successful'});
-    commit('setSigningOverlay', { show: false});
+    commit('setSigningOverlay', { show: true, status: 1, msg: 'transaction successful'});
+    dispatch('hideSigningOverlay', 1000);
     return res;
   }catch(e){
     console.log(e, e.cause);
-    commit('setSigningOverlay', { status: 2, msg: parseError(e) });
-    commit('setSigningOverlay', { show: false});
+    commit('setSigningOverlay', { show: true, status: 2, msg: await dispatch('parseUalError', e) });
+    dispatch('hideSigningOverlay', 2000);
     return false;
   }
 }
 
-function parseError(error){
+export async function parseUalError({}, error){
   let cause = 'unknown cause';
   let error_code ='';
   if(error.cause){
     cause = error.cause.reason || error.cause.message || 'Report this error to the eosdac devs to enhance the UX';
-    error_code = cause.code;
+    error_code = error.cause.code || error.cause.errorCode;
   }
   return `${error}. ${cause} ${error_code}`;
+}
+
+export async function hideSigningOverlay({ commit }, ms=10000) {
+  setTimeout(()=>{
+    commit('setSigningOverlay', { show: false});
+  }, ms)
+  
 }

@@ -68,6 +68,8 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+
+    <signing-overlay />
   </div>
 </template>
 
@@ -75,11 +77,13 @@
 import { UAL } from "universal-authenticator-library";
 import { mapGetters } from "vuex";
 import authenticatorBtn from "components/ual/authenticator-btn";
+import signingOverlay from "components/ual/signing-overlay";
 
 export default {
   name: "UAL",
   components: {
-    authenticatorBtn
+    authenticatorBtn,
+    signingOverlay
   },
   props: ["chains", "authenticators", "appName"],
   data() {
