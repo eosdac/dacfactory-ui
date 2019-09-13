@@ -61,15 +61,28 @@
         <q-bar class="bg-secondary">
           <div>info</div>
           <q-space />
-          <q-btn dense flat icon="close" @click="showYouTubeVideo=false">
+          <q-btn dense flat icon="close" @click="showYouTubeVideo=false; video_is_loaded=false">
             <q-tooltip content-class="bg-secondary ">Close</q-tooltip>
           </q-btn>
         </q-bar>
         <q-card-section>
-          <q-video
+          <!-- <q-video
             src="https://www.youtube.com/embed/PbQpAJOP6iA"
             style="max-width:700px;max-height:350px;height: 56.25vw; "
-          />
+          /> -->
+          
+      <div class="q-video" style="max-width:700px;max-height:350px;height: 56.25vw; ">
+        <div v-if="!video_is_loaded" class="position-relative fit row items-center justify-center">
+          <q-spinner size="50px" color="primary" />
+        </div>
+        <iframe
+          v-show="video_is_loaded"
+          src="https://www.youtube.com/embed/PbQpAJOP6iA"
+          @load="video_is_loaded = true"
+          frameborder="0"
+          allowfullscreen
+        />
+      </div>
         </q-card-section>
       </q-card>
     </q-dialog>

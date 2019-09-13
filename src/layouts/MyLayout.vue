@@ -10,10 +10,8 @@
           
         </q-toolbar-title>
 
-        
-
-            <q-btn v-if="$q.screen.gt.xs" label="see pricing"  unelevated :ripple="false" to="/pricing"/>
-            <q-btn v-if="$q.screen.gt.xs" label="how it work"  unelevated :ripple="false" class="q-mr-sm" to="/how-it-work"/>
+          <q-btn v-if="$q.screen.gt.xs" label="see pricing"  unelevated :ripple="false" to="/pricing"/>
+          <q-btn v-if="$q.screen.gt.xs" label="how it work"  unelevated :ripple="false" class="q-mr-sm" to="/how-it-work"/>
           
           <q-btn
             style="height:32px; width:140px"
@@ -25,7 +23,7 @@
             :loading="getShouldRenderLoginModal"
             
           />
-          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName">
+          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName" style="width:140px">
             <q-list>
               <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
                 <q-item-section >
