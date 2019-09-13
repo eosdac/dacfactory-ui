@@ -3,16 +3,20 @@
     <q-header :elevated="false">
       <q-toolbar style="height:60px" :class="$route.path.includes('/create/') ? 'bg-accent' : 'bg-primary'">
 
-        <img src="~assets/eosdac-logo-white.svg" style="height:45px"/>
+        <img  src="~assets/eosdac-logo-white.svg" style="height:45px"/>
+        <!-- <img v-else src="~assets/eosdac-logo-notext.svg" style="height:45px"/> -->
+        
         <q-toolbar-title>
           
         </q-toolbar-title>
 
-        <div>
-          <q-btn label="see pricing" class="no-hover"  unelevated :ripple="false" to="/pricing"/>
-          <q-btn label="how it work"  unelevated :ripple="false" class="q-mr-md" to="/how-it-work"/>
+        
+
+            <q-btn v-if="$q.screen.gt.xs" label="see pricing"  unelevated :ripple="false" to="/pricing"/>
+            <q-btn v-if="$q.screen.gt.xs" label="how it work"  unelevated :ripple="false" class="q-mr-sm" to="/how-it-work"/>
+          
           <q-btn
-            style="height:32px; width:145px"
+            style="height:32px; width:140px"
             v-if="!getAccountName"
             label="login"
             @click="$store.dispatch('ual/renderLoginModal')"
@@ -31,7 +35,7 @@
             </q-list>
           </q-btn-dropdown>
 
-        </div>
+        
       </q-toolbar>
     </q-header>
 
@@ -101,7 +105,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container class="text-white">
+    <q-page-container class="text-white bg-accent">
       <router-view />
     </q-page-container>
 
