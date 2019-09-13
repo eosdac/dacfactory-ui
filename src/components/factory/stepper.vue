@@ -3,7 +3,7 @@
     <q-linear-progress dark :value="getProgressValue" size="5px" color="secondary" />
 
     <div class="row  items-center">
-      <div class="col-4 row justify-start q-pl-md q-pb-md">
+      <div class="col-4 row justify-start q-pl-md q-pb-md overflow-hidden">
         <transition
           appear
           enter-active-class="animated fadeInLeft"
@@ -15,7 +15,8 @@
           </q-btn>
         </transition>
       </div>
-      <div class="col-4 row justify-center items-center q-pb-md overflow-hidden">
+
+      <div class="col-4 row justify-center items-center  overflow-hidden">
         <transition
           appear
           enter-active-class="animated fadeInUp"
@@ -26,11 +27,18 @@
         <div v-else class="text-h5">Welcome</div>
         </transition>
       </div>
-      <div class="col-4 row justify-end q-pr-md q-pb-md">
-        <q-btn color="secondary"  class="q-mt-sm"  @click="nextStep" >
-          <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{`go to step ${getActiveStep+1}`}}</div>
-          <q-icon name="ion-arrow-forward" />
-        </q-btn>
+      
+      <div class="col-4 row justify-end q-pr-md q-pb-md overflow-hidden">
+        <transition
+          appear
+          enter-active-class="animated fadeInRight"
+          leave-active-class="animated fadeOutRight"
+        >
+          <q-btn color="secondary"  class="q-mt-sm"  @click="nextStep" v-if="shouldDisplayNextStepBtn">
+            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{`go to step ${getActiveStep+1}`}}</div>
+            <q-icon name="ion-arrow-forward" />
+          </q-btn>
+        </transition>
       </div>
     </div>
     
@@ -53,6 +61,9 @@ export default {
     }),
     shouldDisplayPrevStepBtn: function(){
       return this.getActiveStep && this.getActiveStep > 1;
+    },
+    shouldDisplayNextStepBtn: function(){
+      return this.getActiveStep && this.getActiveStep < this.max_steps;
     },
     getProgressValue: function(){
       let v = this.getActiveStep >= 1 ? this.getActiveStep/this.max_steps : 0.05;
