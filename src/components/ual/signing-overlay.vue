@@ -8,11 +8,23 @@
         class="absolute-top-right q-mt-md q-mr-md"
         color="accent"
       />
-      <div class="column items-center">
-        <q-icon v-if="getSigningOverlay.status === 0" name="vpn_key" color="primary" size="60px" />
-        <q-icon v-if="getSigningOverlay.status === 1" name="check" color="positive" size="60px" />
-        <q-icon v-if="getSigningOverlay.status === 2" name="error" color="negative" size="60px" />
-        <div :class="getMessageClass">{{getSigningOverlay.msg}}</div>
+      <div class="text-center">
+        <transition
+          appear
+          enter-active-class="animated fadeInDown"
+          mode="out-in"
+        >
+          <div key="i0" v-if="getSigningOverlay.status === 0"><q-icon  name="vpn_key" color="secondary" size="60px"  class="bounce"/></div>
+          <div key="i1" v-if="getSigningOverlay.status === 1"><q-icon  name="check" color="positive" size="60px" /></div>
+          <div key="i2" v-if="getSigningOverlay.status === 2"><q-icon  name="error_outline" color="negative" size="60px"/></div>
+        </transition>
+        <transition
+          appear
+          enter-active-class="animated fadeInUp"
+          mode="out-in"
+        >
+          <div class="text-weight-bold text-center" :class="getMessageClass" :key="`msg${getSigningOverlay.status}`" style="max-width:300px">{{getSigningOverlay.msg}}</div>
+        </transition>
       </div>
     </div>
   </q-dialog>
@@ -39,7 +51,7 @@ export default {
           res = 'text-positive';
           break;
         case 2:
-          res = 'text-negative text-weight-bold';
+          res = 'text-negative';
           break;
         default:
           break;
