@@ -8,10 +8,14 @@
           appear
           enter-active-class="animated fadeInLeft"
           leave-active-class="animated fadeOutLeft"
+          mode="out-in"
         >
           <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary"  class="q-mt-sm"  @click="prevStep" >
             <q-icon name="ion-arrow-back" />
             <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">go back</div>
+          </q-btn>
+          <q-btn v-if="!shouldDisplayPrevStepBtn && $route.path != '/'" key="home" flat class="q-mt-sm" to="/">
+            <q-icon  name="home" style="color:#54565C"/>
           </q-btn>
         </transition>
       </div>
