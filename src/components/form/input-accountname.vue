@@ -13,7 +13,7 @@
       maxlength="12"
       :dense="dense"
       @input="handleInput"
-      :rules="[ isValidAccountName, isAvailable ]"
+      :rules="[ ...rules ]"
     >
       <template v-if="iconLeft" v-slot:prepend>
         <q-icon :name="iconLeft" @click="$emit('clicked_left_icon')"/>
@@ -56,6 +56,10 @@ export default {
     iconRight: {
       type: String,
       default: ""
+    },
+    rules:{
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -80,11 +84,11 @@ export default {
         return 'accountname bad format.'
       }
     },
-    async isAvailable(v){
-      if(v.length < 12) return true;
-      await new Promise(resolve=>{setTimeout(resolve,1000)});
-      return 'Account already taken.'
-    }
+    // async isAvailable(v){
+    //   if(v.length < 12) return true;
+    //   await new Promise(resolve=>{setTimeout(resolve,1000)});
+    //   return 'Account already taken.'
+    // }
   }
 };
 </script>

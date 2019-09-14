@@ -43,7 +43,7 @@
               @click="showYouTubeVideo=true"
               color="secondary"
               size="42px"
-              class="cursor-pointer"
+              class="cursor-pointer hover-rotate"
             />
             <div class="text-secondary q-caption">Learn more</div>
           </div>
@@ -66,23 +66,18 @@
           </q-btn>
         </q-bar>
         <q-card-section>
-          <!-- <q-video
-            src="https://www.youtube.com/embed/PbQpAJOP6iA"
-            style="max-width:700px;max-height:350px;height: 56.25vw; "
-          /> -->
-          
-      <div class="q-video" style="max-width:700px;max-height:350px;height: 56.25vw; ">
-        <div v-if="!video_is_loaded" class="position-relative fit row items-center justify-center">
-          <q-spinner size="50px" color="primary" />
-        </div>
-        <iframe
-          v-show="video_is_loaded"
-          src="https://www.youtube.com/embed/PbQpAJOP6iA"
-          @load="video_is_loaded = true"
-          frameborder="0"
-          allowfullscreen
-        />
-      </div>
+          <div class="q-video" style="max-width:700px;max-height:350px;height: 56.25vw; ">
+            <div v-if="!video_is_loaded" class="position-relative fit row items-center justify-center">
+              <q-spinner size="50px" color="primary" />
+            </div>
+            <iframe
+              v-show="video_is_loaded"
+              src="https://www.youtube.com/embed/PbQpAJOP6iA"
+              @load="video_is_loaded = true"
+              frameborder="0"
+              allowfullscreen
+            />
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
