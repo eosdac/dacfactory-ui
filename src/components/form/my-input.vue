@@ -17,7 +17,7 @@
       @input="handleInput"
       @blur="onBlur"
       :rules="[ ...rules ]"
-      :debounce="200"
+      :debounce="500"
       :hide-hint="false"
       :items-aligned="false"
       :mask="mask"

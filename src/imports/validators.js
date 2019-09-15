@@ -21,7 +21,7 @@ export function isValidSymbol(v) {
 }
 
 export function isValidDacId(v) {
-    const re = /^[a-z1-5]{5,11}$/;
+    const re = /^[a-z1-5]{1,11}$/;
     if (re.test(v)) {
       return true;
     } else {

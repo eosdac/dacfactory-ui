@@ -39,8 +39,8 @@
       @input="dacId = $event.toLowerCase()"
       color="secondary"
       label="DAC ID"
-      hint="Must be min 5 and max 11 characters a-z 1-5"
-      counter
+      hint="Min 5/ Max 11 chars"
+      :counter="false"
       maxlength="11"
       :rules="[
         val => !!val || '* Required',
@@ -54,6 +54,7 @@
 
     <q-input
       type="textarea"
+      :resize="false"
       outlined
       dark
       :value="dacDescription"
