@@ -23,39 +23,39 @@ export default {
   },
   stepsData:{
     1:{
-      treasuryAccount: null,
-      authorityAccount: null
+      treasuryAccount: '',
+      authorityAccount: ''
     },
     2:{
-      dacName: null,
-      dacDescription: null,
-      dacId: null,
-      tokenSymbol: null
+      dacName: '',
+      dacDescription: '',
+      dacId: '',
+      tokenSymbol: ''
     },
     3:{
-      maxSupply: null,
-      decimals: null,
-      issuance: null,
+      maxSupply: '',
+      decimals: '',
+      issuance: '',
     },
     4:{
-      url: null,
-      logo: null,
-      logoSmall: null,
+      url: '',
+      logo: '',
+      logoSmall: '',
       colorTheme: {},
     },
     5:{
-      lockupAsset:null,
-      requestPayMax:null,
-      lockupReleaseTimeDelay:null,
-      periodLength:null,
+      lockupAsset:'',
+      requestPayMax:'',
+      lockupReleaseTimeDelay:'',
+      periodLength:'',
 
-      numElected:null,
-      thresholdHigh:null,
-      thresholdMed:null,
-      thresholdLow:null,
-      maxVotes:null,
+      numElected:'',
+      thresholdHigh:'',
+      thresholdMed:'',
+      thresholdLow:'',
+      maxVotes:'',
 
-      voteQuorumPercent:null
+      voteQuorumPercent:''
 
     }
   }

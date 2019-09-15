@@ -14,6 +14,7 @@
         val => val.length == 12 || 'Accountname must be 12 characters',
         isAvailableAccountName
       ]"
+      @statusChange="!$event.error?$store.commit('factory/setStepsData',{step:1, data:{authorityAccount: $event.value}}):''"
     />
     <my-input
     
@@ -28,6 +29,7 @@
         val => val.length == 12 || 'Accountname must be 12 characters',
         isAvailableAccountName
       ]"
+      @statusChange="!$event.error?$store.commit('factory/setStepsData',{step:1, data:{treasuryAccount: $event.value}}):''"
     />
   
   </div>
@@ -46,8 +48,8 @@ export default {
   },
   data () {
     return {
-      authorityAccount: 'piecestestnt',
-      treasuryAccount: ''
+      authorityAccount: this.$store.state.factory.stepsData[1].authorityAccount,
+      treasuryAccount: this.$store.state.factory.stepsData[1].treasuryAccount
     }
   },
   methods:{
