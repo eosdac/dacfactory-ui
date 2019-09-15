@@ -4,13 +4,23 @@
 
     <div  :class="$q.screen.gt.xs ? 'row': 'column'" style="flex:1" :key="`i${getActiveStep}`">
       <div style="flex:1" class="bg-accent">
-        <div class="q-pa-md">
+        <div class="row justify-end q-pl-md q-pt-xl" :class="$q.screen.gt.md ? 'q-pr-xxl': 'q-pr-md'">
           <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
-          <div class="text-h6 text-weight-thin">Step {{getActiveStep}} of 6</div>
-          <div class="text-h5">{{getStepTitle}}</div>
-          <q-btn label="test trx" @click="transfer" color="secondary" class="q-mt-md" />
+          <div class="col-xs-12 col-lg-6">
+            <div >
+              <div class="text-h6 text-weight-thin ">Step {{getActiveStep}} of 6</div>
+              <div class="text-h5 q-mb-lg">{{getStepTitle}}</div>
+            </div>
+            
+            <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOut" mode="out-in" appear>
+            <step1-form v-if="getActiveStep==1" key="s1"/>
+            <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s2" />
+            </transition>
+
+          </div>
         </div>
       </div>
+
       <div style="flex:1" class="bg-primary">
         <div class="q-pa-md">
           info step {{getActiveStep}}
@@ -24,8 +34,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+import step1Form from 'components/factory/step1-form'
 export default {
-
+  components:{
+    step1Form
+  },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
