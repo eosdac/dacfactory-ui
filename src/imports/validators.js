@@ -10,6 +10,43 @@ export function isValidAccountName(v) {
   }
 }
 
+export function isValidSymbol(v) {
+
+  const re = /^[A-Z]{1,7}$/;
+  if (re.test(v)) {
+    return true;
+  } else {
+    return "Token symbol can only have letters A-Z";
+  }
+}
+
+export function isValidDacId(v) {
+    const re = /^[a-z1-5]{5,11}$/;
+    if (re.test(v)) {
+      return true;
+    } else {
+      return "DAC ID can only have characters a-z and 1-5";
+    }
+  }
+
+export async function isAvailableDacId(v){
+    let res = await Vue.prototype.$eosapi.get_table_rows({
+        json: true,
+        code: 'dacdirectory',
+        scope: 'dacdirectory',
+        table: 'dacs',
+        lower_bound: v,
+        upper_bound: v,
+        limit: 1
+    }).catch(e => false);
+    if(res && res.rows.length == 1 && res.rows[0].dac_id == v){
+        return 'DAC ID already exists.'
+    }
+    else{
+        return true;
+    }
+    
+}
 
 
 export async function isAvailableAccountName(v) {

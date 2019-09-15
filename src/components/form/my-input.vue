@@ -3,7 +3,7 @@
     <q-input
       autocomplete="off"
       ref="my_input"
-      type="text"
+      :type="type"
       :dark="dark"
       :color="color"
       outlined
@@ -11,8 +11,8 @@
       bottom-slots
       :value="value"
       :label="label"
-      counter
-      maxlength="12"
+      :counter="counter"
+      :maxlength="maxlength"
       :dense="dense"
       @input="handleInput"
       @blur="onBlur"
@@ -22,20 +22,20 @@
       :items-aligned="false"
       :mask="mask"
 
-      class="q-mb-lg"
+      class="q-mb-md"
 
     >
       <template v-if="iconLeft" v-slot:prepend>
         <q-icon :name="iconLeft" @click="$emit('clicked_left_icon')"/>
       </template>
-      <template  v-slot:append>
+      <template  v-slot:append v-if="isMounted">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon v-if="!!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess()" name="check" color="positive" key="ok" />
           <q-icon v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError()" name="close" color="negative" key="error"/>
         </transition>
       </template>
 
-      <template v-slot:hint><div v-if="showhint">Must be 12 character account name</div></template>
+      <template v-slot:hint><div v-if="showhint">{{hint}}</div></template>
 
 
     </q-input>
@@ -53,6 +53,10 @@ inheritAttrs: false,
       type: String,
       default: "primary"
     },
+    type: {
+      type: String,
+      default: "text"
+    },
     label: {
       type: String,
       default: "Accountname"
@@ -60,6 +64,18 @@ inheritAttrs: false,
     dark: {
       type: Boolean,
       default: true
+    },
+    counter: {
+      type: Boolean,
+      default: true
+    },
+    maxlength:{
+      type:String,
+      default:''
+    },
+    hint:{
+      type: String,
+      default: "this is a input hint"  
     },
     dense: {
       type: Boolean,
@@ -88,7 +104,8 @@ inheritAttrs: false,
   },
   data() {
     return {
-     showhint:true
+     showhint:true,
+     isMounted:false
     };
   },
   methods:{
@@ -123,9 +140,15 @@ inheritAttrs: false,
   },
   mounted(){
     if(this.value !='' && this.validateOnMounted){
+      console.log('validation on mounted triggered')
+
       this.$refs.my_input.validate();
+      
+      
+      
+
     }
-    
+    this.isMounted=true;
   }
 
 };

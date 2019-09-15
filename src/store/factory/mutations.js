@@ -4,6 +4,11 @@ export function setActiveStep (state, payload) {
 }
 
 export function setStepsData (state, payload) {
+    //{step:1, key:'authorityAccount', data: $event}
+    let error = payload.data.error;
+    let value = error ? '' : payload.data.value;
+    let data={};
+    data[payload.key] = value;
 
-    state.stepsData[payload.step] = Object.assign(state.stepsData[payload.step], payload.data);
+    state.stepsData[payload.step] = Object.assign(state.stepsData[payload.step], data);
 }

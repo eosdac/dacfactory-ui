@@ -7,14 +7,16 @@
       @input="authorityAccount = $event.toLowerCase()"
       color="secondary"
       label="Authority Account"
-
+      hint="Account name must be 12 characters"
+      counter
+      maxlength="12"
       :rules="[
         val => !!val || '* Required',
         isValidAccountName,
         val => val.length == 12 || 'Accountname must be 12 characters',
         isAvailableAccountName
       ]"
-      @statusChange="!$event.error?$store.commit('factory/setStepsData',{step:1, data:{authorityAccount: $event.value}}):''"
+      @statusChange="$store.commit('factory/setStepsData',{step:1, key:'authorityAccount', data: $event})"
     />
     <my-input
     
@@ -22,14 +24,16 @@
       @input="treasuryAccount = $event.toLowerCase()"
       color="secondary"
       label="Treasury Account"
-
+      hint="Account name must be 12 characters"
+      counter
+      maxlength="12"
       :rules="[
         val => !!val || '* Required',
         isValidAccountName,
         val => val.length == 12 || 'Accountname must be 12 characters',
         isAvailableAccountName
       ]"
-      @statusChange="!$event.error?$store.commit('factory/setStepsData',{step:1, data:{treasuryAccount: $event.value}}):''"
+      @statusChange="$store.commit('factory/setStepsData',{step:1, key:'treasuryAccount', data: $event})"
     />
   
   </div>
