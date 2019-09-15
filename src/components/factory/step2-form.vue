@@ -64,6 +64,7 @@
       color="secondary"
       label="Description"
       hint="Optional info about your DAC"
+      class="q-mb-md"
     />
 
   

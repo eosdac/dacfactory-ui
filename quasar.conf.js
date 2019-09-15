@@ -63,7 +63,9 @@ module.exports = function (ctx) {
         'QCarouselSlide',
         'QBtnDropdown',
         'QVideo',
-        'QLinearProgress'
+        'QLinearProgress',
+        'QSlider',
+        'QBadge'
 
       ],
 

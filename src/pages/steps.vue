@@ -15,6 +15,7 @@
             <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOut" mode="out-in" appear>
             <step1-form v-if="getActiveStep==1" key="s1"/>
             <step2-form v-else-if="getActiveStep==2" key="s2"/>
+            <step3-form v-else-if="getActiveStep==3" key="s3"/>
             <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s2" />
             </transition>
 
@@ -36,11 +37,13 @@
 <script>
 import { mapGetters } from "vuex";
 import step1Form from 'components/factory/step1-form';
-import step2Form from 'components/factory/step2-form'
+import step2Form from 'components/factory/step2-form';
+import step3Form from 'components/factory/step3-form'
 export default {
   components:{
     step1Form,
-    step2Form
+    step2Form,
+    step3Form
   },
   computed: {
     ...mapGetters({

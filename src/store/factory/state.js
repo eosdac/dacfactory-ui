@@ -34,7 +34,7 @@ export default {
     },
     3:{
       maxSupply: '',
-      decimals: '',
+      decimals: '4',
       issuance: '',
     },
     4:{
