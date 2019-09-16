@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr fff">
+  <q-layout view="lhh Lpr fFf">
     <q-header :elevated="false">
       <q-toolbar style="height:60px" :class="$route.path =='/' ? 'bg-primary' : 'bg-accent'">
 
