@@ -7,7 +7,7 @@
       @input="maxSupply = $event.toLowerCase()"
       color="secondary"
       label="Max Supply"
-      hint="helper text"
+      :hint="`Max supply for token ${getTokenSymbol}`"
       :rules="[
         val =>  !!val|| '* Required',
       ]"
@@ -18,7 +18,7 @@
     <div class="q-mt-md">
   
       <div class="row justify-between text-subtitle1">
-        <div>Decimals: {{ decimals }}</div>
+        <div class="text-grey-4">Decimals: {{ decimals }}</div>
         <div class="text-secondary text-weight-bold">{{ parseDecimals }}</div>
       </div>
     
@@ -40,6 +40,7 @@
 
 <script>
 import myInput from 'components/form/my-input';
+import { mapGetters } from "vuex";
 // import {
 //   isValidAccountName,
 //   isAvailableAccountName
@@ -56,6 +57,10 @@ export default {
     }
   },
   computed:{
+    
+    ...mapGetters({
+      getTokenSymbol: "factory/getTokenSymbol"
+    }),
     parseDecimals(){
       let string = '';
       if(this.decimals){

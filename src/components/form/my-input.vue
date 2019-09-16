@@ -1,6 +1,7 @@
 <template>
   <div class="overflow-hidden">
     <q-input
+      
       autocomplete="off"
       ref="my_input"
       :type="type"

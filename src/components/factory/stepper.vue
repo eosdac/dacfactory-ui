@@ -2,7 +2,7 @@
   <div>
     <q-linear-progress dark :value="getProgressValue" size="5px" color="secondary" />
 
-    <div class="row  items-center">
+    <div class="row  items-center relative-position">
       <div class="col-4 row justify-start q-pl-md q-pb-md overflow-hidden">
         <transition
           appear
@@ -20,14 +20,14 @@
         </transition>
       </div>
 
-      <div class="col-4 row justify-center items-center  overflow-hidden">
+      <div class="col-4 row justify-center items-center  overflow-hidden " >
         <transition
           appear
           enter-active-class="animated fadeInUp"
           leave-active-class="animated fadeOutDown"
           mode="out-in"
         >
-        <div v-if="getStepTitle" class="text-center" :key="`${getActiveStep}`">{{getStepTitle}}</div>
+        <div v-if="getStepTitle" class="text-center cursor-pointer fit" :key="`${getActiveStep}`" @click="showstepsmenu=true">{{getStepTitle}}</div>
         <div v-else class="text-h5">Welcome</div>
         </transition>
       </div>
@@ -45,6 +45,34 @@
         </transition>
       </div>
     </div>
+
+
+    <q-dialog v-model="showstepsmenu"  position="bottom">
+      <q-list dark bordered separator class="bg-accent">
+        <q-item v-for="(step,i) in getStepsConfig" clickable v-ripple :to="`/create/step${i}`" :key="`stepm${i}`">
+          <q-item-section side>
+            <q-item-label caption>STEP {{i}}</q-item-label>
+            <!-- <q-icon name="star" color="yellow" /> -->
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{step.title}}</q-item-label>
+            <!-- <q-item-label caption>Caption</q-item-label> -->
+          </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple to="/" exact>
+          <q-item-section side>
+            <q-icon name="home" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Go home</q-item-label>
+            <!-- <q-item-label caption>Caption</q-item-label> -->
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-dialog>
+
+
+
     
   </div>
 </template>
@@ -55,7 +83,8 @@ export default {
   name: 'stepper',
   data () {
     return {
-      max_steps: 6
+      max_steps: 6,
+      showstepsmenu:false
     }
   },
   computed: {
@@ -127,4 +156,8 @@ export default {
 </script>
 
 <style>
+.q-router-link--active.q-link{
+  color:white;
+  background-color:#54565C;
+}
 </style>

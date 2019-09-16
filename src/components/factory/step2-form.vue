@@ -54,6 +54,7 @@
 
     <q-input
       type="textarea"
+      
       :resize="false"
       outlined
       dark

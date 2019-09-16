@@ -13,10 +13,10 @@
             </div>
             
             <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOut" mode="out-in" appear>
-            <step1-form v-if="getActiveStep==1" key="s1"/>
-            <step2-form v-else-if="getActiveStep==2" key="s2"/>
-            <step3-form v-else-if="getActiveStep==3" key="s3"/>
-            <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s2" />
+              <step1-form v-if="getActiveStep==1" key="s1"/>
+              <step2-form v-else-if="getActiveStep==2" key="s2"/>
+              <step3-form v-else-if="getActiveStep==3" key="s3"/>
+              <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s2" />
             </transition>
 
           </div>
