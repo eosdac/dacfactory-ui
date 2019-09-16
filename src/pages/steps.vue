@@ -18,7 +18,9 @@
               <step3-form v-else-if="getActiveStep==3" key="s3"/>
               <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s2" />
             </transition>
-
+            <transition enter-active-class="animated fadeInDown" leave-active-class="animated fadeOut" mode="out-in" appear>
+              <q-btn  v-if="getActiveStep < getMaxSteps" label="continue" :to="`/create/step${getActiveStep+1}`" color="secondary" class="q-mt-lg full-width" :key="`continue${getActiveStep}`" />
+            </transition>
           </div>
         </div>
       </div>
