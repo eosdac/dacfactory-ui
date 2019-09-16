@@ -46,7 +46,8 @@ export default {
       ],
       chains: chains
     }
-  },
+  }
+
 }
 </script>
 

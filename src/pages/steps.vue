@@ -8,7 +8,7 @@
           <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
           <div class="col-xs-12 col-lg-6">
             <div >
-              <div class="text-h6 text-weight-thin ">Step {{getActiveStep}} of 6</div>
+              <div class="text-h6 text-weight-thin ">Step {{getActiveStep}} of {{getMaxSteps}}</div>
               <div class="text-h5 q-mb-lg">{{getStepTitle}}</div>
             </div>
             
@@ -26,6 +26,7 @@
       <div style="flex:1" class="bg-primary">
         <div class="q-pa-md">
           info step {{getActiveStep}}
+          <!-- <client-preview v-if="getActiveStep==4" /> -->
         </div>
       </div>
     </div>
@@ -38,18 +39,24 @@
 import { mapGetters } from "vuex";
 import step1Form from 'components/factory/step1-form';
 import step2Form from 'components/factory/step2-form';
-import step3Form from 'components/factory/step3-form'
+import step3Form from 'components/factory/step3-form';
+
+// import clientPreview from 'components/factory/client-preview';
+
 export default {
   components:{
     step1Form,
     step2Form,
-    step3Form
+    step3Form,
+
+    // clientPreview
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveStep: "factory/getActiveStep",
-      getStepsConfig: "factory/getStepsConfig"
+      getStepsConfig: "factory/getStepsConfig",
+      getMaxSteps: "factory/getMaxSteps"
     }),
     getStepTitle(){
       let conf = this.getStepsConfig[this.getActiveStep];

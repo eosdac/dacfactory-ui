@@ -83,7 +83,6 @@ export default {
   name: 'stepper',
   data () {
     return {
-      max_steps: 6,
       showstepsmenu:false
     }
   },
@@ -91,15 +90,16 @@ export default {
     ...mapGetters({
       getActiveStep: "factory/getActiveStep",
       getStepsConfig: "factory/getStepsConfig",
+      getMaxSteps: "factory/getMaxSteps"
     }),
     shouldDisplayPrevStepBtn: function(){
       return this.getActiveStep && this.getActiveStep > 1;
     },
     shouldDisplayNextStepBtn: function(){
-      return  this.getActiveStep < this.max_steps;
+      return  this.getActiveStep < this.getMaxSteps;
     },
     getProgressValue: function(){
-      let v = this.getActiveStep >= 1 ? this.getActiveStep/this.max_steps : 0.05;
+      let v = this.getActiveStep >= 1 ? this.getActiveStep/this.getMaxSteps : 0.05;
       return v;
     },
     getStepTitle(){
@@ -111,7 +111,7 @@ export default {
     nextStep(){
       // this.$store.commit('factory/setActiveStep', this.getActiveStep+1);
       let next = this.getActiveStep+1;
-      if(next <= this.max_steps){
+      if(next <= this.getMaxSteps){
         this.$router.push(`/create/step${next}`);
       }
     },
@@ -136,7 +136,7 @@ export default {
         let step = this.$route.params.step;
         if (step && step.includes("step")) {
           let stepNumber = Number(step.replace("step", ""));
-          if (stepNumber && stepNumber <= this.max_steps && stepNumber > 0) {
+          if (stepNumber && stepNumber <= this.getMaxSteps && stepNumber > 0) {
             this.$store.commit("factory/setActiveStep", stepNumber);
           }
           else{

@@ -25,7 +25,7 @@
       <q-slider
         dark
         :value="decimals"
-        @input="decimals = $event; $store.commit('factory/setStepsData',{step:3, key:'decimals', data: {value:$event}})"
+        @input="decimals = $event; $store.commit('factory/setStepsData',{step:3, key:'decimals', data: {value:Number($event)}})"
         markers
         label
         :min="0"
@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       maxSupply: this.$store.state.factory.stepsData[3].maxSupply,
-      decimals: this.$store.state.factory.stepsData[3].decimals
+      decimals: Number(this.$store.state.factory.stepsData[3].decimals)
     }
   },
   computed:{
