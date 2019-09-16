@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-hidden">
     <q-input
-      
+
       autocomplete="off"
       ref="my_input"
       :type="type"
@@ -23,7 +23,7 @@
       :items-aligned="false"
       :mask="mask"
 
-      class="q-mb-md"
+      class="q-mb-md overflow-hidden"
 
     >
       <template v-if="iconLeft" v-slot:prepend>
@@ -133,8 +133,8 @@ inheritAttrs: false,
     onBlur(){
       if(this.value == '' ){
         setTimeout(()=>{
-          this.$refs.my_input.resetValidation()
-        },200)
+          this.$refs.my_input.resetValidation();
+        },2000)
       }
     }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-hidden">
     
     <my-input
       :value="dacName"
@@ -30,13 +30,13 @@
         isValidSymbol,
         val => val.length >= 3 || 'Symbol must have a minimum of 3 chars.',
         val => val.length <= 7 || 'Symbol can\'t have more then 7 chars',
+        isAvailableSymbol
       ]"
       @statusChange="$store.commit('factory/setStepsData',{step:1, key:'tokenSymbol', data: $event})"
     />
 
     <q-input
       type="textarea"
-      :resize="false"
       outlined
       dark
       :value="dacDescription"
@@ -46,9 +46,9 @@
       color="secondary"
       label="Description"
       hint="Optional info about your DAC"
-      class="q-mb-md"
+      class="q-mb-md overflow-hidden"
     >
-      <template  v-slot:append >
+      <template  v-slot:append class="overflow-hidden">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon v-if="dacDescription" name="check" color="positive" key="ok" />
         </transition>
@@ -97,7 +97,8 @@ import {
   isValidSymbol,
   isAvailableDacId,
   isValidDacId,
-  isValidUrl
+  isValidUrl,
+  isAvailableSymbol
 } from "../../imports/validators";
 export default {
   // name: 'ComponentName',
@@ -118,7 +119,8 @@ export default {
     isValidSymbol,
     isValidDacId,
     isAvailableDacId,
-    isValidUrl
+    isValidUrl,
+    isAvailableSymbol
   }
 
 }

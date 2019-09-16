@@ -47,7 +47,7 @@
     </div>
 
 
-    <q-dialog v-model="showstepsmenu"  position="bottom">
+    <q-dialog v-model="showstepsmenu"  position="bottom" >
       <q-list dark bordered separator class="bg-accent">
         <q-item v-for="(step,i) in getStepsConfig" clickable v-ripple :to="`/create/step${i}`" :key="`stepm${i}`">
           <q-item-section side>
