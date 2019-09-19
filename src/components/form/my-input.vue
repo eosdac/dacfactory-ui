@@ -1,7 +1,6 @@
 <template>
   <div class="overflow-hidden">
     <q-input
-
       autocomplete="off"
       ref="my_input"
       :type="type"
@@ -18,7 +17,7 @@
       @input="handleInput"
       @blur="onBlur"
       :rules="[ ...rules ]"
-      :debounce="500"
+      :debounce="debounce"
       :hide-hint="false"
       :items-aligned="false"
       :mask="mask"
@@ -101,7 +100,19 @@ inheritAttrs: false,
     validateOnMounted:{
       type: Boolean,
       default: true
-    }
+    },
+    debounce:{
+      type: Number,
+      default: 500
+    },
+    // min: {
+    //   type: Number,
+    //   default: 0
+    // },
+    // step: {
+    //   type: Number,
+    //   default: 0
+    // },
   },
   data() {
     return {
@@ -113,6 +124,9 @@ inheritAttrs: false,
     handleInput(v){
       //todo only emit if validated
       // this.$refs.my_input.validate();
+      if(this.type =="number"){
+        v = Number(v);
+      }
       console.log(this.$refs.my_input);
       this.$emit('input', v);
       

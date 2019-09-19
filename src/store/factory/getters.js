@@ -16,6 +16,6 @@ export function getStepsData (state) {
 }
 
 export function getTokenSymbol (state) {
-    return state.stepsData[2].tokenSymbol;
+    return state.stepsData[1].tokenSymbol;
 }
 

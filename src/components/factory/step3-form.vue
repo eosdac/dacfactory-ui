@@ -1,21 +1,30 @@
 <template>
   <div>
     
+    <div class="row text-caption justify-end text-secondary text-weight-bold" style="height:20px">
+      <span>{{parseLocalizedSupply(maxSupply)}}</span>
+      <span class="q-ml-xs" v-if="parseLocalizedSupply(maxSupply)">{{getTokenSymbol}}</span>
+    </div>
     <my-input
       type="number"
       :value="maxSupply"
-      @input="maxSupply = $event.toLowerCase()"
+      @input="handleSupplyInput"
+
       color="secondary"
-      label="Max Supply"
-      :hint="`Max supply for token ${getTokenSymbol}`"
+      :label="`Max Supply ${getTokenSymbol}`"
+      :hint="`Max supply for your token`"
       :rules="[
         val =>  !!val|| '* Required',
+        val =>  val > 0|| 'Value must be possitive',
       ]"
       :counter="false"
       @statusChange="$store.commit('factory/setStepsData',{step:3, key:'maxSupply', data: $event})"
+      :debounce="0"
     />
+  
 
-    <div class="q-mt-md">
+
+    <div class="q-mt-xs">
   
       <div class="row justify-between text-subtitle1">
         <div class="text-grey-4">Decimals: {{ decimals }}</div>
@@ -73,7 +82,17 @@ export default {
     }
   },
   methods:{
-
+    parseLocalizedSupply(v){
+      if(v==''){
+        return '';
+      };
+      // v= String(v).split(',').join('');
+      return parseInt(v).toLocaleString();
+    },
+    handleSupplyInput(v){
+      console.log(v)
+      this.maxSupply = Math.round(v);
+    }
   }
 }
 </script>

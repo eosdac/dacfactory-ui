@@ -1,4 +1,6 @@
-import { Api, JsonRpc } from "eosjs";
+import { JsonRpc } from "eosjs";
+// var VConsole = require("vconsole");
+// var vConsole = new VConsole();
 
 // const chains = [{
 //     chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',

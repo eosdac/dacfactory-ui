@@ -65,13 +65,16 @@ module.exports = function (ctx) {
         'QVideo',
         'QLinearProgress',
         'QSlider',
-        'QBadge'
+        'QBadge',
+        'QSelect'
 
       ],
 
       directives: [
         'Ripple',
-        'ClosePopup'
+        'ClosePopup',
+        'TouchHold',
+        'TouchSwipe'
       ],
 
       // Quasar plugins
