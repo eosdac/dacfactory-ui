@@ -5,12 +5,12 @@
       :value="dacName"
       @input="dacName = $event.trim()"
       color="secondary"
-      label="DAC Name"
+      :label="$t('step1.dac_name')"
       :counter="false"
-      hint="Enter a name for your DAC"
+      :hint="$t('step1.dac_name_hint')"
       :rules="[
-        val =>  !!val|| '* Required',
-        val => val.length >= 3 || 'DAC name must be minimum 3 chars.',
+        val =>  !!val|| $t('general.required'),
+        val => val.length >= 3 || $t('step1.dac_name_rule_length_3'),
       ]"
       @statusChange="$store.commit('factory/setStepsData',{step:1, key:'dacName', data: $event})"
     />
@@ -21,15 +21,15 @@
       :value="tokenSymbol"
       @input="tokenSymbol = $event.trim().toUpperCase()"
       color="secondary"
-      label="Token Symbol"
-      hint="Min 3/ Max 7 chars"
+      :label="$t('step1.token_symbol')"
+      :hint="$t('step1.token_symbol_hint')"
       :counter="false"
       maxlength="7"
       :rules="[
-        val =>  !!val|| '* Required',
+        val =>  !!val || $t('general.required'),
         isValidSymbol,
-        val => val.length >= 3 || 'Symbol must have a minimum of 3 chars.',
-        val => val.length <= 7 || 'Symbol can\'t have more then 7 chars',
+        val => val.length >= 3 || $t('step1.symbol_rule_length_3'),
+        val => val.length <= 7 || $t('step1.symbol_rule_length_7'),
         isAvailableSymbol
       ]"
       @statusChange="$store.commit('factory/setStepsData',{step:1, key:'tokenSymbol', data: $event})"
@@ -44,8 +44,8 @@
       maxlength="250"
       counter
       color="secondary"
-      label="Description"
-      hint="Optional info about your DAC"
+      :label="$t('step1.description')"
+      :hint="$t('step1.description_hint')"
       class="q-mb-md overflow-hidden"
     >
       <template  v-slot:append class="overflow-hidden">
@@ -60,8 +60,8 @@
       :value="websiteUrl"
       @input="websiteUrl = $event.trim()"
       color="secondary"
-      label="Website URL"
-      hint="Optional link to your website"
+      :label="$t('step1.website_url')"
+      :hint="$t('step1.website_url_hint')"
       :counter="false"
       :rules="[
         isValidUrl
@@ -73,15 +73,15 @@
       :value="dacId"
       @input="dacId = $event.toLowerCase()"
       color="secondary"
-      label="DAC ID"
-      hint="Min 5/ Max 11 chars"
+      :label="$t('step1.dac_id')"
+      :hint="$t('step1.dac_id_hint')"
       :counter="false"
       maxlength="11"
       :rules="[
-        val => !!val || '* Required',
+        val => !!val || $t('general.required'),
         isValidDacId,
-        val => val.length >= 5 || 'DAC ID must have a minimum of 5 chars.',
-        val => val.length <= 11 || 'DAC ID can\'t have more then 11 chars',
+        val => val.length >= 5 || $t('step1.dac_id_rule_length_5'),
+        val => val.length <= 11 || $t('step1.dac_id_rule_length_11'),
         isAvailableDacId
       ]"
       @statusChange="$store.commit('factory/setStepsData',{step:1, key:'dacId', data: $event})"

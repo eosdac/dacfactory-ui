@@ -8,8 +8,8 @@
           <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
           <div class="col-xs-12 col-lg-6">
             <div >
-              <div class="text-h6 text-weight-thin ">Step {{getActiveStep}} of {{getMaxSteps}}</div>
-              <div class="text-h5 q-mb-lg">{{getStepTitle}}</div>
+              <div class="text-h6 text-weight-thin ">{{ $t("general.step_of", { active_step: getActiveStep, max_steps: getMaxSteps}) }}</div>
+              <div class="text-h5 q-mb-lg">{{ $t('step'+getActiveStep+'.title') }}</div>
             </div>
             
             <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOut" mode="out-in" appear>
@@ -20,7 +20,7 @@
               <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s2" />
             </transition>
             <transition enter-active-class="animated fadeInDown" leave-active-class="animated fadeOut" mode="out-in" appear>
-              <q-btn  v-if="getActiveStep < getMaxSteps" label="continue" :to="`/create/step${getActiveStep+1}`" color="secondary" class="q-mt-lg full-width" :key="`continue${getActiveStep}`" />
+              <q-btn  v-if="getActiveStep < getMaxSteps" :label="$t('general.continue')" :to="`/create/step${getActiveStep+1}`" color="secondary" class="q-mt-lg full-width" :key="`continue${getActiveStep}`" />
             </transition>
           </div>
         </div>
@@ -28,7 +28,52 @@
 
       <div style="flex:1" class="bg-primary">
         <div class="q-pa-md">
-          info step {{getActiveStep}}
+          <div v-if="getActiveStep==1">
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line1') }}
+            </p>
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line2') }}
+            </p>
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line3') }}
+            </p>
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line4') }}
+            </p>
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line5') }}
+            </p>
+          </div>
+
+          <div v-if="getActiveStep==2">
+            <p>
+            THIS STEP TO BE REMOVED
+            </p>
+          </div>
+
+          <div v-if="getActiveStep==3">
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line1') }}
+            </p>
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line2') }}
+            </p>
+          </div>
+
+          <div v-if="getActiveStep==4">
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line1') }}
+            </p>
+          </div>
+
+          <div v-if="getActiveStep==5">
+            <p>
+            {{ $t('step'+getActiveStep+'.info_line1') }}
+            </p>
+          </div>
+
+          <!-- info step {{getActiveStep}} -->
           <!-- <client-preview v-if="getActiveStep==4" /> -->
         </div>
       </div>
@@ -62,11 +107,7 @@ export default {
       getActiveStep: "factory/getActiveStep",
       getStepsConfig: "factory/getStepsConfig",
       getMaxSteps: "factory/getMaxSteps"
-    }),
-    getStepTitle(){
-      let conf = this.getStepsConfig[this.getActiveStep];
-      return conf ? conf.title : false;
-    }
+    })
   },
   methods:{
     async transfer() {

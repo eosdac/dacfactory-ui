@@ -3,20 +3,20 @@
     <div class="bg-primary">
       <div class="q-pa-md">
         <div class="text-center">
-          <div class="text-h6">Welcome To</div>
-          <div class="text-weight-bold text-h1" style="text-shadow: 1px 1px 3px #fff;">DAC</div>
-          <div class="text-h5" style="letter-spacing: 3px;">• FACTORY •</div>
+          <div class="text-h6">{{ $t("home.welcome_to") }}</div>
+          <div class="text-weight-bold text-h1" style="text-shadow: 1px 1px 3px #fff;">{{ $t("home.dac") }}</div>
+          <div class="text-h5" style="letter-spacing: 3px;">• {{ $t("home.factory") }} •</div>
 
           <div class="row justify-center text-body1 q-mt-xl">
             <div
               style="max-width:500px"
-            >Create a Decentralized Autonomous Community (DAC) to fit the needs of your organization and community.</div>
+            >{{ $t("home.line1") }}</div>
           </div>
-          <div class="text-body1 q-mt-xl">Get started with these X steps</div>
+          <div class="text-body1 q-mt-xl">{{ $t("home.line2") }}</div>
           <div class="row justify-center q-mt-sm">
             <q-btn
               color="secondary"
-              label="create my dac"
+              :label="$t('home.create_my_dac')"
               style="width:180px"
               class="q-py-sm"
               to="create/step1"
@@ -33,10 +33,10 @@
         enter-active-class="animated fadeInUp"
       >
         <div class="bottom-info-box q-mb-md q-pa-md text-center">
-          <div class="text-weight-bold">WHY LAUNCH A DAC?</div>
+          <div class="text-weight-bold">{{ $t("home.help_why") }}</div>
           <div
             class="text-body2 text-weight-light q-mt-sm"
-          >The world of static hierarchies and centralized ownership will be disrupted</div>
+          >{{ $t("home.help_line1") }}</div>
           <div class="q-mt-sm">
             <q-icon
               name="ion-logo-youtube"
@@ -45,7 +45,7 @@
               size="42px"
               class="cursor-pointer hover-rotate"
             />
-            <div class="text-secondary q-caption">Learn more</div>
+            <div class="text-secondary q-caption">{{ $t("home.help_learn_more") }}</div>
           </div>
         </div>
       </transition>
@@ -59,10 +59,10 @@
     >
       <q-card class="text-white" style="width: 700px; max-width: 80vw;">
         <q-bar class="bg-secondary">
-          <div>info</div>
+          <div>{{ $t("general.info") }}</div>
           <q-space />
           <q-btn dense flat icon="close" @click="showYouTubeVideo=false; video_is_loaded=false">
-            <q-tooltip content-class="bg-secondary ">Close</q-tooltip>
+            <q-tooltip content-class="bg-secondary ">{{ $t("general.close") }}</q-tooltip>
           </q-btn>
         </q-bar>
         <q-card-section>

@@ -12,7 +12,7 @@
         >
           <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary"  class="q-mt-sm"  @click="prevStep" >
             <q-icon name="ion-arrow-back" />
-            <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">go back</div>
+            <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">{{ $t("general.go_back") }}</div>
           </q-btn>
           <q-btn v-if="!shouldDisplayPrevStepBtn && $route.path != '/'" key="home" flat class="q-mt-sm" to="/">
             <q-icon  name="home" style="color:#54565C"/>
@@ -27,8 +27,8 @@
           leave-active-class="animated fadeOutDown"
           mode="out-in"
         >
-        <div v-if="getStepTitle" class="text-center cursor-pointer fit" :key="`${getActiveStep}`" @click="showstepsmenu=true">{{getStepTitle}}</div>
-        <div v-else class="text-h5">Welcome</div>
+        <div v-if="getActiveStep > 0" class="text-center cursor-pointer fit" :key="`${getActiveStep}`" @click="showstepsmenu=true">{{ $t('step'+getActiveStep+'.title') }}</div>
+        <div v-else class="text-h5">{{ $t("general.welcome") }}</div>
         </transition>
       </div>
       
@@ -39,7 +39,7 @@
           leave-active-class="animated fadeOutRight"
         >
           <q-btn color="secondary"  class="q-mt-sm"  @click="nextStep" v-if="shouldDisplayNextStepBtn">
-            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{`go to step ${getActiveStep+1}`}}</div>
+            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{ $t("general.go_to_step", {step: getActiveStep+1 }) }}</div>
             <q-icon name="ion-arrow-forward" />
           </q-btn>
         </transition>
@@ -51,11 +51,11 @@
       <q-list dark bordered separator class="bg-accent">
         <q-item v-for="(step,i) in getStepsConfig" clickable v-ripple :to="`/create/step${i}`" :key="`stepm${i}`">
           <q-item-section side>
-            <q-item-label caption>STEP {{i}}</q-item-label>
+            <q-item-label caption>{{ $t("general.step") }} {{i}}</q-item-label>
             <!-- <q-icon name="star" color="yellow" /> -->
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{step.title}}</q-item-label>
+            <q-item-label>{{ $t('step'+getActiveStep+'.title') }}</q-item-label>
             <!-- <q-item-label caption>Caption</q-item-label> -->
           </q-item-section>
         </q-item>
@@ -64,7 +64,7 @@
             <q-icon name="home" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Go home</q-item-label>
+            <q-item-label>{{ $t("general.go_home") }}</q-item-label>
             <!-- <q-item-label caption>Caption</q-item-label> -->
           </q-item-section>
         </q-item>
@@ -101,10 +101,6 @@ export default {
     getProgressValue: function(){
       let v = this.getActiveStep >= 1 ? this.getActiveStep/this.getMaxSteps : 0.05;
       return v;
-    },
-    getStepTitle(){
-      let conf = this.getStepsConfig[this.getActiveStep];
-      return conf ? conf.title : false;
     }
   },
   methods: {

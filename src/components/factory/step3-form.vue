@@ -11,11 +11,11 @@
       @input="handleSupplyInput"
 
       color="secondary"
-      :label="`Max Supply ${getTokenSymbol}`"
-      :hint="`Max supply for your token`"
+      :label="$t('step3.max_supply', { token_symbol: getTokenSymbol })"
+      :hint="$t('step3.max_supply_hint')"
       :rules="[
-        val =>  !!val|| '* Required',
-        val =>  val > 0|| 'Value must be possitive',
+        val =>  !!val|| $t('general.required'),
+        val =>  val > 0|| $t('step3.max_supply_rule_positive'),
       ]"
       :counter="false"
       @statusChange="$store.commit('factory/setStepsData',{step:3, key:'maxSupply', data: $event})"
@@ -27,7 +27,7 @@
     <div class="q-mt-xs">
   
       <div class="row justify-between text-subtitle1">
-        <div class="text-grey-4">Decimals: {{ decimals }}</div>
+        <div class="text-grey-4">{{ $t('step3.decimals') }}: {{ decimals }}</div>
         <div class="text-secondary text-weight-bold">{{ parseDecimals }}</div>
       </div>
     
