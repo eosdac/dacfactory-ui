@@ -39,7 +39,7 @@
           leave-active-class="animated fadeOutRight"
         >
           <q-btn color="secondary" class="q-mt-sm" @click="nextStep" v-if="shouldDisplayNextStepBtn">
-            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{ $t("general.go_to_step", {step: getActiveStep+1 }) }}</div>
+            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{ $t("general.go_to_step", {step: getActiveStep + 1 }) }}</div>
             <q-icon name="ion-arrow-forward" />
           </q-btn>
         </transition>
