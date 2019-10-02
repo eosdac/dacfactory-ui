@@ -29,34 +29,6 @@ export default {
       maxSupply: this.$store.state.factory.stepsData[3].maxSupply,
       decimals: Number(this.$store.state.factory.stepsData[3].decimals)
     }
-  },
-  computed:{
-    
-    ...mapGetters({
-      getTokenSymbol: "factory/getTokenSymbol"
-    }),
-    parseDecimals(){
-      let string = '';
-      if(this.decimals){
-        string += '.';
-        for(let i = 0; i < this.decimals; i++){
-          string +='0';
-        }
-      }
-      return string;
-    }
-  },
-  methods:{
-    parseLocalizedSupply(v){
-      if(v==''){
-        return '';
-      }
-      // v= String(v).split(',').join('');
-      return parseInt(v).toLocaleString();
-    },
-    handleSupplyInput(v){
-      this.maxSupply = Math.round(v);
-    }
   }
 }
 </script>
