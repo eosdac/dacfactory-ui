@@ -1,21 +1,16 @@
 export default {
-
   activeStep: 0,
   stepsConfig:{
     1 :{
       title: "DAC Profile"
     },
     2 :{
-      title: "Treasury & Authority accounts"
-    },
-    3 :{
       title: "Tokenomics"
     },
-
-    4 :{
+    3 :{
       title: "Custodian Configuration"
     },
-    5 :{
+    4 :{
       title: "Pay & Create DAC"
     }
   },
@@ -28,16 +23,11 @@ export default {
       websiteUrl:''
     },
     2:{
-      treasuryAccount: '',
-      authorityAccount: ''
-    },
-    3:{
       maxSupply: '',
       decimals: '4',
       issuance: '',
     },
-
-    4:{
+    3:{
       lockupAsset:'',
       requestPayMax:'',
       lockupReleaseTimeDelay:'',
@@ -50,7 +40,6 @@ export default {
       maxVotes:'',
 
       voteQuorumPercent:''
-
     }
   }
 }
