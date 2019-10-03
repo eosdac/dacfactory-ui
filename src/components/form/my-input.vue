@@ -158,10 +158,6 @@ inheritAttrs: false,
       console.log('validation on mounted triggered')
 
       this.$refs.my_input.validate();
-      
-      
-      
-
     }
     this.isMounted=true;
   }

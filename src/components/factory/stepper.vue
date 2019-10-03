@@ -14,8 +14,8 @@
             <q-icon name="ion-arrow-back" />
             <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">{{ $t("general.go_back") }}</div>
           </q-btn>
-          <q-btn v-if="!shouldDisplayPrevStepBtn && $route.path != '/'" key="home" flat class="q-mt-sm" to="/">
-            <q-icon  name="home" style="color:#54565C"/>
+          <q-btn v-if="!shouldDisplayPrevStepBtn && $route.path !== '/'" key="home" flat class="q-mt-sm" to="/">
+            <q-icon  name="home" style="color:#54565c"/>
           </q-btn>
         </transition>
       </div>
@@ -38,8 +38,8 @@
           enter-active-class="animated fadeInRight"
           leave-active-class="animated fadeOutRight"
         >
-          <q-btn color="secondary"  class="q-mt-sm"  @click="nextStep" v-if="shouldDisplayNextStepBtn">
-            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{ $t("general.go_to_step", {step: getActiveStep+1 }) }}</div>
+          <q-btn color="secondary" class="q-mt-sm" @click="nextStep" v-if="shouldDisplayNextStepBtn">
+            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">{{ $t("general.go_to_step", {step: getActiveStep + 1 }) }}</div>
             <q-icon name="ion-arrow-forward" />
           </q-btn>
         </transition>
@@ -49,7 +49,7 @@
 
     <q-dialog v-model="showstepsmenu"  position="bottom" >
       <q-list dark bordered separator class="bg-accent">
-        <q-item v-for="(step,i) in getStepsConfig" clickable v-ripple :to="`/create/step${i}`" :key="`stepm${i}`">
+        <q-item v-for="(step,i) in getStepsConfig" clickable v-ripple :to="`/create/step${i}`" :key="`step${i}`">
           <q-item-section side>
             <q-item-label caption>{{ $t("general.step") }} {{i}}</q-item-label>
             <!-- <q-icon name="star" color="yellow" /> -->
@@ -70,20 +70,17 @@
         </q-item>
       </q-list>
     </q-dialog>
-
-
-
-    
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: 'stepper',
   data () {
     return {
-      showstepsmenu:false
+      showstepsmenu: false
     }
   },
   computed: {
@@ -99,21 +96,20 @@ export default {
       return  this.getActiveStep < this.getMaxSteps;
     },
     getProgressValue: function(){
-      let v = this.getActiveStep >= 1 ? this.getActiveStep/this.getMaxSteps : 0.05;
-      return v;
+      return this.getActiveStep >= 1 ? this.getActiveStep / this.getMaxSteps : 0.05;
     }
   },
   methods: {
     nextStep(){
       // this.$store.commit('factory/setActiveStep', this.getActiveStep+1);
-      let next = this.getActiveStep+1;
+      const next = this.getActiveStep + 1;
       if(next <= this.getMaxSteps){
         this.$router.push(`/create/step${next}`);
       }
     },
     prevStep(){
       // this.$store.commit('factory/setActiveStep', this.getActiveStep-1);
-      let prev = this.getActiveStep-1;
+      let prev = this.getActiveStep - 1;
       if(prev >= 1){
         this.$router.push(`/create/step${prev}`);
       }

@@ -8,9 +8,7 @@
           <div class="text-h5" style="letter-spacing: 3px;">• {{ $t("home.factory") }} •</div>
 
           <div class="row justify-center text-body1 q-mt-xl">
-            <div
-              style="max-width:500px"
-            >{{ $t("home.line1") }}</div>
+            <div style="max-width:500px">{{ $t("home.line1") }}</div>
           </div>
           <div class="text-body1 q-mt-xl">{{ $t("home.line2") }}</div>
           <div class="row justify-center q-mt-sm">
@@ -28,19 +26,14 @@
     <div class="diagonal"></div>
 
     <div class="row justify-center overflow-hidden" style="  margin-top:-160px;">
-      <transition
-        appear
-        enter-active-class="animated fadeInUp"
-      >
+      <transition appear enter-active-class="animated fadeInUp">
         <div class="bottom-info-box q-mb-md q-pa-md text-center">
           <div class="text-weight-bold">{{ $t("home.help_why") }}</div>
-          <div
-            class="text-body2 text-weight-light q-mt-sm"
-          >{{ $t("home.help_line1") }}</div>
+          <div class="text-body2 text-weight-light q-mt-sm">{{ $t("home.help_line1") }}</div>
           <div class="q-mt-sm">
             <q-icon
               name="ion-logo-youtube"
-              @click="showYouTubeVideo=true"
+              @click="showYouTubeVideo = true"
               color="secondary"
               size="42px"
               class="cursor-pointer hover-rotate"
@@ -51,17 +44,20 @@
       </transition>
     </div>
 
-    <q-dialog
-      v-model="showYouTubeVideo"
-      persistent
-      transition-show="flip-down"
-      transition-hide="flip-up"
-    >
+    <q-dialog v-model="showYouTubeVideo" persistent transition-show="flip-down" transition-hide="flip-up">
       <q-card class="text-white" style="width: 700px; max-width: 80vw;">
         <q-bar class="bg-secondary">
           <div>{{ $t("general.info") }}</div>
           <q-space />
-          <q-btn dense flat icon="close" @click="showYouTubeVideo=false; video_is_loaded=false">
+          <q-btn
+            dense
+            flat
+            icon="close"
+            @click="
+              showYouTubeVideo = false;
+              video_is_loaded = false;
+            "
+          >
             <q-tooltip content-class="bg-secondary ">{{ $t("general.close") }}</q-tooltip>
           </q-btn>
         </q-bar>
@@ -83,9 +79,6 @@
     </q-dialog>
   </q-page>
 </template>
-
-<style>
-</style>
 
 <script>
 import { mapGetters } from "vuex";

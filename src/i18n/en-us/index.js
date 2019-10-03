@@ -49,10 +49,6 @@ export default {
     "info_line5": "The DAC ID is a unique identifier for your DAC used by the system to keep your data organized together and will be generated from your DAC Name.",
   },
   "step2": {
-    "title": "Treasury & Authority accounts",
-    "info_line1": "",
-  },
-  "step3": {
     "title": "Tokenomics",
     "max_supply": "Max Supply {token_symbol}",
     "max_supply_hint": "Max supply for your token",
@@ -61,11 +57,11 @@ export default {
     "info_line1": "The max supply of your token is the total number of tokens you will ever want to have for your DAC. Once this number is set, it can not be changed. Your DAC does not have to issue all the tokens initially created.",
     "info_line2": "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
   },
-  "step4": {
+  "step3": {
     "title": "Custodian Configuration",
     "info_line1": "TBD: Custodian Configuration",
   },
-  "step5": {
+  "step4": {
     "title": "Pay & Create DAC",
     "info_line1": "TBD: Pay & Create DAC",
   },
