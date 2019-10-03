@@ -13,24 +13,16 @@ import { Lynx } from 'ual-lynx';
 import { TokenPocket } from 'ual-token-pocket';
 import { EOSIOAuth } from 'ual-eosio-reference-authenticator'
 
-
-const appName = 'dacfactory';
-// const chains = [{
-//     chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-//     rpcEndpoints: [{
-//         protocol: 'https',
-//         host: 'api.eostitan.com',
-//         port: '443',
-//     }]
-// }];
+const appName = process.env.APP_NAME;
 const chains = [{
-    chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+    chainId: process.env.EOS_CHAIN_ID,
     rpcEndpoints: [{
-        protocol: 'https',
-        host: 'jungle2.cryptolions.io',
-        port: 443,
+        protocol: process.env.EOS_API_PROTOCOL,
+        host: process.env.EOS_API_HOST,
+        port: process.env.EOS_API_PORT,
     }]
 }];
+
 export default {
   name: 'App',
   components:{ual},
@@ -51,5 +43,3 @@ export default {
 }
 </script>
 
-<style>
-</style>
