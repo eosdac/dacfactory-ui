@@ -1,6 +1,6 @@
-# Quasar App (ual-quasar)
+# 🛠 DAC Factory  🛠 
 
-A Quasar Framework app
+Create a Decentralized Autonomous Community (DAC) to fit the needs of your organization and community
 
 ## Install the dependencies
 ```bash
@@ -9,14 +9,13 @@ yarn
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
+cp .env.example .env.development
 quasar dev
 ```
 
 
 ### Build the app for production
 ```bash
+cp .env.example .env
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

@@ -25,6 +25,9 @@ export default {
   "errors": {
     "invalid_url": "This is not a valid url"
   },
+  "step0": {
+    "title": "",
+  },
   "step1": {
     "title": "DAC Profile",
     "dac_name": "DAC Name",

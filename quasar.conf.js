@@ -88,17 +88,17 @@ module.exports = function (ctx) {
     build: {
       scopeHoisting: true,
       vueRouterMode: 'history',
-      // vueCompiler: true,
-      // gzip: true,
-      // analyze: true,
+      vueCompiler: true,
+      gzip: true,
+      analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
-        cfg.plugins.push( 
+        cfg.plugins.push(
           new CopyWebpackPlugin([
               { context: `${__dirname}/src/statics/manifests`,from:'*.*', to:'', toType: 'dir'}
 
             ]
-           ) 
+           )
         );
       }
     },
