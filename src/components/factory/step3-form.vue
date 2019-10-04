@@ -2,7 +2,7 @@
   <div>
     <div class="text-subtitle text-grey-4 q-mb-sm">Lockup Asset & amount</div>
     <extended-asset />
-    <div class="text-subtitle text-grey-4 q-mb-sm">Vote Thresholds</div>
+    <p class="text-subtitle text-grey-4 q-my-sm">Vote Thresholds</p>
     <vote-threshold />
   </div>
 </template>
@@ -18,7 +18,6 @@ import voteThreshold from 'components/form/vote-threshold';
 //   isAvailableAccountName
 // } from "../../imports/validators";
 export default {
-  // name: 'ComponentName',
   components:{
     myInput,
     voteThreshold,
