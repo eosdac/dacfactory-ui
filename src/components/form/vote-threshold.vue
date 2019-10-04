@@ -12,14 +12,14 @@
         <integer-input
           v-model="thresholdMed"
           label="Med"
-          :max="thresholdHigh - 1 < 0 ? 0 : thresholdHigh - 1"
+          :max="checkMedMax"
         />
       </div>
       <div class=" col-xs-4">
         <integer-input
           v-model="thresholdLow"
           label="Low"
-          :max="thresholdMed - 1 < 0 ? 0 : thresholdMed - 1"
+          :max="checkLowMax"
         />
       </div>
     </div>
@@ -41,13 +41,14 @@
         thresholdLow: 0
       };
     },
-    methods: {
-      handleKeyDown($event) {
-        let keycode = $event.keyCode ? $event.keyCode : $event.which;
-        console.log(keycode);
-        if (keycode === 190 || keycode === 110 || keycode === 229) {
-          $event.preventDefault();
-        }
+    computed: {
+      checkMedMax() {
+        const newMax = this.thresholdHigh - 1;
+        return newMax < 0 ? 0 : newMax
+      },
+      checkLowMax() {
+        const newMax = this.thresholdMed - 1;
+        return newMax < 0 ? 0 : newMax
       }
     }
   };
