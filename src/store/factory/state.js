@@ -1,6 +1,6 @@
 export default {
   activeStep: 0,
-  stepsConfig:{
+  /*stepsConfig:{
     1 :{
       title: "DAC Profile"
     },
@@ -13,7 +13,7 @@ export default {
     4 :{
       title: "Pay & Create DAC"
     }
-  },
+  },*/
   stepsData:{
     1:{
       dacName: '',

@@ -10,7 +10,7 @@
           <div class="col-xs-12 col-lg-6">
             <div>
               <div class="text-h6 text-weight-thin ">
-                {{ $t("general.step_of", { active_step: getActiveStep, max_steps: getMaxSteps }) }}
+                {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
               </div>
               <div class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</div>
             </div>
@@ -23,7 +23,8 @@
               <step1-form v-if="getActiveStep === 1" key="s1" />
               <step2-form v-else-if="getActiveStep === 2" key="s2" />
               <step3-form v-else-if="getActiveStep === 3" key="s3" />
-              <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s4" />
+              <step4-form v-else-if="getActiveStep === 4" key="s4" />
+              <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s5" />
             </transition>
             <transition
               enter-active-class="animated fadeInDown"
@@ -32,7 +33,7 @@
               appear
             >
               <q-btn
-                v-if="getActiveStep < getMaxSteps"
+                v-if="getActiveStep < stepsNumber"
                 :label="$t('general.continue')"
                 :to="`/create/step${getActiveStep + 1}`"
                 color="secondary"
@@ -63,7 +64,6 @@
               {{ $t("step" + getActiveStep + ".info_line5") }}
             </p>
           </div>
-
           <div v-if="getActiveStep === 2">
             <p>
               {{ $t("step" + getActiveStep + ".info_line1") }}
@@ -72,19 +72,19 @@
               {{ $t("step" + getActiveStep + ".info_line2") }}
             </p>
           </div>
-
           <div v-if="getActiveStep === 3">
             <p>
               {{ $t("step" + getActiveStep + ".info_line1") }}
             </p>
           </div>
-
           <div v-if="getActiveStep === 4">
+            <p>text will be here</p>
+          </div>
+          <div v-if="getActiveStep === 5">
             <p>
               {{ $t("step" + getActiveStep + ".info_line1") }}
             </p>
           </div>
-
           <!-- info step {{getActiveStep}} -->
           <!-- <client-preview v-if="getActiveStep==4" /> -->
         </div>
@@ -95,24 +95,32 @@
 
 <script>
 import { mapGetters } from "vuex";
+
+import { STEPS_NUMBER } from "components/constants/common";
+
 import step1Form from "components/factory/step1-form";
 import step2Form from "components/factory/step2-form";
 import step3Form from "components/factory/step3-form";
+import step4Form from "components/factory/step4Form";
 
 // import clientPreview from 'components/factory/client-preview';
 
 export default {
+  data() {
+    return {
+      stepsNumber: STEPS_NUMBER
+    }
+  },
   components: {
     step1Form,
     step2Form,
-    step3Form
+    step3Form,
+    step4Form
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getActiveStep: "factory/getActiveStep",
-      getStepsConfig: "factory/getStepsConfig",
-      getMaxSteps: "factory/getMaxSteps"
+      getActiveStep: "factory/getActiveStep"
     })
   },
   methods: {

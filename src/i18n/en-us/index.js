@@ -65,6 +65,10 @@ export default {
     "info_line1": "TBD: Custodian Configuration",
   },
   "step4": {
+    "title": "DAC Brand & URL",
+    "info_line1": "TBD: DAC Brand & URL",
+  },
+  "step5": {
     "title": "Pay & Create DAC",
     "info_line1": "TBD: Pay & Create DAC",
   },

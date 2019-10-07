@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style>
-.q-slider--dark .q-slider__track-markers{
+.q-slider--dark .q-slider__track-markers {
   color:var(--q-color-accent) !important;
 }
 </style>
