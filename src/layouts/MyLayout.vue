@@ -2,7 +2,7 @@
   <q-layout view="lhh Lpr fFf">
     <q-header :elevated="false">
       <q-toolbar style="height:60px" :class="$route.path == '/' ? 'bg-primary' : 'bg-accent'">
-        <img src="statics/images/eosdac-logo-white.svg" style="height:45px" />
+        <img src="../statics/images/eosdac-logo.svg" style="height:45px" />
         <q-toolbar-title> </q-toolbar-title>
         <q-btn v-if="$q.screen.gt.xs" label="see pricing" unelevated :ripple="false" to="/pricing" />
         <q-btn
