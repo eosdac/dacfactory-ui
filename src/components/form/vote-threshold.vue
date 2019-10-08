@@ -16,15 +16,14 @@
 import integerInput from "components/form/integer-input";
 
 export default {
-  name: "VoteThreshold",
   components: {
     integerInput
   },
   data() {
     return {
-      thresholdHigh: 4,
-      thresholdMed: 0,
-      thresholdLow: 0
+      thresholdHigh: this.$store.state.factory.stepsData[3].thresholdHigh,
+      thresholdMed: this.$store.state.factory.stepsData[3].thresholdMed,
+      thresholdLow: this.$store.state.factory.stepsData[3].thresholdLow
     };
   },
   computed: {

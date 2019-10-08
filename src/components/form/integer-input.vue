@@ -123,6 +123,9 @@ export default {
         }
       },
       immediate: true
+    },
+    model_value(value) {
+      this.$store.commit("factory/setStepsData", { step: 3, key: `threshold${this.label}`, data: { value } });
     }
   }
 };
