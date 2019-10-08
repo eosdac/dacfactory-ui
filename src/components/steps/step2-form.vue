@@ -18,7 +18,7 @@
         val =>  val > 0|| $t('step2.max_supply_rule_positive'),
       ]"
       :counter="false"
-      @statusChange="$store.commit('factory/setStepsData',{step: 2, key:'maxSupply', data: $event})"
+      @statusChange="$store.commit('steps/setStepsData',{step: 2, key:'maxSupply', data: $event})"
       :debounce="0"
     />
 
@@ -33,7 +33,7 @@
       <q-slider
         dark
         :value="decimals"
-        @input="decimals = $event; $store.commit('factory/setStepsData',{step: 2, key:'decimals', data: {value:Number($event)}})"
+        @input="decimals = $event; $store.commit('steps/setStepsData',{step: 2, key:'decimals', data: {value:Number($event)}})"
         markers
         label
         :min="0"

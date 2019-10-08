@@ -83,7 +83,6 @@ import { STEPS_NUMBER } from "components/constants/common";
 
 
 export default {
-  name: "stepper",
   data() {
     return {
       showstepsmenu: false,
@@ -106,14 +105,14 @@ export default {
   },
   methods: {
     nextStep() {
-      // this.$store.commit('factory/setActiveStep', this.getActiveStep+1);
+      // this.$store.commit('steps/setActiveStep', this.getActiveStep+1);
       const next = this.getActiveStep + 1;
       if (next <= STEPS_NUMBER) {
         this.$router.push(`/create/step${next}`);
       }
     },
     prevStep() {
-      // this.$store.commit('factory/setActiveStep', this.getActiveStep-1);
+      // this.$store.commit('steps/setActiveStep', this.getActiveStep-1);
       let prev = this.getActiveStep - 1;
       if (prev >= 1) {
         this.$router.push(`/create/step${prev}`);

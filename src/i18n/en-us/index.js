@@ -67,6 +67,16 @@ export default {
   "step4": {
     "title": "DAC Brand & URL",
     "info_line1": "TBD: DAC Brand & URL",
+    "hint1": "The Why’s and How",
+    "title_right": "Adding Branding and setting colors",
+    "subtitle1": "Your brand is an important part of your DAC, and makes a significant impact on a DAC’s public perception.",
+    "hint2": "Logo url",
+    "subtitle2": "Your logo is the logo and the word mark.",
+    "hint3": "Logomark URL",
+    "subtitle3": "Your logomark is only the mark of the logo.",
+    "subtitle4": "We recommend using imgur.com to host your logos",
+    "hint4": "Color Pallete",
+    "subtitle5": "If you are having trouble picking out a good color pallete we recommend view coolors.co to find a color pallete to match your brand."
   },
   "step5": {
     "title": "Pay & Create DAC",

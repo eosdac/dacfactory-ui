@@ -1,12 +1,10 @@
 <template>
-  <div class="fixed-center text-center">
-    <p>
+  <div class="wrapper fixed-center text-center bg-black">
       <img
-        src="~assets/sad.svg"
+        src="statics/images/sad.svg"
         style="width:30vw;max-width:150px;"
       >
-    </p>
-    <p class="text-faded">Sorry, nothing here...<strong>(404)</strong></p>
+    <p>Sorry, nothing is here...<strong>(404)</strong></p>
     <q-btn
       color="secondary"
       style="width:200px;"
@@ -20,3 +18,18 @@ export default {
   name: 'Error404'
 }
 </script>
+
+<style scoped>
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .wrapper > p  {
+    margin: 16px 0;
+    color: #ffffff;
+  }
+</style>

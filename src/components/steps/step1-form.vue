@@ -12,7 +12,7 @@
         val =>  !!val|| $t('general.required'),
         val => val.length >= 3 || $t('step1.dac_name_rule_length_3'),
       ]"
-      @statusChange="$store.commit('factory/setStepsData',{step:1, key:'dacName', data: $event})"
+      @statusChange="$store.commit('steps/setStepsData',{step:1, key:'dacName', data: $event})"
     />
 
 
@@ -32,7 +32,7 @@
         val => val.length <= 7 || $t('step1.symbol_rule_length_7'),
         isAvailableSymbol
       ]"
-      @statusChange="$store.commit('factory/setStepsData',{step:1, key:'tokenSymbol', data: $event})"
+      @statusChange="$store.commit('steps/setStepsData',{step:1, key:'tokenSymbol', data: $event})"
     />
 
     <q-input
@@ -40,7 +40,7 @@
       outlined
       dark
       :value="dacDescription"
-      @input="dacDescription = $event; $store.commit('factory/setStepsData',{step:1, key:'dacDescription', data: {value:$event}})"
+      @input="dacDescription = $event; $store.commit('steps/setStepsData',{step:1, key:'dacDescription', data: {value:$event}})"
       maxlength="250"
       counter
       color="secondary"
@@ -66,7 +66,7 @@
       :rules="[
         isValidUrl
       ]"
-      @statusChange="$store.commit('factory/setStepsData',{step:1, key:'websiteUrl', data: $event})"
+      @statusChange="$store.commit('steps/setStepsData',{step:1, key:'websiteUrl', data: $event})"
     />
 
     <my-input
@@ -84,7 +84,7 @@
         val => val.length <= 11 || $t('step1.dac_id_rule_length_11'),
         isAvailableDacId
       ]"
-      @statusChange="$store.commit('factory/setStepsData',{step:1, key:'dacId', data: $event})"
+      @statusChange="$store.commit('steps/setStepsData',{step:1, key:'dacId', data: $event})"
     />
 
   

@@ -12,7 +12,7 @@
               <div class="text-h6 text-weight-thin ">
                 {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
               </div>
-              <div class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</div>
+              <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
             </div>
             <transition
               enter-active-class="animated fadeInUp"
@@ -49,44 +49,42 @@
         <div class="q-pa-md">
           <div v-if="getActiveStep === 1">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step1.info_line1") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line2") }}
+              {{ $t("step1.info_line2") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line3") }}
+              {{ $t("step1.info_line3") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line4") }}
+              {{ $t("step1.info_line4") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line5") }}
+              {{ $t("step1.info_line5") }}
             </p>
           </div>
           <div v-if="getActiveStep === 2">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step2.info_line1") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line2") }}
+              {{ $t("step2.info_line2") }}
             </p>
           </div>
           <div v-if="getActiveStep === 3">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step3.info_line1") }}
             </p>
           </div>
           <div v-if="getActiveStep === 4">
-            <p>text will be here</p>
+            <step4-right />
           </div>
           <div v-if="getActiveStep === 5">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step5.info_line1") }}
             </p>
           </div>
-          <!-- info step {{getActiveStep}} -->
-          <!-- <client-preview v-if="getActiveStep==4" /> -->
         </div>
       </div>
     </div>
@@ -98,24 +96,26 @@ import { mapGetters } from "vuex";
 
 import { STEPS_NUMBER } from "components/constants/common";
 
-import step1Form from "components/factory/step1-form";
-import step2Form from "components/factory/step2-form";
-import step3Form from "components/factory/step3-form";
-import step4Form from "components/factory/step4Form";
+import step1Form from "components/steps/step1-form";
+import step2Form from "components/steps/step2-form";
+import step3Form from "components/steps/step3-form";
+import step4Form from "components/steps/step4Form";
+import step4Right from "components/steps/step4Right";
 
-// import clientPreview from 'components/factory/client-preview';
+// import clientPreview from 'components/steps/client-preview';
 
 export default {
   data() {
     return {
       stepsNumber: STEPS_NUMBER
-    }
+    };
   },
   components: {
     step1Form,
     step2Form,
     step3Form,
-    step4Form
+    step4Form,
+    step4Right
   },
   computed: {
     ...mapGetters({
@@ -142,3 +142,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  h1 {
+    margin-top: 0;
+  }
+</style>

@@ -1,49 +1,40 @@
 <template>
   <q-layout view="lhh Lpr fFf">
     <q-header :elevated="false">
-      <q-toolbar style="height:60px" :class="$route.path =='/' ? 'bg-primary' : 'bg-accent'">
-
-        <img  src="~assets/eosdac-logo-white.svg" style="height:45px"/>
-        <!-- <img v-else src="~assets/eosdac-logo-notext.svg" style="height:45px"/> -->
-        
-        <q-toolbar-title>
-          
-        </q-toolbar-title>
-
-          <q-btn v-if="$q.screen.gt.xs" label="see pricing"  unelevated :ripple="false" to="/pricing"/>
-          <q-btn v-if="$q.screen.gt.xs" label="how it work"  unelevated :ripple="false" class="q-mr-sm" to="/how-it-work"/>
-          
-          <q-btn
-            style="height:32px; width:140px"
-            v-if="!getAccountName"
-            label="login"
-            @click="$store.dispatch('ual/renderLoginModal')"
-            color="secondary"
-            :flat="getShouldRenderLoginModal"
-            :loading="getShouldRenderLoginModal"
-            
-          />
-          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName" style="width:140px">
-            <q-list>
-              <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
-                <q-item-section >
-                  <q-item-label >Logout</q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-btn-dropdown>
-
-        
+      <q-toolbar style="height:60px" :class="$route.path == '/' ? 'bg-primary' : 'bg-accent'">
+        <img src="statics/images/eosdac-logo-white.svg" style="height:45px" />
+        <q-toolbar-title> </q-toolbar-title>
+        <q-btn v-if="$q.screen.gt.xs" label="see pricing" unelevated :ripple="false" to="/pricing" />
+        <q-btn
+          v-if="$q.screen.gt.xs"
+          label="how it work"
+          unelevated
+          :ripple="false"
+          class="q-mr-sm"
+          to="/how-it-work"
+        />
+        <q-btn
+          style="height:32px; width:140px"
+          v-if="!getAccountName"
+          label="login"
+          @click="$store.dispatch('ual/renderLoginModal')"
+          color="secondary"
+          :flat="getShouldRenderLoginModal"
+          :loading="getShouldRenderLoginModal"
+        />
+        <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName" style="width:140px">
+          <q-list>
+            <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
+              <q-item-section>
+                <q-item-label>Logout</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-    v-if="false"
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-2"
-    >
+    <q-drawer v-if="false" v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
         <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
@@ -104,9 +95,7 @@
     </q-drawer>
 
     <q-page-container class="text-white bg-accent">
-
       <router-view />
-      
     </q-page-container>
 
     <q-footer class="bg-accent">
@@ -116,19 +105,19 @@
 </template>
 
 <script>
-import { openURL } from 'quasar';
+import { openURL } from "quasar";
 import { mapGetters } from "vuex";
-import stepper from 'components/factory/stepper'
+import stepper from "components/steps/stepper";
 
 export default {
-  name: 'MyLayout',
-  components:{
+  name: "MyLayout",
+  components: {
     stepper
   },
-  data () {
+  data() {
     return {
       leftDrawerOpen: false
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -139,9 +128,7 @@ export default {
   methods: {
     openURL
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
