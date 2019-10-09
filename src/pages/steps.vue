@@ -1,6 +1,6 @@
 <template>
   <q-page class="bg-accent column">
-    <div :class="$q.screen.gt.xs ? 'row' : 'column'" style="flex:1" :key="`i${getActiveStep}`">
+    <div class="wrapper" :key="`i${getActiveStep}`">
       <div style="flex:1" class="bg-accent">
         <div
           class="row justify-end q-pl-md q-pt-xl q-pb-xl overflow-hidden"
@@ -10,9 +10,9 @@
           <div class="col-xs-12 col-lg-6">
             <div>
               <div class="text-h6 text-weight-thin ">
-                {{ $t("general.step_of", { active_step: getActiveStep, max_steps: getMaxSteps }) }}
+                {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
               </div>
-              <div class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</div>
+              <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
             </div>
             <transition
               enter-active-class="animated fadeInUp"
@@ -23,7 +23,8 @@
               <step1-form v-if="getActiveStep === 1" key="s1" />
               <step2-form v-else-if="getActiveStep === 2" key="s2" />
               <step3-form v-else-if="getActiveStep === 3" key="s3" />
-              <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s4" />
+              <step4-form v-else-if="getActiveStep === 4" key="s4" />
+              <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s5" />
             </transition>
             <transition
               enter-active-class="animated fadeInDown"
@@ -32,7 +33,7 @@
               appear
             >
               <q-btn
-                v-if="getActiveStep < getMaxSteps"
+                v-if="getActiveStep < stepsNumber"
                 :label="$t('general.continue')"
                 :to="`/create/step${getActiveStep + 1}`"
                 color="secondary"
@@ -48,45 +49,42 @@
         <div class="q-pa-md">
           <div v-if="getActiveStep === 1">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step1.info_line1") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line2") }}
+              {{ $t("step1.info_line2") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line3") }}
+              {{ $t("step1.info_line3") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line4") }}
+              {{ $t("step1.info_line4") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line5") }}
+              {{ $t("step1.info_line5") }}
             </p>
           </div>
-
           <div v-if="getActiveStep === 2">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step2.info_line1") }}
             </p>
             <p>
-              {{ $t("step" + getActiveStep + ".info_line2") }}
+              {{ $t("step2.info_line2") }}
             </p>
           </div>
-
           <div v-if="getActiveStep === 3">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step3.info_line1") }}
             </p>
           </div>
-
           <div v-if="getActiveStep === 4">
+            <step4-right />
+          </div>
+          <div v-if="getActiveStep === 5">
             <p>
-              {{ $t("step" + getActiveStep + ".info_line1") }}
+              {{ $t("step5.info_line1") }}
             </p>
           </div>
-
-          <!-- info step {{getActiveStep}} -->
-          <!-- <client-preview v-if="getActiveStep==4" /> -->
         </div>
       </div>
     </div>
@@ -95,24 +93,34 @@
 
 <script>
 import { mapGetters } from "vuex";
-import step1Form from "components/factory/step1-form";
-import step2Form from "components/factory/step2-form";
-import step3Form from "components/factory/step3-form";
 
-// import clientPreview from 'components/factory/client-preview';
+import { STEPS_NUMBER } from "components/constants/common";
+
+import Step1Form from "components/steps/Step1Form";
+import Step2Form from "components/steps/Step2Form";
+import Step3Form from "components/steps/Step3Form";
+import Step4Form from "components/steps/Step4/Step4Form";
+import Step4Right from "components/steps/Step4/Step4Right";
+
+// import clientPreview from 'components/steps/client-preview';
 
 export default {
+  data() {
+    return {
+      stepsNumber: STEPS_NUMBER
+    };
+  },
   components: {
-    step1Form,
-    step2Form,
-    step3Form
+    Step1Form,
+    Step2Form,
+    Step3Form,
+    Step4Form,
+    Step4Right
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
-      getActiveStep: "factory/getActiveStep",
-      getStepsConfig: "factory/getStepsConfig",
-      getMaxSteps: "factory/getMaxSteps"
+      getActiveStep: "factory/getActiveStep"
     })
   },
   methods: {
@@ -134,3 +142,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  h1 {
+    margin-top: 0;
+  }
+  .wrapper {
+    display: flex;
+    flex-grow: 1;
+  }
+  @media (max-width: 768px) {
+    .wrapper {
+      flex-direction: column;
+    }
+  }
+</style>
