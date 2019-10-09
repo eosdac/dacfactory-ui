@@ -1,6 +1,6 @@
 <template>
   <q-page class="bg-accent column">
-    <div :class="$q.screen.gt.xs ? 'row' : 'column'" style="flex:1" :key="`i${getActiveStep}`">
+    <div class="wrapper" :key="`i${getActiveStep}`">
       <div style="flex:1" class="bg-accent">
         <div
           class="row justify-end q-pl-md q-pt-xl q-pb-xl overflow-hidden"
@@ -146,5 +146,14 @@ export default {
 <style scoped>
   h1 {
     margin-top: 0;
+  }
+  .wrapper {
+    display: flex;
+    flex-grow: 1;
+  }
+  @media (max-width: 768px) {
+    .wrapper {
+      flex-direction: column;
+    }
   }
 </style>

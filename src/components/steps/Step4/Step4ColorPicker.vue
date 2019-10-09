@@ -103,6 +103,7 @@ h3 {
 .square {
   width: 22px;
   height: 22px;
+  margin-left: 5px;
   border: 1px solid #979797;
 }
 </style>

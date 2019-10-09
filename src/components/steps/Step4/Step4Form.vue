@@ -1,35 +1,34 @@
 <template>
     <div class="wrapper">
       <my-input
-        :value="websiteURL"
-        @input="websiteURL = $event.trim()"
         color="secondary"
         label="Website URL"
-        :counter="false"
         hint="example: https://eosdac.io"
-        :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
-        @statusChange="onStatusChange($event, 'websiteURL')"
+        :counter="false"
         class="margin-add-bottom-8"
+        :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
+        v-model="websiteURL"
+        @statusChange="onStatusChange($event, 'websiteURL')"
       />
       <my-input
-        :value="logoURL"
-        @input="logoURL = $event.trim()"
         color="secondary"
         label="Logo URL"
-        :counter="false"
         hint="external link to a file"
+        rightSideHint="SVG Only"
+        :counter="false"
         :rules="[val => urlSvgRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
-        @statusChange="onStatusChange($event, 'logoURL')"
         class="margin-add-bottom-8"
+        v-model="logoURL"
+        @statusChange="onStatusChange($event, 'logoURL')"
       />
       <my-input
-        :value="logoMarkURL"
-        @input="logoMarkURL = $event.trim()"
         color="secondary"
         label="Logomark URL"
-        :counter="false"
         hint="external link to a file"
+        rightSideHint="SVG Only"
+        :counter="false"
         :rules="[val => urlSvgRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
+        v-model="logoMarkURL"
         @statusChange="onStatusChange($event, 'logoMarkURL')"
       />
       <step4-color-picker />
@@ -66,6 +65,7 @@
 
 <style scoped>
   .wrapper {
+    flex-direction: column;
     margin-bottom: 24px;
   }
   .margin-add-bottom-8 {

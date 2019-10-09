@@ -42,9 +42,12 @@
           />
         </transition>
       </template>
-      <template v-slot:hint
-        ><div v-if="showhint">{{ hint }}</div></template
-      >
+      <template v-slot:hint>
+        <div v-if="showhint">{{ hint }}</div>
+      </template>
+      <template v-slot:counter>
+        <div v-if="rightSideHint">{{ rightSideHint }}</div>
+      </template>
     </q-input>
   </div>
 </template>
@@ -82,6 +85,10 @@ export default {
       type: String,
       default: "this is a input hint"
     },
+    rightSideHint: {
+      type: String,
+      default: null
+    },
     dense: {
       type: Boolean,
       default: false
@@ -109,7 +116,7 @@ export default {
     debounce: {
       type: Number,
       default: 500
-    },
+    }
     // min: {
     //   type: Number,
     //   default: 0
@@ -134,19 +141,16 @@ export default {
       }
       this.$emit("input", v);
     },
-
     validationSuccess() {
       this.showhint = false;
       this.$emit("statusChange", { value: this.value, error: false });
       return true;
     },
-
     validationError() {
       this.showhint = true;
       this.$emit("statusChange", { value: this.value, error: true });
       return true;
     },
-
     onBlur() {
       if (!this.value) {
         setTimeout(() => {
