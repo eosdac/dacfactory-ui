@@ -5,10 +5,10 @@
     <p class="subtitle margin-bottom-30">{{ $t("step4.subtitle1") }}</p>
     <p class="hint">{{ $t("step4.hint2") }}</p>
     <p class="subtitle margin-bottom-15">{{ $t("step4.subtitle2") }}</p>
-    <img src="statics/images/eosdac-logo.svg" alt="eosDAC logo" class="logo1">
+    <img src="../../../statics/images/eosdac-logo.svg" alt="eosDAC logo" class="logo1">
     <p class="hint">{{ $t("step4.hint3") }}</p>
     <p class="subtitle margin-bottom-15">{{ $t("step4.subtitle3") }}</p>
-    <img src="statics/images/eosdac-logo-notext.svg" alt="eosDAC logo without text" class="margin-bottom-15"/>
+    <img src="../../../statics/images/eosdac-logo-notext.svg" alt="eosDAC logo without text" class="margin-bottom-15"/>
     <p class="small-title">{{ $t("step4.subtitle4") }}</p>
     <p class="hint">{{ $t("step4.hint4") }}</p>
     <p class="subtitle">{{ $t("step4.subtitle5") }}</p>

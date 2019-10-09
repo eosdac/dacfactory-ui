@@ -96,11 +96,11 @@ import { mapGetters } from "vuex";
 
 import { STEPS_NUMBER } from "components/constants/common";
 
-import step1Form from "components/steps/step1-form";
-import step2Form from "components/steps/step2-form";
-import step3Form from "components/steps/step3-form";
-import step4Form from "components/steps/step4Form";
-import step4Right from "components/steps/step4Right";
+import Step1Form from "components/steps/Step1Form";
+import Step2Form from "components/steps/Step2Form";
+import Step3Form from "components/steps/Step3Form";
+import Step4Form from "components/steps/Step4/Step4Form";
+import Step4Right from "components/steps/Step4/Step4Right";
 
 // import clientPreview from 'components/steps/client-preview';
 
@@ -111,11 +111,11 @@ export default {
     };
   },
   components: {
-    step1Form,
-    step2Form,
-    step3Form,
-    step4Form,
-    step4Right
+    Step1Form,
+    Step2Form,
+    Step3Form,
+    Step4Form,
+    Step4Right
   },
   computed: {
     ...mapGetters({

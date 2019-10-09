@@ -87,8 +87,8 @@
 <script>
 import myInput from "components/form/my-input";
 import { isValidSymbol, isAvailableDacId, isValidDacId, isValidUrl, isAvailableSymbol } from "../../imports/validators";
+
 export default {
-  // name: 'ComponentName',
   components: {
     myInput
   },

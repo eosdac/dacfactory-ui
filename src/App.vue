@@ -42,3 +42,12 @@ export default {
 }
 </script>
 
+<style>
+  button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    appearance: none;
+  }
+</style>
+

@@ -105,14 +105,12 @@ export default {
   },
   methods: {
     nextStep() {
-      // this.$store.commit('factory/setActiveStep', this.getActiveStep+1);
       const next = this.getActiveStep + 1;
       if (next <= STEPS_NUMBER) {
         this.$router.push(`/create/step${next}`);
       }
     },
     prevStep() {
-      // this.$store.commit('factory/setActiveStep', this.getActiveStep-1);
       let prev = this.getActiveStep - 1;
       if (prev >= 1) {
         this.$router.push(`/create/step${prev}`);
@@ -122,14 +120,13 @@ export default {
   watch: {
     $route: {
       handler: function(r) {
-        // console.log('route change:', r);
         if (!r.path.startsWith("/create/")) {
           this.$store.commit("factory/setActiveStep", 0);
           return;
         }
-        let step = this.$route.params.step;
+        const step = this.$route.params.step;
         if (step && step.includes("step")) {
-          let stepNumber = Number(step.replace("step", ""));
+          const stepNumber = Number(step.replace("step", ""));
           if (stepNumber && stepNumber <= STEPS_NUMBER && stepNumber > 0) {
             this.$store.commit("factory/setActiveStep", stepNumber);
           } else {
@@ -146,10 +143,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.q-router-link--active.q-link {
-  color: white;
-  background-color: #54565c;
-}
-</style>

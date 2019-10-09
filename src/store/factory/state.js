@@ -18,6 +18,12 @@ export default {
       thresholdHigh: 4,
       thresholdMed: 0,
       thresholdLow: 0,
+    },
+    4: {
+      websiteURL: '',
+      logoURL: '',
+      logoMarkURL: '',
+      color: ''
     }
   }
 }

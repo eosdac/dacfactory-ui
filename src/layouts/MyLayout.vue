@@ -107,12 +107,12 @@
 <script>
 import { openURL } from "quasar";
 import { mapGetters } from "vuex";
-import stepper from "components/steps/stepper";
+import Stepper from "components/steps/Stepper";
 
 export default {
   name: "MyLayout",
   components: {
-    stepper
+    Stepper
   },
   data() {
     return {
