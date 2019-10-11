@@ -31,7 +31,7 @@
     <my-input
       color="secondary"
       label="Period Length"
-      class="margin-bottom-16"
+      class="margin-bottom-14"
       :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
       v-model="periodLength"
       @statusChange="onStatusChange($event, 'periodLength')"
@@ -98,11 +98,11 @@ export default {
 </script>
 
 <style scoped>
-.margin-bottom-16 {
-  margin-bottom: 16px;
+.margin-bottom-14 {
+  margin-bottom: 14px;
 }
 .max-votes {
-  margin: 20px 0 16px;
+  margin: 20px 0 14px;
 }
 .lockup-wrapper {
   display: grid;

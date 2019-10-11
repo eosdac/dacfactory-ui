@@ -29,7 +29,7 @@ export default {};
   color: #b999db;
 }
 .title {
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   font-size: 32px;
   font-weight: 700;
   line-height: 32px;
