@@ -15,9 +15,16 @@ export default {
     },
     3: {
       custodianName: '',
+      requestPay: '',
+      lockup: '',
+      lockupSelect: 'Hour(s)',
+      periodLength: '',
+      numberElected: '',
       thresholdHigh: 4,
       thresholdMed: 0,
       thresholdLow: 0,
+      maxVotes: '',
+      voteQuorumPercent: ''
     },
     4: {
       websiteURL: '',

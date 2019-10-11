@@ -73,9 +73,7 @@
             </p>
           </div>
           <div v-if="getActiveStep === 3">
-            <p>
-              {{ $t("step3.info_line1") }}
-            </p>
+            <step3-right />
           </div>
           <div v-if="getActiveStep === 4">
             <step4-right />
@@ -98,7 +96,8 @@ import { STEPS_NUMBER } from "components/constants/common";
 
 import Step1Form from "components/steps/Step1Form";
 import Step2Form from "components/steps/Step2Form";
-import Step3Form from "components/steps/Step3Form";
+import Step3Form from "components/steps/Step3/Step3Form";
+import Step3Right from "components/steps/Step3/Step3Right";
 import Step4Form from "components/steps/Step4/Step4Form";
 import Step4Right from "components/steps/Step4/Step4Right";
 
@@ -114,6 +113,7 @@ export default {
     Step1Form,
     Step2Form,
     Step3Form,
+    Step3Right,
     Step4Form,
     Step4Right
   },

@@ -17,7 +17,6 @@
         val => !!val || $t('general.required'),
         val => val > 0 || $t('step2.max_supply_rule_positive'),
       ]"
-      :counter="false"
       @statusChange="$store.commit('factory/setStepsData',{step: 2, key:'maxSupply', data: $event})"
       :debounce="0"
     />

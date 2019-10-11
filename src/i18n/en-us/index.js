@@ -61,8 +61,11 @@ export default {
     "info_line2": "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
   },
   "step3": {
+    /////left part
     "title": "Custodian Configuration",
     "info_line1": "TBD: Custodian Configuration",
+    "only_digits_are_available": "Only digits are available",
+    "percent_error": "Value should be between 0 and 100"
   },
   "step4": {
     ///// right part

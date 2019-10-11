@@ -11,7 +11,7 @@
       bottom-slots
       :value="value"
       :label="label"
-      :counter="counter"
+      :counter="false"
       :maxlength="maxlength"
       :dense="dense"
       @input="handleInput"
@@ -24,7 +24,7 @@
       class="q-mb-md overflow-hidden"
     >
       <template v-if="iconLeft" v-slot:prepend>
-        <q-icon :name="iconLeft" @click="$emit('clicked_left_icon')" />
+        <p class="icon-left" v-html="iconLeft" />
       </template>
       <template v-slot:append v-if="isMounted">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
@@ -73,17 +73,13 @@ export default {
       type: Boolean,
       default: true
     },
-    counter: {
-      type: Boolean,
-      default: true
-    },
     maxlength: {
       type: String,
       default: ""
     },
     hint: {
       type: String,
-      default: "this is a input hint"
+      default: null
     },
     rightSideHint: {
       type: String,
@@ -168,4 +164,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  .icon-left {
+    margin: 0;
+  }
+</style>
