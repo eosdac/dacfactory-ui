@@ -5,7 +5,6 @@
       @input="dacName = $event.trim()"
       color="secondary"
       :label="$t('step1.dac_name')"
-      :counter="false"
       :hint="$t('step1.dac_name_hint')"
       :rules="[val => !!val || $t('general.required'), val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacName', data: $event })"
@@ -17,7 +16,6 @@
       color="secondary"
       :label="$t('step1.token_symbol')"
       :hint="$t('step1.token_symbol_hint')"
-      :counter="false"
       maxlength="7"
       :rules="[
         val => !!val || $t('general.required'),
@@ -59,7 +57,6 @@
       color="secondary"
       :label="$t('step1.website_url')"
       :hint="$t('step1.website_url_hint')"
-      :counter="false"
       :rules="[isValidUrl]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'websiteUrl', data: $event })"
     />
@@ -70,7 +67,6 @@
       color="secondary"
       :label="$t('step1.dac_id')"
       :hint="$t('step1.dac_id_hint')"
-      :counter="false"
       maxlength="11"
       :rules="[
         val => !!val || $t('general.required'),

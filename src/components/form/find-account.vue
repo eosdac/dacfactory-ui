@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <q-select
       ref="searchselect"
       dark
@@ -10,9 +10,10 @@
       hide-selected
       fill-input
       input-debounce="500"
+      label="Lockup Asset"
       :options="fetchedCustodianNames"
       @filter="filterFn"
-      hint="Mininum 2 characters to trigger autocomplete"
+      hint="See LockUp Asset"
     >
       <template v-slot:no-option>
         <q-item dark>
@@ -45,7 +46,9 @@ export default {
           lower_bound: acc.toLowerCase(),
           limit: 8
         })
-        .catch(e => false);
+        .catch(event => {
+          console.error(event)
+        });
       if (res) {
         return res.rows.map(x => x.owner);
       } else {
@@ -72,4 +75,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  .wrapper {
+    margin-bottom: 16px;
+  }
+</style>

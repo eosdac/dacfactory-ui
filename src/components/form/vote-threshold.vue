@@ -1,13 +1,16 @@
 <template>
-  <div class="row q-col-gutter-md">
-    <div class="col-xs-4">
-      <integer-input v-model="thresholdHigh" label="High" :max="4" />
-    </div>
-    <div class="col-xs-4">
-      <integer-input v-model="thresholdMed" label="Med" :max="checkMedMax" />
-    </div>
-    <div class="col-xs-4">
-      <integer-input v-model="thresholdLow" label="Low" :max="checkLowMax" />
+  <div>
+    <p class="text-subtitle text-grey-4 q-mb-sm">Vote Thresholds</p>
+    <div class="row q-col-gutter-md">
+      <div class="col-xs-4">
+        <integer-input v-model="thresholdHigh" label="High" :max="4" />
+      </div>
+      <div class="col-xs-4">
+        <integer-input v-model="thresholdMed" label="Med" :max="checkMedMax" />
+      </div>
+      <div class="col-xs-4">
+        <integer-input v-model="thresholdLow" label="Low" :max="checkLowMax" />
+      </div>
     </div>
   </div>
 </template>
