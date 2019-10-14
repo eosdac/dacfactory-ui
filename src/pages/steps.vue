@@ -6,25 +6,22 @@
           class="row justify-end q-pl-md q-pt-xl q-pb-xl overflow-hidden"
           :class="$q.screen.gt.md ? 'q-pr-xxl' : 'q-pr-md'"
         >
-          <!-- {{$q.screen.gt.xs ? 'row': 'column'}} -->
-          <div class="col-xs-12 col-lg-6">
-            <div>
-              <div class="text-h6 text-weight-thin ">
-                {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
-              </div>
-              <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
+          <div :class="getActiveStep !== 5 ? ['col-xs-12', 'col-lg-6'] : 'test'">
+            <div class="text-h6 text-weight-thin ">
+              {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
             </div>
+            <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
             <transition
               enter-active-class="animated fadeInUp"
               leave-active-class="animated fadeOut"
               mode="out-in"
               appear
             >
-              <step1-form v-if="getActiveStep === 1" key="s1" />
-              <step2-form v-else-if="getActiveStep === 2" key="s2" />
-              <step3-form v-else-if="getActiveStep === 3" key="s3" />
-              <step4-form v-else-if="getActiveStep === 4" key="s4" />
-              <q-btn v-else label="test trx" @click="transfer" color="secondary" class="q-mt-md" key="s5" />
+              <step1-form v-if="getActiveStep === 1" />
+              <step2-form v-else-if="getActiveStep === 2" />
+              <step3-form v-else-if="getActiveStep === 3" />
+              <step4-form v-else-if="getActiveStep === 4" />
+              <step5-form v-else />
             </transition>
             <transition
               enter-active-class="animated fadeInDown"
@@ -44,8 +41,7 @@
           </div>
         </div>
       </div>
-
-      <div style="flex:1" class="bg-primary">
+      <div :style="getActiveStep === 5 ? { flexBasis: 88 + 'px' } : { flex: 1 }" class="bg-primary">
         <div class="q-pa-md">
           <div v-if="getActiveStep === 1">
             <p>
@@ -78,11 +74,6 @@
           <div v-if="getActiveStep === 4">
             <step4-right />
           </div>
-          <div v-if="getActiveStep === 5">
-            <p>
-              {{ $t("step5.info_line1") }}
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -100,6 +91,7 @@ import Step3Form from "components/steps/Step3/Step3Form";
 import Step3Right from "components/steps/Step3/Step3Right";
 import Step4Form from "components/steps/Step4/Step4Form";
 import Step4Right from "components/steps/Step4/Step4Right";
+import Step5Form from "components/steps/Step5/Step5Form";
 
 // import clientPreview from 'components/steps/client-preview';
 
@@ -115,45 +107,35 @@ export default {
     Step3Form,
     Step3Right,
     Step4Form,
-    Step4Right
+    Step4Right,
+    Step5Form
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getActiveStep: "factory/getActiveStep"
     })
-  },
-  methods: {
-    async transfer() {
-      let actions = [
-        {
-          account: "eosio.token",
-          name: "transfer",
-          data: {
-            from: this.getAccountName,
-            to: "piecesnbitss",
-            quantity: "1.0000 EOS",
-            memo: ""
-          }
-        }
-      ];
-      this.$store.dispatch("ual/transact", { actions: actions });
-    }
   }
 };
 </script>
 
 <style scoped>
-  h1 {
-    margin-top: 0;
-  }
+h1 {
+  margin-top: 0;
+}
+.wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+@media (max-width: 768px) {
   .wrapper {
-    display: flex;
-    flex-grow: 1;
+    flex-direction: column;
   }
-  @media (max-width: 768px) {
-    .wrapper {
-      flex-direction: column;
+}
+  @media (max-width: 1439px) {
+    .test {
+      height: auto;
+      width: 100%;
     }
   }
 </style>
