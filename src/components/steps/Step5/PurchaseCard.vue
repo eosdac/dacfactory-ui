@@ -155,14 +155,21 @@ p {
   color: #ffffff;
   transform: translateY(-50%);
 }
-  .card-footer {
-    display: flex;
-    align-items: center;
-    height: 104px;
-    margin-top: auto;
-  }
-  .card-footer button {
+.card-footer {
+  display: flex;
+  align-items: center;
+  height: 104px;
+  margin-top: auto;
+}
+.card-footer button {
+  margin: 0;
+}
+@media (max-width: 461px) {
+  .first-card {
     margin: 0;
-    box-shadow: none;
   }
+  .second-card {
+    margin-top: 30px;
+  }
+}
 </style>

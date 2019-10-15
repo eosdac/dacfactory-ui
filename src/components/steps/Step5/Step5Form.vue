@@ -12,7 +12,13 @@
         </p>
       </div>
       <purchase-cards />
-      <div class="terms-conditions"><input type="checkbox"><p>I agree with terms and conditions</p></div>
+      <div class="checkbox-wrapper">
+        <q-checkbox dark keep-color v-model="isAgree" color="#b999db" />
+        <p>
+          I agree with <router-link to="/terms" class="terms-conditions-link">terms</router-link> and
+          <router-link to="/conditions" class="terms-conditions-link">conditions</router-link>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +27,11 @@
 import PurchaseCards from "components/steps/Step5/PurchaseCards";
 
 export default {
+  data() {
+    return {
+      isAgree: false
+    };
+  },
   components: {
     PurchaseCards
   }
@@ -28,9 +39,9 @@ export default {
 </script>
 
 <style scoped>
-  p {
-    margin: 0;
-  }
+p {
+  margin: 0;
+}
 .info-text {
   font-size: 16px;
   letter-spacing: 0.36px;
@@ -47,8 +58,7 @@ export default {
 .table {
   position: relative;
   z-index: 1;
-  padding: 0 55px;
-  height: 310px;
+  padding: 38px 55px;
   border: 1px solid #7c41ba;
   border-radius: 4px;
   color: #ebdff9;
@@ -60,15 +70,25 @@ export default {
   line-height: 17px;
   color: #ffffff;
 }
-.terms-conditions {
+.checkbox-wrapper {
   display: flex;
-  margin: 40px 0 0 56px;
-  font-size: 16px;
-  line-height: 22px;
+  align-items: center;
+  margin: 32px 0 0 45px;
+}
+.checkbox-wrapper p {
   color: #ebdff9;
+  margin-left: 5px;
+}
+.terms-conditions-link {
+  color: #ebdff9;
+  transition: color 0.2s;
+}
+.terms-conditions-link:hover,
+.terms-conditions-link:focus {
+  color: #b999db;
 }
 .text1 {
-  margin: 68px 0 0;
+  margin: 30px 0 0;
 }
 .text2 {
   margin: 35px 0 45px;
@@ -78,5 +98,18 @@ export default {
 }
 .max-width-300 {
   max-width: 300px;
+}
+@media (max-width: 1439px) {
+  .table-wrapper {
+    width: auto;
+  }
+}
+@media (max-width: 1059px) {
+  .table-wrapper {
+    width: fit-content;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 0;
+  }
 }
 </style>

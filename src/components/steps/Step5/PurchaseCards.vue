@@ -7,12 +7,7 @@
       timeInfo="Per month"
       hint="due on the 1st of each month"
     />
-    <purchase-card
-      header="YEAR"
-      eosQuantity="100"
-      eosDacQuantity="10,000"
-      timeInfo="One-time Purchase"
-    />
+    <purchase-card header="YEAR" eosQuantity="100" eosDacQuantity="10,000" timeInfo="One-time Purchase" />
   </div>
 </template>
 
@@ -32,5 +27,18 @@ export default {
   right: 110px;
   top: 0;
   display: flex;
+}
+@media (max-width: 1059px) {
+  .wrapper {
+    position: static;
+    margin-top: 30px;
+  }
+}
+@media (max-width: 461px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
 }
 </style>
