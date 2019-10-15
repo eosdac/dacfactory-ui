@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     header: {
@@ -36,9 +38,14 @@ export default {
       require: true
     }
   },
+  computed: {
+    ...mapGetters({
+      getAccountName: "ual/getAccountName"
+    })
+  },
   methods: {
     async transfer() {
-      let actions = [
+      const actions = [
         {
           account: "eosio.token",
           name: "transfer",

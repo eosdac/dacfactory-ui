@@ -19,7 +19,6 @@
             <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
           </q-btn>
         </q-bar>
-
         <q-card-section>
           <q-carousel
             v-model="slide"
@@ -43,7 +42,6 @@
                 class="text-black"
               >No authenticators are available for your current browser and/or device.</div>
             </q-carousel-slide>
-
             <q-carousel-slide name="accountname_input" class="column no-wrap justify-between">
               <div class="text-black">Input your accountname</div>
               <q-input type="text" v-model="accountname" autofocus @keyup.enter.native="connectAuthenticator(authenticator)" />
@@ -53,7 +51,7 @@
                   color="primary"
                   class="full-width"
                   @click="connectAuthenticator(authenticator)"
-                  
+
                 />
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
