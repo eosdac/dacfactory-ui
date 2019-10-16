@@ -7,7 +7,7 @@
           :class="$q.screen.gt.md ? 'q-pr-xxl' : 'q-pr-md'"
         >
           <div :class="getActiveStep !== 5 ? ['col-xs-12', 'col-lg-6'] : 'test'">
-            <div class="text-h6 text-weight-thin ">
+            <div class="text-h6 text-weight-thin">
               {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
             </div>
             <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
@@ -17,11 +17,11 @@
               mode="out-in"
               appear
             >
-              <step1-form v-if="getActiveStep === 1" />
-              <step2-form v-else-if="getActiveStep === 2" />
-              <step3-form v-else-if="getActiveStep === 3" />
-              <step4-form v-else-if="getActiveStep === 4" />
-              <step5-form v-else />
+              <step1-form v-if="getActiveStep === 1" key="form-page-1"/>
+              <step2-form v-else-if="getActiveStep === 2" key="form-page-2" />
+              <step3-form v-else-if="getActiveStep === 3" key="form-page-3" />
+              <step4-form v-else-if="getActiveStep === 4" key="form-page-4" />
+              <step5-form v-else key="form-page-5" />
             </transition>
             <transition
               enter-active-class="animated fadeInDown"
