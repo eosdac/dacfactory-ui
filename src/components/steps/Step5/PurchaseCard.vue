@@ -45,6 +45,23 @@ export default {
   },
   methods: {
     async transfer() {
+      const stepsData = this.$store.state.factory.stepsData;
+      const { dacName, dacId, dacDescription, tokenSymbol/*, websiteUrl*/ } = stepsData[1];
+      const { maxSupply, decimals, issuance } = stepsData[2];
+      const {
+        custodianName,
+        requestPay,
+        lockup,
+        lockupSelect,
+        periodLength,
+        numberElected,
+        thresholdHigh,
+        thresholdMed,
+        thresholdLow,
+        maxVotes,
+        voteQuorumPercent
+      } = stepsData[3];
+      const { /*websiteURL,*/ logoURL, logoMarkURL, color } = stepsData[4];
       const actions = [
         {
           account: "eosio.token",
@@ -53,11 +70,60 @@ export default {
             from: this.getAccountName,
             to: "piecesnbitss",
             quantity: "1.0000 EOS",
-            memo: ""
+            memo: "",
+            id: dacId,
+            owner: "evilmikehere",
+            appointed_custodian: "evilmikehere",
+            authority: "15mxtwtuauth",
+            treasury: "15mxtwtufund",
+            symbol: { contract: "kasdactokens", symbol: `${decimals},${tokenSymbol}` },
+            max_supply: `${maxSupply.toFixed(4)} ${tokenSymbol}`,
+            issuance: `${issuance.toFixed(4)} ${tokenSymbol}`,
+            name: dacName,
+            description: dacDescription,
+            homepage: "https://mydac.eosdac.io",
+            logo_url: "https://image.flaticon.com/icons/svg/1466/1466124.svg",
+            logo_notext_url: "https://image.flaticon.com/icons/svg/1466/1466085.svg",
+            background_url: "",
+            theme: {
+              is_dark: true,
+              colors: {
+                $warning: "#f2e285",
+                primary: "#ba5f34",
+                bg1: "#1f130d",
+                bg2: "#574943",
+                text1: "rgba(255,255,255,0.9)",
+                text2: "rgba(255,255,255,0.7)",
+                info: "#4583ba",
+                positive: "#21ba45",
+                negative: "#db2828",
+                dark: "#3d2d27"
+              }
+            },
+            custodian_config: {
+              lockupasset: { quantity: `10.0000 ${tokenSymbol}`, contract: "kasdactokens" },
+              maxvotes: 5,
+              numelected: 5,
+              periodlength: 604800,
+              should_pay_via_service_provider: false,
+              initial_vote_quorum_percent: 1,
+              vote_quorum_percent: 1,
+              auth_threshold_high: 4,
+              auth_threshold_mid: 3,
+              auth_threshold_low: 3,
+              lockup_release_time_delay: 3600,
+              requested_pay_max: { quantity: "1.0000 EOS", contract: "eosio.token" }
+            },
+            proposals_config: {
+              proposal_threshold: 4,
+              finalize_threshold: 1,
+              escrow_expiry: 2592000,
+              approval_expiry: 2592000
+            }
           }
         }
       ];
-      this.$store.dispatch("ual/transact", { actions: actions });
+      this.$store.dispatch("ual/transact", { actions });
     }
   }
 };
