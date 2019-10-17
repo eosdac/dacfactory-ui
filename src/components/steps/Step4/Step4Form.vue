@@ -13,8 +13,7 @@
         color="secondary"
         label="Logo URL"
         hint="external link to a file"
-        rightSideHint="SVG Only"
-        :rules="[val => urlSvgRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
+        :rules="[val => urlRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
         class="margin-add-bottom-8"
         v-model="logoURL"
         @statusChange="onStatusChange($event, 'logoURL')"
@@ -23,8 +22,7 @@
         color="secondary"
         label="Logomark URL"
         hint="external link to a file"
-        rightSideHint="SVG Only"
-        :rules="[val => urlSvgRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
+        :rules="[val => urlRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
         v-model="logoMarkURL"
         @statusChange="onStatusChange($event, 'logoMarkURL')"
       />
@@ -36,7 +34,7 @@
   import MyInput from 'components/form/my-input';
   import Step4ColorPicker from './Step4ColorPicker';
 
-  import { URL_REG_EXP, URL_SVG_REG_EXP } from "components/constants/regExp";
+  import { URL_REG_EXP } from "components/constants/regExp";
 
   export default {
     data() {
@@ -44,8 +42,7 @@
         websiteURL: this.$store.state.factory.stepsData[4].websiteURL,
         logoURL: this.$store.state.factory.stepsData[4].logoURL,
         logoMarkURL: this.$store.state.factory.stepsData[4].logoMarkURL,
-        urlRegExp: URL_REG_EXP,
-        urlSvgRegExp: URL_SVG_REG_EXP
+        urlRegExp: URL_REG_EXP
       }
     },
     components: {
