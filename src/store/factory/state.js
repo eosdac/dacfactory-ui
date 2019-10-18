@@ -8,8 +8,8 @@ export default {
     },
     2: {
       maxSupply: '',
+      issuance: '',
       decimals: '4',
-      /*issuance: '',*/
     },
     3: {
       lockupAsset: '',

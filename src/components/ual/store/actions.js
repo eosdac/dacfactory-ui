@@ -68,7 +68,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 export function prepareDacTransact({ dispatch }, payload) {
   const stepsData = payload.stepsData;
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
-  const { maxSupply, decimals /*issuance*/ } = stepsData[2]; // we don't have issuance field, but we obviously should
+  const { maxSupply, decimals, issuance } = stepsData[2];
   const {
     lockupAsset, // lockup asset (it was done with auto propositions) isn't a number, but it seems that should
     requestPay,
@@ -96,7 +96,7 @@ export function prepareDacTransact({ dispatch }, payload) {
       symbol: `${decimals},${tokenSymbol}`
     },
     max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
-    issuance: `1000000000.0000 ${tokenSymbol}`,
+    issuance: `${(issuance || 1).toFixed(decimals)} ${tokenSymbol}`,
     name: dacName,
     description: dacDescription,
     homepage: websiteURL,
