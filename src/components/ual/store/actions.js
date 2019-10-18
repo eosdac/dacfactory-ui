@@ -70,7 +70,7 @@ export function prepareDacTransact({ dispatch }, payload) {
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
-    lockupAsset, // lockup asset (it was done with auto propositions) isn't a number, but it seems that should
+    lockupAsset, // lockup asset (it was done with auto propositions) wasn't a number, replaced with simple data field
     requestPay,
     lockup,
     lockupSelect,
@@ -82,7 +82,7 @@ export function prepareDacTransact({ dispatch }, payload) {
     maxVotes,
     voteQuorumPercent
   } = stepsData[3];
-  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
+  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
 
   // TODO remove || 1 after proper validation will be added to fields
   const memo = {
@@ -120,7 +120,7 @@ export function prepareDacTransact({ dispatch }, payload) {
     },
     custodian_config: {
       lockupasset: {
-        quantity: `10.0000 ${tokenSymbol}`,
+        quantity: `${(lockupAsset || 1).toFixed(decimals)} ${tokenSymbol}`,
         contract: "kasdactokens"
       },
       maxvotes: maxVotes,

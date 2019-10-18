@@ -34,7 +34,6 @@ export default {
       fetchedlockupAssets: ["kasdactokens", "eosio.token"]
     };
   },
-
   methods: {
     async fetchAccounts(acc) {
       let res = await this.$eosapi
