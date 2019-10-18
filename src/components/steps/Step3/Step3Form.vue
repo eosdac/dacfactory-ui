@@ -2,15 +2,17 @@
   <div>
     <find-account />
     <my-input
+      type="number"
       color="secondary"
       label="Request Pay"
-      :rules="[val => /^.+$/.test(val)]"
+      :rules="[val => /^\d+$/.test(val)]"
       v-model="requestPay"
       @statusChange="onStatusChange($event, 'requestPay')"
     />
     <!--/^.+$/ should be replaced with real condition-->
     <div class="lockup-wrapper">
       <my-input
+        type="number"
         color="secondary"
         label="Lockup"
         :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
@@ -29,6 +31,7 @@
       />
     </div>
     <my-input
+      type="number"
       color="secondary"
       label="Period Length"
       class="margin-bottom-14"
@@ -38,6 +41,7 @@
     />
     <custom-divider />
     <my-input
+      type="number"
       color="secondary"
       label="Number elected"
       :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
@@ -46,6 +50,7 @@
     />
     <vote-threshold />
     <my-input
+      type="number"
       color="secondary"
       label="Max Votes"
       class="max-votes"
@@ -55,6 +60,7 @@
     />
     <custom-divider />
     <my-input
+      type="number"
       color="secondary"
       label="Vote Quorum Percent"
       iconLeft="<span style='display: flex; font-size: 18px'>%</p>"

@@ -21,7 +21,6 @@
       :debounce="0"
     />
 
-
     <div class="q-mt-xs">
   
       <div class="row justify-between text-subtitle1">
@@ -64,7 +63,6 @@ export default {
     }
   },
   computed:{
-    
     ...mapGetters({
       getTokenSymbol: "factory/getTokenSymbol"
     }),

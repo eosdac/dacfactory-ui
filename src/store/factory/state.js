@@ -5,16 +5,15 @@ export default {
       dacName: '',
       dacDescription: '',
       dacId: '',
-      tokenSymbol: '',
-      websiteUrl:''
+      tokenSymbol: ''
     },
     2: {
       maxSupply: '',
       decimals: '4',
-      issuance: '',
+      /*issuance: '',*/
     },
     3: {
-      custodianName: '',
+      lockupAsset: '',
       requestPay: '',
       lockup: '',
       lockupSelect: 'Hour(s)',

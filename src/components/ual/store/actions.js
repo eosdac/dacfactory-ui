@@ -63,6 +63,100 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
   }
 }
 
+export function prepareDacTransact({ dispatch }, payload) {
+  const stepsData = payload.stepsData;
+  const { dacName, dacId, dacDescription, tokenSymbol } = stepsData[1];
+  const { maxSupply, decimals /*issuance*/ } = stepsData[2]; // we don't have issuance field, but we obviously should
+  const {
+    lockupAsset, // lockup asset (it was done with auto propositions) isn't a number, but it seems that should
+    requestPay,
+    lockup,
+    lockupSelect,
+    periodLength,
+    numberElected,
+    thresholdHigh,
+    thresholdMed,
+    thresholdLow,
+    maxVotes,
+    voteQuorumPercent
+  } = stepsData[3];
+  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
+  // TODO remove | 1 after proper validation will be added to fields
+  const memo = {
+    id: dacId,
+    owner: "evilmikehere",
+    appointed_custodian: "evilmikehere",
+    authority: "15mxtwtuauth",
+    treasury: "15mxtwtufund",
+    symbol: {
+      contract: "kasdactokens",
+      symbol: `${decimals},${tokenSymbol}`
+    },
+    max_supply: `${(maxSupply | 1).toFixed(decimals)} ${tokenSymbol}`,
+    issuance: `1000000000.0000 ${tokenSymbol}`,
+    name: dacName,
+    description: dacDescription,
+    homepage: websiteURL,
+    logo_url: logoURL,
+    logo_notext_url: logoMarkURL,
+    background_url: "",
+    theme: {
+      is_dark: true,
+      colors: {
+        $warning: "#f2e285",
+        primary: "#ba5f34",
+        bg1: "#1f130d",
+        bg2: "#574943",
+        text1: "rgba(255,255,255,0.9)",
+        text2: "rgba(255,255,255,0.7)",
+        info: "#4583ba",
+        positive: "#21ba45",
+        negative: "#db2828",
+        dark: "#3d2d27"
+      }
+    },
+    custodian_config: {
+      lockupasset: {
+        quantity: `10.0000 ${tokenSymbol}`,
+        contract: "kasdactokens"
+      },
+      maxvotes: maxVotes,
+      numelected: numberElected,
+      periodlength: periodLength,
+      should_pay_via_service_provider: false,
+      initial_vote_quorum_percent: 1,
+      vote_quorum_percent: voteQuorumPercent,
+      auth_threshold_high: thresholdHigh,
+      auth_threshold_mid: thresholdMed,
+      auth_threshold_low: thresholdLow,
+      lockup_release_time_delay: lockup,
+      requested_pay_max: {
+        quantity: `${(requestPay | 1).toFixed(4)} EOS`,
+        contract: "eosio.token"
+      }
+    },
+    proposals_config: {
+      proposal_threshold: 4,
+      finalize_threshold: 1,
+      escrow_expiry: 2592000,
+      approval_expiry: 2592000
+    }
+  };
+  const actions = [
+    {
+      account: "eosio.token",
+      name: "transfer",
+      data: {
+        from: this.getAccountName,
+        to: "piecesnbitss",
+        quantity: "1.0000 EOS",
+        memo: JSON.stringify(memo)
+      }
+    }
+  ];
+  dispatch("transact", { actions });
+}
+
 export async function transact({ state, dispatch, commit }, payload) {
   //check if logged in before transacting
   if (!state.activeAuthenticator || !state.accountName) {
