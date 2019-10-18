@@ -47,28 +47,12 @@
         </transition>
       </template>
     </q-input>
-    <my-input
-      :value="dacId"
-      @input="dacId = $event.toLowerCase()"
-      color="secondary"
-      :label="$t('step1.dac_id')"
-      :hint="$t('step1.dac_id_hint')"
-      maxlength="11"
-      :rules="[
-        val => !!val || $t('general.required'),
-        isValidDacId,
-        val => val.length >= 5 || $t('step1.dac_id_rule_length_5'),
-        val => val.length <= 11 || $t('step1.dac_id_rule_length_11'),
-        isAvailableDacId
-      ]"
-      @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacId', data: $event })"
-    />
   </div>
 </template>
 
 <script>
 import myInput from "components/form/my-input";
-import { isValidSymbol, isAvailableDacId, isValidDacId, isValidUrl, isAvailableSymbol } from "../../imports/validators";
+import { isValidSymbol, isValidUrl, isAvailableSymbol } from "imports/validators";
 
 export default {
   components: {
@@ -84,8 +68,6 @@ export default {
   },
   methods: {
     isValidSymbol,
-    isValidDacId,
-    isAvailableDacId,
     isValidUrl,
     isAvailableSymbol
   }

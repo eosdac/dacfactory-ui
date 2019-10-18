@@ -1,3 +1,5 @@
+import { processDacNameInId } from "imports/validators";
+
 export async function renderLoginModal({ state, commit, dispatch }) {
   commit("setShouldRenderLoginModal", true);
 }
@@ -65,7 +67,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 
 export function prepareDacTransact({ dispatch }, payload) {
   const stepsData = payload.stepsData;
-  const { dacName, dacId, dacDescription, tokenSymbol } = stepsData[1];
+  const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals /*issuance*/ } = stepsData[2]; // we don't have issuance field, but we obviously should
   const {
     lockupAsset, // lockup asset (it was done with auto propositions) isn't a number, but it seems that should
@@ -81,9 +83,10 @@ export function prepareDacTransact({ dispatch }, payload) {
     voteQuorumPercent
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
-  // TODO remove | 1 after proper validation will be added to fields
+
+  // TODO remove || 1 after proper validation will be added to fields
   const memo = {
-    id: dacId,
+    id: processDacNameInId(dacName),
     owner: "evilmikehere",
     appointed_custodian: "evilmikehere",
     authority: "15mxtwtuauth",
@@ -92,7 +95,7 @@ export function prepareDacTransact({ dispatch }, payload) {
       contract: "kasdactokens",
       symbol: `${decimals},${tokenSymbol}`
     },
-    max_supply: `${(maxSupply | 1).toFixed(decimals)} ${tokenSymbol}`,
+    max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
     issuance: `1000000000.0000 ${tokenSymbol}`,
     name: dacName,
     description: dacDescription,
@@ -131,7 +134,7 @@ export function prepareDacTransact({ dispatch }, payload) {
       auth_threshold_low: thresholdLow,
       lockup_release_time_delay: lockup,
       requested_pay_max: {
-        quantity: `${(requestPay | 1).toFixed(4)} EOS`,
+        quantity: `${(requestPay || 1).toFixed(4)} EOS`,
         contract: "eosio.token"
       }
     },

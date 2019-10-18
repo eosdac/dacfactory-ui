@@ -4,7 +4,6 @@ export default {
     1: {
       dacName: '',
       dacDescription: '',
-      dacId: '',
       tokenSymbol: ''
     },
     2: {
