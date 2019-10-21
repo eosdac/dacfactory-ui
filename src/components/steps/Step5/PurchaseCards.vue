@@ -34,11 +34,10 @@ export default {
     margin-top: 30px;
   }
 }
-@media (max-width: 461px) {
+@media (max-width: 479px) {
   .wrapper {
-    display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
   }
 }
 </style>

@@ -160,7 +160,7 @@ p {
 .card-footer button {
   margin: 0;
 }
-@media (max-width: 461px) {
+@media (max-width: 479px) {
   .first-card {
     margin: 0;
   }

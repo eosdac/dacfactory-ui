@@ -112,4 +112,9 @@ p {
     padding-top: 0;
   }
 }
+@media (max-width: 479px) {
+  .table-wrapper {
+    margin-top: 30px;
+  }
+}
 </style>
