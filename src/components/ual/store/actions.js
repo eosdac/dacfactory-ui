@@ -66,7 +66,9 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 }
 
 export function prepareDacTransact({ state, dispatch }, payload) {
-  const stepsData = payload.stepsData;
+  const { accountName } = state;
+  const { stepsData, payTokenSymbol } = payload;
+  
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
@@ -83,8 +85,10 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     voteQuorumPercent
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
-  const contract = process.env.CONTRACT;
-  const { accountName } = state;
+  
+  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
+  const contract = process.env.KASDAC_TOKEN_CONTRACT;
+  const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -135,7 +139,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       auth_threshold_high: thresholdHigh,
       auth_threshold_mid: thresholdMed,
       auth_threshold_low: thresholdLow,
-      lockup_release_time_delay: lockup,
+      lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
         quantity: `${(requestPay || 1).toFixed(4)} EOS`,
         contract: "eosio.token"
@@ -151,12 +155,12 @@ export function prepareDacTransact({ state, dispatch }, payload) {
 
   const actions = [
     {
-      account: "eosio.token",
+      account: tokenToPay,
       name: "transfer",
       data: {
         from: this.getAccountName,
         to: "piecesnbitss",
-        quantity: "1.0000 EOS",
+        quantity: `1.0000 ${payTokenSymbol}`,
         memo: JSON.stringify(memo)
       }
     }

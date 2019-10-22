@@ -7,7 +7,11 @@
     <p class="time-info">{{ timeInfo }}</p>
     <p class="hint" v-if="hint">{{ hint }}<span class="question">?</span></p>
     <div class="card-footer">
-      <q-btn label="send trx" @click="transfer" color="secondary" class="q-mt-md" />
+      <q-btn label="send trx" color="secondary" class="q-mt-md" @click="onClickTransfer" v-if="!isShowChoice" />
+      <div v-else class="choose-token-wrapper">
+        <q-btn :label="EOS_TOKEN" color="secondary" class="q-mt-md" @click="transfer(EOS_TOKEN)" />
+        <q-btn :label="DAC_TOKEN" color="secondary" class="q-mt-md" @click="transfer(DAC_TOKEN)" />
+      </div>
     </div>
   </section>
 </template>
@@ -16,6 +20,13 @@
 import { mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      isShowChoice: false,
+      EOS_TOKEN: 'EOS',
+      DAC_TOKEN: 'KASDAC'
+    }
+  },
   props: {
     header: {
       type: String,
@@ -44,9 +55,12 @@ export default {
     })
   },
   methods: {
-    async transfer() {
+    onClickTransfer() {
+      this.isShowChoice = true;
+    },
+    async transfer(payTokenSymbol) {
       const stepsData = this.$store.state.factory.stepsData;
-      this.$store.dispatch("ual/prepareDacTransact", { stepsData });
+      this.$store.dispatch("ual/prepareDacTransact", { stepsData, payTokenSymbol });
     }
   }
 };
@@ -159,6 +173,9 @@ p {
 }
 .card-footer button {
   margin: 0;
+}
+.choose-token-wrapper > :first-child {
+  margin-right: 10px;
 }
 @media (max-width: 479px) {
   .first-card {
