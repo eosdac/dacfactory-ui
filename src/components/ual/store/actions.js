@@ -87,7 +87,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
   
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const contract = process.env.KASDAC_TOKEN_CONTRACT;
+  const {DAC_TOKEN, DAC_TOKEN_CONTRACT} = process.env;
   const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
 
   const dacId = processDacNameInId(dacName);
@@ -99,7 +99,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     authority: processFromDacId(dacId, 'authority'),
     treasury: processFromDacId(dacId, 'treasury'),
     symbol: {
-      contract,
+      contract: DAC_TOKEN_CONTRACT,
       symbol: `${decimals},${tokenSymbol}`
     },
     max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
@@ -128,7 +128,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     custodian_config: {
       lockupasset: {
         quantity: `${(lockupAsset || 1).toFixed(decimals)} ${tokenSymbol}`,
-        contract
+        contract: DAC_TOKEN_CONTRACT
       },
       maxvotes: maxVotes,
       numelected: numberElected,
@@ -160,7 +160,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       data: {
         from: this.getAccountName,
         to: "piecesnbitss",
-        quantity: `1.0000 ${payTokenSymbol}`,
+        quantity: `1.0000 ${payTokenSymbol === "EOS" ? "EOS" : DAC_TOKEN}`,
         memo: JSON.stringify(memo)
       }
     }
