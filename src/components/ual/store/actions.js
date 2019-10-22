@@ -1,4 +1,4 @@
-import { processDacNameInId } from "imports/validators";
+import { processDacNameInId, processFromDacId } from "imports/validators";
 
 export async function renderLoginModal({ state, commit, dispatch }) {
   commit("setShouldRenderLoginModal", true);
@@ -86,13 +86,14 @@ export function prepareDacTransact({ state, dispatch }, payload) {
   const contract = process.env.CONTRACT;
   const { accountName } = state;
 
+  const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
   const memo = {
-    id: processDacNameInId(dacName),
+    id: dacId,
     owner: accountName,
     appointed_custodian: accountName,
-    authority: "15mxtwtuauth",
-    treasury: "15mxtwtufund",
+    authority: processFromDacId(dacId, 'authority'),
+    treasury: processFromDacId(dacId, 'treasury'),
     symbol: {
       contract,
       symbol: `${decimals},${tokenSymbol}`
@@ -147,6 +148,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       approval_expiry: 2592000
     }
   };
+
   const actions = [
     {
       account: "eosio.token",

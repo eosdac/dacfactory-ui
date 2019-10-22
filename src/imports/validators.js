@@ -94,11 +94,13 @@ export function processDacNameInId(dacName) {
   if (dacId.length > 11) {
     dacId = dacId.substring(0, 11)
   }
-  if (dacId.charAt(dacId.length - 1) === '.') {
-    dacId = dacId.substring(0, dacId.length - 1)
-  }
+    dacId = dacId.replace(/^(.+)\.$/, '$1');
   if (dacId.length < 5) {
     dacId = dacId.padEnd(5, '1');
   }
   return dacId
+}
+
+export function processFromDacId(dacId, type) {
+    return dacId.replace(/\./g, '').padEnd(12, type.charAt(0));
 }
