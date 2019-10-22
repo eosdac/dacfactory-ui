@@ -23,9 +23,9 @@ export default {
   data() {
     return {
       isShowChoice: false,
-      EOS_TOKEN: 'EOS',
-      DAC_TOKEN: 'KASDAC'
-    }
+      EOS_TOKEN: "EOS",
+      DAC_TOKEN: "KASDAC"
+    };
   },
   props: {
     header: {
@@ -46,7 +46,15 @@ export default {
     },
     hint: {
       type: String,
-      require: true
+      require: false
+    },
+    isAgree: {
+      type: Boolean,
+      required: true
+    },
+    onCheckboxError: {
+      type: Function,
+      required: true
     }
   },
   computed: {
@@ -59,6 +67,10 @@ export default {
       this.isShowChoice = true;
     },
     async transfer(payTokenSymbol) {
+      if (!this.isAgree) {
+        this.onCheckboxError();
+        return;
+      }
       const stepsData = this.$store.state.factory.stepsData;
       this.$store.dispatch("ual/prepareDacTransact", { stepsData, payTokenSymbol });
     }

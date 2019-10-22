@@ -6,8 +6,17 @@
       eosDacQuantity="1000"
       timeInfo="Per month"
       hint="due on the 1st of each month"
+      :isAgree="isAgree"
+      :onCheckboxError="onCheckboxError"
     />
-    <purchase-card header="YEAR" eosQuantity="100" eosDacQuantity="10,000" timeInfo="One-time Purchase" />
+    <purchase-card
+      header="YEAR"
+      eosQuantity="100"
+      eosDacQuantity="10,000"
+      timeInfo="One-time Purchase"
+      :isAgree="isAgree"
+      :onCheckboxError="onCheckboxError"
+    />
   </div>
 </template>
 
@@ -15,6 +24,10 @@
 import PurchaseCard from "./PurchaseCard";
 
 export default {
+  props: {
+    isAgree: Boolean,
+onCheckboxError: Function
+  },
   components: {
     PurchaseCard
   }

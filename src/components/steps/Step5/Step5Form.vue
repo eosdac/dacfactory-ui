@@ -11,12 +11,18 @@
           If you miss a payment your DAC will bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.
         </p>
       </div>
-      <purchase-cards />
+      <purchase-cards :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
       <div class="checkbox-wrapper">
-        <q-checkbox dark keep-color v-model="isAgree" color="#b999db" />
-        <p>
-          I agree with <router-link to="/terms" class="terms-conditions-link">terms</router-link> and
-          <router-link to="/conditions" class="terms-conditions-link">conditions</router-link>
+        <q-checkbox dark keep-color :value="isAgree" :color="checkboxError ? 'red' : ''" @input="onInputCheckbox" />
+        <p :class="checkboxError ? 'checkbox-error terms-conditions-anim' : 'checkbox-normal'">
+          I agree with
+          <router-link to="/terms" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
+            >terms</router-link
+          >
+          and
+          <router-link to="/conditions" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
+            >conditions</router-link
+          >
         </p>
       </div>
     </div>
@@ -29,11 +35,29 @@ import PurchaseCards from "components/steps/Step5/PurchaseCards";
 export default {
   data() {
     return {
-      isAgree: false
+      isAgree: false,
+      checkboxError: "",
+      timeoutId: null
     };
   },
   components: {
     PurchaseCards
+  },
+  methods: {
+    onInputCheckbox() {
+      this.isAgree = !this.isAgree;
+      this.checkboxError = false;
+    },
+    onCheckboxError() {
+      this.checkboxError = true;
+
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+      }
+      this.timeoutId = setTimeout(() => {
+        this.checkboxError = false;
+      }, 3000);
+    }
   }
 };
 </script>
@@ -76,8 +100,8 @@ p {
   margin: 32px 0 0 45px;
 }
 .checkbox-wrapper p {
-  color: #ebdff9;
   margin-left: 5px;
+  transition: color 0.2s;
 }
 .terms-conditions-link {
   color: #ebdff9;
@@ -86,6 +110,23 @@ p {
 .terms-conditions-link:hover,
 .terms-conditions-link:focus {
   color: #b999db;
+}
+.checkbox-error {
+  color: red;
+}
+.checkbox-normal {
+  color: #ebdff9;
+}
+.terms-conditions-link-error {
+  color: red;
+  transition: color 0.2s;
+}
+.terms-conditions-link-error:hover,
+.terms-conditions-link-error:focus {
+  color: var(--q-color-negative);
+}
+.terms-conditions-anim {
+  animation: q-field-label 0.36s;
 }
 .text1 {
   margin: 30px 0 0;
@@ -115,6 +156,18 @@ p {
 @media (max-width: 479px) {
   .table-wrapper {
     margin-top: 30px;
+  }
+}
+
+@keyframes q-field-label {
+  20%,
+  60%,
+  90% {
+    margin-left: 2px;
+  }
+  40%,
+  80% {
+    margin-left: -2px;
   }
 }
 </style>
