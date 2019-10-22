@@ -98,7 +98,8 @@ export default {
       periodLength: this.$store.state.factory.stepsData[3].periodLength,
       numberElected: this.$store.state.factory.stepsData[3].numberElected,
       maxVotes: this.$store.state.factory.stepsData[3].maxVotes,
-      voteQuorumPercent: this.$store.state.factory.stepsData[3].voteQuorumPercent
+      voteQuorumPercent: this.$store.state.factory.stepsData[3].voteQuorumPercent,
+      '..asa--er': 878
     };
   },
   methods: {

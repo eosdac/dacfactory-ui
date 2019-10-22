@@ -83,6 +83,7 @@ export function prepareDacTransact({ dispatch }, payload) {
     voteQuorumPercent
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
+  const contract = process.env.CONTRACT;
 
   // TODO remove || 1 after proper validation will be added to fields
   const memo = {
@@ -92,7 +93,7 @@ export function prepareDacTransact({ dispatch }, payload) {
     authority: "15mxtwtuauth",
     treasury: "15mxtwtufund",
     symbol: {
-      contract: "kasdactokens",
+      contract,
       symbol: `${decimals},${tokenSymbol}`
     },
     max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
@@ -121,7 +122,7 @@ export function prepareDacTransact({ dispatch }, payload) {
     custodian_config: {
       lockupasset: {
         quantity: `${(lockupAsset || 1).toFixed(decimals)} ${tokenSymbol}`,
-        contract: "kasdactokens"
+        contract
       },
       maxvotes: maxVotes,
       numelected: numberElected,
