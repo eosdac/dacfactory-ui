@@ -51,7 +51,6 @@
                   color="primary"
                   class="full-width"
                   @click="connectAuthenticator(authenticator)"
-
                 />
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
@@ -125,7 +124,6 @@ export default {
       try {
         console.log("authenticator object", authenticator);
         if (this.accountname) {
-          console.log("login authenticator");
           users = await authenticator.login(this.accountname);
         } else {
           users = await authenticator.login();

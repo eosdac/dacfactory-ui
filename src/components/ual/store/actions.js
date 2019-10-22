@@ -54,7 +54,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
     authenticator
       .login(accountName)
       .then(() => {
-        commit("setSESSION", { accountName: accountName, authenticatorName: authenticatorName });
+        commit("setSESSION", { accountName, authenticatorName });
         commit("setAccountName", accountName);
         commit("setActiveAuthenticator", authenticator);
       })
@@ -65,7 +65,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
   }
 }
 
-export function prepareDacTransact({ dispatch }, payload) {
+export function prepareDacTransact({ state, dispatch }, payload) {
   const stepsData = payload.stepsData;
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -84,12 +84,13 @@ export function prepareDacTransact({ dispatch }, payload) {
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
   const contract = process.env.CONTRACT;
+  const { accountName } = state;
 
   // TODO remove || 1 after proper validation will be added to fields
   const memo = {
     id: processDacNameInId(dacName),
-    owner: "evilmikehere",
-    appointed_custodian: "evilmikehere",
+    owner: accountName,
+    appointed_custodian: accountName,
     authority: "15mxtwtuauth",
     treasury: "15mxtwtufund",
     symbol: {
