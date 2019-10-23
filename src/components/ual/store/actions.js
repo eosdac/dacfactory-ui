@@ -67,7 +67,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 
 export function prepareDacTransact({ state, dispatch }, payload) {
   const { accountName } = state;
-  const { stepsData, payTokenSymbol } = payload;
+  const { stepsData, tokenToPay, payTokenQuantity } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -87,8 +87,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const { DAC_TOKEN, DAC_TOKEN_CONTRACT, PAYMENT_RECEIVER } = process.env;
-  const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
+  const { DAC_TOKEN_CONTRACT, PAYMENT_RECEIVER } = process.env;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -158,9 +157,9 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       account: tokenToPay,
       name: "transfer",
       data: {
-        from: this.getAccountName,
+        from: accountName,
         to: PAYMENT_RECEIVER,
-        quantity: `1.0000 ${payTokenSymbol === "EOS" ? "EOS" : DAC_TOKEN}`,
+        quantity: payTokenQuantity,
         memo: JSON.stringify(memo)
       }
     }
@@ -169,11 +168,6 @@ export function prepareDacTransact({ state, dispatch }, payload) {
 }
 
 export async function transact({ state, dispatch, commit }, payload) {
-  //check if logged in before transacting
-  if (!state.activeAuthenticator || !state.accountName) {
-    dispatch("renderLoginModal");
-    return;
-  }
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
   const user = state.activeAuthenticator.users[0];
   const actions = { ...payload.actions[0] };

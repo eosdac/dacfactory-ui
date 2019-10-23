@@ -26,7 +26,7 @@ import PurchaseCard from "./PurchaseCard";
 export default {
   props: {
     isAgree: Boolean,
-onCheckboxError: Function
+    onCheckboxError: Function
   },
   components: {
     PurchaseCard

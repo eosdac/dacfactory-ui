@@ -66,13 +66,27 @@ export default {
     onClickTransfer() {
       this.isShowChoice = true;
     },
-    async transfer(payTokenSymbol) {
+    transfer(payTokenSymbol) {
       if (!this.isAgree) {
         this.onCheckboxError();
         return;
       }
-      const stepsData = this.$store.state.factory.stepsData;
-      this.$store.dispatch("ual/prepareDacTransact", { stepsData, payTokenSymbol });
+
+      const {
+        factory: { stepsData },
+        ual: { activeAuthenticator, accountName }
+      } = this.$store.state;
+      if (!activeAuthenticator || !accountName) {
+        this.$store.dispatch("ual/renderLoginModal");
+        return;
+      }
+
+      const payTokenQuantity =
+        payTokenSymbol === this.EOS_TOKEN
+          ? `${Number(this.eosQuantity).toFixed(4)} ${this.EOS_TOKEN}`
+          : `${Number(this.eosDacQuantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
+      const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
+      this.$store.dispatch("ual/prepareDacTransact", { stepsData, tokenToPay, payTokenQuantity });
     }
   }
 };
