@@ -70,7 +70,7 @@ export default {
     "hint2": "LOCKUP ASSETS",
     "subtitle_dolor_amet": "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
     "hint3": "REQUEST PAY",
-    "hint4": "LOCKUP & RELEASE",
+    "hint4": "LOCKUP",
     "hint5": "PERIOD LENGTH",
     "hint6": "NUMBER ELECTED",
     "hint7": "HIGH THRESHOLD",

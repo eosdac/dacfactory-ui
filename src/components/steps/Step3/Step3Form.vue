@@ -33,7 +33,6 @@
         color="secondary"
         :style="{ alignSelf: 'start' }"
         :options="['Hour(s)', 'Day(s)']"
-        label="Release"
         @input="onStatusChange({ value: $event }, 'lockupSelect')"
       />
     </div>
