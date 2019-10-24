@@ -1,6 +1,6 @@
 <template>
   <section :class="['card', hint ? 'first-card' : 'second-card']">
-    <div class="card-header">{{ header }}</div>
+    <h3 class="card-header">{{ header }}</h3>
     <p class="eos-quantity">{{ eosQuantity }}<span>EOS</span></p>
     <p class="or">or</p>
     <p class="eosdac-quantity">{{ eosDacQuantity }}<span>EOSDAC</span></p>
@@ -81,12 +81,13 @@ export default {
         return;
       }
 
-      const payTokenQuantity =
-        payTokenSymbol === this.EOS_TOKEN
-          ? `${Number(this.eosQuantity).toFixed(4)} ${this.EOS_TOKEN}`
-          : `${Number(this.eosDacQuantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
+      const payTokenQuantity = payTokenSymbol === this.EOS_TOKEN
+          ? `${parseInt(this.eosQuantity).toFixed(4)} ${this.EOS_TOKEN}`
+          : `${parseInt(this.eosDacQuantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
       const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
-      this.$store.dispatch("ual/prepareDacTransact", { stepsData, tokenToPay, payTokenQuantity });
+      const tariffName = `${this.header}.${payTokenSymbol.toLowerCase()}`;
+
+      this.$store.dispatch("ual/prepareDacTransact", { stepsData, tokenToPay, payTokenQuantity, tariffName });
     }
   }
 };
@@ -117,9 +118,12 @@ p {
   justify-content: center;
   align-items: center;
   height: 76px;
+  margin: 0;
   font-size: 16px;
+  font-weight: 600;
   letter-spacing: 0.36px;
   line-height: 19px;
+  text-transform: uppercase;
 }
 .eos-quantity {
   display: flex;

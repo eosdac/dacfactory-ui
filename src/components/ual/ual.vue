@@ -124,9 +124,9 @@ export default {
       try {
         console.log("authenticator object", authenticator);
         if (this.accountname) {
-          users = await authenticator.login(this.accountname);
+          users = await authenticator.scatter.login(this.accountname);
         } else {
-          users = await authenticator.login();
+          users = await authenticator.scatter.login();
         }
         if (!users) {
           return;

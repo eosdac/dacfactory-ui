@@ -47,63 +47,57 @@ export default {
       const randomColor = Math.floor(Math.random() * this.colors.length);
       const { value } = this.colors[randomColor];
 
+      // const randomHex = (Math.random()*0xFFFFFF<<0).toString(16).padEnd(6, '0');
+
       this.onChooseColor(value);
     }
   }
 };
 </script>
 
-<style scoped>
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 4px 8px 14px 0;
-}
-h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  line-height: 21px;
-  color: #b999db;
-}
-.random {
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 19px;
-  color: #7c41ba;
-  transition: color 0.2s;
-}
-.random:hover,
-.random:focus {
-  color: #b999db;
-}
-.colors-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 22px;
-}
-.color {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
-  padding: 0 15px;
-  border: 1px solid #eceff1;
-  border-radius: 4px;
-  color: #ffffff;
-  transition: border-color 0.2s;
-}
-.color:hover,
-.color:focus {
-  border-color: #979797;
-}
-.square {
-  width: 22px;
-  height: 22px;
-  margin-left: 5px;
-  border: 1px solid #979797;
-}
+<style scoped lang="stylus">
+.header
+  display flex
+  justify-content space-between
+  align-items center
+  margin 4px 8px 14px 0
+h3
+  margin 0
+  font-size 18px
+  font-weight 500
+  letter-spacing 0.4px
+  line-height 21px
+  color $medium-violet
+.random
+  padding 10px
+  font-size 16px
+  font-weight 700
+  line-height 19px
+  color $secondary
+  transition color 0.2s
+  &:hover,
+  &:focus
+    color $medium-violet
+.colors-grid
+  display grid
+  grid-template-columns 1fr 1fr
+  grid-gap 22px
+.color
+  display flex
+  justify-content space-between
+  align-items center
+  height 50px
+  padding 0 15px
+  border 1px solid #eceff1
+  border-radius 4px
+  color #ffffff
+  transition border-color 0.2s
+  &:hover,
+  &:focus
+    border-color #979797
+.square
+  width 22px
+  height 22px
+  margin-left 5px
+  border 1px solid #979797
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <purchase-card
-      header="MONTHLY"
+      header="monthly"
       eosQuantity="10"
       eosDacQuantity="1000"
       timeInfo="Per month"
@@ -10,7 +10,7 @@
       :onCheckboxError="onCheckboxError"
     />
     <purchase-card
-      header="YEAR"
+      header="yearly"
       eosQuantity="100"
       eosDacQuantity="10,000"
       timeInfo="One-time Purchase"

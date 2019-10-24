@@ -67,12 +67,12 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 
 export function prepareDacTransact({ state, dispatch }, payload) {
   const { accountName } = state;
-  const { stepsData, tokenToPay, payTokenQuantity } = payload;
+  const { stepsData, tokenToPay, payTokenQuantity, tariffName } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
-    lockupAsset, // lockup asset (it was done with auto propositions) wasn't a number, replaced with simple data field
+    lockupAsset,
     requestPay,
     lockup,
     lockupSelect,
@@ -87,11 +87,11 @@ export function prepareDacTransact({ state, dispatch }, payload) {
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const { DAC_TOKEN_CONTRACT, PAYMENT_RECEIVER } = process.env;
+  const { DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
-  const memo = {
+  const dacData = {
     id: dacId,
     owner: accountName,
     appointed_custodian: accountName,
@@ -158,9 +158,26 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       name: "transfer",
       data: {
         from: accountName,
-        to: PAYMENT_RECEIVER,
+        to: DAC_FACTORY,
+        quantity: "10.0000 EOS",
+        memo: `${dacId}:_setup`
+      }
+    },
+    {
+      account: tokenToPay,
+      name: "transfer",
+      data: {
+        from: accountName,
+        to: DAC_FACTORY,
         quantity: payTokenQuantity,
-        memo: JSON.stringify(memo)
+        memo: `${dacId}:${tariffName}`
+      }},
+    {
+      account: DAC_FACTORY,
+      name: "createdac",
+      data: {
+        dac_id: dacId,
+        json: JSON.stringify(dacData)
       }
     }
   ];
