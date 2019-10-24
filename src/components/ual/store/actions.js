@@ -81,8 +81,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     thresholdHigh,
     thresholdMed,
     thresholdLow,
-    maxVotes,
-    voteQuorumPercent
+    maxVotes
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
 
@@ -134,7 +133,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       periodlength: periodLength,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
-      vote_quorum_percent: voteQuorumPercent,
+      vote_quorum_percent: 1,
       auth_threshold_high: thresholdHigh,
       auth_threshold_mid: thresholdMed,
       auth_threshold_low: thresholdLow,

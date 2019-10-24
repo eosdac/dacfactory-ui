@@ -64,16 +64,6 @@
       v-model="maxVotes"
       @statusChange="onStatusChange($event, 'maxVotes')"
     />
-    <custom-divider />
-    <my-input
-      type="number"
-      color="secondary"
-      label="Vote Quorum Percent"
-      iconLeft="<span style='display: flex; font-size: 18px'>%</p>"
-      :rules="[val => (val !== '' && val >= 0 && val <= 100) || $t('step3.percent_error')]"
-      v-model="voteQuorumPercent"
-      @statusChange="onStatusChange($event, 'voteQuorumPercent')"
-    />
   </div>
 </template>
 
@@ -96,8 +86,7 @@ export default {
       lockupSelect: this.$store.state.factory.stepsData[3].lockupSelect,
       periodLength: this.$store.state.factory.stepsData[3].periodLength,
       numberElected: this.$store.state.factory.stepsData[3].numberElected,
-      maxVotes: this.$store.state.factory.stepsData[3].maxVotes,
-      voteQuorumPercent: this.$store.state.factory.stepsData[3].voteQuorumPercent
+      maxVotes: this.$store.state.factory.stepsData[3].maxVotes
     };
   },
   methods: {
