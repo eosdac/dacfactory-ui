@@ -13,7 +13,7 @@ export default {
     },
     3: {
       lockupAsset: '',
-      requestPay: '',
+      maxRequestPay: '',
       lockup: '',
       lockupSelect: 'Hour(s)',
       periodLength: '',

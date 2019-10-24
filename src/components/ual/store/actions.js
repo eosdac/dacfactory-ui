@@ -73,7 +73,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
     lockupAsset,
-    requestPay,
+    maxRequestPay,
     lockup,
     lockupSelect,
     periodLength,
@@ -140,7 +140,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       auth_threshold_low: thresholdLow,
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
-        quantity: `${(requestPay || 1).toFixed(4)} EOS`,
+        quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,
         contract: "eosio.token"
       }
     },

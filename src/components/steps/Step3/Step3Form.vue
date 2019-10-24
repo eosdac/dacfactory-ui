@@ -12,10 +12,10 @@
     <my-input
       type="number"
       color="secondary"
-      label="Request Pay"
+      label="Max Request Pay"
       :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
-      v-model="requestPay"
-      @statusChange="onStatusChange($event, 'requestPay')"
+      v-model="maxRequestPay"
+      @statusChange="onStatusChange($event, 'maxRequestPay')"
     />
     <div class="lockup-wrapper">
       <my-input
@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       lockupAsset: this.$store.state.factory.stepsData[3].lockupAsset,
-      requestPay: this.$store.state.factory.stepsData[3].requestPay,
+      maxRequestPay: this.$store.state.factory.stepsData[3].maxRequestPay,
       lockup: this.$store.state.factory.stepsData[3].lockup,
       lockupSelect: this.$store.state.factory.stepsData[3].lockupSelect,
       periodLength: this.$store.state.factory.stepsData[3].periodLength,
