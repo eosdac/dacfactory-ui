@@ -71,7 +71,7 @@ export async function isAvailableDacId(v) {
       limit: 1
     })
     .catch(e => false);
-  if (res && res.rows.length == 1 && res.rows[0].dac_id == v) {
+  if (res && res.rows.length === 1 && res.rows[0].dac_id === v) {
     return "DAC ID already exists.";
   } else {
     return true;
@@ -87,4 +87,20 @@ export async function isAvailableAccountName(v) {
   } else {
     return "Account name already taken.";
   }
+}
+
+export function processDacNameInId(dacName) {
+  let dacId = dacName.toLowerCase().replace(/[^a-z1-5]+/g, '.');
+  if (dacId.length > 11) {
+    dacId = dacId.substring(0, 11)
+  }
+    dacId = dacId.replace(/^(.+)\.$/, '$1');
+  if (dacId.length < 5) {
+    dacId = dacId.padEnd(5, '1');
+  }
+  return dacId
+}
+
+export function processFromDacId(dacId, type) {
+    return dacId.replace(/\./g, '').padEnd(12, type.charAt(0));
 }

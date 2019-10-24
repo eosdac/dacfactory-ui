@@ -1,19 +1,28 @@
 <template>
   <div>
-    <find-account />
     <my-input
+      type="number"
+      color="secondary"
+      label="Lockup Asset"
+      hint="See LockUp Asset"
+      :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
+      v-model="lockupAsset"
+      @statusChange="onStatusChange($event, 'lockupAsset')"
+    />
+    <my-input
+      type="number"
       color="secondary"
       label="Request Pay"
-      :rules="[val => /^.+$/.test(val)]"
+      :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
       v-model="requestPay"
       @statusChange="onStatusChange($event, 'requestPay')"
     />
-    <!--/^.+$/ should be replaced with real condition-->
     <div class="lockup-wrapper">
       <my-input
+        type="number"
         color="secondary"
         label="Lockup"
-        :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
+        :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
         v-model="lockup"
         @statusChange="onStatusChange($event, 'lockup')"
       />
@@ -29,32 +38,36 @@
       />
     </div>
     <my-input
+      type="number"
       color="secondary"
       label="Period Length"
       class="margin-bottom-14"
-      :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
+      :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
       v-model="periodLength"
       @statusChange="onStatusChange($event, 'periodLength')"
     />
     <custom-divider />
     <my-input
+      type="number"
       color="secondary"
       label="Number elected"
-      :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
+      :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
       v-model="numberElected"
       @statusChange="onStatusChange($event, 'numberElected')"
     />
     <vote-threshold />
     <my-input
+      type="number"
       color="secondary"
       label="Max Votes"
       class="max-votes"
-      :rules="[val => /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
+      :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
       v-model="maxVotes"
       @statusChange="onStatusChange($event, 'maxVotes')"
     />
     <custom-divider />
     <my-input
+      type="number"
       color="secondary"
       label="Vote Quorum Percent"
       iconLeft="<span style='display: flex; font-size: 18px'>%</p>"
@@ -66,20 +79,19 @@
 </template>
 
 <script>
-import FindAccount from "components/form/find-account";
 import VoteThreshold from "components/form/vote-threshold";
 import MyInput from "components/form/my-input";
 import CustomDivider from "./CustomDivider";
 
 export default {
   components: {
-    FindAccount,
     VoteThreshold,
     MyInput,
     CustomDivider
   },
   data() {
     return {
+      lockupAsset: this.$store.state.factory.stepsData[3].lockupAsset,
       requestPay: this.$store.state.factory.stepsData[3].requestPay,
       lockup: this.$store.state.factory.stepsData[3].lockup,
       lockupSelect: this.$store.state.factory.stepsData[3].lockupSelect,

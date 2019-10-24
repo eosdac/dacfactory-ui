@@ -1,15 +1,12 @@
 <template>
   <div>
-    
     <div class="row text-caption justify-end text-secondary text-weight-bold" style="height:20px">
       <span>{{parseLocalizedSupply(maxSupply)}}</span>
       <span class="q-ml-xs" v-if="parseLocalizedSupply(maxSupply)">{{getTokenSymbol}}</span>
     </div>
     <my-input
       type="number"
-      :value="maxSupply"
-      @input="handleSupplyInput"
-
+      v-model="maxSupply"
       color="secondary"
       :label="$t('step2.max_supply', { token_symbol: getTokenSymbol })"
       :hint="$t('step2.max_supply_hint')"
@@ -20,15 +17,24 @@
       @statusChange="$store.commit('factory/setStepsData',{step: 2, key:'maxSupply', data: $event})"
       :debounce="0"
     />
-
-
+    <my-input
+      type="number"
+      v-model="issuance"
+      color="secondary"
+      :label="$t('step2.issuance', { token_symbol: getTokenSymbol })"
+      :hint="$t('step2.issuance_hint')"
+      :rules="[
+        val => !!val || $t('general.required'),
+        val => val > 0 || $t('step2.max_supply_rule_positive'),
+      ]"
+      @statusChange="$store.commit('factory/setStepsData',{step: 2, key:'issuance', data: $event})"
+      :debounce="0"
+    />
     <div class="q-mt-xs">
-  
       <div class="row justify-between text-subtitle1">
         <div class="text-grey-4">{{ $t('step2.decimals') }}: {{ decimals }}</div>
         <div class="text-secondary text-weight-bold">{{ parseDecimals }}</div>
       </div>
-    
       <q-slider
         dark
         :value="decimals"
@@ -41,30 +47,26 @@
         class="q-mt-md"
       />
     </div>
-    
   </div>
 </template>
 
 <script>
-import myInput from 'components/form/my-input';
 import { mapGetters } from "vuex";
-// import {
-//   isValidAccountName,
-//   isAvailableAccountName
-// } from "../../imports/validators";
+
+import myInput from 'components/form/my-input';
+
 export default {
-  // name: 'ComponentName',
   components:{
     myInput
   },
   data () {
     return {
       maxSupply: this.$store.state.factory.stepsData[2].maxSupply,
-      decimals: Number(this.$store.state.factory.stepsData[2].decimals)
+      decimals: Number(this.$store.state.factory.stepsData[2].decimals),
+      issuance: this.$store.state.factory.stepsData[2].issuance
     }
   },
   computed:{
-    
     ...mapGetters({
       getTokenSymbol: "factory/getTokenSymbol"
     }),
@@ -84,12 +86,8 @@ export default {
       if(!v){
         return '';
       }
-      // v= String(v).split(',').join('');
       return parseInt(v).toLocaleString();
     },
-    handleSupplyInput(v){
-      this.maxSupply = Math.round(v);
-    }
   }
 }
 </script>

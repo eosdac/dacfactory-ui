@@ -1,13 +1,17 @@
 <template>
   <section :class="['card', hint ? 'first-card' : 'second-card']">
-    <div class="card-header">{{ header }}</div>
+    <h3 class="card-header">{{ header }}</h3>
     <p class="eos-quantity">{{ eosQuantity }}<span>EOS</span></p>
     <p class="or">or</p>
     <p class="eosdac-quantity">{{ eosDacQuantity }}<span>EOSDAC</span></p>
     <p class="time-info">{{ timeInfo }}</p>
     <p class="hint" v-if="hint">{{ hint }}<span class="question">?</span></p>
     <div class="card-footer">
-      <q-btn label="send trx" @click="transfer" color="secondary" class="q-mt-md" />
+      <q-btn label="buy" color="secondary" class="q-mt-md" @click="onClickTransfer" v-if="!isShowChoice" />
+      <div v-else class="choose-token-wrapper">
+        <q-btn :label="EOS_TOKEN" color="secondary" class="q-mt-md" @click="transfer(EOS_TOKEN)" />
+        <q-btn :label="DAC_TOKEN" color="secondary" class="q-mt-md" @click="transfer(DAC_TOKEN)" />
+      </div>
     </div>
   </section>
 </template>
@@ -16,6 +20,13 @@
 import { mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      isShowChoice: false,
+      EOS_TOKEN: "EOS",
+      DAC_TOKEN: "DAC"
+    };
+  },
   props: {
     header: {
       type: String,
@@ -35,7 +46,15 @@ export default {
     },
     hint: {
       type: String,
-      require: true
+      require: false
+    },
+    isAgree: {
+      type: Boolean,
+      required: true
+    },
+    onCheckboxError: {
+      type: Function,
+      required: true
     }
   },
   computed: {
@@ -44,20 +63,31 @@ export default {
     })
   },
   methods: {
-    async transfer() {
-      const actions = [
-        {
-          account: "eosio.token",
-          name: "transfer",
-          data: {
-            from: this.getAccountName,
-            to: "piecesnbitss",
-            quantity: "1.0000 EOS",
-            memo: ""
-          }
-        }
-      ];
-      this.$store.dispatch("ual/transact", { actions: actions });
+    onClickTransfer() {
+      this.isShowChoice = true;
+    },
+    transfer(payTokenSymbol) {
+      if (!this.isAgree) {
+        this.onCheckboxError();
+        return;
+      }
+
+      const {
+        factory: { stepsData },
+        ual: { activeAuthenticator, accountName }
+      } = this.$store.state;
+      if (!activeAuthenticator || !accountName) {
+        this.$store.dispatch("ual/renderLoginModal");
+        return;
+      }
+
+      const payTokenQuantity = payTokenSymbol === this.EOS_TOKEN
+          ? `${parseInt(this.eosQuantity).toFixed(4)} ${this.EOS_TOKEN}`
+          : `${parseInt(this.eosDacQuantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
+      const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
+      const tariffName = `${this.header}.${payTokenSymbol.toLowerCase()}`;
+
+      this.$store.dispatch("ual/prepareDacTransact", { stepsData, tokenToPay, payTokenQuantity, tariffName });
     }
   }
 };
@@ -88,9 +118,12 @@ p {
   justify-content: center;
   align-items: center;
   height: 76px;
+  margin: 0;
   font-size: 16px;
+  font-weight: 600;
   letter-spacing: 0.36px;
   line-height: 19px;
+  text-transform: uppercase;
 }
 .eos-quantity {
   display: flex;
@@ -171,7 +204,10 @@ p {
 .card-footer button {
   margin: 0;
 }
-@media (max-width: 461px) {
+.choose-token-wrapper > :first-child {
+  margin-right: 10px;
+}
+@media (max-width: 479px) {
   .first-card {
     margin: 0;
   }

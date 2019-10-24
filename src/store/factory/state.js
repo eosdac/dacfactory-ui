@@ -4,17 +4,15 @@ export default {
     1: {
       dacName: '',
       dacDescription: '',
-      dacId: '',
-      tokenSymbol: '',
-      websiteUrl:''
+      tokenSymbol: ''
     },
     2: {
       maxSupply: '',
-      decimals: '4',
       issuance: '',
+      decimals: '4',
     },
     3: {
-      custodianName: '',
+      lockupAsset: '',
       requestPay: '',
       lockup: '',
       lockupSelect: 'Hour(s)',

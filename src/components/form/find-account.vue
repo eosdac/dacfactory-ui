@@ -5,13 +5,13 @@
       dark
       color="secondary"
       outlined
-      v-model="custodianName"
+      v-model="lockupAsset"
       use-input
       hide-selected
       fill-input
       input-debounce="500"
       label="Lockup Asset"
-      :options="fetchedCustodianNames"
+      :options="fetchedlockupAssets"
       @filter="filterFn"
       hint="See LockUp Asset"
     >
@@ -30,11 +30,10 @@
 export default {
   data() {
     return {
-      custodianName: this.$store.state.factory.stepsData[3].custodianName,
-      fetchedCustodianNames: ["kasdactokens", "eosio.token"]
+      lockupAsset: this.$store.state.factory.stepsData[3].lockupAsset,
+      fetchedlockupAssets: ["kasdactokens", "eosio.token"]
     };
   },
-
   methods: {
     async fetchAccounts(acc) {
       let res = await this.$eosapi
@@ -62,14 +61,14 @@ export default {
         return;
       }
       let accs = await this.fetchAccounts(val);
-      this.fetchedCustodianNames = accs.filter(v => v.startsWith(val));
+      this.fetchedlockupAssets = accs.filter(v => v.startsWith(val));
 
       update();
     }
   },
   watch: {
-    custodianName(value) {
-      this.$store.commit("factory/setStepsData", { step: 3, key: 'custodianName', data: { value } });
+    lockupAsset(value) {
+      this.$store.commit("factory/setStepsData", { step: 3, key: 'lockupAsset', data: { value } });
     }
   }
 };

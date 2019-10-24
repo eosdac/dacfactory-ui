@@ -9,7 +9,6 @@
       :rules="[val => !!val || $t('general.required'), val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacName', data: $event })"
     />
-
     <my-input
       :value="tokenSymbol"
       @input="tokenSymbol = $event.trim().toUpperCase()"
@@ -26,7 +25,6 @@
       ]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'tokenSymbol', data: $event })"
     />
-
     <q-input
       type="textarea"
       outlined
@@ -49,40 +47,12 @@
         </transition>
       </template>
     </q-input>
-
-    <my-input
-      type="text"
-      :value="websiteUrl"
-      @input="websiteUrl = $event.trim()"
-      color="secondary"
-      :label="$t('step1.website_url')"
-      :hint="$t('step1.website_url_hint')"
-      :rules="[isValidUrl]"
-      @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'websiteUrl', data: $event })"
-    />
-
-    <my-input
-      :value="dacId"
-      @input="dacId = $event.toLowerCase()"
-      color="secondary"
-      :label="$t('step1.dac_id')"
-      :hint="$t('step1.dac_id_hint')"
-      maxlength="11"
-      :rules="[
-        val => !!val || $t('general.required'),
-        isValidDacId,
-        val => val.length >= 5 || $t('step1.dac_id_rule_length_5'),
-        val => val.length <= 11 || $t('step1.dac_id_rule_length_11'),
-        isAvailableDacId
-      ]"
-      @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacId', data: $event })"
-    />
   </div>
 </template>
 
 <script>
 import myInput from "components/form/my-input";
-import { isValidSymbol, isAvailableDacId, isValidDacId, isValidUrl, isAvailableSymbol } from "../../imports/validators";
+import { isValidSymbol, isValidUrl, isAvailableSymbol } from "imports/validators";
 
 export default {
   components: {
@@ -93,14 +63,11 @@ export default {
       dacName: this.$store.state.factory.stepsData[1].dacName,
       tokenSymbol: this.$store.state.factory.stepsData[1].tokenSymbol,
       dacId: this.$store.state.factory.stepsData[1].dacId,
-      dacDescription: this.$store.state.factory.stepsData[1].dacDescription,
-      websiteUrl: this.$store.state.factory.stepsData[1].websiteUrl
+      dacDescription: this.$store.state.factory.stepsData[1].dacDescription
     };
   },
   methods: {
     isValidSymbol,
-    isValidDacId,
-    isAvailableDacId,
     isValidUrl,
     isAvailableSymbol
   }
