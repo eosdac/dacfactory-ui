@@ -1,27 +1,24 @@
 <template>
   <div>
-    <p class="info-text max-width-260">Pay month to month or upfront for a year to get a discount.</p>
+    <p class="info-text max-width-260">{{ $t("step5.pay_month") }}}</p>
     <div class="table-wrapper">
       <div class="table">
-        <p class="info-text text1">Creation of Accounts and hosting of DAC</p>
+        <p class="info-text text1">{{ $t("step5.creation_of_account") }}</p>
         <p class="info-text max-width-300 text2">
-          Once you purchase, the DAC will be initially under the control of the account which set it up
-        </p>
-        <p class="italic-text max-width-300">
-          If you miss a payment your DAC will bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.
+          {{ $t("step5.once_you") }}
         </p>
       </div>
       <purchase-cards :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
       <div class="checkbox-wrapper">
         <q-checkbox dark keep-color :value="isAgree" :color="checkboxError ? 'red' : ''" @input="onInputCheckbox" />
         <p :class="checkboxError ? 'checkbox-error terms-conditions-anim' : 'checkbox-normal'">
-          I agree with
+          {{ $t("step5.i_agree_with") }}
           <router-link to="/terms" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
-            >terms</router-link
+            >{{ $t("step5.terms") }}</router-link
           >
-          and
+          {{ $t("general.and") }}
           <router-link to="/conditions" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
-            >conditions</router-link
+            >{{ $t("step5.conditions") }}</router-link
           >
         </p>
       </div>
@@ -82,17 +79,17 @@ p
   @media (max-width 1059px)
     width fit-content
     height auto
-    margin 0 auto
+    margin 30px auto 0 auto
     padding-top 0
-  @media (max-width 479px)
-    margin-top 30px
 .table
   position relative
   z-index 1
   padding 38px 55px
-  border 1px solid #7c41ba
+  border 1px solid $secondary
   border-radius 4px
   color $light-violet
+  @media (max-width 479px)
+    padding 18px 35px
 .italic-text
   margin 0
   font-size 12px

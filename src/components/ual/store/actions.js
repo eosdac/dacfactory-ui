@@ -1,10 +1,11 @@
+import { processThresholdFromNE, THRESHOLD_HIGH, THRESHOLD_MIDDLE, THRESHOLD_LOW } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
-export async function renderLoginModal({ state, commit, dispatch }) {
+export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
 }
 
-export async function logout({ state, commit, dispatch }) {
+export async function logout({ state, commit }) {
   let activeAuth = state.activeAuthenticator;
   if (activeAuth) {
     console.log(`Logging out from authenticator: ${activeAuth.getStyle().text}`);
@@ -67,27 +68,25 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 
 export function prepareDacTransact({ state, dispatch }, payload) {
   const { accountName } = state;
-  const { stepsData, tokenToPay, payTokenQuantity, tariffName } = payload;
+  const { stepsData, payTokenSymbol, payTokenQuantity } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
     lockupAsset,
-    requestPay,
+    maxRequestPay,
     lockup,
     lockupSelect,
     periodLength,
     numberElected,
-    thresholdHigh,
-    thresholdMed,
-    thresholdLow,
-    maxVotes,
-    voteQuorumPercent
+    maxVotes
   } = stepsData[3];
-  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
+  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
   const { DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
+  const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -134,13 +133,13 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       periodlength: periodLength,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
-      vote_quorum_percent: voteQuorumPercent,
-      auth_threshold_high: thresholdHigh,
-      auth_threshold_mid: thresholdMed,
-      auth_threshold_low: thresholdLow,
+      vote_quorum_percent: 1,
+      auth_threshold_high: processThresholdFromNE(numberElected, THRESHOLD_HIGH),
+      auth_threshold_mid: processThresholdFromNE(numberElected, THRESHOLD_MIDDLE),
+      auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
-        quantity: `${(requestPay || 1).toFixed(4)} EOS`,
+        quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,
         contract: "eosio.token"
       }
     },
@@ -159,7 +158,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: "10.0000 EOS",
+        quantity: "5.0000 EOS",
         memo: `${dacId}:_setup`
       }
     },
@@ -181,6 +180,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       }
     }
   ];
+
   dispatch("transact", { actions });
 }
 

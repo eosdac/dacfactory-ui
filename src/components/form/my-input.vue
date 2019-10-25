@@ -23,9 +23,6 @@
       :mask="mask"
       class="q-mb-md overflow-hidden"
     >
-      <template v-if="iconLeft" v-slot:prepend>
-        <p class="icon-left" v-html="iconLeft" />
-      </template>
       <template v-slot:append v-if="isMounted">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon
@@ -88,10 +85,6 @@ export default {
     dense: {
       type: Boolean,
       default: false
-    },
-    iconLeft: {
-      type: String,
-      default: ""
     },
     iconRight: {
       type: String,

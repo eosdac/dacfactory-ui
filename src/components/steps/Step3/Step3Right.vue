@@ -14,17 +14,8 @@
     <custom-divider />
     <p class="hint">{{ $t("step3.hint6") }}</p>
     <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <p class="hint">{{ $t("step3.hint7") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <p class="hint">{{ $t("step3.hint8") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <p class="hint">{{ $t("step3.hint9") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
     <p class="hint">{{ $t("step3.hint10") }}</p>
     <p class="subtitle margin-bottom-30">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <custom-divider />
-    <p class="hint">{{ $t("step3.hint11") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
     <!--change with real text-->
   </div>
 </template>

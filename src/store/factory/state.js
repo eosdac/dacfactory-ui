@@ -13,16 +13,12 @@ export default {
     },
     3: {
       lockupAsset: '',
-      requestPay: '',
+      maxRequestPay: '',
       lockup: '',
       lockupSelect: 'Hour(s)',
       periodLength: '',
       numberElected: '',
-      thresholdHigh: 4,
-      thresholdMed: 0,
-      thresholdLow: 0,
-      maxVotes: '',
-      voteQuorumPercent: ''
+      maxVotes: ''
     },
     4: {
       websiteURL: '',
