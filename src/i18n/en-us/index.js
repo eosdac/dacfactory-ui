@@ -11,6 +11,7 @@ export default {
     "help_learn_more": "Learn more",
   },
   "general": {
+    "and": "and",
     "required": "* Required",
     "welcome": "Welcome",
     "info": "info",
@@ -69,7 +70,7 @@ export default {
     "subtitle1": "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
     "hint2": "LOCKUP ASSETS",
     "subtitle_dolor_amet": "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
-    "hint3": "REQUEST PAY",
+    "hint3": "MAX REQUEST PAY",
     "hint4": "LOCKUP",
     "hint5": "PERIOD LENGTH",
     "hint6": "NUMBER ELECTED",
@@ -77,7 +78,6 @@ export default {
     "hint8": "MEDIUM THRESHOLD",
     "hint9": "LOW THRESHOLD",
     "hint10": "MAX VOTE",
-    "hint11": "VOTE QUORUM PERCENT",
     ///// left part
     "title": "Custodian Configuration",
     "only_digits_are_available": "Only digits are available",
@@ -105,5 +105,17 @@ export default {
   "step5": {
     "title": "Pay & Create DAC",
     "info_line1": "TBD: Pay & Create DAC",
+    ///// left part
+    "pay_month": "Pay month to month.",
+    "creation_of_account": "Creation of Accounts",
+    "once_you": "Once you purchase, the DAC will be initially under the control of the account which set it up",
+    "i_agree_with": "I agree with",
+    "terms": "terms",
+    "conditions": "conditions",
+    /////
+    "30_days": "30 days",
+    "due_on": "due on the 1st of each month",
+    "pay": "pay",
+    "pay_in": "pay in"
   },
 }

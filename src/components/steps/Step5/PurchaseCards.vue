@@ -1,22 +1,7 @@
 <template>
   <div class="wrapper">
-    <purchase-card
-      header="monthly"
-      eosQuantity="10"
-      eosDacQuantity="1000"
-      timeInfo="Per month"
-      hint="due on the 1st of each month"
-      :isAgree="isAgree"
-      :onCheckboxError="onCheckboxError"
-    />
-    <purchase-card
-      header="yearly"
-      eosQuantity="100"
-      eosDacQuantity="10,000"
-      timeInfo="One-time Purchase"
-      :isAgree="isAgree"
-      :onCheckboxError="onCheckboxError"
-    />
+    <purchase-card header="EOS" quantity="40" hint :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
+    <purchase-card header="EOSDAC" quantity="10,000" :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
   </div>
 </template>
 
@@ -34,23 +19,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.wrapper {
-  position: absolute;
-  right: 110px;
-  top: 0;
-  display: flex;
-}
-@media (max-width: 1059px) {
-  .wrapper {
-    position: static;
-    margin-top: 30px;
-  }
-}
-@media (max-width: 479px) {
-  .wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+<style scoped lang="stylus">
+.wrapper
+  position absolute
+  right 110px
+  top 0
+  display flex
+  @media (max-width: 1059px)
+    position static
+    margin-top 30px
+  @media (max-width: 479px)
+    flex-direction column
+    align-items center
 </style>

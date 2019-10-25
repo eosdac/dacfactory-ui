@@ -67,7 +67,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 
 export function prepareDacTransact({ state, dispatch }, payload) {
   const { accountName } = state;
-  const { stepsData, tokenToPay, payTokenQuantity, tariffName } = payload;
+  const { stepsData, payTokenSymbol, payTokenQuantity } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -83,10 +83,12 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     thresholdLow,
     maxVotes
   } = stepsData[3];
-  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4]; // how to set up this color into colors?
+  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
   const { DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
+  const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -158,7 +160,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: "10.0000 EOS",
+        quantity: "5.0000 EOS",
         memo: `${dacId}:_setup`
       }
     },
@@ -180,6 +182,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       }
     }
   ];
+
   dispatch("transact", { actions });
 }
 
