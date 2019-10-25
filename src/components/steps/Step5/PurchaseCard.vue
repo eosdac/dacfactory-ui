@@ -58,6 +58,7 @@ export default {
   },
   methods: {
     transfer(payTokenSymbol) {
+      this.scrollPageToBottomIfNeeded();
       if (!this.isAgree) {
         this.onCheckboxError();
         return;
@@ -78,6 +79,14 @@ export default {
           : `${parseInt(this.quantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
 
       this.$store.dispatch("ual/prepareDacTransact", { stepsData, payTokenSymbol, payTokenQuantity });
+    },
+    scrollPageToBottomIfNeeded() {
+      if (window.innerWidth > 1059) {
+        return;
+      }
+      window.scrollTo({
+        top: document.documentElement.offsetHeight - window.innerHeight,
+      });
     }
   }
 };
