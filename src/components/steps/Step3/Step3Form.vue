@@ -54,12 +54,11 @@
       v-model="numberElected"
       @statusChange="onStatusChange($event, 'numberElected')"
     />
-    <vote-threshold />
     <my-input
       type="number"
       color="secondary"
       label="Max Votes"
-      class="max-votes"
+      class="margin-bottom-14"
       :rules="[val => !!val && /^\d+$/.test(val) || $t('step3.only_digits_are_available')]"
       v-model="maxVotes"
       @statusChange="onStatusChange($event, 'maxVotes')"
@@ -68,13 +67,11 @@
 </template>
 
 <script>
-import VoteThreshold from "components/form/vote-threshold";
 import MyInput from "components/form/my-input";
 import CustomDivider from "./CustomDivider";
 
 export default {
   components: {
-    VoteThreshold,
     MyInput,
     CustomDivider
   },
@@ -97,16 +94,11 @@ export default {
 };
 </script>
 
-<style scoped>
-.margin-bottom-14 {
-  margin-bottom: 14px;
-}
-.max-votes {
-  margin: 20px 0 14px;
-}
-.lockup-wrapper {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 28px;
-}
+<style scoped lang="stylus">
+.margin-bottom-14
+  margin-bottom 14px
+.lockup-wrapper
+  display grid
+  grid-template-columns 2fr 1fr
+  grid-gap 28px
 </style>

@@ -1,10 +1,11 @@
+import { processThresholdFromNE, THRESHOLD_HIGH, THRESHOLD_MIDDLE, THRESHOLD_LOW } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
-export async function renderLoginModal({ state, commit, dispatch }) {
+export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
 }
 
-export async function logout({ state, commit, dispatch }) {
+export async function logout({ state, commit }) {
   let activeAuth = state.activeAuthenticator;
   if (activeAuth) {
     console.log(`Logging out from authenticator: ${activeAuth.getStyle().text}`);
@@ -78,9 +79,6 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     lockupSelect,
     periodLength,
     numberElected,
-    thresholdHigh,
-    thresholdMed,
-    thresholdLow,
     maxVotes
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
@@ -136,9 +134,9 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
       vote_quorum_percent: 1,
-      auth_threshold_high: thresholdHigh,
-      auth_threshold_mid: thresholdMed,
-      auth_threshold_low: thresholdLow,
+      auth_threshold_high: processThresholdFromNE(numberElected, THRESHOLD_HIGH),
+      auth_threshold_mid: processThresholdFromNE(numberElected, THRESHOLD_MIDDLE),
+      auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
         quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,

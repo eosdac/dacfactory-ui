@@ -74,9 +74,6 @@ export default {
     "hint4": "LOCKUP",
     "hint5": "PERIOD LENGTH",
     "hint6": "NUMBER ELECTED",
-    "hint7": "HIGH THRESHOLD",
-    "hint8": "MEDIUM THRESHOLD",
-    "hint9": "LOW THRESHOLD",
     "hint10": "MAX VOTE",
     ///// left part
     "title": "Custodian Configuration",

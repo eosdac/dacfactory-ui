@@ -1,11 +1,13 @@
 <template>
   <section :class="['card', hint ? 'first-card' : 'second-card']">
     <h3 class="card-header">{{ $t("step5.pay_in") }} {{ header }}</h3>
-    <p class="eos-quantity">
+    <div class="card-body">
+    <p class="quantity">
       {{ quantity }}<span>{{ header }}</span>
     </p>
     <p class="time-info">{{ $t("step5.30_days") }}</p>
     <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
+    </div>
     <div class="card-footer">
       <q-btn
         :label="$t('step5.pay')"
@@ -108,11 +110,16 @@ p
   letter-spacing 0.36px
   line-height 19px
   text-transform uppercase
-.eos-quantity
+.card-body
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  height: 276px
+.quantity
   display flex
   flex-direction column
   align-items center
-  margin-top 24px
   font-size 46px
   line-height normal
   & > span
@@ -155,7 +162,6 @@ p
   display flex
   align-items center
   height 104px
-  margin-top auto
   & > button
     margin 0
 @media (max-width: 479px)

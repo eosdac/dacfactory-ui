@@ -18,9 +18,6 @@ export default {
       lockupSelect: 'Hour(s)',
       periodLength: '',
       numberElected: '',
-      thresholdHigh: 4,
-      thresholdMed: 0,
-      thresholdLow: 0,
       maxVotes: ''
     },
     4: {
