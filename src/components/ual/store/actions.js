@@ -1,4 +1,4 @@
-import { processThresholdFromNE, THRESHOLD_HIGH, THRESHOLD_MIDDLE, THRESHOLD_LOW } from "imports/utils";
+import { processThresholdFromNE, THRESHOLD_HIGH, THRESHOLD_MIDDLE, THRESHOLD_LOW, createColorsScheme } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
 export async function renderLoginModal({ commit }) {
@@ -81,7 +81,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     numberElected,
     maxVotes
   } = stepsData[3];
-  const { websiteURL, logoURL, logoMarkURL, color } = stepsData[4];
+  const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
   const { DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
@@ -110,18 +110,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     background_url: "",
     theme: {
       is_dark: true,
-      colors: {
-        $warning: "#f2e285",
-        primary: "#ba5f34",
-        bg1: "#1f130d",
-        bg2: "#574943",
-        text1: "rgba(255,255,255,0.9)",
-        text2: "rgba(255,255,255,0.7)",
-        info: "#4583ba",
-        positive: "#21ba45",
-        negative: "#db2828",
-        dark: "#3d2d27"
-      }
+      colors: createColorsScheme(colorsScheme)
     },
     custodian_config: {
       lockupasset: {

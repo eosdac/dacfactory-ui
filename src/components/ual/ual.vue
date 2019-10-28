@@ -124,9 +124,9 @@ export default {
       try {
         console.log("authenticator object", authenticator);
         if (this.accountname) {
-          users = await authenticator.scatter.login(this.accountname);
+          users = await authenticator.login(this.accountname);
         } else {
-          users = await authenticator.scatter.login();
+          users = await authenticator.login();
         }
         if (!users) {
           return;
@@ -143,8 +143,7 @@ export default {
         this.resetUI();
       } catch (err) {
         this.bar_msg = "";
-        console.log("Errorx", err);
-        console.log("Errorx cause", err.cause ? err.cause : "");
+        console.log(err.cause ? err.cause : err);
         let m = "Service unavailable";
         if (authenticator) {
           m = authenticator.getError() || err;
@@ -185,8 +184,6 @@ export default {
 
 <style>
 .authenticator_not_available {
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
   opacity: 0.5;
   filter: alpha(opacity=50);
   background-color: #c6c6c6 !important;

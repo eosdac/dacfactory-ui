@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log("clicked", this.name);
       this.isClicked = true;
       this.$emit("login", this.authenticator);
     }

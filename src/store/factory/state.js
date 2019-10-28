@@ -24,7 +24,10 @@ export default {
       websiteURL: '',
       logoURL: '',
       logoMarkURL: '',
-      color: ''
+      colorsScheme: 'light'
+    },
+    5: {
+      isAgree: false
     }
   }
 }
