@@ -96,8 +96,7 @@ export default {
     "title": "DAC Brand & URL",
     "website_url_alt_hint": "Valid URL is required",
     "svg_url_alt_hint": "URL to *.svg file is required",
-    "random_button": "Random",
-    "color_palette": "Color Palette"
+    "colors_scheme": "Colors Scheme"
   },
   "step5": {
     "title": "Pay & Create DAC",

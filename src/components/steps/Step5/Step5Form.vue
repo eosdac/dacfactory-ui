@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="info-text max-width-260">{{ $t("step5.pay_month") }}}</p>
+    <p class="info-text max-width-260">{{ $t("step5.pay_month") }}</p>
     <div class="table-wrapper">
       <div class="table">
         <p class="info-text text1">{{ $t("step5.creation_of_account") }}</p>
@@ -32,7 +32,7 @@ import PurchaseCards from "components/steps/Step5/PurchaseCards";
 export default {
   data() {
     return {
-      isAgree: false,
+      isAgree: this.$store.state.factory.stepsData[5].isAgree,
       checkboxError: false,
       timeoutId: null
     };
@@ -43,6 +43,7 @@ export default {
   methods: {
     onInputCheckbox() {
       this.isAgree = !this.isAgree;
+      this.$store.commit("factory/setStepsData", { step: 5, key: "isAgree", data: { value: this.isAgree } });
       this.checkboxError = false;
     },
     onCheckboxError() {

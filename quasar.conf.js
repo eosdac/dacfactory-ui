@@ -57,6 +57,7 @@ module.exports = function(ctx) {
         "QCarouselControl",
         "QCarouselSlide",
         "QBtnDropdown",
+        "QRadio",
         "QVideo",
         "QLinearProgress",
         "QSlider",
