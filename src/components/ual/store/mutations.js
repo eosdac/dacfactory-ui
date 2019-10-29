@@ -1,28 +1,28 @@
 export function setShouldRenderLoginModal(state, payload) {
-    state.showLoginModal = payload;
+  state.showLoginModal = payload;
 }
 
 export function setSigningOverlay(state, payload) {
-    state.signingOverlay = Object.assign(state.signingOverlay, payload);
+  state.signingOverlay = Object.assign(state.signingOverlay, payload);
 }
 
 export function setUAL(state, payload) {
-    state.UAL = payload;
+  state.UAL = payload;
 }
 
 export function setActiveAuthenticator(state, payload) {
-    state.activeAuthenticator = payload;
+  state.activeAuthenticator = payload;
 }
 
 export function setSESSION(state, payload) {
-    payload.timestamp = new Date().getTime();
-    state.SESSION = Object.assign(state.SESSION, payload);
+  payload.timestamp = new Date().getTime();
+  state.SESSION = Object.assign(state.SESSION, payload);
 }
 
 export function setAccountName(state, payload) {
-    state.accountName = payload;
+  state.accountName = payload;
 }
 
-
-
-
+export function setDacId(state, payload) {
+  state.dacId = payload;
+}

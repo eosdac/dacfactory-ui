@@ -72,9 +72,9 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
   }
 }
 
-export function prepareDacTransact({ state, dispatch }, payload) {
+export function prepareDacTransact({ state, commit, dispatch }, payload) {
   const { accountName } = state;
-  const { stepsData, payTokenSymbol, payTokenQuantity } = payload;
+  const { stepsData, payTokenSymbol, payTokenQuantity, pushCallback } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -87,6 +87,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
   const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
 
   const dacId = processDacNameInId(dacName);
+  commit("setDacId", dacId);
   // TODO remove || 1 after proper validation will be added to fields
   const dacData = {
     id: dacId,
@@ -169,31 +170,33 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     }
   ];
 
-  dispatch("transact", { actions });
+  dispatch("transact", { actions, callback: pushCallback });
 }
 
 export async function transact({ state, dispatch, commit }, payload) {
+  const { actions, callback } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
   const user = state.activeAuthenticator.users[0];
-  const actions = { ...payload.actions[0] };
+  const copiedActions = { ...actions[0] };
 
   //add authorization to act ions if not supplied
-  if (!actions.authorization) {
-    actions.authorization = [{ actor: user.accountName, permission: "active" }];
+  if (!copiedActions.authorization) {
+    copiedActions.authorization = [{ actor: user.accountName, permission: "active" }];
   }
 
   //sign
   try {
-    let res = await user.signTransaction({ actions: [actions] }, { broadcast: true });
+    let res = await user.signTransaction({ actions: [copiedActions] }, { broadcast: true });
     console.log(res);
     commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction Successful" });
-    dispatch("hideSigningOverlay", 1000);
-    return res;
+    await dispatch("hideSigningOverlay", 1000);
+    if (callback && typeof callback === "function") {
+      callback();
+    }
   } catch (e) {
     console.log(e, e.cause);
     commit("setSigningOverlay", { show: true, status: 2, msg: await dispatch("parseUalError", e) });
     dispatch("hideSigningOverlay", 2000);
-    return false;
   }
 }
 
@@ -207,9 +210,11 @@ export async function parseUalError({}, error) {
   return `${error}. ${cause} ${error_code}`;
 }
 
-export async function hideSigningOverlay({ commit }, ms = 10000) {
-  await new Promise(resolve => {
-    setTimeout(resolve, ms);
+export function hideSigningOverlay({ commit }, ms = 10000) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      commit("setSigningOverlay", { show: false, status: 0 });
+      resolve();
+    }, ms);
   });
-  commit("setSigningOverlay", { show: false, status: 0 });
 }

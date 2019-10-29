@@ -93,19 +93,16 @@
         </q-item>
       </q-list>
     </q-drawer>
-
     <q-page-container class="text-white bg-accent">
       <router-view />
     </q-page-container>
-
-    <q-footer class="bg-accent">
+    <q-footer class="bg-accent" v-if="currentPath !== '/dac-creation'">
       <stepper />
     </q-footer>
   </q-layout>
 </template>
 
 <script>
-import { openURL } from "quasar";
 import { mapGetters } from "vuex";
 import Stepper from "components/steps/Stepper";
 
@@ -116,7 +113,8 @@ export default {
   },
   data() {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      currentPath: this.$router.history.current.path
     };
   },
   computed: {
@@ -125,8 +123,8 @@ export default {
       getShouldRenderLoginModal: "ual/getShouldRenderLoginModal"
     })
   },
-  methods: {
-    openURL
+  updated() {
+    this.currentPath = this.$router.history.current.path;
   }
 };
 </script>

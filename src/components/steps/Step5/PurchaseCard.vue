@@ -78,7 +78,12 @@ export default {
           ? `${parseInt(this.quantity).toFixed(4)} ${this.EOS_TOKEN}`
           : `${parseInt(this.quantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
 
-      this.$store.dispatch("ual/prepareDacTransact", { stepsData, payTokenSymbol, payTokenQuantity });
+      this.$store.dispatch("ual/prepareDacTransact", {
+        stepsData,
+        payTokenSymbol,
+        payTokenQuantity,
+        pushCallback: this.pushCallback
+      });
     },
     scrollPageToBottomIfNeeded() {
       if (window.innerWidth > 1059) {
@@ -87,6 +92,9 @@ export default {
       window.scrollTo({
         top: document.documentElement.offsetHeight - window.innerHeight
       });
+    },
+    pushCallback() {
+      this.$router.push("/dac-creation");
     }
   }
 };
@@ -173,7 +181,7 @@ p
   height 104px
   & > button
     margin 0
-@media (max-width: 479px)
+@media (max-width 479px)
   .first-card
     margin 0
   .second-card
