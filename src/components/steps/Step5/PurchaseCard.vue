@@ -2,11 +2,11 @@
   <section :class="['card', hint ? 'first-card' : 'second-card']">
     <h3 class="card-header">{{ $t("step5.pay_in") }} {{ header }}</h3>
     <div class="card-body">
-    <p class="quantity">
-      {{ quantity }}<span>{{ header }}</span>
-    </p>
-    <p class="time-info">{{ $t("step5.30_days") }}</p>
-    <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
+      <p class="quantity">
+        {{ quantity }}<span>{{ header }}</span>
+      </p>
+      <p class="time-info">{{ $t("step5.30_days") }}</p>
+      <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
     <div class="card-footer">
       <q-btn
@@ -85,7 +85,7 @@ export default {
         return;
       }
       window.scrollTo({
-        top: document.documentElement.offsetHeight - window.innerHeight,
+        top: document.documentElement.offsetHeight - window.innerHeight
       });
     }
   }

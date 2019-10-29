@@ -46,7 +46,7 @@ export default {
           limit: 8
         })
         .catch(event => {
-          console.error(event)
+          console.error(event);
         });
       if (res) {
         return res.rows.map(x => x.owner);
@@ -68,14 +68,14 @@ export default {
   },
   watch: {
     lockupAsset(value) {
-      this.$store.commit("factory/setStepsData", { step: 3, key: 'lockupAsset', data: { value } });
+      this.$store.commit("factory/setStepsData", { step: 3, key: "lockupAsset", data: { value } });
     }
   }
 };
 </script>
 
 <style scoped>
-  .wrapper {
-    margin-bottom: 16px;
-  }
+.wrapper {
+  margin-bottom: 16px;
+}
 </style>

@@ -13,11 +13,13 @@
         <q-checkbox dark keep-color :value="isAgree" :color="checkboxError ? 'red' : ''" @input="onInputCheckbox" />
         <p :class="checkboxError ? 'checkbox-error terms-conditions-anim' : 'checkbox-normal'">
           {{ $t("step5.i_agree_with") }}
-          <router-link to="/terms" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
-            >{{ $t("step5.terms") }}</router-link
-          >
+          <router-link to="/terms" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'">{{
+            $t("step5.terms")
+          }}</router-link>
           {{ $t("general.and") }}
-          <router-link to="/conditions" :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
+          <router-link
+            to="/conditions"
+            :class="checkboxError ? 'terms-conditions-link-error' : 'terms-conditions-link'"
             >{{ $t("step5.conditions") }}</router-link
           >
         </p>

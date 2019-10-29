@@ -1,4 +1,10 @@
-import { processThresholdFromNE, THRESHOLD_HIGH, THRESHOLD_MIDDLE, THRESHOLD_LOW, createColorsScheme } from "imports/utils";
+import {
+  processThresholdFromNE,
+  THRESHOLD_HIGH,
+  THRESHOLD_MIDDLE,
+  THRESHOLD_LOW,
+  createColorsScheme
+} from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
 export async function renderLoginModal({ commit }) {
@@ -72,15 +78,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
-  const {
-    lockupAsset,
-    maxRequestPay,
-    lockup,
-    lockupSelect,
-    periodLength,
-    numberElected,
-    maxVotes
-  } = stepsData[3];
+  const { lockupAsset, maxRequestPay, lockup, lockupSelect, periodLength, numberElected, maxVotes } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
@@ -159,7 +157,8 @@ export function prepareDacTransact({ state, dispatch }, payload) {
         to: DAC_FACTORY,
         quantity: payTokenQuantity,
         memo: `${dacId}:${tariffName}`
-      }},
+      }
+    },
     {
       account: DAC_FACTORY,
       name: "createdac",
