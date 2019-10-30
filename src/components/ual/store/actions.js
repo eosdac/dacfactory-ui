@@ -146,7 +146,7 @@ export function prepareDacTransact({ state, commit, dispatch }, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: "5.0000 EOS",
+        quantity: "20.0000 EOS",
         memo: `${dacId}:_setup`
       }
     },
@@ -177,30 +177,28 @@ export async function transact({ state, dispatch, commit }, payload) {
   const { actions, callback } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
   const user = state.activeAuthenticator.users[0];
-  const copiedActions = { ...actions[0] };
-
-  //add authorization to act ions if not supplied
-  if (!copiedActions.authorization) {
-    copiedActions.authorization = [{ actor: user.accountName, permission: "active" }];
-  }
+  const copiedActions = actions.map((action, index) => ({
+    ...actions[index],
+    authorization: [{ actor: user.accountName, permission: "active" }]
+  }));
 
   //sign
   try {
-    let res = await user.signTransaction({ actions: [copiedActions] }, { broadcast: true });
-    console.log(res);
-    commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction Successful" });
-    await dispatch("hideSigningOverlay", 1000);
     if (callback && typeof callback === "function") {
+      //await user.signTransaction({ actions: [copiedActions] }, { broadcast: true });
+      commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction Successful" });
+      await dispatch("hideSigningOverlay", 1000);
+      console.log('transact finished');
       callback();
     }
   } catch (e) {
     console.log(e, e.cause);
-    commit("setSigningOverlay", { show: true, status: 2, msg: await dispatch("parseUalError", e) });
+    commit("setSigningOverlay", { show: true, status: 2, msg: dispatch("parseUalError", e) });
     dispatch("hideSigningOverlay", 2000);
   }
 }
 
-export async function parseUalError({}, error) {
+export function parseUalError({}, error) {
   let cause = "unknown cause";
   let error_code = "";
   if (error.cause) {

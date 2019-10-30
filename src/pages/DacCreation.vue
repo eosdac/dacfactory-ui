@@ -1,7 +1,7 @@
 <template>
-  <q-page class="bg-accent hack-height">
+  <q-page class="bg-accent hack-height" v-if="dacId">
     <section class="content-wrapper">
-      <h1 class="title">Please, wait while your dac will created</h1>
+      <h1 class="title">{{ wsError ? wsError : "Please, wait while your dac will be created" }}</h1>
       <p class="status-text">{{ currentMessage }}</p>
       <progress-bar :filled="doneCounter / stepsNumber" />
     </section>
@@ -17,28 +17,33 @@ export default {
   },
   data() {
     return {
-      currentMessage: "here will be statuses from ws",
+      currentMessage: "connecting...",
+      dacId: this.$store.state.ual.dacId,
       doneCounter: 0,
-      stepsNumber: 20
+      stepsNumber: 20,
+      wsError: null
     };
   },
-  created() {
-    if (!this.$store.state.ual.dacId) {
-      this.$router.push("/");
-    }
-  },
   mounted() {
+    if (!this.dacId) {
+      this.$router.push("/");
+      return;
+    }
     const ws = new WebSocket(process.env.DAC_CREATION_WS);
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({ type: "register", data: { dac_id: this.$store.state.ual.dacId } }));
+      //ws.send(JSON.stringify({ type: "register", data: { dac_id: this.dacId } }));
     };
     ws.onmessage = msg => {
+      console.log(msg, "msg");
       this.currentMessage = msg.data;
       this.doneCounter++;
     };
-    ws.onerror = error => {
-      console.log(error);
+    ws.onerror = () => {
+      this.wsError = "Error occurred. Please try again";
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 2000);
     };
   }
 };

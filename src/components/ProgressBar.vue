@@ -25,8 +25,6 @@ export default {
 .loading-line
   width 100%
   height 100%
-  border-radius inherit
-  transform translateX(-10%)
   background-color $primary
   transition transform .2s
 </style>

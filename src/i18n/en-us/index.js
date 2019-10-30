@@ -102,7 +102,6 @@ export default {
     ///// left part
     title: "DAC Brand & URL",
     website_url_alt_hint: "Valid URL is required",
-    svg_url_alt_hint: "URL to *.svg file is required",
     colors_scheme: "Colors Scheme"
   },
   step5: {

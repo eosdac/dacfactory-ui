@@ -96,7 +96,7 @@
     <q-page-container class="text-white bg-accent">
       <router-view />
     </q-page-container>
-    <q-footer class="bg-accent" v-if="currentPath !== '/dac-creation'">
+    <q-footer class="bg-accent" v-if="exceptDacCreationPage">
       <stepper />
     </q-footer>
   </q-layout>
@@ -113,18 +113,17 @@ export default {
   },
   data() {
     return {
-      leftDrawerOpen: false,
-      currentPath: this.$router.history.current.path
+      leftDrawerOpen: false
     };
   },
   computed: {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getShouldRenderLoginModal: "ual/getShouldRenderLoginModal"
-    })
-  },
-  updated() {
-    this.currentPath = this.$router.history.current.path;
+    }),
+    exceptDacCreationPage() {
+      return this.$route.path !== '/dac-creation'
+    }
   }
 };
 </script>

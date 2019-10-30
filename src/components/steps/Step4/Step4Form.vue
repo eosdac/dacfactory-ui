@@ -13,7 +13,7 @@
       color="secondary"
       label="Logo URL"
       hint="external link to a file"
-      :rules="[val => urlRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
+      :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
       class="margin-add-bottom-8"
       v-model="logoURL"
       @statusChange="onStatusChange($event, 'logoURL')"
@@ -22,7 +22,7 @@
       color="secondary"
       label="Logomark URL"
       hint="external link to a file"
-      :rules="[val => urlRegExp.test(val) || $t('step4.svg_url_alt_hint')]"
+      :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
       v-model="logoMarkURL"
       @statusChange="onStatusChange($event, 'logoMarkURL')"
     />
