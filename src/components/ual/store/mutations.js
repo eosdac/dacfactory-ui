@@ -23,6 +23,6 @@ export function setAccountName(state, payload) {
   state.accountName = payload;
 }
 
-export function setDacId(state, payload) {
-  state.dacId = payload;
+export function setPayTokenSymbol(state, payload) {
+  state.payTokenSymbol = payload;
 }

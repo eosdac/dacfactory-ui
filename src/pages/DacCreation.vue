@@ -1,9 +1,12 @@
 <template>
-  <q-page class="bg-accent hack-height" v-if="dacId">
-    <section class="content-wrapper">
-      <h1 class="title">{{ wsError ? wsError : "Please, wait while your dac will be created" }}</h1>
+  <q-page class="bg-accent hack-height" v-if="payTokenSymbol">
+    <section class="content-wrapper" v-if="trxSuccess && !wsError">
+      <p class="title">Please, wait while your dac will be created</p>
       <p class="status-text">{{ currentMessage }}</p>
-      <progress-bar :filled="doneCounter / stepsNumber" />
+      <!--<progress-bar :filled="doneCounter / stepsNumber" />-->
+    </section>
+    <section class="content-wrapper" v-else-if="trxError || wsError">
+      <p class="title" style="color:red">{{ trxError || wsError }}</p>
     </section>
   </q-page>
 </template>
@@ -17,34 +20,51 @@ export default {
   },
   data() {
     return {
-      currentMessage: "connecting...",
-      dacId: this.$store.state.ual.dacId,
+      currentMessage: "fg",
+      payTokenSymbol: this.$store.state.ual.payTokenSymbol,
       doneCounter: 0,
-      stepsNumber: 20,
-      wsError: null
+      /*stepsNumber: 20,*/
+      wsError: null,
+      trxSuccess: null,
+      trxError: null
     };
   },
   mounted() {
-    if (!this.dacId) {
+    if (!this.payTokenSymbol) {
       this.$router.push("/");
       return;
     }
-    const ws = new WebSocket(process.env.DAC_CREATION_WS);
+    this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+  },
+  methods: {
+    openWS(dacId) {
+      const ws = new WebSocket(process.env.DAC_CREATION_WS);
 
-    ws.onopen = () => {
-      //ws.send(JSON.stringify({ type: "register", data: { dac_id: this.dacId } }));
-    };
-    ws.onmessage = msg => {
-      console.log(msg, "msg");
-      this.currentMessage = msg.data;
-      this.doneCounter++;
-    };
-    ws.onerror = () => {
-      this.wsError = "Error occurred. Please try again";
-      setTimeout(() => {
-        this.$router.push("/");
-      }, 2000);
-    };
+      ws.onopen = () => {
+        console.log("opened");
+        ws.send(JSON.stringify({ type: "register", data: { dac_id: dacId } }));
+      };
+      ws.onmessage = msg => {
+        console.log("msg", msg);
+        this.currentMessage = msg.data;
+        this.doneCounter++;
+      };
+      ws.onerror = error => {
+        this.wsError = "WS error occurred.";
+        console.log(error, "error");
+      };
+      ws.onclose = e => {
+        this.wsError = "Connection's closed";
+        console.log(e, "closed");
+      };
+    },
+    afterTransact(message, isSuccess) {
+      if (isSuccess) {
+        this.trxSuccess = message
+      } else {
+        this.trxError = message
+      }
+    }
   }
 };
 </script>

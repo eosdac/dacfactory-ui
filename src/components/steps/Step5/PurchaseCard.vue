@@ -65,7 +65,6 @@ export default {
       }
 
       const {
-        factory: { stepsData },
         ual: { activeAuthenticator, accountName }
       } = this.$store.state;
       if (!activeAuthenticator || !accountName) {
@@ -73,17 +72,8 @@ export default {
         return;
       }
 
-      const payTokenQuantity =
-        payTokenSymbol === this.EOS_TOKEN
-          ? `${parseInt(this.quantity).toFixed(4)} ${this.EOS_TOKEN}`
-          : `${parseInt(this.quantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
-
-      this.$store.dispatch("ual/prepareDacTransact", {
-        stepsData,
-        payTokenSymbol,
-        payTokenQuantity,
-        pushCallback: this.pushCallback
-      });
+      this.$store.commit("ual/setPayTokenSymbol", payTokenSymbol);
+      this.$router.push("/dac-creation");
     },
     scrollPageToBottomIfNeeded() {
       if (window.innerWidth > 1059) {
@@ -92,9 +82,6 @@ export default {
       window.scrollTo({
         top: document.documentElement.offsetHeight - window.innerHeight
       });
-    },
-    pushCallback() {
-      this.$router.push("/dac-creation");
     }
   }
 };

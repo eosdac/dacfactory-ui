@@ -72,9 +72,15 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
   }
 }
 
-export function prepareDacTransact({ state, commit, dispatch }, payload) {
-  const { accountName } = state;
-  const { stepsData, payTokenSymbol, payTokenQuantity, pushCallback } = payload;
+export function prepareDacTransact(storeProps, payload) {
+  const {
+    rootState: {
+      factory: { stepsData },
+      ual: { accountName, payTokenSymbol }
+    },
+    dispatch
+  } = storeProps;
+  const {openWS, afterTransact} = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -82,12 +88,12 @@ export function prepareDacTransact({ state, commit, dispatch }, payload) {
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const { DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const { EOS_TOKEN_CONTRACT, DAC_TOKEN_CONTRACT, DAC_FACTORY, DAC_TOKEN } = process.env;
   const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
   const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
+  const payTokenQuantity = payTokenSymbol === 'EOS' ? '20.000 EOS' : `5000.0000 ${DAC_TOKEN}`;
 
   const dacId = processDacNameInId(dacName);
-  commit("setDacId", dacId);
   // TODO remove || 1 after proper validation will be added to fields
   const dacData = {
     id: dacId,
@@ -128,7 +134,7 @@ export function prepareDacTransact({ state, commit, dispatch }, payload) {
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
         quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,
-        contract: "eosio.token"
+        contract: EOS_TOKEN_CONTRACT
       }
     },
     proposals_config: {
@@ -146,8 +152,8 @@ export function prepareDacTransact({ state, commit, dispatch }, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: "20.0000 EOS",
-        memo: `${dacId}:_setup`
+        quantity: payTokenQuantity,
+        memo: `${dacId}:${tariffName}`
       }
     },
     {
@@ -157,7 +163,7 @@ export function prepareDacTransact({ state, commit, dispatch }, payload) {
         from: accountName,
         to: DAC_FACTORY,
         quantity: payTokenQuantity,
-        memo: `${dacId}:${tariffName}`
+        memo: `${dacId}:_setup`
       }
     },
     {
@@ -170,11 +176,11 @@ export function prepareDacTransact({ state, commit, dispatch }, payload) {
     }
   ];
 
-  dispatch("transact", { actions, callback: pushCallback });
+  dispatch("transact", { actions, dacId, openWS, afterTransact });
 }
 
 export async function transact({ state, dispatch, commit }, payload) {
-  const { actions, callback } = payload;
+  const { actions, dacId, openWS, afterTransact } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
   const user = state.activeAuthenticator.users[0];
   const copiedActions = actions.map((action, index) => ({
@@ -182,29 +188,28 @@ export async function transact({ state, dispatch, commit }, payload) {
     authorization: [{ actor: user.accountName, permission: "active" }]
   }));
 
-  //sign
+  openWS(dacId);
   try {
-    if (callback && typeof callback === "function") {
-      //await user.signTransaction({ actions: [copiedActions] }, { broadcast: true });
-      commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction Successful" });
-      await dispatch("hideSigningOverlay", 1000);
-      console.log('transact finished');
-      callback();
-    }
+    await user.signTransaction({ actions: copiedActions }, { broadcast: true });
+    console.log("transact finished");
+    const successMessage = "Transaction was finished successfully";
+    commit("setSigningOverlay", { show: true, status: 1, msg: successMessage });
+    await dispatch("hideSigningOverlay", 800);
+    afterTransact(successMessage, true)
   } catch (e) {
-    console.log(e, e.cause);
-    commit("setSigningOverlay", { show: true, status: 2, msg: dispatch("parseUalError", e) });
-    dispatch("hideSigningOverlay", 2000);
+    await dispatch("hideSigningOverlay", 0);
+    afterTransact(parseUalError(e), false)
   }
 }
 
-export function parseUalError({}, error) {
+function parseUalError(error) {
   let cause = "unknown cause";
   let error_code = "";
   if (error.cause) {
     cause = error.cause.reason || error.cause.message || "Report this error to the eosdac devs to enhance the UX";
     error_code = error.cause.code || error.cause.errorCode;
   }
+  console.log(cause);
   return `${error}. ${cause} ${error_code}`;
 }
 

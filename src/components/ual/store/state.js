@@ -14,5 +14,5 @@ export default {
     authenticatorName: null,
     timestamp: null
   },
-  dacId: null
+  payTokenSymbol: null
 };
