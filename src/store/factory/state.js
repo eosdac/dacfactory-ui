@@ -2,28 +2,28 @@ export default {
   activeStep: 0,
   stepsData: {
     1: {
-      dacName: "test12",
-      dacDescription: "description is here",
-      tokenSymbol: "TEF"
+      dacName: "",
+      dacDescription: "",
+      tokenSymbol: ""
     },
     2: {
-      maxSupply: 10000000000,
-      issuance: 1000000000,
+      maxSupply: "",
+      issuance: "",
       decimals: "4"
     },
     3: {
-      lockupAsset: 10,
-      maxRequestPay: 2,
-      lockup: 1,
+      lockupAsset: "",
+      maxRequestPay: "",
+      lockup: "",
       lockupSelect: "Hour(s)",
-      periodLength: 3,
-      numberElected: 5,
-      maxVotes: 5
+      periodLength: "",
+      numberElected: "",
+      maxVotes: ""
     },
     4: {
-      websiteURL: "https://app.slack.com/",
-      logoURL: "https://jungle.bloks.io/img/bloks_logomark.svg",
-      logoMarkURL: "https://jungle.bloks.io/img/bloks_logomark.svg",
+      websiteURL: "",
+      logoURL: "",
+      logoMarkURL: "",
       colorsScheme: "light"
     },
     5: {
