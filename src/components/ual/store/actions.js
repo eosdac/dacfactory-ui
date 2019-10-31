@@ -80,7 +80,7 @@ export function prepareDacTransact(storeProps, payload) {
     },
     dispatch
   } = storeProps;
-  const {openWS, afterTransact} = payload;
+  const { openWS, afterTransact } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -91,7 +91,7 @@ export function prepareDacTransact(storeProps, payload) {
   const { EOS_TOKEN_CONTRACT, DAC_TOKEN_CONTRACT, DAC_FACTORY, DAC_TOKEN } = process.env;
   const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
   const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
-  const payTokenQuantity = payTokenSymbol === 'EOS' ? '20.000 EOS' : `5000.0000 ${DAC_TOKEN}`;
+  const payTokenQuantity = payTokenSymbol === "EOS" ? "20.000 EOS" : `5000.0000 ${DAC_TOKEN}`;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -192,13 +192,12 @@ export async function transact({ state, dispatch, commit }, payload) {
   try {
     await user.signTransaction({ actions: copiedActions }, { broadcast: true });
     console.log("transact finished");
-    const successMessage = "Transaction was finished successfully";
-    commit("setSigningOverlay", { show: true, status: 1, msg: successMessage });
+    commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
     await dispatch("hideSigningOverlay", 800);
-    afterTransact(successMessage, true)
+    afterTransact();
   } catch (e) {
     await dispatch("hideSigningOverlay", 0);
-    afterTransact(parseUalError(e), false)
+    afterTransact(parseUalError(e));
   }
 }
 

@@ -58,9 +58,9 @@ export default {
         console.log(e, "closed");
       };
     },
-    afterTransact(message, isSuccess) {
-      if (isSuccess) {
-        this.trxSuccess = message
+    afterTransact(message) {
+      if (!message) {
+        this.trxSuccess = true
       } else {
         this.trxError = message
       }
