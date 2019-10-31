@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      currentMessage: "fg",
+      currentMessage: "",
       payTokenSymbol: this.$store.state.ual.payTokenSymbol,
       doneCounter: 0,
       /*stepsNumber: 20,*/
