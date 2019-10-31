@@ -91,7 +91,7 @@ export function prepareDacTransact(storeProps, payload) {
   const { EOS_TOKEN_CONTRACT, DAC_TOKEN_CONTRACT, DAC_FACTORY, DAC_TOKEN } = process.env;
   const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
   const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
-  const payTokenQuantity = payTokenSymbol === "EOS" ? "20.000 EOS" : `5000.0000 ${DAC_TOKEN}`;
+  const payTokenQuantity = payTokenSymbol === "EOS" ? "20.0000 EOS" : `5000.0000 ${DAC_TOKEN}`;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
