@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-accent hack-height" v-if="payTokenSymbol">
+  <q-page class="bg-accent hack-height" v-if="payTokenType">
     <section class="content-wrapper" v-if="trxSuccess && !wsError">
       <p class="title">Please, wait while your dac will be created</p>
       <p class="status-text">{{ currentMessage }}</p>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       currentMessage: "",
-      payTokenSymbol: this.$store.state.ual.payTokenSymbol,
+      payTokenType: this.$store.state.ual.payTokenType,
       doneCounter: 0,
       /*stepsNumber: 20,*/
       wsError: null,
@@ -30,7 +30,7 @@ export default {
     };
   },
   mounted() {
-    if (!this.payTokenSymbol) {
+    if (!this.payTokenType) {
       this.$router.push("/");
       return;
     }

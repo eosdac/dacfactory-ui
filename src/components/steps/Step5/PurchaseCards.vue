@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <purchase-card header="EOS" quantity="40" hint :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
-    <purchase-card header="EOSDAC" quantity="10,000" :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
+    <purchase-card :header="notDacToken" quantity="40" hint :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
+    <purchase-card :header="dacToken" quantity="10,000" :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
   </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {
   props: {
     isAgree: Boolean,
     onCheckboxError: Function
+  },
+  data() {
+    return {
+      dacToken: process.env.DAC_TOKEN,
+      notDacToken: process.env.NOT_DAC_TOKEN
+    }
   },
   components: {
     PurchaseCard

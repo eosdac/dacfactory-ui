@@ -76,7 +76,10 @@ export function prepareDacTransact(storeProps, payload) {
   const {
     rootState: {
       factory: { stepsData },
-      ual: { accountName, payTokenSymbol }
+      ual: {
+        accountName,
+        payTokenType: { isDacToken }
+      }
     },
     dispatch
   } = storeProps;
@@ -88,10 +91,10 @@ export function prepareDacTransact(storeProps, payload) {
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const { EOS_TOKEN_CONTRACT, DAC_TOKEN_CONTRACT, DAC_FACTORY, DAC_TOKEN } = process.env;
-  const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
-  const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
-  const payTokenQuantity = payTokenSymbol === "EOS" ? "20.0000 EOS" : `5000.0000 ${DAC_TOKEN}`;
+  const { DAC_TOKEN, NOT_DAC_TOKEN, DAC_TOKEN_CONTRACT, NOT_DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NOT_DAC_TOKEN_CONTRACT;
+  const tariffName = `monthly.${(isDacToken ? DAC_TOKEN : NOT_DAC_TOKEN).toLowerCase()}`;
+  const payTokenQuantity = isDacToken ? `5000.0000 ${DAC_TOKEN}` : `20.0000 ${NOT_DAC_TOKEN}`;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -134,7 +137,7 @@ export function prepareDacTransact(storeProps, payload) {
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
         quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,
-        contract: EOS_TOKEN_CONTRACT
+        contract: NOT_DAC_TOKEN_CONTRACT
       }
     },
     proposals_config: {

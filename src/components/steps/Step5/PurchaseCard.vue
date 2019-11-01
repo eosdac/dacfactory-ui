@@ -13,7 +13,7 @@
         :label="$t('step5.pay')"
         color="secondary"
         class="q-mt-md"
-        @click="transfer(header === 'EOS' ? EOS_TOKEN : DAC_TOKEN)"
+        @click="transfer(header === DAC_TOKEN)"
       />
     </div>
   </section>
@@ -25,8 +25,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      EOS_TOKEN: "EOS",
-      DAC_TOKEN: "DAC"
+      DAC_TOKEN: process.env.DAC_TOKEN,
     };
   },
   props: {
@@ -57,7 +56,7 @@ export default {
     })
   },
   methods: {
-    transfer(payTokenSymbol) {
+    transfer(isDacToken) {
       this.scrollPageToBottomIfNeeded();
       if (!this.isAgree) {
         this.onCheckboxError();
@@ -72,7 +71,7 @@ export default {
         return;
       }
 
-      this.$store.commit("ual/setPayTokenSymbol", payTokenSymbol);
+      this.$store.commit("ual/setPayTokenType", isDacToken);
       this.$router.push("/dac-creation");
     },
     scrollPageToBottomIfNeeded() {
