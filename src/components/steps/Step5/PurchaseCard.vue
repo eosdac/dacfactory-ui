@@ -9,7 +9,12 @@
       <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
     <div class="card-footer">
-      <q-btn :label="$t('step5.pay')" color="secondary" class="q-mt-md" @click="transfer(header === DAC_TOKEN)" />
+      <q-btn
+        :label="$t(`step5.${loggedInUser ? 'pay' : 'login_to_pay'}`)"
+        color="secondary"
+        class="q-mt-md"
+        @click="loggedInUser ? transfer(header === DAC_TOKEN) : $store.dispatch('ual/renderLoginModal')"
+      />
     </div>
   </section>
 </template>
@@ -20,7 +25,8 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      DAC_TOKEN: process.env.DAC_TOKEN
+      DAC_TOKEN: process.env.DAC_TOKEN,
+      loggedInUser: this.$store.state.ual.accountName
     };
   },
   props: {
@@ -58,14 +64,6 @@ export default {
         return;
       }
 
-      const {
-        ual: { activeAuthenticator, accountName }
-      } = this.$store.state;
-      if (!activeAuthenticator || !accountName) {
-        this.$store.dispatch("ual/renderLoginModal");
-        return;
-      }
-
       this.$store.commit("ual/setPayTokenInfo", { isDacToken, tokenQuantity: this.quantity });
       this.$router.push("/dac-creation");
     },
@@ -76,6 +74,11 @@ export default {
       window.scrollTo({
         top: document.documentElement.offsetHeight - window.innerHeight
       });
+    }
+  },
+  watch: {
+    "$store.state.ual.accountName"(value) {
+      this.loggedInUser = value;
     }
   }
 };

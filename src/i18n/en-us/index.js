@@ -118,6 +118,7 @@ export default {
     "30_days": "30 days",
     due_on: "due on the 1st of each month",
     pay: "pay",
+    login_to_pay: "login to pay",
     pay_in: "pay in"
   }
 };
