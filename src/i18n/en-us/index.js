@@ -112,8 +112,7 @@ export default {
     creation_of_account: "Creation of Accounts",
     once_you: "Once you purchase, the DAC will be initially under the control of the account which set it up",
     i_agree_with: "I agree with",
-    terms: "terms",
-    conditions: "conditions",
+    terms_and_conditions: "terms and conditions",
     /////
     "30_days": "30 days",
     due_on: "due on the 1st of each month",
