@@ -123,14 +123,14 @@ h1
 .wrapper
   display flex
   flex-grow 1
+  @media (max-width 768px)
+    flex-direction column
 .wrapper-right
   flex 1
 .wrapper-right-step-5
   flex-basis 88px
   @media (min-width 1560px)
     flex-grow 1
-@media (max-width 768px)
-  flex-direction column
 @media (max-width 1439px)
   .width-xl-screen
     height auto
