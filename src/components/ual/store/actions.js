@@ -98,6 +98,8 @@ export async function prepareDacTransact(storeProps, payload) {
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
+  console.log(`dacId: ${dacId}`);
+
   const dacData = {
     id: dacId,
     owner: accountName,
