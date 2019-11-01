@@ -17,7 +17,7 @@
               :label="$t('home.create_my_dac')"
               style="width:180px"
               class="q-py-sm"
-              to="create/step1"
+              to="/create/step1"
             />
           </div>
         </div>

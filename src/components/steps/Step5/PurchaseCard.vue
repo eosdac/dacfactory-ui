@@ -2,18 +2,18 @@
   <section :class="['card', hint ? 'first-card' : 'second-card']">
     <h3 class="card-header">{{ $t("step5.pay_in") }} {{ header }}</h3>
     <div class="card-body">
-    <p class="quantity">
-      {{ quantity }}<span>{{ header }}</span>
-    </p>
-    <p class="time-info">{{ $t("step5.30_days") }}</p>
-    <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
+      <p class="quantity">
+        {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
+      </p>
+      <p class="time-info">{{ $t("step5.30_days") }}</p>
+      <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
     <div class="card-footer">
       <q-btn
-        :label="$t('step5.pay')"
+        :label="$t(`step5.${loggedInUser ? 'pay' : 'login_to_pay'}`)"
         color="secondary"
         class="q-mt-md"
-        @click="transfer(header === 'EOS' ? EOS_TOKEN : DAC_TOKEN)"
+        @click="loggedInUser ? transfer(header === DAC_TOKEN) : $store.dispatch('ual/renderLoginModal')"
       />
     </div>
   </section>
@@ -25,8 +25,8 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      EOS_TOKEN: "EOS",
-      DAC_TOKEN: "DAC"
+      DAC_TOKEN: process.env.DAC_TOKEN,
+      loggedInUser: this.$store.state.ual.accountName
     };
   },
   props: {
@@ -35,7 +35,7 @@ export default {
       require: true
     },
     quantity: {
-      type: String,
+      type: Object,
       require: true
     },
     hint: {
@@ -57,36 +57,28 @@ export default {
     })
   },
   methods: {
-    transfer(payTokenSymbol) {
+    transfer(isDacToken) {
       this.scrollPageToBottomIfNeeded();
       if (!this.isAgree) {
         this.onCheckboxError();
         return;
       }
 
-      const {
-        factory: { stepsData },
-        ual: { activeAuthenticator, accountName }
-      } = this.$store.state;
-      if (!activeAuthenticator || !accountName) {
-        this.$store.dispatch("ual/renderLoginModal");
-        return;
-      }
-
-      const payTokenQuantity =
-        payTokenSymbol === this.EOS_TOKEN
-          ? `${parseInt(this.quantity).toFixed(4)} ${this.EOS_TOKEN}`
-          : `${parseInt(this.quantity.replace(",", "")).toFixed(4)} ${process.env.DAC_TOKEN}`;
-
-      this.$store.dispatch("ual/prepareDacTransact", { stepsData, payTokenSymbol, payTokenQuantity });
+      this.$store.commit("ual/setPayTokenInfo", { isDacToken, tokenQuantity: this.quantity });
+      this.$router.push("/dac-creation");
     },
     scrollPageToBottomIfNeeded() {
       if (window.innerWidth > 1059) {
         return;
       }
       window.scrollTo({
-        top: document.documentElement.offsetHeight - window.innerHeight,
+        top: document.documentElement.offsetHeight - window.innerHeight
       });
+    }
+  },
+  watch: {
+    "$store.state.ual.accountName"(value) {
+      this.loggedInUser = value;
     }
   }
 };
@@ -173,7 +165,7 @@ p
   height 104px
   & > button
     margin 0
-@media (max-width: 479px)
+@media (max-width 479px)
   .first-card
     margin 0
   .second-card

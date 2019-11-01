@@ -62,7 +62,6 @@ export default {
     return {
       dacName: this.$store.state.factory.stepsData[1].dacName,
       tokenSymbol: this.$store.state.factory.stepsData[1].tokenSymbol,
-      dacId: this.$store.state.factory.stepsData[1].dacId,
       dacDescription: this.$store.state.factory.stepsData[1].dacDescription
     };
   },

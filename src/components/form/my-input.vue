@@ -158,7 +158,7 @@ export default {
 </script>
 
 <style scoped>
-  .icon-left {
-    margin: 0;
-  }
+.icon-left {
+  margin: 0;
+}
 </style>
