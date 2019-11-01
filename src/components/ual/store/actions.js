@@ -112,7 +112,7 @@ export async function prepareDacTransact(storeProps, payload) {
     },
     max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
     issuance: `${(issuance || 1).toFixed(decimals)} ${tokenSymbol}`,
-    name: dacName,
+    name: `${dacName} DAC`,
     description: dacDescription,
     homepage: websiteURL,
     logo_url: logoURL,
