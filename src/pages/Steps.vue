@@ -21,7 +21,7 @@
               <step2-form v-else-if="getActiveStep === 2" key="form-page-2" />
               <step3-form v-else-if="getActiveStep === 3" key="form-page-3" />
               <step4-form v-else-if="getActiveStep === 4" key="form-page-4" />
-              <step5-form v-else key="form-page-5" />
+              <step5-form v-else-if="getActiveStep === 5" key="form-page-5" />
             </transition>
             <transition
               enter-active-class="animated fadeInDown"

@@ -3,18 +3,13 @@
     <h3 class="card-header">{{ $t("step5.pay_in") }} {{ header }}</h3>
     <div class="card-body">
       <p class="quantity">
-        {{ quantity }}<span>{{ header }}</span>
+        {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
       </p>
       <p class="time-info">{{ $t("step5.30_days") }}</p>
       <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
     <div class="card-footer">
-      <q-btn
-        :label="$t('step5.pay')"
-        color="secondary"
-        class="q-mt-md"
-        @click="transfer(header === DAC_TOKEN)"
-      />
+      <q-btn :label="$t('step5.pay')" color="secondary" class="q-mt-md" @click="transfer(header === DAC_TOKEN)" />
     </div>
   </section>
 </template>
@@ -25,7 +20,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      DAC_TOKEN: process.env.DAC_TOKEN,
+      DAC_TOKEN: process.env.DAC_TOKEN
     };
   },
   props: {
@@ -34,7 +29,7 @@ export default {
       require: true
     },
     quantity: {
-      type: String,
+      type: Object,
       require: true
     },
     hint: {
@@ -71,7 +66,7 @@ export default {
         return;
       }
 
-      this.$store.commit("ual/setPayTokenType", isDacToken);
+      this.$store.commit("ual/setPayTokenInfo", { isDacToken, tokenQuantity: this.quantity });
       this.$router.push("/dac-creation");
     },
     scrollPageToBottomIfNeeded() {

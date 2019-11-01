@@ -23,6 +23,6 @@ export function setAccountName(state, payload) {
   state.accountName = payload;
 }
 
-export function setPayTokenType(state, payload) {
-  state.payTokenType = { isDacToken: payload };
+export function setPayTokenInfo(state, payload) {
+  state.payTokenInfo = payload;
 }

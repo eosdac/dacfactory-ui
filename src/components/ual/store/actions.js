@@ -72,13 +72,13 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
   }
 }
 
-export function prepareDacTransact(storeProps, payload) {
+export async function prepareDacTransact(storeProps, payload) {
   const {
     rootState: {
       factory: { stepsData },
       ual: {
         accountName,
-        payTokenType: { isDacToken }
+        payTokenInfo: { isDacToken, tokenQuantity }
       }
     },
     dispatch
@@ -93,8 +93,8 @@ export function prepareDacTransact(storeProps, payload) {
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
   const { DAC_TOKEN, NOT_DAC_TOKEN, DAC_TOKEN_CONTRACT, NOT_DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NOT_DAC_TOKEN_CONTRACT;
-  const tariffName = `monthly.${(isDacToken ? DAC_TOKEN : NOT_DAC_TOKEN).toLowerCase()}`;
-  const payTokenQuantity = isDacToken ? `5000.0000 ${DAC_TOKEN}` : `20.0000 ${NOT_DAC_TOKEN}`;
+  const planName = `monthly.${(isDacToken ? '' : NOT_DAC_TOKEN).toLowerCase()}`;
+  const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NOT_DAC_TOKEN].quantityToPay;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -156,7 +156,7 @@ export function prepareDacTransact(storeProps, payload) {
         from: accountName,
         to: DAC_FACTORY,
         quantity: payTokenQuantity,
-        memo: `${dacId}:${tariffName}`
+        memo: `${dacId}:${planName}`
       }
     },
     {
