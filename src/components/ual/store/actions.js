@@ -138,7 +138,7 @@ export async function prepareDacTransact(storeProps, payload) {
       auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
-        quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,
+        quantity: `${(maxRequestPay || 1).toFixed(4)} ${NOT_DAC_TOKEN}`,
         contract: NOT_DAC_TOKEN_CONTRACT
       }
     },

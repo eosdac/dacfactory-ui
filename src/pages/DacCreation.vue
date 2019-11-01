@@ -1,7 +1,9 @@
 <template>
   <q-page class="bg-accent hack-height" v-if="payTokenInfo">
     <section class="content-wrapper" v-if="trxSuccess && !wsError">
-      <p class="title">{{creationFinishedText ? creationFinishedText : 'Please, wait while your dac will be created'}}</p>
+      <p class="title">
+        {{ creationFinishedText ? creationFinishedText : "Please, wait while your dac will be created" }}
+      </p>
       <p class="status-text" v-if="!creationFinishedText">{{ currentMessage }}</p>
       <!--<progress-bar :filled="doneCounter / stepsNumber" />-->
       <router-link to="/" v-if="creationFinishedText" class="go-to-main-link">GO TO MAIN PAGE</router-link>
@@ -29,7 +31,7 @@ export default {
       wsError: null,
       trxSuccess: null,
       trxError: null,
-      creationFinishedText: ''
+      creationFinishedText: ""
     };
   },
   mounted() {
@@ -62,9 +64,9 @@ export default {
     },
     afterTransact(message) {
       if (!message) {
-        this.trxSuccess = true
+        this.trxSuccess = true;
       } else {
-        this.trxError = message
+        this.trxError = message;
       }
     }
   }
