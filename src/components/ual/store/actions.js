@@ -91,10 +91,10 @@ export async function prepareDacTransact(storeProps, payload) {
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
   const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const { DAC_TOKEN, NOT_DAC_TOKEN, DAC_TOKEN_CONTRACT, NOT_DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
-  const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NOT_DAC_TOKEN_CONTRACT;
-  const planName = `monthly.${(isDacToken ? '' : NOT_DAC_TOKEN).toLowerCase()}`;
-  const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NOT_DAC_TOKEN].quantityToPay;
+  const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
+  const planName = `monthly.${(isDacToken ? '' : NATIVE_TOKEN).toLowerCase()}`;
+  const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
@@ -138,8 +138,8 @@ export async function prepareDacTransact(storeProps, payload) {
       auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
-        quantity: `${(maxRequestPay || 1).toFixed(4)} ${NOT_DAC_TOKEN}`,
-        contract: NOT_DAC_TOKEN_CONTRACT
+        quantity: `${(maxRequestPay || 1).toFixed(4)} ${NATIVE_TOKEN}`,
+        contract: NATIVE_TOKEN_CONTRACT
       }
     },
     proposals_config: {

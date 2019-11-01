@@ -2,7 +2,7 @@
   <div class="wrapper" v-if="paymentPlans">
     <purchase-card
       hint
-      :header="notDacToken"
+      :header="nativeToken"
       :quantity="paymentPlans"
       :isAgree="isAgree"
       :onCheckboxError="onCheckboxError"
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       dacToken: process.env.DAC_TOKEN,
-      notDacToken: process.env.NOT_DAC_TOKEN,
+      nativeToken: process.env.NATIVE_TOKEN,
       paymentPlans: null,
       paymentPlansError: null
     };
@@ -59,7 +59,7 @@ export default {
             amount.splice(i, 0, ",");
           }
         }
-        paymentPlans[plan.plan_id === "monthly" ? this.dacToken : this.notDacToken] = {
+        paymentPlans[plan.plan_id === "monthly" ? this.dacToken : this.nativeToken] = {
           quantityToShow: amount.join(""),
           quantityToPay: plan.amount.quantity
         };
