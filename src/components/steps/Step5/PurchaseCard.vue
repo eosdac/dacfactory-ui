@@ -91,8 +91,8 @@ p
   display flex
   flex-direction column
   align-items center
-  height 456px
   width 190px
+  height 100%
   border-radius 4px
   font-weight 700
   color #ebdff9

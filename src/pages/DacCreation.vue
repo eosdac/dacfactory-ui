@@ -60,6 +60,7 @@ export default {
       };
       ws.onclose = () => {
         this.creationFinishedText = "Your DAC was successfully created!";
+        this.$store.commit("ual/setPayTokenInfo", null);
       };
     },
     afterTransact(message) {
