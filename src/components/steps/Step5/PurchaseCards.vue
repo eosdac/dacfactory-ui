@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper centered-wrapper" v-if="isPaymentLoading">
-    <q-icon name="loop" color="secondary" size="80px" class="loader" />
+    <q-icon name="loop" color="secondary" class="loader" />
   </div>
   <div class="wrapper" v-else-if="paymentPlans">
     <purchase-card
@@ -105,7 +105,10 @@ export default {
     width: auto
     font-size 16px
 .loader
+  font-size 80px
   animation rotate 1.5s infinite linear
+  @media (max-width 479px)
+    font-size 50px
 @keyframes rotate
   from
       transform rotate(360deg)
