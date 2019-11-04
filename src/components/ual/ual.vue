@@ -55,7 +55,6 @@
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
             </q-carousel-slide>
-
             <q-carousel-slide name="error" class="column no-wrap justify-between">
               <div class="text-red">{{error_msg}}</div>
               <div class="column">
