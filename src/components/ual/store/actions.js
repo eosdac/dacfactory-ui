@@ -91,7 +91,9 @@ export async function prepareDacTransact(storeProps, payload) {
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
     lockupAsset,
-    maxRequestPay,
+    lockupAssetSelect,
+    maxRequestedPay,
+    maxRPSelect,
     lockup,
     lockupSelect,
     periodLength,
@@ -100,11 +102,22 @@ export async function prepareDacTransact(storeProps, payload) {
     maxVotes
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
-
-  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * SECONDS_IN_HOUR : lockup * SECONDS_IN_HOUR;
-  const periodLengthSeconds =
-    periodLengthSelect === "Day(s)" ? periodLength * 24 * SECONDS_IN_HOUR : periodLength * SECONDS_IN_HOUR;
   const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+
+  const isLockupDac = lockupAssetSelect === "DAC Token";
+  const lockupAssetData = {
+    quantity: `${(lockupAsset || 1).toFixed(decimals)} ${isLockupDac ? DAC_TOKEN : NATIVE_TOKEN}`,
+    contract: isLockupDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
+  };
+  const isRPMDac = maxRPSelect === "DAC Token";
+  const rpmData = {
+    quantity: `${(maxRequestedPay || 1).toFixed(decimals)} ${isRPMDac ? DAC_TOKEN : NATIVE_TOKEN}`,
+    contract: isRPMDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
+  };
+
+  const lockupSeconds = lockupSelect === "Hour(s)" ? lockup * SECONDS_IN_HOUR : lockup * 24 * SECONDS_IN_HOUR;
+  const periodLengthSeconds =
+    periodLengthSelect === "Hour(s)" ? periodLength * SECONDS_IN_HOUR : periodLength * 24 * SECONDS_IN_HOUR;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
   const planName = `monthly.${(isDacToken ? "" : NATIVE_TOKEN).toLowerCase()}`;
   const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
@@ -136,10 +149,7 @@ export async function prepareDacTransact(storeProps, payload) {
       colors: createColorsScheme(colorsScheme)
     },
     custodian_config: {
-      lockupasset: {
-        quantity: `${(lockupAsset || 1).toFixed(decimals)} ${tokenSymbol}`,
-        contract: DAC_TOKEN_CONTRACT
-      },
+      lockupasset: lockupAssetData,
       maxvotes: maxVotes,
       numelected: numberElected,
       periodlength: periodLengthSeconds,
@@ -150,10 +160,7 @@ export async function prepareDacTransact(storeProps, payload) {
       auth_threshold_mid: processThresholdFromNE(numberElected, THRESHOLD_MIDDLE),
       auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
-      requested_pay_max: {
-        quantity: `${(maxRequestPay || 1).toFixed(4)} ${NATIVE_TOKEN}`,
-        contract: NATIVE_TOKEN_CONTRACT
-      }
+      requested_pay_max: rpmData
     },
     proposals_config: {
       proposal_threshold: 4,

@@ -13,7 +13,9 @@ export default {
     },
     3: {
       lockupAsset: "",
-      maxRequestPay: "",
+      lockupAssetSelect: "DAC Token",
+      maxRequestedPay: "",
+      maxRPSelect: "DAC Token",
       lockup: "",
       lockupSelect: "Hour(s)",
       periodLength: "",
