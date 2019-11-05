@@ -17,6 +17,7 @@ export default {
       lockup: "",
       lockupSelect: "Hour(s)",
       periodLength: "",
+      periodLengthSelect: "Hour(s)",
       numberElected: "",
       maxVotes: ""
     },

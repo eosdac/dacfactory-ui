@@ -1,5 +1,8 @@
 <template>
-  <div class="wrapper" v-if="paymentPlans">
+  <div class="wrapper centered-wrapper" v-if="isPaymentLoading">
+    <q-icon name="loop" color="secondary" class="loader" />
+  </div>
+  <div class="wrapper" v-else-if="paymentPlans">
     <purchase-card
       hint
       :header="nativeToken"
@@ -8,6 +11,9 @@
       :onCheckboxError="onCheckboxError"
     />
     <purchase-card :header="dacToken" :quantity="paymentPlans" :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
+  </div>
+  <div class="wrapper centered-wrapper" v-else-if="paymentPlansError">
+    {{ paymentPlansError }}
   </div>
 </template>
 
@@ -24,7 +30,8 @@ export default {
       dacToken: process.env.DAC_TOKEN,
       nativeToken: process.env.NATIVE_TOKEN,
       paymentPlans: null,
-      paymentPlansError: null
+      paymentPlansError: null,
+      isPaymentLoading: true
     };
   },
   async mounted() {
@@ -68,6 +75,7 @@ export default {
     } catch (error) {
       this.paymentPlansError = error.message;
     }
+    this.isPaymentLoading = false;
   },
   components: {
     PurchaseCard
@@ -81,10 +89,29 @@ export default {
   right 110px
   top 0
   display flex
-  @media (max-width: 1059px)
+  @media (max-width 1059px)
     position static
     margin-top 30px
-  @media (max-width: 479px)
+  @media (max-width 479px)
     flex-direction column
     align-items center
+.centered-wrapper
+  justify-content center
+  align-items center
+  width 430px
+  height 456px
+  font-size 40px
+  @media (max-width 479px)
+    width: auto
+    font-size 16px
+.loader
+  font-size 80px
+  animation rotate 1.5s infinite linear
+  @media (max-width 479px)
+    font-size 50px
+@keyframes rotate
+  from
+      transform scale(-1, 1) rotate(360deg)
+  to
+      transform scale(-1, 1) rotate(0)
 </style>

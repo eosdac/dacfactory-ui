@@ -7,6 +7,8 @@ import {
 } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
+const SECONDS_IN_HOUR = 3600;
+
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
 }
@@ -87,13 +89,24 @@ export async function prepareDacTransact(storeProps, payload) {
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
-  const { lockupAsset, maxRequestPay, lockup, lockupSelect, periodLength, numberElected, maxVotes } = stepsData[3];
+  const {
+    lockupAsset,
+    maxRequestPay,
+    lockup,
+    lockupSelect,
+    periodLength,
+    periodLengthSelect,
+    numberElected,
+    maxVotes
+  } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
-  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
+  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * SECONDS_IN_HOUR : lockup * SECONDS_IN_HOUR;
+  const periodLengthSeconds =
+    periodLengthSelect === "Day(s)" ? periodLength * 24 * SECONDS_IN_HOUR : periodLength * SECONDS_IN_HOUR;
   const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
-  const planName = `monthly.${(isDacToken ? '' : NATIVE_TOKEN).toLowerCase()}`;
+  const planName = `monthly.${(isDacToken ? "" : NATIVE_TOKEN).toLowerCase()}`;
   const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
 
   const dacId = processDacNameInId(dacName);
@@ -129,7 +142,7 @@ export async function prepareDacTransact(storeProps, payload) {
       },
       maxvotes: maxVotes,
       numelected: numberElected,
-      periodlength: periodLength,
+      periodlength: periodLengthSeconds,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
       vote_quorum_percent: 1,
