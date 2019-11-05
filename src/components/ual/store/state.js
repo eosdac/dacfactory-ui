@@ -4,7 +4,8 @@ export default {
   signingOverlay: {
     show: false,
     status: "", //0=wait for sig, 1=success, 2=error
-    msg: ""
+    msg: "",
+    isShowCloseButton: true
   },
   activeAuthenticator: null,
   UAL: null,

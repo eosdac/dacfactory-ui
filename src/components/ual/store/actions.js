@@ -8,8 +8,7 @@ import {
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
 import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
-
-const SECONDS_IN_HOUR = 3600;
+import { SECONDS_IN_HOUR } from "components/constants/common";
 
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
@@ -211,7 +210,7 @@ export async function prepareDacTransact(storeProps, payload) {
 
 export async function transact({ state, dispatch, commit }, payload) {
   const { actions, dacId, openWS, afterTransact } = payload;
-  commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
+  commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature", isShowCloseButton: false });
   const user = state.activeAuthenticator.users[0];
   const copiedActions = actions.map((action, index) => ({
     ...actions[index],
@@ -222,11 +221,11 @@ export async function transact({ state, dispatch, commit }, payload) {
   try {
     await user.signTransaction({ actions: copiedActions }, { broadcast: true });
     console.log("transact finished");
-    commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
-    await dispatch("hideSigningOverlay", 800);
+    //commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
+    commit("setSigningOverlay", { show: false, status: 0 });
     afterTransact();
   } catch (e) {
-    await dispatch("hideSigningOverlay", 0);
+    commit("setSigningOverlay", { show: false, status: 0 });
     afterTransact(parseUalError(e));
   }
 }
