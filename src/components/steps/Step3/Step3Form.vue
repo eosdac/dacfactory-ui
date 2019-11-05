@@ -103,6 +103,8 @@
 import MyInput from "components/form/my-input";
 import CustomDivider from "./CustomDivider";
 
+import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
+
 export default {
   components: {
     MyInput,
@@ -132,8 +134,8 @@ export default {
       periodLengthSelect,
       numberElected,
       maxVotes,
-      TOKENS_OPTIONS: ["DAC Token", "System Token"],
-      TIME_PERIOD_OPTIONS: ["Hour(s)", "Day(s)"]
+      TOKENS_OPTIONS,
+      TIME_PERIOD_OPTIONS
     };
   },
   methods: {

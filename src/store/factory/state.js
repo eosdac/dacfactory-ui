@@ -1,3 +1,6 @@
+export const TOKENS_OPTIONS = ["DAC Token", "System Token"];
+export const TIME_PERIOD_OPTIONS = ["Hour(s)", "Day(s)"];
+
 export default {
   activeStep: 0,
   stepsData: {
@@ -13,13 +16,13 @@ export default {
     },
     3: {
       lockupAsset: "",
-      lockupAssetSelect: "DAC Token",
+      lockupAssetSelect: TOKENS_OPTIONS[0],
       maxRequestedPay: "",
-      maxRPSelect: "DAC Token",
+      maxRPSelect: TOKENS_OPTIONS[0],
       lockup: "",
-      lockupSelect: "Hour(s)",
+      lockupSelect: TIME_PERIOD_OPTIONS[0],
       periodLength: "",
-      periodLengthSelect: "Hour(s)",
+      periodLengthSelect: TIME_PERIOD_OPTIONS[0],
       numberElected: "",
       maxVotes: ""
     },

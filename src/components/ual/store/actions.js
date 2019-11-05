@@ -7,6 +7,8 @@ import {
 } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
+import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
+
 const SECONDS_IN_HOUR = 3600;
 
 export async function renderLoginModal({ commit }) {
@@ -104,20 +106,23 @@ export async function prepareDacTransact(storeProps, payload) {
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
   const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
 
-  const isLockupDac = lockupAssetSelect === "DAC Token";
+  const isLockupDac = lockupAssetSelect === TOKENS_OPTIONS[0];
   const lockupAssetData = {
     quantity: `${(lockupAsset || 1).toFixed(decimals)} ${isLockupDac ? DAC_TOKEN : NATIVE_TOKEN}`,
     contract: isLockupDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
   };
-  const isRPMDac = maxRPSelect === "DAC Token";
+  const isRPMDac = maxRPSelect === TOKENS_OPTIONS[0];
   const rpmData = {
     quantity: `${(maxRequestedPay || 1).toFixed(decimals)} ${isRPMDac ? DAC_TOKEN : NATIVE_TOKEN}`,
     contract: isRPMDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
   };
 
-  const lockupSeconds = lockupSelect === "Hour(s)" ? lockup * SECONDS_IN_HOUR : lockup * 24 * SECONDS_IN_HOUR;
+  const lockupSeconds =
+    lockupSelect === TIME_PERIOD_OPTIONS[0] ? lockup * SECONDS_IN_HOUR : lockup * 24 * SECONDS_IN_HOUR;
   const periodLengthSeconds =
-    periodLengthSelect === "Hour(s)" ? periodLength * SECONDS_IN_HOUR : periodLength * 24 * SECONDS_IN_HOUR;
+    periodLengthSelect === TIME_PERIOD_OPTIONS[0]
+      ? periodLength * SECONDS_IN_HOUR
+      : periodLength * 24 * SECONDS_IN_HOUR;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
   const planName = `monthly.${(isDacToken ? "" : NATIVE_TOKEN).toLowerCase()}`;
   const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;

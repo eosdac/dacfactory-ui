@@ -1,8 +1,8 @@
 <template>
-  <div class="wrapper centered-wrapper" v-if="isPaymentLoading">
+  <section class="wrapper centered-wrapper" v-if="isPaymentLoading">
     <q-icon name="loop" color="secondary" class="loader" />
-  </div>
-  <div class="wrapper" v-else-if="paymentPlans">
+  </section>
+  <section class="wrapper" v-else-if="paymentPlans">
     <purchase-card
       hint
       :header="nativeToken"
@@ -11,10 +11,10 @@
       :onCheckboxError="onCheckboxError"
     />
     <purchase-card :header="dacToken" :quantity="paymentPlans" :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
-  </div>
-  <div class="wrapper centered-wrapper" v-else-if="paymentPlansError">
+  </section>
+  <section class="wrapper centered-wrapper" v-else-if="paymentPlansError">
     {{ paymentPlansError }}
-  </div>
+  </section>
 </template>
 
 <script>
