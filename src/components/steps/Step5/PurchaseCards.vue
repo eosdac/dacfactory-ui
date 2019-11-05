@@ -111,7 +111,7 @@ export default {
     font-size 50px
 @keyframes rotate
   from
-      transform rotate(360deg)
+      transform scale(-1, 1) rotate(360deg)
   to
-      transform rotate(0)
+      transform scale(-1, 1) rotate(0)
 </style>
