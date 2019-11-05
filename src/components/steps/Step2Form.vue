@@ -5,12 +5,16 @@
       <span class="q-ml-xs" v-if="parseLocalizedSupply(maxSupply)">{{ getTokenSymbol }}</span>
     </div>
     <my-input
-      type="number"
-      v-model="maxSupply"
+      :value="maxSupply"
       color="secondary"
       :label="$t('step2.max_supply', { token_symbol: getTokenSymbol })"
       :hint="$t('step2.max_supply_hint')"
-      :rules="[val => !!val || $t('general.required'), val => val > 0 || $t('step2.max_supply_rule_positive')]"
+      :rules="[
+        val => !!val || $t('general.required'),
+        val => val > 0 || $t('step2.max_supply_rule_positive'),
+        val => /^[\d.]+$/.test(val) || $t('errors.only_digits_are_available')
+      ]"
+      @input="onMaxSupply"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'maxSupply', data: $event })"
       :debounce="0"
     />
@@ -19,12 +23,18 @@
       <span class="q-ml-xs" v-if="parseLocalizedSupply(issuance)">{{ getTokenSymbol }}</span>
     </div>
     <my-input
-      type="number"
-      v-model="issuance"
+      :value="issuance"
       color="secondary"
       :label="$t('step2.issuance', { token_symbol: getTokenSymbol })"
       :hint="$t('step2.issuance_hint')"
-      :rules="[val => !!val || $t('general.required'), val => val > 0 || $t('step2.max_supply_rule_positive')]"
+      :rules="[
+        val => !!val || $t('general.required'),
+        val => val > 0 || $t('step2.max_supply_rule_positive'),
+        val => /^[\d.]+$/.test(val) || $t('errors.only_digits_are_available'),
+        val => maxSupply ? val < maxSupply || $t('step2.less_than_supply') : true
+      ]"
+      :forceValidateValue="maxSupply"
+      @input="onIssuance"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'issuance', data: $event })"
       :debounce="0"
     />
@@ -35,10 +45,10 @@
       </div>
       <q-slider
         dark
-        :value="decimals"
+        :value="parseInt(decimals)"
         @input="
           decimals = $event;
-          $store.commit('factory/setStepsData', { step: 2, key: 'decimals', data: { value: Number($event) } });
+          $store.commit('factory/setStepsData', { step: 2, key: 'decimals', data: { value: $event } });
         "
         markers
         label
@@ -63,7 +73,7 @@ export default {
   data() {
     return {
       maxSupply: this.$store.state.factory.stepsData[2].maxSupply,
-      decimals: Number(this.$store.state.factory.stepsData[2].decimals),
+      decimals: this.$store.state.factory.stepsData[2].decimals,
       issuance: this.$store.state.factory.stepsData[2].issuance
     };
   },
@@ -88,6 +98,12 @@ export default {
         return "";
       }
       return parseInt(v).toLocaleString();
+    },
+    onMaxSupply(value) {
+      this.maxSupply = !value ? '' : parseFloat(value);
+    },
+    onIssuance(value) {
+      this.issuance = !value ? '' : parseFloat(value);
     }
   }
 };

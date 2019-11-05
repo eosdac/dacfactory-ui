@@ -5,7 +5,7 @@
       color="secondary"
       label="Lockup Asset"
       hint="See LockUp Asset"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('step3.only_digits_are_available')]"
+      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
       v-model="lockupAsset"
       @statusChange="onStatusChange($event, 'lockupAsset')"
     />
@@ -13,7 +13,7 @@
       type="number"
       color="secondary"
       label="Max Request Pay"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('step3.only_digits_are_available')]"
+      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
       v-model="maxRequestPay"
       @statusChange="onStatusChange($event, 'maxRequestPay')"
     />
@@ -22,7 +22,7 @@
         type="number"
         color="secondary"
         label="Lockup"
-        :rules="[val => (!!val && /^\d+$/.test(val)) || $t('step3.only_digits_are_available')]"
+        :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
         v-model="lockup"
         @statusChange="onStatusChange($event, 'lockup')"
       />
@@ -41,7 +41,7 @@
       color="secondary"
       label="Period Length"
       class="margin-bottom-14"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('step3.only_digits_are_available')]"
+      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
       v-model="periodLength"
       @statusChange="onStatusChange($event, 'periodLength')"
     />
@@ -50,7 +50,7 @@
       type="number"
       color="secondary"
       label="Number elected"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('step3.only_digits_are_available')]"
+      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
       v-model="numberElected"
       @statusChange="onStatusChange($event, 'numberElected')"
     />
@@ -59,7 +59,7 @@
       color="secondary"
       label="Max Votes"
       class="margin-bottom-14"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('step3.only_digits_are_available')]"
+      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
       v-model="maxVotes"
       @statusChange="onStatusChange($event, 'maxVotes')"
     />
