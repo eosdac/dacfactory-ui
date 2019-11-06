@@ -73,7 +73,15 @@ export default {
     if (from.path === "/create/step5") {
       next()
     } else {
-      next(from.path)
+      if (from.path === '/') {
+        if (from.matched.length > 0) {
+          next(false)
+        } else {
+          next(from.path)
+        }
+      } else {
+        next(false)
+      }
     }
   },
   beforeRouteLeave(to, from, next) {
