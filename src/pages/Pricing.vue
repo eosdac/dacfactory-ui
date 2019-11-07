@@ -7,8 +7,7 @@
 <script>
 export default {
   // name: 'PageName',
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

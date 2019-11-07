@@ -93,19 +93,16 @@
         </q-item>
       </q-list>
     </q-drawer>
-
     <q-page-container class="text-white bg-accent">
       <router-view />
     </q-page-container>
-
-    <q-footer class="bg-accent">
+    <q-footer class="bg-accent" v-if="exceptDacCreationPage">
       <stepper />
     </q-footer>
   </q-layout>
 </template>
 
 <script>
-import { openURL } from "quasar";
 import { mapGetters } from "vuex";
 import Stepper from "components/steps/Stepper";
 
@@ -123,10 +120,10 @@ export default {
     ...mapGetters({
       getAccountName: "ual/getAccountName",
       getShouldRenderLoginModal: "ual/getShouldRenderLoginModal"
-    })
-  },
-  methods: {
-    openURL
+    }),
+    exceptDacCreationPage() {
+      return this.$route.path !== '/dac-creation'
+    }
   }
 };
 </script>

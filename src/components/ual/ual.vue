@@ -1,20 +1,18 @@
 <template>
   <div>
-    <q-dialog
-      v-model="getShouldRenderLoginModal"
-      persistent
-      transition-show="flip-down"
-      transition-hide="flip-up"
-    >
+    <q-dialog v-model="getShouldRenderLoginModal" persistent transition-show="flip-down" transition-hide="flip-up">
       <q-card class="text-white" style="width:350px">
         <q-bar class="bg-secondary">
-          <div>{{bar_msg}}</div>
+          <div>{{ bar_msg }}</div>
           <q-space />
           <q-btn
             dense
             flat
             icon="close"
-            @click="$store.commit('ual/setShouldRenderLoginModal', false); resetUI()"
+            @click="
+              $store.commit('ual/setShouldRenderLoginModal', false);
+              resetUI();
+            "
           >
             <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
           </q-btn>
@@ -31,20 +29,24 @@
             <q-carousel-slide name="wallet_selection" class="no-padding">
               <div v-if="getAuthenticators.length" class="column no-wrap">
                 <authenticator-btn
-                  v-for="(authenticator,i) in getAuthenticators"
+                  v-for="(authenticator, i) in getAuthenticators"
                   :authenticator="authenticator"
                   :key="`${i}auth`"
                   @login="handleAuthenticatorSelection"
                 />
               </div>
-              <div
-                v-else
-                class="text-black"
-              >No authenticators are available for your current browser and/or device.</div>
+              <div v-else class="text-black">
+                No authenticators are available for your current browser and/or device.
+              </div>
             </q-carousel-slide>
             <q-carousel-slide name="accountname_input" class="column no-wrap justify-between">
               <div class="text-black">Input your accountname</div>
-              <q-input type="text" v-model="accountname" autofocus @keyup.enter.native="connectAuthenticator(authenticator)" />
+              <q-input
+                type="text"
+                v-model="accountname"
+                autofocus
+                @keyup.enter.native="connectAuthenticator(authenticator)"
+              />
               <div class="column">
                 <q-btn
                   label="continue"
@@ -55,9 +57,8 @@
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
             </q-carousel-slide>
-
             <q-carousel-slide name="error" class="column no-wrap justify-between">
-              <div class="text-red">{{error_msg}}</div>
+              <div class="text-red">{{ error_msg }}</div>
               <div class="column">
                 <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
@@ -160,11 +161,7 @@ export default {
     }
   },
   mounted() {
-    this.ual = new UAL(
-      this.chains,
-      this.appName,
-      this.authenticators
-    );
+    this.ual = new UAL(this.chains, this.appName, this.authenticators);
     console.log("UAL", this.ual);
     this.$store.commit("ual/setUAL", this.ual);
     this.$store.dispatch("ual/attemptAutoLogin");

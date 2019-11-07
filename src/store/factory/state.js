@@ -1,33 +1,34 @@
 export default {
   activeStep: 0,
-  stepsData:{
+  stepsData: {
     1: {
-      dacName: '',
-      dacDescription: '',
-      tokenSymbol: ''
+      dacName: "",
+      dacDescription: "",
+      tokenSymbol: ""
     },
     2: {
-      maxSupply: '',
-      issuance: '',
-      decimals: '4',
+      maxSupply: "",
+      issuance: "",
+      decimals: "4"
     },
     3: {
-      lockupAsset: '',
-      maxRequestPay: '',
-      lockup: '',
-      lockupSelect: 'Hour(s)',
-      periodLength: '',
-      numberElected: '',
-      maxVotes: ''
+      lockupAsset: "",
+      maxRequestPay: "",
+      lockup: "",
+      lockupSelect: "Hour(s)",
+      periodLength: "",
+      periodLengthSelect: "Hour(s)",
+      numberElected: "",
+      maxVotes: ""
     },
     4: {
-      websiteURL: '',
-      logoURL: '',
-      logoMarkURL: '',
-      colorsScheme: 'light'
+      websiteURL: "",
+      logoURL: "",
+      logoMarkURL: "",
+      colorsScheme: "light"
     },
     5: {
       isAgree: false
     }
   }
-}
+};

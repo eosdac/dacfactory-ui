@@ -102,6 +102,7 @@ export default {
       type: Boolean,
       default: true
     },
+    forceValidateValue: [String, Number],
     debounce: {
       type: Number,
       default: 500
@@ -153,12 +154,19 @@ export default {
       this.$refs.my_input.validate();
     }
     this.isMounted = true;
+  },
+  watch: {
+    forceValidateValue() {
+      if (this.value) {
+        this.$refs.my_input.validate();
+      }
+    }
   }
 };
 </script>
 
 <style scoped>
-  .icon-left {
-    margin: 0;
-  }
+.icon-left {
+  margin: 0;
+}
 </style>

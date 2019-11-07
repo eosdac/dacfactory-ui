@@ -1,5 +1,13 @@
-import { processThresholdFromNE, THRESHOLD_HIGH, THRESHOLD_MIDDLE, THRESHOLD_LOW, createColorsScheme } from "imports/utils";
+import {
+  processThresholdFromNE,
+  THRESHOLD_HIGH,
+  THRESHOLD_MIDDLE,
+  THRESHOLD_LOW,
+  createColorsScheme
+} from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
+
+const SECONDS_IN_HOUR = 3600;
 
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
@@ -66,9 +74,18 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
   }
 }
 
-export function prepareDacTransact({ state, dispatch }, payload) {
-  const { accountName } = state;
-  const { stepsData, payTokenSymbol, payTokenQuantity } = payload;
+export async function prepareDacTransact(storeProps, payload) {
+  const {
+    rootState: {
+      factory: { stepsData },
+      ual: {
+        accountName,
+        payTokenInfo: { isDacToken, tokenQuantity }
+      }
+    },
+    dispatch
+  } = storeProps;
+  const { openWS, afterTransact } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { maxSupply, decimals, issuance } = stepsData[2];
@@ -78,18 +95,24 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     lockup,
     lockupSelect,
     periodLength,
+    periodLengthSelect,
     numberElected,
     maxVotes
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
 
-  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * 3600 : lockup * 3600;
-  const { DAC_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
-  const tokenToPay = process.env[`${payTokenSymbol}_TOKEN_CONTRACT`];
-  const tariffName = `monthly.${payTokenSymbol.toLowerCase()}`;
+  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * SECONDS_IN_HOUR : lockup * SECONDS_IN_HOUR;
+  const periodLengthSeconds =
+    periodLengthSelect === "Day(s)" ? periodLength * 24 * SECONDS_IN_HOUR : periodLength * SECONDS_IN_HOUR;
+  const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
+  const planName = `monthly.${(isDacToken ? "" : NATIVE_TOKEN).toLowerCase()}`;
+  const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
 
   const dacId = processDacNameInId(dacName);
   // TODO remove || 1 after proper validation will be added to fields
+  console.log(`dacId: ${dacId}`);
+
   const dacData = {
     id: dacId,
     owner: accountName,
@@ -102,7 +125,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     },
     max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
     issuance: `${(issuance || 1).toFixed(decimals)} ${tokenSymbol}`,
-    name: dacName,
+    name: `${dacName} DAC`,
     description: dacDescription,
     homepage: websiteURL,
     logo_url: logoURL,
@@ -119,7 +142,7 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       },
       maxvotes: maxVotes,
       numelected: numberElected,
-      periodlength: periodLength,
+      periodlength: periodLengthSeconds,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
       vote_quorum_percent: 1,
@@ -128,8 +151,8 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
       requested_pay_max: {
-        quantity: `${(maxRequestPay || 1).toFixed(4)} EOS`,
-        contract: "eosio.token"
+        quantity: `${(maxRequestPay || 1).toFixed(4)} ${NATIVE_TOKEN}`,
+        contract: NATIVE_TOKEN_CONTRACT
       }
     },
     proposals_config: {
@@ -140,6 +163,8 @@ export function prepareDacTransact({ state, dispatch }, payload) {
     }
   };
 
+  console.log(dacData)
+
   const actions = [
     {
       account: tokenToPay,
@@ -147,8 +172,8 @@ export function prepareDacTransact({ state, dispatch }, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: "5.0000 EOS",
-        memo: `${dacId}:_setup`
+        quantity: payTokenQuantity,
+        memo: `${dacId}:${planName}`
       }
     },
     {
@@ -158,59 +183,64 @@ export function prepareDacTransact({ state, dispatch }, payload) {
         from: accountName,
         to: DAC_FACTORY,
         quantity: payTokenQuantity,
-        memo: `${dacId}:${tariffName}`
-      }},
+        memo: `${dacId}:_setup`
+      }
+    },
     {
       account: DAC_FACTORY,
       name: "createdac",
       data: {
         dac_id: dacId,
+        dac_symbol: {
+          contract: DAC_TOKEN_CONTRACT,
+          symbol: `${decimals},${tokenSymbol}`
+        },
         json: JSON.stringify(dacData)
       }
     }
   ];
 
-  dispatch("transact", { actions });
+  dispatch("transact", { actions, dacId, openWS, afterTransact });
 }
 
 export async function transact({ state, dispatch, commit }, payload) {
+  const { actions, dacId, openWS, afterTransact } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
   const user = state.activeAuthenticator.users[0];
-  const actions = { ...payload.actions[0] };
+  const copiedActions = actions.map((action, index) => ({
+    ...actions[index],
+    authorization: [{ actor: user.accountName, permission: "active" }]
+  }));
 
-  //add authorization to act ions if not supplied
-  if (!actions.authorization) {
-    actions.authorization = [{ actor: user.accountName, permission: "active" }];
-  }
-
-  //sign
+  openWS(dacId);
   try {
-    let res = await user.signTransaction({ actions: [actions] }, { broadcast: true });
-    console.log(res);
-    commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction Successful" });
-    dispatch("hideSigningOverlay", 1000);
-    return res;
+    await user.signTransaction({ actions: copiedActions }, { broadcast: true });
+    console.log("transact finished");
+    commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
+    await dispatch("hideSigningOverlay", 800);
+    afterTransact();
   } catch (e) {
-    console.log(e, e.cause);
-    commit("setSigningOverlay", { show: true, status: 2, msg: await dispatch("parseUalError", e) });
-    dispatch("hideSigningOverlay", 2000);
-    return false;
+    await dispatch("hideSigningOverlay", 0);
+    afterTransact(parseUalError(e));
   }
 }
 
-export async function parseUalError({}, error) {
+function parseUalError(error) {
   let cause = "unknown cause";
   let error_code = "";
   if (error.cause) {
     cause = error.cause.reason || error.cause.message || "Report this error to the eosdac devs to enhance the UX";
     error_code = error.cause.code || error.cause.errorCode;
   }
+  console.log(cause);
   return `${error}. ${cause} ${error_code}`;
 }
 
-export async function hideSigningOverlay({ commit }, ms = 10000) {
-  await new Promise(resolve => {
-    setTimeout(resolve, ms);
+export function hideSigningOverlay({ commit }, ms = 10000) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      commit("setSigningOverlay", { show: false, status: 0 });
+      resolve();
+    }, ms);
   });
-  commit("setSigningOverlay", { show: false, status: 0 });
 }
