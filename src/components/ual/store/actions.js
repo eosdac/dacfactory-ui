@@ -163,6 +163,8 @@ export async function prepareDacTransact(storeProps, payload) {
     }
   };
 
+  console.log(dacData)
+
   const actions = [
     {
       account: tokenToPay,
@@ -189,6 +191,10 @@ export async function prepareDacTransact(storeProps, payload) {
       name: "createdac",
       data: {
         dac_id: dacId,
+        dac_symbol: {
+          contract: DAC_TOKEN_CONTRACT,
+          symbol: `${decimals},${tokenSymbol}`
+        },
         json: JSON.stringify(dacData)
       }
     }
