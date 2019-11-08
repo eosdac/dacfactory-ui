@@ -2,7 +2,7 @@
   <q-page class="bg-accent hack-height" v-if="payTokenInfo">
     <section class="content-wrapper" v-if="trxSuccess && !wsError">
       <p class="title">
-        {{ creationFinishedText ? creationFinishedText : "Please, wait while your dac will be created" }}
+        {{ creationFinishedText ? creationFinishedText : "Please, wait while your DAC is being created" }}
       </p>
       <p class="status-text" v-if="!creationFinishedText">{{ currentMessage }}</p>
       <!--<progress-bar :filled="doneCounter / stepsNumber" />-->
