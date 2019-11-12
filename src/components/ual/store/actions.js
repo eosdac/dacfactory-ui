@@ -174,7 +174,7 @@ export async function prepareDacTransact(storeProps, payload) {
     }
   };
 
-  console.log(dacData)
+  console.log(dacData);
 
   const actions = [
     {
