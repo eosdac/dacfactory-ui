@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-accent hack-height" v-if="payTokenInfo">
+  <q-page class="bg-accent hack-height">
     <section class="content-wrapper" v-if="trxSuccess && !wsError">
       <p class="title">
         {{ creationFinishedText ? creationFinishedText : "Please, wait while your DAC is being created" }}
@@ -25,7 +25,6 @@ export default {
   data() {
     return {
       currentMessage: "",
-      payTokenInfo: this.$store.state.ual.payTokenInfo,
       doneCounter: 0,
       /*stepsNumber: 20,*/
       wsError: null,
@@ -35,11 +34,10 @@ export default {
     };
   },
   mounted() {
-    if (!this.payTokenInfo) {
-      this.$router.push("/");
-      return;
-    }
     this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+  },
+  destroyed() {
+    this.$store.commit("ual/setPayTokenInfo", null);
   },
   methods: {
     openWS(dacId) {
@@ -69,6 +67,28 @@ export default {
       } else {
         this.trxError = message;
       }
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    if (from.path === "/create/step5") {
+      next()
+    } else {
+      if (from.path === '/') {
+        if (from.matched.length > 0) {
+          next(false)
+        } else {
+          next(from.path)
+        }
+      } else {
+        next(false)
+      }
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.path === "/create/step5") {
+      next(false);
+    } else {
+      next()
     }
   }
 };

@@ -7,7 +7,8 @@ import {
 } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
-const SECONDS_IN_HOUR = 3600;
+import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
+import { SECONDS_IN_HOUR } from "components/constants/common";
 
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
@@ -91,7 +92,9 @@ export async function prepareDacTransact(storeProps, payload) {
   const { maxSupply, decimals, issuance } = stepsData[2];
   const {
     lockupAsset,
-    maxRequestPay,
+    lockupAssetSelect,
+    maxRequestedPay,
+    maxRPSelect,
     lockup,
     lockupSelect,
     periodLength,
@@ -100,11 +103,25 @@ export async function prepareDacTransact(storeProps, payload) {
     maxVotes
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
-
-  const lockupSeconds = lockupSelect === "Day(s)" ? lockup * 24 * SECONDS_IN_HOUR : lockup * SECONDS_IN_HOUR;
-  const periodLengthSeconds =
-    periodLengthSelect === "Day(s)" ? periodLength * 24 * SECONDS_IN_HOUR : periodLength * SECONDS_IN_HOUR;
   const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+
+  const isLockupDac = lockupAssetSelect === TOKENS_OPTIONS[0];
+  const lockupAssetData = {
+    quantity: `${(lockupAsset || 1).toFixed(decimals)} ${isLockupDac ? DAC_TOKEN : NATIVE_TOKEN}`,
+    contract: isLockupDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
+  };
+  const isRPMDac = maxRPSelect === TOKENS_OPTIONS[0];
+  const rpmData = {
+    quantity: `${(maxRequestedPay || 1).toFixed(decimals)} ${isRPMDac ? DAC_TOKEN : NATIVE_TOKEN}`,
+    contract: isRPMDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
+  };
+
+  const lockupSeconds =
+    lockupSelect === TIME_PERIOD_OPTIONS[0] ? lockup * SECONDS_IN_HOUR : lockup * 24 * SECONDS_IN_HOUR;
+  const periodLengthSeconds =
+    periodLengthSelect === TIME_PERIOD_OPTIONS[0]
+      ? periodLength * SECONDS_IN_HOUR
+      : periodLength * 24 * SECONDS_IN_HOUR;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
   const planName = `monthly.${(isDacToken ? "" : NATIVE_TOKEN).toLowerCase()}`;
   const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
@@ -136,10 +153,7 @@ export async function prepareDacTransact(storeProps, payload) {
       colors: createColorsScheme(colorsScheme)
     },
     custodian_config: {
-      lockupasset: {
-        quantity: `${(lockupAsset || 1).toFixed(decimals)} ${tokenSymbol}`,
-        contract: DAC_TOKEN_CONTRACT
-      },
+      lockupasset: lockupAssetData,
       maxvotes: maxVotes,
       numelected: numberElected,
       periodlength: periodLengthSeconds,
@@ -150,10 +164,7 @@ export async function prepareDacTransact(storeProps, payload) {
       auth_threshold_mid: processThresholdFromNE(numberElected, THRESHOLD_MIDDLE),
       auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
       lockup_release_time_delay: lockupSeconds,
-      requested_pay_max: {
-        quantity: `${(maxRequestPay || 1).toFixed(4)} ${NATIVE_TOKEN}`,
-        contract: NATIVE_TOKEN_CONTRACT
-      }
+      requested_pay_max: rpmData
     },
     proposals_config: {
       proposal_threshold: 4,
@@ -205,7 +216,7 @@ export async function prepareDacTransact(storeProps, payload) {
 
 export async function transact({ state, dispatch, commit }, payload) {
   const { actions, dacId, openWS, afterTransact } = payload;
-  commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature" });
+  commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature", isShowCloseButton: false });
   const user = state.activeAuthenticator.users[0];
   const copiedActions = actions.map((action, index) => ({
     ...actions[index],
@@ -216,11 +227,11 @@ export async function transact({ state, dispatch, commit }, payload) {
   try {
     await user.signTransaction({ actions: copiedActions }, { broadcast: true });
     console.log("transact finished");
-    commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
-    await dispatch("hideSigningOverlay", 800);
+    //commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
+    commit("setSigningOverlay", { show: false, status: 0 });
     afterTransact();
   } catch (e) {
-    await dispatch("hideSigningOverlay", 0);
+    commit("setSigningOverlay", { show: false, status: 0 });
     afterTransact(parseUalError(e));
   }
 }
