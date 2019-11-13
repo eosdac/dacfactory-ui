@@ -124,15 +124,10 @@ export default {
           this.$store.commit("factory/setActiveStep", 0);
           return;
         }
-        const step = this.$route.params.step;
-        if (step && step.includes("step")) {
-          const stepNumber = Number(step.replace("step", ""));
-          if (stepNumber && stepNumber <= STEPS_NUMBER && stepNumber > 0) {
-            this.$store.commit("factory/setActiveStep", stepNumber);
-          } else {
-            this.$store.commit("factory/setActiveStep", 0);
-            this.$router.push("/");
-          }
+        const stepNumber = Number(r.params.step.replace("step", ""));
+
+        if (stepNumber <= STEPS_NUMBER && stepNumber > 0) {
+          this.$store.commit("factory/setActiveStep", stepNumber);
         } else {
           this.$store.commit("factory/setActiveStep", 0);
           this.$router.push("/");
