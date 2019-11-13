@@ -99,6 +99,17 @@ export default {
       stepsNumber: STEPS_NUMBER
     };
   },
+  mounted() {
+    const stepNumber = Number(this.$route.params.step.replace("step", ""));
+    const stepFromStore = this.$store.state.factory.activeStep;
+
+    if (stepNumber < stepFromStore) {
+      this.$store.commit("factory/setActiveStep", stepNumber);
+    }
+    if (stepNumber > stepFromStore) {
+      this.$router.push(`/create/step${stepFromStore}`)
+    }
+  },
   components: {
     Step1Form,
     Step2Form,

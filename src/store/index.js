@@ -25,7 +25,7 @@ export default function(/* { ssrContext } */) {
       }),
       createPersistedState({
         key: "factory",
-        paths: ["factory.stepsData"]
+        paths: ["factory"]
       })
     ],
 

@@ -173,8 +173,7 @@ export async function prepareDacTransact(storeProps, payload) {
       approval_expiry: 2592000
     }
   };
-
-  console.log(dacData)
+  console.log(dacData);
 
   const actions = [
     {
