@@ -90,11 +90,10 @@ export async function isAvailableAccountName(v) {
 }
 
 export function processDacNameInId(dacName) {
-  let dacId = dacName.toLowerCase().replace(/[^a-z1-5]+/g, ".");
+  let dacId = dacName.toLowerCase().replace(/[^a-z1-5]+/g, "");
   if (dacId.length > 11) {
     dacId = dacId.substring(0, 11);
   }
-  dacId = dacId.replace(/^(.+)\.$/, "$1");
   if (dacId.length < 5) {
     dacId = dacId.padEnd(5, "1");
   }
