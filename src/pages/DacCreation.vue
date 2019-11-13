@@ -64,6 +64,7 @@ export default {
     afterTransact(message) {
       if (!message) {
         this.trxSuccess = true;
+        this.$store.commit("factory/setActiveStep", 0)
       } else {
         this.trxError = message;
       }

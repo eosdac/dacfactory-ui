@@ -4,7 +4,8 @@ const routes = [
     component: () => import("layouts/MyLayout.vue"),
     children: [
       { path: "", component: () => import("pages/Home.vue") },
-      { path: "create/:step", component: () => import("pages/Steps") },
+      { path: "create/:step(step[1-5]+)", component: () => import("pages/Steps") },
+      { path: "create/" , redirect: "create/step1" },
       { path: "pricing", component: () => import("pages/Pricing.vue") },
       { path: "how-it-work", component: () => import("pages/HowItWork.vue") },
       { path: "terms", component: () => import("pages/Terms.vue")},

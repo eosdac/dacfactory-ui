@@ -13,7 +13,7 @@ Vue.use(Vuex);
  */
 
 export default function(/* { ssrContext } */) {
-  const Store = new Vuex.Store({
+  return new Vuex.Store({
     modules: {
       ual,
       factory
@@ -22,6 +22,10 @@ export default function(/* { ssrContext } */) {
       createPersistedState({
         key: "ual",
         paths: ["ual.SESSION"]
+      }),
+      createPersistedState({
+        key: "factory",
+        paths: ["factory"]
       })
     ],
 
@@ -29,6 +33,4 @@ export default function(/* { ssrContext } */) {
     // for dev mode only
     strict: false
   });
-
-  return Store;
 }

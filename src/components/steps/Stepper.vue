@@ -13,12 +13,11 @@
             <q-icon name="ion-arrow-back" />
             <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">{{ $t("general.go_back") }}</div>
           </q-btn>
-          <q-btn v-if="!shouldDisplayPrevStepBtn && $route.path !== '/'" key="home" flat class="q-mt-sm" to="/">
+          <q-btn v-if="shouldDisplayHomeButton" key="home" flat class="q-mt-sm" to="/">
             <q-icon name="home" style="color:#54565c" />
           </q-btn>
         </transition>
       </div>
-
       <div class="col-4 row justify-center items-center  overflow-hidden ">
         <transition
           appear
@@ -42,7 +41,11 @@
         <transition appear enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
           <q-btn color="secondary" class="q-mt-sm" @click="nextStep" v-if="shouldDisplayNextStepBtn">
             <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">
-              {{ $t("general.go_to_step", { step: getActiveStep + 1 }) }}
+              {{
+                $t("general.go_to_step", {
+                  step: nextButtonNumber
+                })
+              }}
             </div>
             <q-icon name="ion-arrow-forward" />
           </q-btn>
@@ -81,7 +84,6 @@ import { mapGetters } from "vuex";
 
 import { STEPS_NUMBER } from "components/constants/common";
 
-
 export default {
   data() {
     return {
@@ -94,10 +96,21 @@ export default {
       getActiveStep: "factory/getActiveStep"
     }),
     shouldDisplayPrevStepBtn: function() {
-      return this.getActiveStep && this.getActiveStep > 1;
+      return this.$route.path.startsWith("/create/") && this.getActiveStep > 1;
     },
     shouldDisplayNextStepBtn: function() {
-      return this.getActiveStep < STEPS_NUMBER;
+      if (!this.$route.path.startsWith("/create/")) {
+        return true;
+      } else {
+        return this.getActiveStep < STEPS_NUMBER;
+      }
+    },
+    nextButtonNumber() {
+      const activeStep = this.getActiveStep;
+      return this.$route.path.startsWith("/create/") || !activeStep ? activeStep + 1 : activeStep;
+    },
+    shouldDisplayHomeButton: function() {
+      return this.$route.path.startsWith("/create/") && this.getActiveStep === 1;
     },
     getProgressValue: function() {
       return this.getActiveStep >= 1 ? this.getActiveStep / STEPS_NUMBER : 0;
@@ -105,7 +118,7 @@ export default {
   },
   methods: {
     nextStep() {
-      const next = this.getActiveStep + 1;
+      const next = this.nextButtonNumber;
       if (next <= STEPS_NUMBER) {
         this.$router.push(`/create/step${next}`);
       }
@@ -118,27 +131,18 @@ export default {
     }
   },
   watch: {
-    $route: {
-      handler: function(r) {
-        if (!r.path.startsWith("/create/")) {
-          this.$store.commit("factory/setActiveStep", 0);
-          return;
-        }
-        const step = this.$route.params.step;
-        if (step && step.includes("step")) {
-          const stepNumber = Number(step.replace("step", ""));
-          if (stepNumber && stepNumber <= STEPS_NUMBER && stepNumber > 0) {
-            this.$store.commit("factory/setActiveStep", stepNumber);
-          } else {
-            this.$store.commit("factory/setActiveStep", 0);
-            this.$router.push("/");
-          }
-        } else {
-          this.$store.commit("factory/setActiveStep", 0);
-          this.$router.push("/");
-        }
-      },
-      immediate: true
+    $route(r) {
+      if (!r.path.startsWith("/create/")) {
+        return;
+      }
+      const stepNumber = Number(r.params.step.replace("step", ""));
+
+      if (stepNumber <= STEPS_NUMBER && stepNumber > 0) {
+        this.$store.commit("factory/setActiveStep", stepNumber);
+      } else {
+        this.$store.commit("factory/setActiveStep", 0);
+        this.$router.push("/");
+      }
     }
   }
 };
