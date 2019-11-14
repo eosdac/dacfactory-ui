@@ -51,28 +51,26 @@ export default {
         console.log("msg", msg);
         this.currentMessage = msg.data;
         this.doneCounter++;
+        if (this.currentMessage === 'CLIENT_BUILD_COMPLETE') {
+          this.creationFinishedText = "Your DAC was successfully created!";
+          this.$store.commit("factory/resetState");
+          this.$store.commit("ual/setPayTokenInfo", null);
+        }
       };
       ws.onerror = error => {
         this.wsError = "WS error occurred.";
         console.log(error, "error");
       };
-      ws.onclose = () => {
-        this.creationFinishedText = "Your DAC was successfully created!";
-        this.$store.commit("ual/setPayTokenInfo", null);
+      ws.onclose = event => {
+        console.log(event, 'closed'); // for development
       };
     },
     afterTransact(message) {
       if (!message) {
         this.trxSuccess = true;
-        this.$store.commit("factory/setActiveStep", 0)
       } else {
         this.trxError = message;
       }
-    }
-  },
-  watch: {
-    doneCounter(value) {
-      console.log(`count: ${value}`);
     }
   },
   beforeRouteEnter(to, from, next) {

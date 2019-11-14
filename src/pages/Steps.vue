@@ -125,12 +125,9 @@ export default {
     Step4Right,
     Step5Form
   },
-  computed: {
-    ...mapGetters({
-      getAccountName: "ual/getAccountName",
-      getActiveStep: "factory/getActiveStep"
-    })
-  }
+  computed: mapGetters({
+    getActiveStep: "factory/getActiveStep"
+  })
 };
 </script>
 
