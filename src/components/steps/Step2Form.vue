@@ -5,16 +5,16 @@
       <span class="q-ml-xs" v-if="parseLocalizedSupply(maxSupply)">{{ getTokenSymbol }}</span>
     </div>
     <my-input
-      :value="maxSupply"
+      v-model="maxSupply"
       color="secondary"
+      type="number"
       :label="$t('step2.max_supply', { token_symbol: getTokenSymbol })"
       :hint="$t('step2.max_supply_hint')"
       :rules="[
         val => !!val || $t('general.required'),
-        val => val > 0 || $t('step2.max_supply_rule_positive'),
-        val => /^[\d.]+$/.test(val) || $t('errors.only_digits_are_available')
+        val => /^\d+$/.test(val) || $t('errors.only_digits_are_available'),
+        val => val > 0 || $t('step2.max_supply_rule_positive')
       ]"
-      @input="onMaxSupply"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'maxSupply', data: $event })"
       :debounce="0"
     />
@@ -23,18 +23,18 @@
       <span class="q-ml-xs" v-if="parseLocalizedSupply(issuance)">{{ getTokenSymbol }}</span>
     </div>
     <my-input
-      :value="issuance"
+      v-model="issuance"
       color="secondary"
+      type="number"
       :label="$t('step2.issuance', { token_symbol: getTokenSymbol })"
       :hint="$t('step2.issuance_hint')"
       :rules="[
         val => !!val || $t('general.required'),
+        val => /^\d+$/.test(val) || $t('errors.only_digits_are_available'),
         val => val > 0 || $t('step2.max_supply_rule_positive'),
-        val => /^[\d.]+$/.test(val) || $t('errors.only_digits_are_available'),
         val => maxSupply ? val < maxSupply || $t('step2.less_than_supply') : true
       ]"
       :forceValidateValue="maxSupply"
-      @input="onIssuance"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'issuance', data: $event })"
       :debounce="0"
     />
@@ -98,12 +98,6 @@ export default {
         return "";
       }
       return parseInt(v).toLocaleString();
-    },
-    onMaxSupply(value) {
-      this.maxSupply = !value ? '' : parseFloat(value);
-    },
-    onIssuance(value) {
-      this.issuance = !value ? '' : parseFloat(value);
     }
   }
 };

@@ -107,12 +107,12 @@ export async function prepareDacTransact(storeProps, payload) {
 
   const isLockupDac = lockupAssetSelect === TOKENS_OPTIONS[0];
   const lockupAssetData = {
-    quantity: `${(lockupAsset || 1).toFixed(decimals)} ${isLockupDac ? DAC_TOKEN : NATIVE_TOKEN}`,
+    quantity: `${parseInt(lockupAsset).toFixed(decimals)} ${isLockupDac ? DAC_TOKEN : NATIVE_TOKEN}`,
     contract: isLockupDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
   };
   const isRPMDac = maxRPSelect === TOKENS_OPTIONS[0];
   const rpmData = {
-    quantity: `${(maxRequestedPay || 1).toFixed(decimals)} ${isRPMDac ? DAC_TOKEN : NATIVE_TOKEN}`,
+    quantity: `${parseInt(maxRequestedPay).toFixed(decimals)} ${isRPMDac ? DAC_TOKEN : NATIVE_TOKEN}`,
     contract: isRPMDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
   };
 
@@ -127,7 +127,6 @@ export async function prepareDacTransact(storeProps, payload) {
   const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
 
   const dacId = processDacNameInId(dacName);
-  // TODO remove || 1 after proper validation will be added to fields
   console.log(`dacId: ${dacId}`);
 
   const dacData = {
@@ -140,8 +139,8 @@ export async function prepareDacTransact(storeProps, payload) {
       contract: DAC_TOKEN_CONTRACT,
       symbol: `${decimals},${tokenSymbol}`
     },
-    max_supply: `${(maxSupply || 1).toFixed(decimals)} ${tokenSymbol}`,
-    issuance: `${(issuance || 1).toFixed(decimals)} ${tokenSymbol}`,
+    max_supply: `${parseInt(maxSupply).toFixed(decimals)} ${tokenSymbol}`,
+    issuance: `${parseInt(issuance).toFixed(decimals)} ${tokenSymbol}`,
     name: `${dacName} DAC`,
     description: dacDescription,
     homepage: websiteURL,
