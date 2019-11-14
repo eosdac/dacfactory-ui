@@ -36,10 +36,14 @@ export default {
   components: {
     PurchaseCards
   },
+  mounted() {
+    this.setIsAgree(false);
+    this.isAgree = false
+  },
   methods: {
-    onInputCheckbox() {
-      this.isAgree = !this.isAgree;
-      this.$store.commit("factory/setStepsData", { step: 5, key: "isAgree", data: { value: this.isAgree } });
+    onInputCheckbox(value) {
+      this.isAgree = value;
+      this.setIsAgree(this.isAgree);
       this.checkboxError = false;
     },
     onCheckboxError() {
@@ -52,6 +56,9 @@ export default {
         this.checkboxError = false;
         this.timeoutId = null;
       }, 3000);
+    },
+    setIsAgree(isAgree) {
+      this.$store.commit("factory/setStepsData", { step: 5, key: "isAgree", data: { value: isAgree } })
     }
   }
 };

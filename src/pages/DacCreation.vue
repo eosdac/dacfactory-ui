@@ -61,9 +61,6 @@ export default {
         this.wsError = "WS error occurred.";
         console.log(error, "error");
       };
-      ws.onclose = event => {
-        console.log(event, 'closed'); // for development
-      };
     },
     afterTransact(message) {
       if (!message) {
