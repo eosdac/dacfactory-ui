@@ -70,6 +70,11 @@ export default {
       }
     }
   },
+  watch: {
+    doneCounter(value) {
+      console.log(`count: ${value}`);
+    }
+  },
   beforeRouteEnter(to, from, next) {
     if (from.path === "/create/step5") {
       next()
