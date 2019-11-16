@@ -37,7 +37,7 @@ export function initialState() {
         isAgree: false
       }
     }
-  }
+  };
 }
 
 export default {

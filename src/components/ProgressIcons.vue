@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// TODO remake key
+// TODO remake key and set needed icons
 
 export default {
   props: {
@@ -51,6 +51,14 @@ export default {
   grid-template-columns repeat(16, 40px)
   grid-auto-rows 40px
   grid-gap 10px
+  justify-content center
+  margin-bottom 30px
+  @media (max-width 809px)
+    grid-template-columns repeat(auto-fill, 40px)
+    width 100%
+  @media (max-width 479px)
+    grid-template-columns repeat(auto-fill, 36px)
+    grid-auto-rows 36px
 .icon
   display flex
   justify-content center

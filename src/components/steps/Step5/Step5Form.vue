@@ -38,7 +38,7 @@ export default {
   },
   mounted() {
     this.setIsAgree(false);
-    this.isAgree = false
+    this.isAgree = false;
   },
   methods: {
     onInputCheckbox(value) {
@@ -58,7 +58,7 @@ export default {
       }, 3000);
     },
     setIsAgree(isAgree) {
-      this.$store.commit("factory/setStepsData", { step: 5, key: "isAgree", data: { value: isAgree } })
+      this.$store.commit("factory/setStepsData", { step: 5, key: "isAgree", data: { value: isAgree } });
     }
   }
 };

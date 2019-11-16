@@ -21,6 +21,6 @@ export function setStepsData(state, payload) {
 export function resetState(state) {
   const initialedState = { ...initialState() };
   Object.keys(initialedState).forEach(item => {
-    state[item] = initialedState[item]
+    state[item] = initialedState[item];
   });
 }

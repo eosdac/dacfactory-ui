@@ -172,7 +172,6 @@ export async function prepareDacTransact(storeProps, payload) {
       approval_expiry: 2592000
     }
   };
-  console.log(dacData);
 
   const actions = [
     {
@@ -222,22 +221,16 @@ export async function transact({ state, dispatch, commit }, payload) {
   }));
 
   try {
-    const res = await openWS(dacId);
-    console.log(res);
-  } catch (error) {
-    console.log(error)
-  }
-
-  try {
-    //await user.signTransaction({ actions: copiedActions }, { broadcast: true });
-    console.log("transact finished");
-    //commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
-    commit("setSigningOverlay", { show: false, status: 0 });
-    afterTransact();
-  } catch (e) {
-    commit("setSigningOverlay", { show: false, status: 0 });
-    afterTransact(parseUalError(e));
-  }
+    await openWS(dacId);
+    try {
+      await user.signTransaction({ actions: copiedActions }, { broadcast: true });
+      console.log("transact finished");
+      afterTransact();
+    } catch (e) {
+      afterTransact(parseUalError(e));
+    }
+  } catch {}
+  commit("setSigningOverlay", { show: false, status: 0 });
 }
 
 function parseUalError(error) {

@@ -61,7 +61,7 @@ export default {
       return res;
     },
     isShowCloseButton() {
-      return this.getSigningOverlay.isShowCloseButton
+      return this.getSigningOverlay.isShowCloseButton;
     }
   }
 };

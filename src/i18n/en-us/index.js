@@ -63,7 +63,7 @@ export default {
     info_line1:
       "The max supply of your token is the total number of tokens you will ever want to have for your DAC. Once this number is set, it can not be changed. Your DAC does not have to issue all the tokens initially created.",
     info_line2: "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
-    less_than_supply: 'Issuance should be less than max supply.'
+    less_than_supply: "Issuance should be less than max supply."
   },
   step3: {
     ///// right part

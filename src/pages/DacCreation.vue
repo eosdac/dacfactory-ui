@@ -1,16 +1,18 @@
 <template>
   <q-page class="bg-accent hack-height">
     <section class="content-wrapper" v-if="trxSuccess && !wsError">
-      <p class="title">
-        {{ creationFinishedText ? creationFinishedText : "Please, wait while your DAC is being created" }}
+      <p :class="['title', { 'creation-success': creationFinishedText }]">
+        {{ creationFinishedText ? creationFinishedText : "Please, wait while your DAC will be created" }}
       </p>
-      <p class="status-text" v-if="!creationFinishedText">{{ currentMessage }}</p>
+      <p class="status-text">{{ currentMessage }}</p>
       <progress-icons :currentNumber="currentNumber" />
-      <router-link to="/" v-if="creationFinishedText" class="go-to-main-link">GO TO MAIN PAGE</router-link>
+      <router-link to="/" :class="['go-to-main-link', { 'visibility-hidden': !creationFinishedText }]">
+        GO TO MAIN PAGE</router-link
+      >
     </section>
     <section class="content-wrapper" v-else-if="trxError || wsError">
-      <p class="title" style="color:red">{{ trxError || wsError }}</p>
-      <router-link to="/" class="go-to-main-link">Go to main page</router-link>
+      <p :class="['title', 'creation-fail']">{{ trxError || wsError }}</p>
+      <router-link to="/" class="go-to-main-link">GO TO MAIN PAGE</router-link>
     </section>
   </q-page>
 </template>
@@ -18,7 +20,7 @@
 <script>
 import ProgressIcons from "components/ProgressIcons";
 
-const CLIENT_BUILD_COMPLETE = 'CLIENT BUILD COMPLETE';
+const CLIENT_BUILD_COMPLETE = "CLIENT BUILD COMPLETE";
 
 export default {
   components: {
@@ -46,13 +48,11 @@ export default {
         this.ws = new WebSocket(process.env.DAC_CREATION_WS);
 
         this.ws.onopen = () => {
-          console.log("opened");
-          resolve('opened!');
           this.ws.send(JSON.stringify({ type: "register", data: { dac_id: dacId } }));
+          resolve();
         };
         this.ws.onmessage = msg => {
-          console.log("msg", msg);
-          this.currentMessage = JSON.parse(msg.data).data.status.replace('_', ' ');
+          this.currentMessage = JSON.parse(msg.data).data.status.replace(/_/g, " ");
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
             this.creationFinishedText = "Your DAC was successfully created!";
@@ -63,10 +63,12 @@ export default {
         this.ws.onerror = error => {
           this.wsError = "WS error occurred.";
           this.ws.close();
-          reject('error!');
           console.log(error, "error");
         };
-      })
+        this.ws.onclose = () => {
+          reject();
+        };
+      });
     },
     afterTransact(message) {
       if (!message) {
@@ -79,16 +81,16 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     if (from.path === "/create/step5") {
-      next()
+      next();
     } else {
-      if (from.path === '/') {
+      if (from.path === "/") {
         if (from.matched.length > 0) {
-          next(false)
+          next(false);
         } else {
-          next(from.path)
+          next(from.path);
         }
       } else {
-        next(false)
+        next(false);
       }
     }
   },
@@ -96,7 +98,7 @@ export default {
     if (to.path === "/create/step5") {
       next(false);
     } else {
-      next()
+      next();
     }
   }
 };
@@ -116,7 +118,12 @@ export default {
   font-weight 700
   line-height normal
   text-align center
+.creation-success
+  color $positive
+.creation-fail
+  color $negative
 .status-text
+  height 30px
   margin-bottom 30px
   font-size 20px
   font-weight 500
@@ -135,6 +142,8 @@ export default {
   &:focus,
   &:hover
     background-color #8954c0
+.visibility-hidden
+  visibility hidden
 @media (max-width 479px)
   .title
     font-size 30px
@@ -142,4 +151,6 @@ export default {
     font-size 14px
   .go-to-main-link
     font-size 12px
+  .status-text
+    height 21px
 </style>
