@@ -221,9 +221,15 @@ export async function transact({ state, dispatch, commit }, payload) {
     authorization: [{ actor: user.accountName, permission: "active" }]
   }));
 
-  openWS(dacId);
   try {
-    await user.signTransaction({ actions: copiedActions }, { broadcast: true });
+    const res = await openWS(dacId);
+    console.log(res);
+  } catch (error) {
+    console.log(error)
+  }
+
+  try {
+    //await user.signTransaction({ actions: copiedActions }, { broadcast: true });
     console.log("transact finished");
     //commit("setSigningOverlay", { show: true, status: 1, msg: "Transaction was finished successfully" });
     commit("setSigningOverlay", { show: false, status: 0 });

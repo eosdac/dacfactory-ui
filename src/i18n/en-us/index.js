@@ -35,7 +35,6 @@ export default {
     token_symbol: "Token Symbol",
     token_symbol_hint: "Min 3 / Max 7 chars",
     token_symbol_rule_length_3: "Symbol must have a minimum of 3 chars.",
-    token_symbol_rule_length_7: "Symbol can't have more then 7 chars.",
     description: "Description",
     description_hint: "Optional info about your DAC",
     website_url: "Website URL",

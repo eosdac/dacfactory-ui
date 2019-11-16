@@ -19,8 +19,7 @@
       :rules="[
         val => !!val || $t('general.required'),
         isValidSymbol,
-        val => val.length >= 3 || $t('step1.symbol_rule_length_3'),
-        val => val.length <= 7 || $t('step1.symbol_rule_length_7'),
+        val => val.length >= 3 || $t('step1.token_symbol_rule_length_3'),
         isAvailableSymbol
       ]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'tokenSymbol', data: $event })"

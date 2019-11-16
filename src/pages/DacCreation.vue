@@ -5,7 +5,7 @@
         {{ creationFinishedText ? creationFinishedText : "Please, wait while your DAC is being created" }}
       </p>
       <p class="status-text" v-if="!creationFinishedText">{{ currentMessage }}</p>
-      <!--<progress-bar :filled="doneCounter / stepsNumber" />-->
+      <progress-icons :currentNumber="currentNumber" />
       <router-link to="/" v-if="creationFinishedText" class="go-to-main-link">GO TO MAIN PAGE</router-link>
     </section>
     <section class="content-wrapper" v-else-if="trxError || wsError">
@@ -16,17 +16,18 @@
 </template>
 
 <script>
-import ProgressBar from "components/ProgressBar";
+import ProgressIcons from "components/ProgressIcons";
+
+const CLIENT_BUILD_COMPLETE = 'CLIENT BUILD COMPLETE';
 
 export default {
   components: {
-    ProgressBar
+    ProgressIcons
   },
   data() {
     return {
       currentMessage: "",
-      doneCounter: 0,
-      /*stepsNumber: 20,*/
+      currentNumber: 0,
       wsError: null,
       trxSuccess: null,
       trxError: null,
@@ -41,32 +42,38 @@ export default {
   },
   methods: {
     openWS(dacId) {
-      const ws = new WebSocket(process.env.DAC_CREATION_WS);
+      return new Promise((resolve, reject) => {
+        this.ws = new WebSocket(process.env.DAC_CREATION_WS);
 
-      ws.onopen = () => {
-        console.log("opened");
-        ws.send(JSON.stringify({ type: "register", data: { dac_id: dacId } }));
-      };
-      ws.onmessage = msg => {
-        console.log("msg", msg);
-        this.currentMessage = msg.data;
-        this.doneCounter++;
-        if (this.currentMessage === 'CLIENT_BUILD_COMPLETE') {
-          this.creationFinishedText = "Your DAC was successfully created!";
-          this.$store.commit("factory/resetState");
-          this.$store.commit("ual/setPayTokenInfo", null);
-        }
-      };
-      ws.onerror = error => {
-        this.wsError = "WS error occurred.";
-        console.log(error, "error");
-      };
+        this.ws.onopen = () => {
+          console.log("opened");
+          resolve('opened!');
+          this.ws.send(JSON.stringify({ type: "register", data: { dac_id: dacId } }));
+        };
+        this.ws.onmessage = msg => {
+          console.log("msg", msg);
+          this.currentMessage = JSON.parse(msg.data).data.status.replace('_', ' ');
+          this.currentNumber++;
+          if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
+            this.creationFinishedText = "Your DAC was successfully created!";
+            this.$store.commit("factory/resetState");
+            this.$store.commit("ual/setPayTokenInfo", null);
+          }
+        };
+        this.ws.onerror = error => {
+          this.wsError = "WS error occurred.";
+          this.ws.close();
+          reject('error!');
+          console.log(error, "error");
+        };
+      })
     },
     afterTransact(message) {
       if (!message) {
         this.trxSuccess = true;
       } else {
         this.trxError = message;
+        this.ws.close();
       }
     }
   },
@@ -104,14 +111,15 @@ export default {
   height 100%
   padding 0 16px
 .title
-  margin: 0 0 20px
+  margin: 0 0 30px
   font-size 40px
   font-weight 700
   line-height normal
   text-align center
 .status-text
-  margin-bottom 20px
+  margin-bottom 30px
   font-size 20px
+  font-weight 500
 .hack-height
   height 1px
 .go-to-main-link
