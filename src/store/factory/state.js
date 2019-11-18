@@ -15,10 +15,10 @@ export function factoryInitialState() {
         decimals: "4"
       },
       3: {
-        periodLength: "",
-        periodLengthSelect: TIME_PERIOD_OPTIONS[0],
-        numberElected: "",
-        maxVotes: ""
+        numberElected: "7",
+        maxVotes: "3",
+        periodLength: "7",
+        periodLengthSelect: TIME_PERIOD_OPTIONS[1]
       },
       4: {
         websiteURL: "",

@@ -22,11 +22,11 @@ export default {
     go_back: "go back",
     continue: "save & continue",
     step_of: "Step {active_step} of {max_steps}",
-    rule_positive: "Value must be positive."
   },
   errors: {
-    invalid_url: "This is not a valid url",
-    only_digits_are_available: "Only digits are available"
+    invalid_url: "This is not a valid url.",
+    only_digits_are_available: "Only digits are available.",
+    greater_then_null: "Value must be greater than 0."
   },
   step1: {
     title: "DAC Profile",
@@ -70,10 +70,12 @@ export default {
     subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
     subtitle_dolor_amet:
       "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
-    hint4: "LOCKUP",
-    hint5: "PERIOD LENGTH",
-    hint6: "NUMBER ELECTED",
-    hint10: "MAX VOTE",
+    hint2: "NUMBER OF CUSTODIANS",
+    subtitle2: "How many custodians will be elected.",
+    hint3: "NUMBER OF VOTES PER TOKEN",
+    subtitle3: "How many custodians will each account be allowed to vote for.",
+    hint4: "LENGTH OF CUSTODIAN TERM",
+    subtitle4: "How long will custodians be elected for until the next election.",
     ///// left part
     title: "Custodian Configuration",
     percent_error: "Value should be between 0 and 100"

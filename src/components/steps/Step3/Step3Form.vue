@@ -1,12 +1,36 @@
 <template>
   <div>
+    <my-input
+      color="secondary"
+      label="Number of Custodians"
+      :rules="[
+        val => (val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available'),
+        val => val > 0 || $t('errors.greater_then_null')
+      ]"
+      v-model="numberElected"
+      @statusChange="onStatusChange($event, 'numberElected')"
+    />
+    <my-input
+      color="secondary"
+      label="Number of votes per token"
+      class="margin-bottom-14"
+      :rules="[
+        val => (val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available'),
+        val => val > 0 || $t('errors.greater_then_null')
+      ]"
+      v-model="maxVotes"
+      @statusChange="onStatusChange($event, 'maxVotes')"
+    />
+    <custom-divider />
     <div class="input-select-wrapper">
       <my-input
-        type="number"
         color="secondary"
-        label="Period Length"
+        label="Length of custodian term"
         class="margin-bottom-14"
-        :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
+        :rules="[
+          val => (val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available'),
+          val => val > 0 || $t('errors.greater_then_null')
+        ]"
         v-model="periodLength"
         @statusChange="onStatusChange($event, 'periodLength')"
       />
@@ -20,24 +44,6 @@
         @input="onStatusChange({ value: $event }, 'periodLengthSelect')"
       />
     </div>
-    <custom-divider />
-    <my-input
-      type="number"
-      color="secondary"
-      label="Number elected"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
-      v-model="numberElected"
-      @statusChange="onStatusChange($event, 'numberElected')"
-    />
-    <my-input
-      type="number"
-      color="secondary"
-      label="Max Votes"
-      class="margin-bottom-14"
-      :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
-      v-model="maxVotes"
-      @statusChange="onStatusChange($event, 'maxVotes')"
-    />
   </div>
 </template>
 
@@ -53,12 +59,7 @@ export default {
     CustomDivider
   },
   data() {
-    const {
-      periodLength,
-      periodLengthSelect,
-      numberElected,
-      maxVotes
-    } = this.$store.state.factory.stepsData[3];
+    const { periodLength, periodLengthSelect, numberElected, maxVotes } = this.$store.state.factory.stepsData[3];
     return {
       periodLength,
       periodLengthSelect,

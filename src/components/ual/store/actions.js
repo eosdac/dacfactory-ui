@@ -137,8 +137,8 @@ export async function prepareDacTransact(storeProps, payload) {
         quantity: `0 ${DAC_TOKEN}`,
         contract: DAC_TOKEN_CONTRACT
       },
-      maxvotes: maxVotes,
-      numelected: numberElected,
+      maxvotes: parseInt(maxVotes),
+      numelected: parseInt(numberElected),
       periodlength: periodLengthSeconds,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
