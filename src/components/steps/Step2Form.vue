@@ -11,7 +11,7 @@
       :hint="$t('step2.issuance_hint')"
       :rules="[
         val => !!val || $t('general.required'),
-        val => /^\d+$/.test(val) || $t('errors.only_digits_are_available'),
+        val => /^\d+$/.test(val) || $t('errors.only_positive_integers_are_available'),
         val => val > 0 || $t('errors.greater_then_null'),
         val => val < MAX_SUPPLY_VALUE || $t('step2.less_than_supply', { max_supply: MAX_SUPPLY_VALUE })
       ]"

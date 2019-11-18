@@ -4,8 +4,9 @@
       color="secondary"
       label="Number of Custodians"
       :rules="[
-        val => (val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available'),
-        val => val > 0 || $t('errors.greater_then_null')
+        val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
+        val => val > 0 || $t('errors.greater_then_null'),
+        val => val >= 2 || $t('errors.not_less_than', { min_value: 2 })
       ]"
       v-model="numberElected"
       @statusChange="onStatusChange($event, 'numberElected')"
@@ -15,7 +16,7 @@
       label="Number of votes per token"
       class="margin-bottom-14"
       :rules="[
-        val => (val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available'),
+        val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
         val => val > 0 || $t('errors.greater_then_null')
       ]"
       v-model="maxVotes"
@@ -28,7 +29,7 @@
         label="Length of custodian term"
         class="margin-bottom-14"
         :rules="[
-          val => (val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available'),
+          val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
           val => val > 0 || $t('errors.greater_then_null')
         ]"
         v-model="periodLength"

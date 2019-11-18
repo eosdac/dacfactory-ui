@@ -25,8 +25,9 @@ export default {
   },
   errors: {
     invalid_url: "This is not a valid url.",
-    only_digits_are_available: "Only digits are available.",
-    greater_then_null: "Value must be greater than 0."
+    only_positive_integers_are_available: "Only positive integers are available.",
+    greater_then_null: "Value must be greater than 0.",
+    not_less_than: "Value must be not less than {min_value}."
   },
   step1: {
     title: "DAC Profile",
