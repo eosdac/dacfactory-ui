@@ -7,14 +7,13 @@
     <my-input
       v-model="issuance"
       color="secondary"
-      type="number"
       :label="$t('step2.issuance', { token_symbol: getTokenSymbol })"
       :hint="$t('step2.issuance_hint')"
       :rules="[
         val => !!val || $t('general.required'),
         val => /^\d+$/.test(val) || $t('errors.only_digits_are_available'),
         val => val > 0 || $t('general.rule_positive'),
-        val => val < maxSupply || $t('step2.less_than_supply', {max_supply: maxSupply})
+        val => val < MAX_SUPPLY_VALUE || $t('step2.less_than_supply', { max_supply: MAX_SUPPLY_VALUE })
       ]"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'issuance', data: $event })"
       :debounce="0"
@@ -57,7 +56,7 @@ export default {
     return {
       decimals: this.$store.state.factory.stepsData[2].decimals,
       issuance: this.$store.state.factory.stepsData[2].issuance,
-      maxSupply: MAX_SUPPLY_VALUE
+      MAX_SUPPLY_VALUE
     };
   },
   computed: {

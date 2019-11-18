@@ -4,64 +4,6 @@
       <my-input
         type="number"
         color="secondary"
-        label="Lockup Asset"
-        hint="See LockUp Asset"
-        :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
-        v-model="lockupAsset"
-        @statusChange="onStatusChange($event, 'lockupAsset')"
-      />
-      <q-select
-        outlined
-        dark
-        v-model="lockupAssetSelect"
-        color="secondary"
-        class="align-self-start"
-        :options="TOKENS_OPTIONS"
-        @input="onStatusChange({ value: $event }, 'lockupAssetSelect')"
-      />
-    </div>
-    <div class="input-select-wrapper">
-      <my-input
-        type="number"
-        color="secondary"
-        label="Max Requested Pay"
-        :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
-        v-model="maxRequestedPay"
-        @statusChange="onStatusChange($event, 'maxRequestedPay')"
-      />
-      <q-select
-        outlined
-        dark
-        v-model="maxRPSelect"
-        color="secondary"
-        class="align-self-start"
-        :options="TOKENS_OPTIONS"
-        @input="onStatusChange({ value: $event }, 'maxRPSelect')"
-      />
-    </div>
-    <div class="input-select-wrapper">
-      <my-input
-        type="number"
-        color="secondary"
-        label="Lockup"
-        :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
-        v-model="lockup"
-        @statusChange="onStatusChange($event, 'lockup')"
-      />
-      <q-select
-        outlined
-        dark
-        v-model="lockupSelect"
-        color="secondary"
-        class="align-self-start"
-        :options="TIME_PERIOD_OPTIONS"
-        @input="onStatusChange({ value: $event }, 'lockupSelect')"
-      />
-    </div>
-    <div class="input-select-wrapper">
-      <my-input
-        type="number"
-        color="secondary"
         label="Period Length"
         class="margin-bottom-14"
         :rules="[val => (!!val && /^\d+$/.test(val)) || $t('errors.only_digits_are_available')]"
@@ -112,24 +54,12 @@ export default {
   },
   data() {
     const {
-      lockupAsset,
-      lockupAssetSelect,
-      maxRequestedPay,
-      maxRPSelect,
-      lockup,
-      lockupSelect,
       periodLength,
       periodLengthSelect,
       numberElected,
       maxVotes
     } = this.$store.state.factory.stepsData[3];
     return {
-      lockupAsset,
-      lockupAssetSelect,
-      maxRequestedPay,
-      maxRPSelect,
-      lockup,
-      lockupSelect,
       periodLength,
       periodLengthSelect,
       numberElected,

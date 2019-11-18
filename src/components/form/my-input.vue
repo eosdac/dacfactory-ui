@@ -5,6 +5,7 @@
       ref="my_input"
       :dark="dark"
       :color="color"
+      :type="type"
       outlined
       noErrorIcon
       bottom-slots

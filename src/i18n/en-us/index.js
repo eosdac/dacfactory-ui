@@ -59,7 +59,7 @@ export default {
     issuance_hint: "Issuance for your token",
     decimals: "Decimals",
     info_line1:
-      "The max supply of your token is the total number of tokens you will ever want to have for your DAC. Once this number is set, it can not be changed. Your DAC does not have to issue all the tokens initially created.",
+      "Your DAC does not have to issue all the tokens initially created.",
     info_line2: "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
     less_than_supply: "Issuance should be less than {max_supply}."
   },
@@ -68,10 +68,8 @@ export default {
     hint1: "The Why’s and How",
     title_right: "Understanding the configurations",
     subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
-    hint2: "LOCKUP ASSETS",
     subtitle_dolor_amet:
       "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
-    hint3: "MAX REQUEST PAY",
     hint4: "LOCKUP",
     hint5: "PERIOD LENGTH",
     hint6: "NUMBER ELECTED",

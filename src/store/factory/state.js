@@ -11,16 +11,10 @@ export function factoryInitialState() {
         tokenSymbol: ""
       },
       2: {
-        issuance: "",
+        issuance: "1000000",
         decimals: "4"
       },
       3: {
-        lockupAsset: "",
-        lockupAssetSelect: TOKENS_OPTIONS[0],
-        maxRequestedPay: "",
-        maxRPSelect: TOKENS_OPTIONS[0],
-        lockup: "",
-        lockupSelect: TIME_PERIOD_OPTIONS[0],
         periodLength: "",
         periodLengthSelect: TIME_PERIOD_OPTIONS[0],
         numberElected: "",
