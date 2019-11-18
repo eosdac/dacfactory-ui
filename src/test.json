@@ -2,7 +2,7 @@
   "factory": {
     "stepsData": {
       "1": { "dacName": "", "dacDescription": "", "tokenSymbol": "" },
-      "2": { "maxSupply": "", "issuance": "", "decimals": "4" },
+      "2": { "issuance": "", "decimals": "4" },
       "3": {
         "lockupAsset": "",
         "lockupAssetSelect": "DAC Token",

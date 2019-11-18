@@ -8,7 +8,7 @@ import {
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
 import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
-import { SECONDS_IN_HOUR } from "components/constants/common";
+import { MAX_SUPPLY_VALUE, SECONDS_IN_HOUR } from "components/constants/common";
 
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
@@ -89,7 +89,7 @@ export async function prepareDacTransact(storeProps, payload) {
   const { openWS, afterTransact } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
-  const { maxSupply, decimals, issuance } = stepsData[2];
+  const { decimals, issuance } = stepsData[2];
   const {
     lockupAsset,
     lockupAssetSelect,
@@ -139,7 +139,7 @@ export async function prepareDacTransact(storeProps, payload) {
       contract: DAC_TOKEN_CONTRACT,
       symbol: `${decimals},${tokenSymbol}`
     },
-    max_supply: `${parseInt(maxSupply).toFixed(decimals)} ${tokenSymbol}`,
+    max_supply: `${MAX_SUPPLY_VALUE} ${tokenSymbol}`,
     issuance: `${parseInt(issuance).toFixed(decimals)} ${tokenSymbol}`,
     name: `${dacName} DAC`,
     description: dacDescription,

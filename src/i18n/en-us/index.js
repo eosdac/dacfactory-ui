@@ -21,7 +21,8 @@ export default {
     go_home: "Go home",
     go_back: "go back",
     continue: "save & continue",
-    step_of: "Step {active_step} of {max_steps}"
+    step_of: "Step {active_step} of {max_steps}",
+    rule_positive: "Value must be positive."
   },
   errors: {
     invalid_url: "This is not a valid url",
@@ -54,16 +55,13 @@ export default {
   },
   step2: {
     title: "Tokenomics",
-    max_supply: "Max Supply {token_symbol}",
-    max_supply_hint: "Max supply for your token",
-    max_supply_rule_positive: "Value must be positive.",
     issuance: "Issuance {token_symbol}",
     issuance_hint: "Issuance for your token",
     decimals: "Decimals",
     info_line1:
       "The max supply of your token is the total number of tokens you will ever want to have for your DAC. Once this number is set, it can not be changed. Your DAC does not have to issue all the tokens initially created.",
     info_line2: "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
-    less_than_supply: "Issuance should be less than max supply."
+    less_than_supply: "Issuance should be less than {max_supply}."
   },
   step3: {
     ///// right part

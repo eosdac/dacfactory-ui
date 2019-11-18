@@ -11,7 +11,6 @@ export function factoryInitialState() {
         tokenSymbol: ""
       },
       2: {
-        maxSupply: "",
         issuance: "",
         decimals: "4"
       },

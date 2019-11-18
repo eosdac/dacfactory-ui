@@ -1,24 +1,6 @@
 <template>
   <div>
     <div class="row text-caption justify-end text-secondary text-weight-bold" style="height:20px">
-      <span>{{ parseLocalizedSupply(maxSupply) }}</span>
-      <span class="q-ml-xs" v-if="parseLocalizedSupply(maxSupply)">{{ getTokenSymbol }}</span>
-    </div>
-    <my-input
-      v-model="maxSupply"
-      color="secondary"
-      type="number"
-      :label="$t('step2.max_supply', { token_symbol: getTokenSymbol })"
-      :hint="$t('step2.max_supply_hint')"
-      :rules="[
-        val => !!val || $t('general.required'),
-        val => /^\d+$/.test(val) || $t('errors.only_digits_are_available'),
-        val => val > 0 || $t('step2.max_supply_rule_positive')
-      ]"
-      @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'maxSupply', data: $event })"
-      :debounce="0"
-    />
-    <div class="row text-caption justify-end text-secondary text-weight-bold" style="height:20px">
       <span>{{ parseLocalizedSupply(issuance) }}</span>
       <span class="q-ml-xs" v-if="parseLocalizedSupply(issuance)">{{ getTokenSymbol }}</span>
     </div>
@@ -31,10 +13,9 @@
       :rules="[
         val => !!val || $t('general.required'),
         val => /^\d+$/.test(val) || $t('errors.only_digits_are_available'),
-        val => val > 0 || $t('step2.max_supply_rule_positive'),
-        val => maxSupply ? val < maxSupply || $t('step2.less_than_supply') : true
+        val => val > 0 || $t('general.rule_positive'),
+        val => val < maxSupply || $t('step2.less_than_supply', {max_supply: maxSupply})
       ]"
-      :forceValidateValue="maxSupply"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'issuance', data: $event })"
       :debounce="0"
     />
@@ -66,15 +47,17 @@ import { mapGetters } from "vuex";
 
 import myInput from "components/form/my-input";
 
+import { MAX_SUPPLY_VALUE } from "components/constants/common";
+
 export default {
   components: {
     myInput
   },
   data() {
     return {
-      maxSupply: this.$store.state.factory.stepsData[2].maxSupply,
       decimals: this.$store.state.factory.stepsData[2].decimals,
-      issuance: this.$store.state.factory.stepsData[2].issuance
+      issuance: this.$store.state.factory.stepsData[2].issuance,
+      maxSupply: MAX_SUPPLY_VALUE
     };
   },
   computed: {
