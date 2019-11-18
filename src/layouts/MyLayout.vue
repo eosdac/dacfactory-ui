@@ -1,39 +1,42 @@
 <template>
   <q-layout view="lhh Lpr fFf">
     <q-header :elevated="false">
-      <q-toolbar style="height:60px" :class="$route.path == '/' ? 'bg-primary' : 'bg-accent'">
-        <img src="../statics/images/eosdac-logo.svg" style="height:45px" />
-        <q-toolbar-title> </q-toolbar-title>
-        <q-btn v-if="$q.screen.gt.xs" label="see pricing" unelevated :ripple="false" to="/pricing" />
-        <q-btn
-          v-if="$q.screen.gt.xs"
-          label="how it work"
-          unelevated
-          :ripple="false"
-          class="q-mr-sm"
-          to="/how-it-work"
-        />
-        <q-btn
-          style="height:32px; width:140px"
-          v-if="!getAccountName"
-          label="login"
-          @click="$store.dispatch('ual/renderLoginModal')"
-          color="secondary"
-          :flat="getShouldRenderLoginModal"
-          :loading="getShouldRenderLoginModal"
-        />
-        <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName" style="width:140px">
-          <q-list>
-            <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
-              <q-item-section>
-                <q-item-label>Logout</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
+      <q-toolbar style="height:60px" class="toolbar-wrapper" :class="$route.path === '/' ? 'bg-primary' : 'bg-accent'">
+        <router-link to="/" class="logo-link">
+          <span class="visually-hidden">eos DAC</span>
+          <img src="../statics/images/eosdac-logo.svg" />
+        </router-link>
+        <nav>
+          <q-btn v-if="$q.screen.gt.xs" label="see pricing" unelevated :ripple="false" to="/pricing" />
+          <q-btn
+            v-if="$q.screen.gt.xs"
+            label="how it work"
+            unelevated
+            :ripple="false"
+            class="q-mr-sm"
+            to="/how-it-work"
+          />
+          <q-btn
+            style="height:32px; width:140px"
+            v-if="!getAccountName"
+            label="login"
+            @click="$store.dispatch('ual/renderLoginModal')"
+            color="secondary"
+            :flat="getShouldRenderLoginModal"
+            :loading="getShouldRenderLoginModal"
+          />
+          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName" style="width:140px">
+            <q-list>
+              <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
+                <q-item-section>
+                  <q-item-label>Logout</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </nav>
       </q-toolbar>
     </q-header>
-
     <q-drawer v-if="false" v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
@@ -122,10 +125,18 @@ export default {
       getShouldRenderLoginModal: "ual/getShouldRenderLoginModal"
     }),
     exceptDacCreationPage() {
-      return this.$route.path !== '/dac-creation'
+      return this.$route.path !== "/dac-creation";
     }
   }
 };
 </script>
 
-<style></style>
+<style scoped lang="stylus">
+.toolbar-wrapper
+  display flex
+  justify-content space-between
+.logo-link
+  display flex
+  margin-right 12px
+  line-height normal
+</style>

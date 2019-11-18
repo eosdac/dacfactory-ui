@@ -35,7 +35,6 @@ export default {
     token_symbol: "Token Symbol",
     token_symbol_hint: "Min 3 / Max 7 chars",
     token_symbol_rule_length_3: "Symbol must have a minimum of 3 chars.",
-    token_symbol_rule_length_7: "Symbol can't have more then 7 chars.",
     description: "Description",
     description_hint: "Optional info about your DAC",
     website_url: "Website URL",
@@ -64,7 +63,7 @@ export default {
     info_line1:
       "The max supply of your token is the total number of tokens you will ever want to have for your DAC. Once this number is set, it can not be changed. Your DAC does not have to issue all the tokens initially created.",
     info_line2: "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
-    less_than_supply: 'Issuance should be less than max supply.'
+    less_than_supply: "Issuance should be less than max supply."
   },
   step3: {
     ///// right part

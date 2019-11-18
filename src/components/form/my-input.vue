@@ -3,7 +3,6 @@
     <q-input
       autocomplete="off"
       ref="my_input"
-      :type="type"
       :dark="dark"
       :color="color"
       outlined
@@ -107,14 +106,6 @@ export default {
       type: Number,
       default: 500
     }
-    // min: {
-    //   type: Number,
-    //   default: 0
-    // },
-    // step: {
-    //   type: Number,
-    //   default: 0
-    // },
   },
   data() {
     return {
@@ -126,9 +117,6 @@ export default {
     handleInput(v) {
       //todo only emit if validated
       // this.$refs.my_input.validate();
-      if (this.type === "number") {
-        v = Number(v);
-      }
       this.$emit("input", v);
     },
     validationSuccess() {
@@ -164,9 +152,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.icon-left {
-  margin: 0;
-}
-</style>
