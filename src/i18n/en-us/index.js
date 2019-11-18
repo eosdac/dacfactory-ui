@@ -21,11 +21,13 @@ export default {
     go_home: "Go home",
     go_back: "go back",
     continue: "save & continue",
-    step_of: "Step {active_step} of {max_steps}"
+    step_of: "Step {active_step} of {max_steps}",
   },
   errors: {
-    invalid_url: "This is not a valid url",
-    only_digits_are_available: "Only digits are available"
+    invalid_url: "This is not a valid url.",
+    only_positive_integers_are_available: "Only positive integers are available.",
+    greater_then_null: "Value must be greater than 0.",
+    not_less_than: "Value must be not less than {min_value}."
   },
   step1: {
     title: "DAC Profile",
@@ -54,30 +56,27 @@ export default {
   },
   step2: {
     title: "Tokenomics",
-    max_supply: "Max Supply {token_symbol}",
-    max_supply_hint: "Max supply for your token",
-    max_supply_rule_positive: "Value must be positive.",
     issuance: "Issuance {token_symbol}",
     issuance_hint: "Issuance for your token",
     decimals: "Decimals",
     info_line1:
-      "The max supply of your token is the total number of tokens you will ever want to have for your DAC. Once this number is set, it can not be changed. Your DAC does not have to issue all the tokens initially created.",
+      "Your DAC does not have to issue all the tokens initially created.",
     info_line2: "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
-    less_than_supply: "Issuance should be less than max supply."
+    less_than_supply: "Issuance should be less than {max_supply}."
   },
   step3: {
     ///// right part
     hint1: "The Why’s and How",
     title_right: "Understanding the configurations",
     subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
-    hint2: "LOCKUP ASSETS",
     subtitle_dolor_amet:
       "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
-    hint3: "MAX REQUEST PAY",
-    hint4: "LOCKUP",
-    hint5: "PERIOD LENGTH",
-    hint6: "NUMBER ELECTED",
-    hint10: "MAX VOTE",
+    hint2: "NUMBER OF CUSTODIANS",
+    subtitle2: "How many custodians will be elected.",
+    hint3: "NUMBER OF VOTES PER TOKEN",
+    subtitle3: "How many custodians will each account be allowed to vote for.",
+    hint4: "LENGTH OF CUSTODIAN TERM",
+    subtitle4: "How long will custodians be elected for until the next election.",
     ///// left part
     title: "Custodian Configuration",
     percent_error: "Value should be between 0 and 100"

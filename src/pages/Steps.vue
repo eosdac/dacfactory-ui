@@ -43,7 +43,7 @@
       </div>
       <div :class="getActiveStep === 5 ? 'wrapper-right-step-5' : 'wrapper-right'" class="bg-primary">
         <div class="q-pa-md">
-          <div v-if="getActiveStep === 1">
+          <div v-if="getActiveStep === 1" class="step-right-styles">
             <p>
               {{ $t("step1.info_line1") }}
             </p>
@@ -60,7 +60,7 @@
               {{ $t("step1.info_line5") }}
             </p>
           </div>
-          <div v-if="getActiveStep === 2">
+          <div v-if="getActiveStep === 2" class="step-right-styles">
             <p>
               {{ $t("step2.info_line1") }}
             </p>
@@ -145,6 +145,9 @@ h1
   flex-basis 88px
   @media (min-width 1560px)
     flex-grow 1
+.step-right-styles
+  font-size 16px
+  color $light-violet
 @media (max-width 1439px)
   .width-xl-screen
     height auto

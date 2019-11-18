@@ -8,7 +8,7 @@ import {
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
 import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
-import { SECONDS_IN_HOUR } from "components/constants/common";
+import { MAX_SUPPLY_VALUE, SECONDS_IN_HOUR } from "components/constants/common";
 
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);
@@ -89,14 +89,8 @@ export async function prepareDacTransact(storeProps, payload) {
   const { openWS, afterTransact } = payload;
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
-  const { maxSupply, decimals, issuance } = stepsData[2];
+  const { decimals, issuance } = stepsData[2];
   const {
-    lockupAsset,
-    lockupAssetSelect,
-    maxRequestedPay,
-    maxRPSelect,
-    lockup,
-    lockupSelect,
     periodLength,
     periodLengthSelect,
     numberElected,
@@ -105,19 +99,6 @@ export async function prepareDacTransact(storeProps, payload) {
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
   const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
 
-  const isLockupDac = lockupAssetSelect === TOKENS_OPTIONS[0];
-  const lockupAssetData = {
-    quantity: `${parseInt(lockupAsset).toFixed(decimals)} ${isLockupDac ? DAC_TOKEN : NATIVE_TOKEN}`,
-    contract: isLockupDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
-  };
-  const isRPMDac = maxRPSelect === TOKENS_OPTIONS[0];
-  const rpmData = {
-    quantity: `${parseInt(maxRequestedPay).toFixed(decimals)} ${isRPMDac ? DAC_TOKEN : NATIVE_TOKEN}`,
-    contract: isRPMDac ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT
-  };
-
-  const lockupSeconds =
-    lockupSelect === TIME_PERIOD_OPTIONS[0] ? lockup * SECONDS_IN_HOUR : lockup * 24 * SECONDS_IN_HOUR;
   const periodLengthSeconds =
     periodLengthSelect === TIME_PERIOD_OPTIONS[0]
       ? periodLength * SECONDS_IN_HOUR
@@ -139,7 +120,7 @@ export async function prepareDacTransact(storeProps, payload) {
       contract: DAC_TOKEN_CONTRACT,
       symbol: `${decimals},${tokenSymbol}`
     },
-    max_supply: `${parseInt(maxSupply).toFixed(decimals)} ${tokenSymbol}`,
+    max_supply: `${MAX_SUPPLY_VALUE} ${tokenSymbol}`,
     issuance: `${parseInt(issuance).toFixed(decimals)} ${tokenSymbol}`,
     name: `${dacName} DAC`,
     description: dacDescription,
@@ -152,9 +133,12 @@ export async function prepareDacTransact(storeProps, payload) {
       colors: createColorsScheme(colorsScheme)
     },
     custodian_config: {
-      lockupasset: lockupAssetData,
-      maxvotes: maxVotes,
-      numelected: numberElected,
+      lockupasset: {
+        quantity: `0 ${DAC_TOKEN}`,
+        contract: DAC_TOKEN_CONTRACT
+      },
+      maxvotes: parseInt(maxVotes),
+      numelected: parseInt(numberElected),
       periodlength: periodLengthSeconds,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
@@ -162,8 +146,11 @@ export async function prepareDacTransact(storeProps, payload) {
       auth_threshold_high: processThresholdFromNE(numberElected, THRESHOLD_HIGH),
       auth_threshold_mid: processThresholdFromNE(numberElected, THRESHOLD_MIDDLE),
       auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
-      lockup_release_time_delay: lockupSeconds,
-      requested_pay_max: rpmData
+      lockup_release_time_delay: 0,
+      requested_pay_max: {
+        quantity: `0 ${NATIVE_TOKEN}`,
+        contract: NATIVE_TOKEN_CONTRACT
+      }
     },
     proposals_config: {
       proposal_threshold: 4,

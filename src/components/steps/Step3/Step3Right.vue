@@ -4,18 +4,12 @@
     <h2 class="title">{{ $t("step3.title_right") }}</h2>
     <p class="subtitle margin-bottom-30">{{ $t("step3.subtitle1") }}</p>
     <p class="hint">{{ $t("step3.hint2") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
+    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle2") }}</p>
     <p class="hint">{{ $t("step3.hint3") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <p class="hint">{{ $t("step3.hint4") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <p class="hint">{{ $t("step3.hint5") }}</p>
-    <p class="subtitle margin-bottom-30">{{ $t("step3.subtitle_dolor_amet") }}</p>
+    <p class="subtitle margin-bottom-30">{{ $t("step3.subtitle3") }}</p>
     <custom-divider />
-    <p class="hint">{{ $t("step3.hint6") }}</p>
-    <p class="subtitle margin-bottom-20">{{ $t("step3.subtitle_dolor_amet") }}</p>
-    <p class="hint">{{ $t("step3.hint10") }}</p>
-    <p class="subtitle margin-bottom-30">{{ $t("step3.subtitle_dolor_amet") }}</p>
+    <p class="hint">{{ $t("step3.hint4") }}</p>
+    <p class="subtitle margin-bottom-30">{{ $t("step3.subtitle4") }}</p>
     <!--change with real text-->
   </div>
 </template>

@@ -6,9 +6,7 @@
       </p>
       <p class="status-text">{{ currentMessage }}</p>
       <progress-icons :currentNumber="currentNumber" />
-      <router-link to="/" :class="['go-to-main-link', { 'visibility-hidden': !creationFinishedText }]">
-        GO TO MAIN PAGE</router-link
-      >
+      <router-link to="/" :class="['go-to-main-link', { 'visibility-hidden': !creationFinishedText }]">GO TO MAIN PAGE</router-link>
     </section>
     <section class="content-wrapper" v-else-if="trxError || wsError">
       <p :class="['title', 'creation-fail']">{{ trxError || wsError }}</p>
@@ -112,18 +110,18 @@ export default {
   justify-content center
   height 100%
   padding 0 16px
+  text-align center
 .title
   margin: 0 0 30px
   font-size 40px
   font-weight 700
   line-height normal
-  text-align center
 .creation-success
   color $positive
 .creation-fail
   color $negative
 .status-text
-  height 30px
+  min-height 30px
   margin-bottom 30px
   font-size 20px
   font-weight 500
@@ -144,13 +142,4 @@ export default {
     background-color #8954c0
 .visibility-hidden
   visibility hidden
-@media (max-width 479px)
-  .title
-    font-size 30px
-  .status-text
-    font-size 14px
-  .go-to-main-link
-    font-size 12px
-  .status-text
-    height 21px
 </style>
