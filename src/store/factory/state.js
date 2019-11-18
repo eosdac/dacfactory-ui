@@ -1,7 +1,7 @@
 export const TOKENS_OPTIONS = ["DAC Token", "System Token"];
 export const TIME_PERIOD_OPTIONS = ["Hour(s)", "Day(s)"];
 
-export function initialState() {
+export function factoryInitialState() {
   return {
     activeStep: 0,
     stepsData: {
@@ -41,5 +41,5 @@ export function initialState() {
 }
 
 export default {
-  ...initialState()
+  ...factoryInitialState()
 };

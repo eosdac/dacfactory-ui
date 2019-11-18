@@ -1,4 +1,4 @@
-import { initialState } from "store/factory/state";
+import { factoryInitialState } from "store/factory/state";
 
 export function setActiveStep(state, payload) {
   payload = payload < 0 ? 0 : payload;
@@ -18,8 +18,8 @@ export function setStepsData(state, payload) {
   state.stepsData[step] = Object.assign(state.stepsData[step], newData);
 }
 
-export function resetState(state) {
-  const initialedState = { ...initialState() };
+export function resetFactoryState(state) {
+  const initialedState = { ...factoryInitialState() };
   Object.keys(initialedState).forEach(item => {
     state[item] = initialedState[item];
   });

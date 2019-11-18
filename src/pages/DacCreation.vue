@@ -56,7 +56,7 @@ export default {
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
             this.creationFinishedText = "Your DAC was successfully created!";
-            this.$store.commit("factory/resetState");
+            this.$store.commit("factory/resetFactoryState");
             this.$store.commit("ual/setPayTokenInfo", null);
           }
         };
