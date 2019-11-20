@@ -6,15 +6,15 @@ export function setActiveStep(state, payload) {
 }
 
 export function setStepsData(state, payload) {
-  const newData = {};
   const { data, key, step } = payload;
   const { value, error } = data;
 
-  if (error && value) {
-    return;
+  const newData = {
+    [key]: value,
+  };
+  if (typeof error === 'boolean') {
+    newData[`${key}Error`] = error
   }
-
-  newData[key] = value;
   state.stepsData[step] = Object.assign(state.stepsData[step], newData);
 }
 

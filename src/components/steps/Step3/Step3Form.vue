@@ -8,8 +8,9 @@
         val => val > 0 || $t('errors.greater_then_null'),
         val => val >= 2 || $t('errors.not_less_than', { min_value: 2 })
       ]"
-      v-model="numberElected"
-      @statusChange="onStatusChange($event, 'numberElected')"
+      :isSetFocus="focused === 'numberOfCustodians'"
+      v-model="numberOfCustodians"
+      @statusChange="onStatusChange($event, 'numberOfCustodians')"
     />
     <my-input
       color="secondary"
@@ -19,20 +20,21 @@
         val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
         val => val > 0 || $t('errors.greater_then_null')
       ]"
-      v-model="maxVotes"
-      @statusChange="onStatusChange($event, 'maxVotes')"
+      :isSetFocus="focused === 'numberOfVotes'"
+      v-model="numberOfVotes"
+      @statusChange="onStatusChange($event, 'numberOfVotes')"
     />
     <custom-divider />
     <div class="input-select-wrapper">
       <my-input
         color="secondary"
         label="Length of custodian term"
-        class="margin-bottom-14"
         :rules="[
           val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
           val => val > 0 || $t('errors.greater_then_null')
         ]"
         v-model="periodLength"
+        :isSetFocus="focused === 'periodLength'"
         @statusChange="onStatusChange($event, 'periodLength')"
       />
       <q-select
@@ -49,6 +51,8 @@
 </template>
 
 <script>
+import { findStepErrors } from "imports/utils";
+
 import MyInput from "components/form/my-input";
 import CustomDivider from "./CustomDivider";
 
@@ -60,15 +64,24 @@ export default {
     CustomDivider
   },
   data() {
-    const { periodLength, periodLengthSelect, numberElected, maxVotes } = this.$store.state.factory.stepsData[3];
+    const {
+      periodLength,
+      periodLengthSelect,
+      numberOfCustodians,
+      numberOfVotes
+    } = this.$store.state.factory.stepsData[3];
     return {
       periodLength,
       periodLengthSelect,
-      numberElected,
-      maxVotes,
+      numberOfCustodians,
+      numberOfVotes,
       TOKENS_OPTIONS,
-      TIME_PERIOD_OPTIONS
+      TIME_PERIOD_OPTIONS,
+      focused: null
     };
+  },
+  mounted() {
+    this.focused = findStepErrors(this.$store.state.factory.stepsData[3]);
   },
   methods: {
     onStatusChange(data, key) {

@@ -26,13 +26,13 @@
       <template v-slot:append v-if="isMounted">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon
-            v-if="!!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess()"
+            v-if="!!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess"
             name="check"
             color="positive"
             key="ok"
           />
           <q-icon
-            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError()"
+            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError"
             name="close"
             color="negative"
             key="error"
@@ -102,11 +102,14 @@ export default {
       type: Boolean,
       default: true
     },
-    forceValidateValue: [String, Number],
     debounce: {
       type: Number,
       default: 500
-    }
+    },
+    isSetFocus: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
@@ -114,12 +117,13 @@ export default {
       isMounted: false
     };
   },
-  methods: {
-    handleInput(v) {
-      //todo only emit if validated
-      // this.$refs.my_input.validate();
-      this.$emit("input", v);
-    },
+  mounted() {
+    if (this.value && this.validateOnMounted) {
+      this.$refs.my_input.validate();
+    }
+    this.isMounted = true;
+  },
+  computed: {
     validationSuccess() {
       this.showhint = false;
       this.$emit("statusChange", { value: this.value, error: false });
@@ -129,25 +133,28 @@ export default {
       this.showhint = true;
       this.$emit("statusChange", { value: this.value, error: true });
       return true;
+    }
+  },
+  methods: {
+    handleInput(v) {
+      //todo only emit if validated
+      // this.$refs.my_input.validate();
+      this.$emit("input", v);
     },
     onBlur() {
       if (!this.value) {
         setTimeout(() => {
-          this.$refs.my_input.resetValidation();
+          if (this.$refs.my_input) {
+            this.$refs.my_input.resetValidation();
+          }
         }, 2000);
       }
     }
   },
-  mounted() {
-    if (this.value && this.validateOnMounted) {
-      this.$refs.my_input.validate();
-    }
-    this.isMounted = true;
-  },
   watch: {
-    forceValidateValue() {
-      if (this.value) {
-        this.$refs.my_input.validate();
+    isSetFocus(value) {
+      if (value) {
+        this.$refs.my_input.focus()
       }
     }
   }

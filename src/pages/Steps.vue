@@ -29,14 +29,17 @@
               mode="out-in"
               appear
             >
+              <div class="continue-btn-wrapper">
               <q-btn
                 v-if="getActiveStep < stepsNumber"
+                color="secondary"
+                class="full-width"
                 :label="$t('general.continue')"
                 :to="`/create/step${getActiveStep + 1}`"
-                color="secondary"
-                class="q-mt-lg full-width"
                 :key="`continue${getActiveStep}`"
               />
+                <div class="btn-disable-holder" v-if="checkStepErrors" />
+              </div>
             </transition>
           </div>
         </div>
@@ -125,9 +128,29 @@ export default {
     Step4Right,
     Step5Form
   },
-  computed: mapGetters({
-    getActiveStep: "factory/getActiveStep"
-  })
+  computed: {
+    ...mapGetters({
+      getActiveStep: "factory/getActiveStep"
+    }),
+    checkStepErrors() {
+      const stepData = this.$store.state.factory.stepsData[this.getActiveStep];
+
+      let isError = false;
+      Object.keys(stepData).forEach(key => {
+        if (key.endsWith('Error') && stepData[key]) {
+          isError = true;
+        }
+      });
+      return isError
+    }
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (this.checkStepErrors && to.params.step > from.params.step) {
+      next(false)
+    } else {
+      next()
+    }
+  }
 };
 </script>
 
@@ -148,6 +171,9 @@ h1
 .step-right-styles
   font-size 16px
   color $light-violet
+.continue-btn-wrapper
+  position relative
+  margin-top 24px
 @media (max-width 1439px)
   .width-xl-screen
     height auto

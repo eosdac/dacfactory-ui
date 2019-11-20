@@ -1,5 +1,5 @@
 import {
-  processThresholdFromNE,
+  processThresholdFromNoC,
   THRESHOLD_HIGH,
   THRESHOLD_MIDDLE,
   THRESHOLD_LOW,
@@ -7,7 +7,7 @@ import {
 } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
-import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
+import { TIME_PERIOD_OPTIONS } from "store/factory/state";
 import { MAX_SUPPLY_VALUE, SECONDS_IN_HOUR } from "components/constants/common";
 
 export async function renderLoginModal({ commit }) {
@@ -93,8 +93,8 @@ export async function prepareDacTransact(storeProps, payload) {
   const {
     periodLength,
     periodLengthSelect,
-    numberElected,
-    maxVotes
+    numberOfCustodians,
+    numberOfVotes
   } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
   const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
@@ -137,15 +137,15 @@ export async function prepareDacTransact(storeProps, payload) {
         quantity: `0 ${DAC_TOKEN}`,
         contract: DAC_TOKEN_CONTRACT
       },
-      maxvotes: parseInt(maxVotes),
-      numelected: parseInt(numberElected),
+      maxvotes: parseInt(numberOfVotes),
+      numelected: parseInt(numberOfCustodians),
       periodlength: periodLengthSeconds,
       should_pay_via_service_provider: false,
       initial_vote_quorum_percent: 1,
       vote_quorum_percent: 1,
-      auth_threshold_high: processThresholdFromNE(numberElected, THRESHOLD_HIGH),
-      auth_threshold_mid: processThresholdFromNE(numberElected, THRESHOLD_MIDDLE),
-      auth_threshold_low: processThresholdFromNE(numberElected, THRESHOLD_LOW),
+      auth_threshold_high: processThresholdFromNoC(numberOfCustodians, THRESHOLD_HIGH),
+      auth_threshold_mid: processThresholdFromNoC(numberOfCustodians, THRESHOLD_MIDDLE),
+      auth_threshold_low: processThresholdFromNoC(numberOfCustodians, THRESHOLD_LOW),
       lockup_release_time_delay: 0,
       requested_pay_max: {
         quantity: `0 ${NATIVE_TOKEN}`,

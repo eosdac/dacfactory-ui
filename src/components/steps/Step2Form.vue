@@ -16,7 +16,7 @@
         val => val < MAX_SUPPLY_VALUE || $t('step2.less_than_supply', { max_supply: MAX_SUPPLY_VALUE })
       ]"
       @statusChange="$store.commit('factory/setStepsData', { step: 2, key: 'issuance', data: $event })"
-      :debounce="0"
+      :isSetFocus="focused === 'issuance'"
     />
     <div class="q-mt-xs">
       <div class="row justify-between text-subtitle1">
@@ -44,6 +44,8 @@
 <script>
 import { mapGetters } from "vuex";
 
+import { findStepErrors } from "imports/utils";
+
 import myInput from "components/form/my-input";
 
 import { MAX_SUPPLY_VALUE } from "components/constants/common";
@@ -56,8 +58,12 @@ export default {
     return {
       decimals: this.$store.state.factory.stepsData[2].decimals,
       issuance: this.$store.state.factory.stepsData[2].issuance,
-      MAX_SUPPLY_VALUE
+      MAX_SUPPLY_VALUE,
+      focused: null
     };
+  },
+  mounted() {
+    this.focused = findStepErrors(this.$store.state.factory.stepsData[2]);
   },
   computed: {
     ...mapGetters({

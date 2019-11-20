@@ -1,14 +1,14 @@
 export const THRESHOLD_HIGH = "THRESHOLD_HIGH";
 export const THRESHOLD_MIDDLE = "THRESHOLD_MIDDLE";
 export const THRESHOLD_LOW = "THRESHOLD_LOW";
-export function processThresholdFromNE(numberElected, type) {
+export function processThresholdFromNoC(numberOfCustodians, type) {
   switch (type) {
     case THRESHOLD_HIGH:
-      return Math.floor(numberElected * 0.9) || 1;
+      return Math.floor(numberOfCustodians * 0.9) || 1;
     case THRESHOLD_MIDDLE:
-      return Math.floor(numberElected * 0.75) || 1;
+      return Math.floor(numberOfCustodians * 0.75) || 1;
     case THRESHOLD_LOW:
-      return Math.ceil(numberElected * 0.5) || 1;
+      return Math.ceil(numberOfCustodians * 0.5) || 1;
     default:
   }
 }
@@ -63,4 +63,16 @@ export function createColorsScheme(type) {
     currentColorsScheme.dark = currentColorsSet[9];
   }
   return currentColorsScheme;
+}
+
+export function findStepErrors(stepData) {
+  let error = null;
+  const stepKeys = Object.keys(stepData);
+  for (let i = 0; i < stepKeys.length; i++) {
+    if (stepKeys[i].endsWith('Error') && stepData[stepKeys[i]]) {
+      error = stepKeys[i].replace('Error', '');
+      break;
+    }
+  }
+  return error
 }
