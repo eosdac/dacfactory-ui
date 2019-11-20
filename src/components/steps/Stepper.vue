@@ -83,7 +83,9 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { STEPS_NUMBER } from "components/constants/common";
+import { findStepErrors } from "imports/utils";
+
+import { STEPS_NUMBER } from "components/constants";
 
 export default {
   data() {
@@ -124,15 +126,7 @@ export default {
         return false
       }
 
-      const stepData = this.$store.state.factory.stepsData[this.getActiveStep];
-
-      let isError = false;
-      Object.keys(stepData).forEach(key => {
-        if (key.endsWith('Error') && stepData[key]) {
-          isError = true;
-        }
-      });
-      return isError
+      return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep])
     }
   },
   methods: {

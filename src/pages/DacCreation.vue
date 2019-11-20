@@ -61,10 +61,12 @@ export default {
         this.ws.onerror = error => {
           this.wsError = "WS error occurred.";
           this.ws.close();
+          this.$store.commit("ual/setPayTokenInfo", null);
           console.log(error, "error");
         };
         this.ws.onclose = () => {
           reject();
+          this.$store.commit("ual/setPayTokenInfo", null);
         };
       });
     },
@@ -95,8 +97,10 @@ export default {
   beforeRouteLeave(to, from, next) {
     if (to.path === "/create/step5") {
       next(false);
-    } else {
+    } else if (this.creationFinishedText || this.trxError || this.wsError) {
       next();
+    } else {
+      next(false);
     }
   }
 };

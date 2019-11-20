@@ -8,7 +8,7 @@ import {
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
 import { TIME_PERIOD_OPTIONS } from "store/factory/state";
-import { MAX_SUPPLY_VALUE, SECONDS_IN_HOUR } from "components/constants/common";
+import { MAX_SUPPLY_VALUE, SECONDS_IN_HOUR } from "components/constants";
 
 export async function renderLoginModal({ commit }) {
   commit("setShouldRenderLoginModal", true);

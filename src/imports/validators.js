@@ -41,7 +41,7 @@ export async function isAvailableSymbol(v) {
       limit: 1
     })
     .catch(e => false);
-  if (res && res.rows.length && res.rows[0].supply.split(" ")[1] == v) {
+  if (res && res.rows.length && res.rows[0].supply.split(" ")[1] === v) {
     return "Symbol already exists";
   } else {
     return true;

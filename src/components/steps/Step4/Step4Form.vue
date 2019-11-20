@@ -39,7 +39,7 @@
 import MyInput from "components/form/my-input";
 import Step4ColorPicker from "./Step4ColorPicker";
 
-import { URL_REG_EXP } from "components/constants/regExp";
+import { URL_REG_EXP } from "components/constants";
 
 export default {
   data() {

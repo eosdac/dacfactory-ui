@@ -104,7 +104,7 @@ export default {
     },
     debounce: {
       type: Number,
-      default: 500
+      default: 400
     },
     isSetFocus: {
       type: Boolean,

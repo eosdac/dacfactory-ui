@@ -1,3 +1,5 @@
+import { ERROR_MARK } from "components/constants";
+
 export const THRESHOLD_HIGH = "THRESHOLD_HIGH";
 export const THRESHOLD_MIDDLE = "THRESHOLD_MIDDLE";
 export const THRESHOLD_LOW = "THRESHOLD_LOW";
@@ -69,8 +71,9 @@ export function findStepErrors(stepData) {
   let error = null;
   const stepKeys = Object.keys(stepData);
   for (let i = 0; i < stepKeys.length; i++) {
-    if (stepKeys[i].endsWith('Error') && stepData[stepKeys[i]]) {
-      error = stepKeys[i].replace('Error', '');
+    const stepKey = stepKeys[i];
+    if (stepKey.endsWith(ERROR_MARK) && stepData[stepKey]) {
+      error = stepKey.replace(ERROR_MARK, '');
       break;
     }
   }

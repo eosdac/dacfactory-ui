@@ -48,7 +48,7 @@ import { findStepErrors } from "imports/utils";
 
 import myInput from "components/form/my-input";
 
-import { MAX_SUPPLY_VALUE } from "components/constants/common";
+import { MAX_SUPPLY_VALUE } from "components/constants";
 
 export default {
   components: {
