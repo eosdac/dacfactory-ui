@@ -36,10 +36,10 @@
           <div v-else class="text-h5">{{ $t("general.welcome") }}</div>
         </transition>
       </div>
-
       <div class="col-4 row justify-end q-pr-md q-pb-md overflow-hidden">
         <transition appear enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
-          <q-btn color="secondary" class="q-mt-sm" @click="nextStep" v-if="shouldDisplayNextStepBtn">
+          <div class="next-btn-wrapper">
+          <q-btn color="secondary" @click="nextStep" v-if="shouldDisplayNextStepBtn">
             <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">
               {{
                 $t("general.go_to_step", {
@@ -49,10 +49,11 @@
             </div>
             <q-icon name="ion-arrow-forward" />
           </q-btn>
+            <div class="btn-disable-holder" v-if="checkStepErrors" />
+          </div>
         </transition>
       </div>
     </div>
-
     <q-dialog v-model="showstepsmenu" position="bottom">
       <q-list dark bordered separator class="bg-accent">
         <q-item v-for="i in stepsNumber" clickable v-ripple :to="`/create/step${i}`" :key="`step${i}`">
@@ -82,7 +83,9 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { STEPS_NUMBER } from "components/constants/common";
+import { findStepErrors } from "imports/utils";
+
+import { STEPS_NUMBER } from "components/constants";
 
 export default {
   data() {
@@ -95,11 +98,14 @@ export default {
     ...mapGetters({
       getActiveStep: "factory/getActiveStep"
     }),
+    isStepPage() {
+      return this.$route.path.startsWith("/create/")
+    },
     shouldDisplayPrevStepBtn: function() {
-      return this.$route.path.startsWith("/create/") && this.getActiveStep > 1;
+      return this.isStepPage && this.getActiveStep > 1;
     },
     shouldDisplayNextStepBtn: function() {
-      if (!this.$route.path.startsWith("/create/")) {
+      if (!this.isStepPage) {
         return true;
       } else {
         return this.getActiveStep < STEPS_NUMBER;
@@ -107,13 +113,20 @@ export default {
     },
     nextButtonNumber() {
       const activeStep = this.getActiveStep;
-      return this.$route.path.startsWith("/create/") || !activeStep ? activeStep + 1 : activeStep;
+      return this.isStepPage || !activeStep ? activeStep + 1 : activeStep;
     },
     shouldDisplayHomeButton: function() {
-      return this.$route.path.startsWith("/create/") && this.getActiveStep === 1;
+      return this.isStepPage && this.getActiveStep === 1;
     },
     getProgressValue: function() {
       return this.getActiveStep >= 1 ? this.getActiveStep / STEPS_NUMBER : 0;
+    },
+    checkStepErrors() {
+      if (!this.isStepPage) {
+        return false
+      }
+
+      return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep])
     }
   },
   methods: {
@@ -147,3 +160,9 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus">
+.next-btn-wrapper
+  position relative
+  margin-top 8px
+</style>

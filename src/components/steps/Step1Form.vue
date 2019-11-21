@@ -6,6 +6,7 @@
       color="secondary"
       :label="$t('step1.dac_name')"
       :hint="$t('step1.dac_name_hint')"
+      :isSetFocus="focused === 'dacName'"
       :rules="[val => !!val || $t('general.required'), val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacName', data: $event })"
     />
@@ -15,6 +16,7 @@
       color="secondary"
       :label="$t('step1.token_symbol')"
       :hint="$t('step1.token_symbol_hint')"
+      :isSetFocus="focused === 'tokenSymbol'"
       maxlength="7"
       :rules="[
         val => !!val || $t('general.required'),
@@ -28,14 +30,14 @@
       type="textarea"
       outlined
       dark
+      maxlength="250"
+      counter
+      color="secondary"
       :value="dacDescription"
       @input="
         dacDescription = $event;
         $store.commit('factory/setStepsData', { step: 1, key: 'dacDescription', data: { value: $event } });
       "
-      maxlength="250"
-      counter
-      color="secondary"
       :label="$t('step1.description')"
       :hint="$t('step1.description_hint')"
       class="q-mb-md overflow-hidden"
@@ -50,8 +52,10 @@
 </template>
 
 <script>
-import myInput from "components/form/my-input";
+import { findStepErrors } from "imports/utils";
 import { isValidSymbol, isValidUrl, isAvailableSymbol } from "imports/validators";
+
+import myInput from "components/form/my-input";
 
 export default {
   components: {
@@ -61,8 +65,12 @@ export default {
     return {
       dacName: this.$store.state.factory.stepsData[1].dacName,
       tokenSymbol: this.$store.state.factory.stepsData[1].tokenSymbol,
-      dacDescription: this.$store.state.factory.stepsData[1].dacDescription
+      dacDescription: this.$store.state.factory.stepsData[1].dacDescription,
+      focused: null
     };
+  },
+  mounted() {
+    this.focused = findStepErrors(this.$store.state.factory.stepsData[1]);
   },
   methods: {
     isValidSymbol,

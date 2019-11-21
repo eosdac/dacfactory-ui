@@ -29,14 +29,17 @@
               mode="out-in"
               appear
             >
-              <q-btn
-                v-if="getActiveStep < stepsNumber"
-                :label="$t('general.continue')"
-                :to="`/create/step${getActiveStep + 1}`"
-                color="secondary"
-                class="q-mt-lg full-width"
-                :key="`continue${getActiveStep}`"
-              />
+              <div class="continue-btn-wrapper">
+                <q-btn
+                  v-if="getActiveStep < stepsNumber"
+                  color="secondary"
+                  class="full-width"
+                  :label="$t('general.continue')"
+                  :to="`/create/step${getActiveStep + 1}`"
+                  :key="`continue${getActiveStep}`"
+                />
+                <div class="btn-disable-holder" v-if="checkStepErrors" />
+              </div>
             </transition>
           </div>
         </div>
@@ -83,7 +86,9 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { STEPS_NUMBER } from "components/constants/common";
+import { findStepErrors } from "imports/utils";
+
+import { STEPS_NUMBER } from "components/constants";
 
 import Step1Form from "components/steps/Step1Form";
 import Step2Form from "components/steps/Step2Form";
@@ -125,9 +130,21 @@ export default {
     Step4Right,
     Step5Form
   },
-  computed: mapGetters({
-    getActiveStep: "factory/getActiveStep"
-  })
+  computed: {
+    ...mapGetters({
+      getActiveStep: "factory/getActiveStep"
+    }),
+    checkStepErrors() {
+      return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
+    }
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (this.checkStepErrors && to.params.step > from.params.step) {
+      next(false);
+    } else {
+      next();
+    }
+  }
 };
 </script>
 
@@ -148,6 +165,9 @@ h1
 .step-right-styles
   font-size 16px
   color $light-violet
+.continue-btn-wrapper
+  position relative
+  margin-top 24px
 @media (max-width 1439px)
   .width-xl-screen
     height auto
