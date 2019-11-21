@@ -1,5 +1,4 @@
 export default {
-  //
   showLoginModal: false,
   signingOverlay: {
     show: false,

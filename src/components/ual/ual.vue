@@ -67,7 +67,6 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-
     <signing-overlay />
   </div>
 </template>

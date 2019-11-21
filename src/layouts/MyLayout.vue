@@ -6,26 +6,24 @@
           <span class="visually-hidden">eos DAC</span>
           <img src="../statics/images/eosdac-logo.svg" />
         </router-link>
-        <nav>
-          <q-btn v-if="$q.screen.gt.xs" label="see pricing" unelevated :ripple="false" to="/pricing" />
+        <nav class="nav-wrapper">
+          <q-btn class="btn-is-show" label="see pricing" unelevated :ripple="false" to="/pricing" />
           <q-btn
-            v-if="$q.screen.gt.xs"
-            label="how it work"
+            class="btn-is-show"
+            label="how it works"
             unelevated
             :ripple="false"
-            class="q-mr-sm"
-            to="/how-it-work"
+            to="/how-it-works"
           />
           <q-btn
-            style="height:32px; width:140px"
             v-if="!getAccountName"
             label="login"
             @click="$store.dispatch('ual/renderLoginModal')"
-            color="secondary"
+            class="btn-login"
             :flat="getShouldRenderLoginModal"
             :loading="getShouldRenderLoginModal"
           />
-          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName" style="width:140px">
+          <q-btn-dropdown v-if="getAccountName" class="btn-dropdown" color="white" flat :label="getAccountName">
             <q-list>
               <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
                 <q-item-section>
@@ -107,10 +105,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 import Stepper from "components/steps/Stepper";
 
 export default {
-  name: "MyLayout",
   components: {
     Stepper
   },
@@ -139,4 +137,22 @@ export default {
   display flex
   margin-right 12px
   line-height normal
+.nav-wrapper
+  @media (min-width 640px) {
+    display grid
+    grid-template-columns auto auto auto
+    grid-gap 8px
+  }
+.btn-is-show
+  padding 4px 10px
+  @media (max-width 639px)
+    display none
+.btn-login
+  width 140px
+  background-color $secondary
+.btn-dropdown
+  max-width: 150px
+  padding 4px 10px
+  overflow: hidden
 </style>
+

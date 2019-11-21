@@ -6,7 +6,6 @@
           <div class="text-h6">{{ $t("home.welcome_to") }}</div>
           <div class="text-weight-bold text-h1" style="text-shadow: 1px 1px 3px #fff;">{{ $t("home.dac") }}</div>
           <div class="text-h5" style="letter-spacing: 3px;">• {{ $t("home.factory") }} •</div>
-
           <div class="row justify-center text-body1 q-mt-xl">
             <div style="max-width:500px">{{ $t("home.line1") }}</div>
           </div>
@@ -17,15 +16,14 @@
               :label="$t('home.create_my_dac')"
               style="width:180px"
               class="q-py-sm"
-              to="/create/step1"
+              :to="createMyDacCurrentURL"
             />
           </div>
         </div>
       </div>
     </div>
     <div class="diagonal"></div>
-
-    <div class="row justify-center overflow-hidden" style="  margin-top:-160px;">
+    <div class="row justify-center overflow-hidden" style="margin-top:-160px;">
       <transition appear enter-active-class="animated fadeInUp">
         <div class="bottom-info-box q-mb-md q-pa-md text-center">
           <div class="text-weight-bold">{{ $t("home.help_why") }}</div>
@@ -43,7 +41,6 @@
         </div>
       </transition>
     </div>
-
     <q-dialog v-model="showYouTubeVideo" persistent transition-show="flip-down" transition-hide="flip-up">
       <q-card class="text-white" style="width: 700px; max-width: 80vw;">
         <q-bar class="bg-secondary">
@@ -62,7 +59,7 @@
           </q-btn>
         </q-bar>
         <q-card-section>
-          <div class="q-video" style="max-width:700px;max-height:350px;height: 56.25vw; ">
+          <div class="q-video" style="max-width:700px;max-height:350px;height: 56.25vw;">
             <div v-if="!video_is_loaded" class="position-relative fit row items-center justify-center">
               <q-spinner size="50px" color="primary" />
             </div>
@@ -70,8 +67,8 @@
               v-show="video_is_loaded"
               src="https://www.youtube.com/embed/PbQpAJOP6iA"
               @load="video_is_loaded = true"
-              frameborder="0"
               allowfullscreen
+              style="border:0"
             />
           </div>
         </q-card-section>
@@ -85,7 +82,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "PageIndex",
-  components: {},
   data() {
     return {
       showYouTubeVideo: false,
@@ -94,11 +90,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getAccountName: "ual/getAccountName"
-    })
-  },
-  methods: {
-    dologin() {}
+      getAccountName: "ual/getAccountName",
+      getActiveStep: "factory/getActiveStep"
+    }),
+    createMyDacCurrentURL() {
+      return `/create/step${this.getActiveStep || 1}`
+    }
   }
 };
 </script>
