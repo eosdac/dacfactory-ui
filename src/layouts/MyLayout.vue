@@ -138,21 +138,21 @@ export default {
   margin-right 12px
   line-height normal
 .nav-wrapper
-  @media (min-width 660px) {
+  @media (min-width 640px) {
     display grid
     grid-template-columns auto auto auto
     grid-gap 8px
   }
 .btn-is-show
   padding 4px 10px
-  @media (max-width 659px)
+  @media (max-width 639px)
     display none
 .btn-login
   width 140px
   background-color $secondary
 .btn-dropdown
-  @media (max-width 329px)
-    max-width: 130px;
-    padding 4px 10px
-    overflow hidden
+  max-width: 150px
+  padding 4px 10px
+  overflow: hidden
 </style>
+
