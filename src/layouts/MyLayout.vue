@@ -10,11 +10,11 @@
           <q-btn v-if="$q.screen.gt.xs" label="see pricing" unelevated :ripple="false" to="/pricing" />
           <q-btn
             v-if="$q.screen.gt.xs"
-            label="how it work"
+            label="how it works"
             unelevated
             :ripple="false"
             class="q-mr-sm"
-            to="/how-it-work"
+            to="/how-it-works"
           />
           <q-btn
             style="height:32px; width:140px"
