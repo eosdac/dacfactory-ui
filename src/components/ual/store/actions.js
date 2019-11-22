@@ -104,9 +104,8 @@ export async function prepareDacTransact(storeProps, payload) {
       ? periodLength * SECONDS_IN_HOUR
       : periodLength * 24 * SECONDS_IN_HOUR;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
-  const planName = `monthly.${(isDacToken ? "" : NATIVE_TOKEN).toLowerCase()}`;
+  const planName = `monthly.${(isDacToken ? DAC_TOKEN : NATIVE_TOKEN).toLowerCase()}`;
   const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
-
   const dacId = processDacNameInId(dacName);
   console.log(`dacId: ${dacId}`);
 
