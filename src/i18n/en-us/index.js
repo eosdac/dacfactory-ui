@@ -24,10 +24,14 @@ export default {
     step_of: "Step {active_step} of {max_steps}",
   },
   errors: {
-    invalid_url: "This is not a valid url.",
     only_positive_integers_are_available: "Only positive integers are available.",
     greater_then_null: "Value must be greater than 0.",
-    not_less_than: "Value must be not less than {min_value}."
+    not_less_than: "Value must be not less than {min_value}.",
+    step1: {
+      can_only_have_letters: "Token symbol can only have letters A-Z.",
+      token_already_exists: "Token already exists.",
+      token_verification_error: "Token verification error."
+    }
   },
   step1: {
     title: "DAC Profile",

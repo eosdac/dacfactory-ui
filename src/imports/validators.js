@@ -24,7 +24,7 @@ export function isValidSymbol(symbol) {
   if (/^[A-Z]{1,7}$/.test(symbol)) {
     return true;
   } else {
-    return "Token symbol can only have letters A-Z";
+    return this.$t('errors.step1.can_only_have_letters');
   }
 }
 
@@ -50,12 +50,12 @@ export async function isAvailableSymbol(symbol) {
       limit: 1
     });
     if (res && res.rows.length && res.rows[0].supply.split(" ")[1] === scope) {
-      return "Symbol already exists.";
+      return this.$t('errors.step1.token_already_exists');
     } else {
       return true;
     }
   } catch (error) {
-    return "Token verification error.";
+    return this.$t('errors.step1.token_verification_error');
   }
 }
 

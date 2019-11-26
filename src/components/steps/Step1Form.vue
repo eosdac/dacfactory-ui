@@ -7,8 +7,7 @@
       :label="$t('step1.dac_name')"
       :hint="$t('step1.dac_name_hint')"
       :isSetFocus="focused === 'dacName'"
-      :rules="[val => !!val || $t('general.required'),
-      val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
+      :rules="[val => !!val || $t('general.required'), val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacName', data: $event })"
     />
     <my-input
