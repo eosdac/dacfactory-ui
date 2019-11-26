@@ -6,10 +6,12 @@
       </p>
       <p class="status-text">{{ currentMessage }}</p>
       <progress-icons :currentNumber="currentNumber" />
-      <router-link to="/" :class="['go-to-main-link', { 'visibility-hidden': !creationFinishedText }]">GO TO MAIN PAGE</router-link>
+      <router-link to="/" :class="['go-to-main-link', { 'visibility-hidden': !creationFinishedText }]"
+        >GO TO MAIN PAGE</router-link
+      >
     </section>
     <section class="content-wrapper" v-else-if="trxError || wsError">
-      <p :class="['title', 'creation-fail']">{{ trxError || wsError }}</p>
+      <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
       <router-link to="/" class="go-to-main-link">GO TO MAIN PAGE</router-link>
     </section>
   </q-page>
@@ -55,18 +57,15 @@ export default {
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
             this.creationFinishedText = "Your DAC was successfully created!";
             this.$store.commit("factory/resetFactoryState");
-            this.$store.commit("ual/setPayTokenInfo", null);
           }
         };
         this.ws.onerror = error => {
           this.wsError = "WS error occurred.";
           this.ws.close();
-          this.$store.commit("ual/setPayTokenInfo", null);
           console.log(error, "error");
         };
         this.ws.onclose = () => {
           reject();
-          this.$store.commit("ual/setPayTokenInfo", null);
         };
       });
     },

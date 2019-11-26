@@ -53,7 +53,7 @@
 
 <script>
 import { findStepErrors } from "imports/utils";
-import { isValidSymbol, isValidUrl, isAvailableSymbol } from "imports/validators";
+import { isValidSymbol, isAvailableSymbol } from "imports/validators";
 
 import myInput from "components/form/my-input";
 
@@ -74,10 +74,7 @@ export default {
   },
   methods: {
     isValidSymbol,
-    isValidUrl,
     isAvailableSymbol
   }
 };
 </script>
-
-<style></style>
