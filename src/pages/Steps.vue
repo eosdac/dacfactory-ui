@@ -38,7 +38,7 @@
                   :to="`/create/step${getActiveStep + 1}`"
                   :key="`continue${getActiveStep}`"
                 />
-                <div class="btn-disable-holder" v-if="checkStepErrors" />
+                <div class="disable-holder" v-if="checkStepErrors" />
               </div>
             </transition>
           </div>
