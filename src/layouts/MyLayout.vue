@@ -23,7 +23,7 @@
             :flat="getShouldRenderLoginModal"
             :loading="getShouldRenderLoginModal"
           />
-          <q-btn-dropdown v-if="getAccountName" class="btn-dropdown" color="white" flat :label="getAccountName">
+          <q-btn-dropdown v-if="getAccountName" color="white" flat :label="getAccountName">
             <q-list>
               <q-item clickable dense v-close-popup @click="$store.dispatch('ual/logout')">
                 <q-item-section>
@@ -138,21 +138,20 @@ export default {
   margin-right 12px
   line-height normal
 .nav-wrapper
+  & > *
+    padding 4px 10px
   @media (min-width 640px) {
     display grid
     grid-template-columns auto auto auto
     grid-gap 8px
   }
 .btn-is-show
-  padding 4px 10px
   @media (max-width 639px)
     display none
 .btn-login
   width 140px
   background-color $secondary
-.btn-dropdown
-  max-width: 150px
-  padding 4px 10px
-  overflow: hidden
+  @media (max-width 639px)
+    width 120px
 </style>
 

@@ -1,24 +1,23 @@
 <template>
   <div>
     <q-linear-progress dark :value="getProgressValue" size="5px" color="secondary" />
-    <div class="row  items-center relative-position">
-      <div class="col-4 row justify-start q-pl-md q-pb-md overflow-hidden">
+    <div class="wrapper">
         <transition
           appear
           enter-active-class="animated fadeInLeft"
           leave-active-class="animated fadeOutLeft"
           mode="out-in"
         >
-          <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary" class="q-mt-sm" @click="prevStep">
+          <div class="prev-btn-wrapper">
+          <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary" @click="prevStep">
             <q-icon name="ion-arrow-back" />
             <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">{{ $t("general.go_back") }}</div>
           </q-btn>
-          <q-btn v-if="shouldDisplayHomeButton" key="home" flat class="q-mt-sm" to="/">
+          <q-btn v-if="shouldDisplayHomeButton" key="home" flat to="/">
             <q-icon name="home" style="color:#54565c" />
           </q-btn>
+          </div>
         </transition>
-      </div>
-      <div class="col-4 row justify-center items-center  overflow-hidden ">
         <transition
           appear
           enter-active-class="animated fadeInUp"
@@ -27,7 +26,7 @@
         >
           <div
             v-if="getActiveStep > 0"
-            class="text-center cursor-pointer fit"
+            class="text-center cursor-pointer"
             :key="`${getActiveStep}`"
             @click="showstepsmenu = true"
           >
@@ -35,24 +34,21 @@
           </div>
           <div v-else class="text-h5">{{ $t("general.welcome") }}</div>
         </transition>
-      </div>
-      <div class="col-4 row justify-end q-pr-md q-pb-md overflow-hidden">
         <transition appear enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
           <div class="next-btn-wrapper">
-          <q-btn color="secondary" @click="nextStep" v-if="shouldDisplayNextStepBtn">
-            <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">
-              {{
-                $t("general.go_to_step", {
-                  step: nextButtonNumber
-                })
-              }}
-            </div>
-            <q-icon name="ion-arrow-forward" />
-          </q-btn>
+            <q-btn color="secondary" @click="nextStep" v-if="shouldDisplayNextStepBtn">
+              <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">
+                {{
+                  $t("general.go_to_step", {
+                    step: nextButtonNumber
+                  })
+                }}
+              </div>
+              <q-icon name="ion-arrow-forward" />
+            </q-btn>
             <div class="btn-disable-holder" v-if="checkStepErrors" />
           </div>
         </transition>
-      </div>
     </div>
     <q-dialog v-model="showstepsmenu" position="bottom">
       <q-list dark bordered separator class="bg-accent">
@@ -99,7 +95,7 @@ export default {
       getActiveStep: "factory/getActiveStep"
     }),
     isStepPage() {
-      return this.$route.path.startsWith("/create/")
+      return this.$route.path.startsWith("/create/");
     },
     shouldDisplayPrevStepBtn: function() {
       return this.isStepPage && this.getActiveStep > 1;
@@ -123,10 +119,10 @@ export default {
     },
     checkStepErrors() {
       if (!this.isStepPage) {
-        return false
+        return false;
       }
 
-      return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep])
+      return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
     }
   },
   methods: {
@@ -161,8 +157,18 @@ export default {
 };
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.wrapper
+  position relative
+  display flex
+  justify-content space-between
+  align-items center
+  height 52px
 .next-btn-wrapper
   position relative
-  margin-top 8px
+  margin-right 12px
+  width 160px
+.prev-btn-wrapper
+  margin-left 12px
+  width 160px
 </style>
