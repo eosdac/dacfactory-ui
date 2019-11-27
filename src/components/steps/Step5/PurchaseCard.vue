@@ -30,7 +30,7 @@ export default {
     return {
       DAC_TOKEN: process.env.DAC_TOKEN,
       loggedInUser: this.$store.state.ual.accountName,
-      SETUP_QUANTITY: process.env.SETUP_QUANTITY
+      SETUP_QUANTITY: +process.env.SETUP_QUANTITY
     };
   },
   props: {

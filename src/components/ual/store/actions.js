@@ -177,7 +177,7 @@ export async function prepareDacTransact(storeProps, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: `${SETUP_QUANTITY}.0000 ${NATIVE_TOKEN}`,
+        quantity: `${SETUP_QUANTITY} ${NATIVE_TOKEN}`,
         memo: `${dacId}:_setup`
       }
     },
