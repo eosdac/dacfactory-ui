@@ -11,7 +11,7 @@
               {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
             </div>
             <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
-            <p class="info-text">* Info will be save. You can finish filing up of the form later. *</p>
+            <p class="info-text" v-if="getActiveStep < 5">* {{ $t("general.info_will_be_saved") }} *</p>
             <transition
               enter-active-class="animated fadeInUp"
               leave-active-class="animated fadeOut"
@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     onContinueButtonClick() {
-      this.$router.push(`/create/step${this.getActiveStep + 1}`)
+      this.$router.push(`/create/step${this.getActiveStep + 1}`);
     }
   },
   beforeRouteUpdate(to, from, next) {
