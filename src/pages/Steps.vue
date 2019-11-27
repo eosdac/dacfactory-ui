@@ -24,21 +24,21 @@
               <step5-form v-else-if="getActiveStep === 5" key="form-page-5" />
             </transition>
             <transition
+              appear
               enter-active-class="animated fadeInDown"
               leave-active-class="animated fadeOut"
               mode="out-in"
-              appear
             >
               <div class="continue-btn-wrapper">
                 <q-btn
                   v-if="getActiveStep < stepsNumber"
                   color="secondary"
                   class="full-width"
-                  :label="$t('general.continue')"
-                  :to="`/create/step${getActiveStep + 1}`"
+                  @click="onContinueButtonClick"
+                  :disable="!!checkStepErrors"
                   :key="`continue${getActiveStep}`"
-                />
-                <div class="disable-holder" v-if="checkStepErrors" />
+                  >{{ $t("general.continue") }}</q-btn
+                >
               </div>
             </transition>
           </div>
@@ -138,6 +138,11 @@ export default {
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
     }
   },
+  methods: {
+    onContinueButtonClick() {
+      this.$router.push(`/create/step${this.getActiveStep + 1}`)
+    }
+  },
   beforeRouteUpdate(to, from, next) {
     if (this.checkStepErrors && to.params.step > from.params.step) {
       next(false);
@@ -166,7 +171,6 @@ h1
   font-size 16px
   color $light-violet
 .continue-btn-wrapper
-  position relative
   margin-top 24px
 @media (max-width 1439px)
   .width-xl-screen

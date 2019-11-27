@@ -24,7 +24,7 @@
           leave-active-class="animated fadeOutDown"
           mode="out-in"
         >
-          <q-btn icon="arrow_drop_up"
+          <q-btn
                  flat
             v-if="getActiveStep > 0"
             class="center-btn"
@@ -32,32 +32,29 @@
             @click="showstepsmenu = true"
           >
             {{ $t("step" + getActiveStep + ".title") }}
+            <q-icon name="arrow_drop_up" :class="{'opened-menu-arrow': showstepsmenu}" />
           </q-btn>
           <div v-else class="text-h5">{{ $t("general.welcome") }}</div>
         </transition>
-        <transition appear enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
+        <transition appear
+                    enter-active-class="animated fadeInRight"
+                    leave-active-class="animated fadeOutRight">
           <div class="next-btn-wrapper">
-            <div class="next-btn-relative-wrapper">
-            <q-btn color="secondary" @click="nextStep" v-if="shouldDisplayNextStepBtn">
+            <q-btn color="secondary" :disable="!!checkStepErrors" @click="nextStep" v-if="shouldDisplayNextStepBtn">
               <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">
-                {{
-                  $t("general.go_to_step", {
-                    step: nextButtonNumber
-                  })
-                }}
+                {{ $t("general.go_to_step", { step: nextButtonNumber }) }}
               </div>
               <q-icon name="ion-arrow-forward" />
             </q-btn>
-            <div class="disable-holder" v-if="checkStepErrors" />
-            </div>
           </div>
         </transition>
     </div>
     <q-dialog v-model="showstepsmenu" position="bottom">
-      <q-list dark bordered separator class="bg-accent">
-        <q-item v-for="i in stepsNumber" clickable v-ripple :to="`/create/step${i}`" :key="`step${i}`">
+      <q-list dark bordered class="bg-accent">
+        <div class="menu-link-wrapper" v-for="i in stepsNumber">
+        <q-item clickable v-ripple :to="`/create/step${i}`" :key="`step${i}`" :tabindex="getActiveStep < i ? -1 : 0">
           <q-item-section side>
-            <q-item-label caption>{{ $t("general.step") }} {{ i }}</q-item-label>
+            <q-item-label caption class="menu-step-text">{{ $t("general.step") }} {{ i }}</q-item-label>
             <!-- <q-icon name="star" color="yellow" /> -->
           </q-item-section>
           <q-item-section>
@@ -65,7 +62,9 @@
             <!-- <q-item-label caption>Caption</q-item-label> -->
           </q-item-section>
         </q-item>
-        <q-item clickable v-ripple to="/" exact>
+          <div class="disable-holder" v-if="paramMenuLinkDisable < i"></div>
+        </div>
+        <q-item clickable v-ripple to="/" exact tabindex="0">
           <q-item-section side>
             <q-icon name="home" />
           </q-item-section>
@@ -99,6 +98,13 @@ export default {
     }),
     isStepPage() {
       return this.$route.path.startsWith("/create/");
+    },
+    paramMenuLinkDisable() {
+      let param = 0;
+      if (!this.checkStepErrors && this.isStepPage) {
+        param = 1
+      }
+      return this.getActiveStep + param
     },
     shouldDisplayPrevStepBtn: function() {
       return this.isStepPage && this.getActiveStep > 1;
@@ -162,7 +168,6 @@ export default {
 
 <style lang="stylus" scoped>
 .wrapper
-  position relative
   display flex
   justify-content space-between
   align-items center
@@ -170,11 +175,10 @@ export default {
 .next-btn-wrapper
   display flex
   justify-content flex-end
+  width 56px
   margin-right 12px
   @media (min-width 600px)
     width 160px
-.next-btn-relative-wrapper
-  position relative
 .prev-btn-wrapper
   margin-left 12px
   @media (min-width 600px)
@@ -182,4 +186,13 @@ export default {
 .center-btn
   padding 4px 10px
   text-transform capitalize
+.opened-menu-arrow
+    transition transform 0.28s
+    transform rotate(180deg)
+.menu-link-wrapper
+  position relative
+.menu-link-wrapper:not(:last-child)
+  border-bottom 1px solid rgba(255,255,255,0.48)
+.menu-step-text
+  color #ffffff
 </style>
