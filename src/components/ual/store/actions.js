@@ -90,22 +90,23 @@ export async function prepareDacTransact(storeProps, payload) {
 
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { decimals, issuance } = stepsData[2];
-  const {
-    periodLength,
-    periodLengthSelect,
-    numberOfCustodians,
-    numberOfVotes
-  } = stepsData[3];
+  const { periodLength, periodLengthSelect, numberOfCustodians, numberOfVotes } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
-  const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const {
+    DAC_TOKEN,
+    NATIVE_TOKEN,
+    DAC_TOKEN_CONTRACT,
+    NATIVE_TOKEN_CONTRACT,
+    DAC_FACTORY,
+    SETUP_QUANTITY
+  } = process.env;
 
   const periodLengthSeconds =
     periodLengthSelect === TIME_PERIOD_OPTIONS[0]
       ? periodLength * SECONDS_IN_HOUR
       : periodLength * 24 * SECONDS_IN_HOUR;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
-  const planName = `monthly.${(isDacToken ? DAC_TOKEN : NATIVE_TOKEN).toLowerCase()}`;
-  const payTokenQuantity = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].quantityToPay;
+  const toPayInfo = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].toPay;
   const dacId = processDacNameInId(dacName);
   console.log(`dacId: ${dacId}`);
 
@@ -166,8 +167,8 @@ export async function prepareDacTransact(storeProps, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: payTokenQuantity,
-        memo: `${dacId}:${planName}`
+        quantity: toPayInfo.quantityPlan,
+        memo: `${dacId}:${toPayInfo.planId}`
       }
     },
     {
@@ -176,7 +177,7 @@ export async function prepareDacTransact(storeProps, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: payTokenQuantity,
+        quantity: `${SETUP_QUANTITY}.0000 ${NATIVE_TOKEN}`,
         memo: `${dacId}:_setup`
       }
     },

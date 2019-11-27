@@ -4,7 +4,7 @@
   </section>
   <section class="wrapper" v-else-if="paymentPlans">
     <purchase-card
-      hint
+      transparent
       :header="nativeToken"
       :quantity="paymentPlans"
       :isAgree="isAgree"
@@ -53,11 +53,11 @@ export default {
 
       const paymentPlans = {};
       res.rows.forEach(plan => {
-        const amount = String(plan.amount.quantity.split(" ")[0] * 2).split("");
+        const amount = plan.amount.quantity.split(".")[0].split("");
         let counter = 0;
         for (let i = amount.length - 1; i >= 0; i--) {
           counter++;
-          if (amount[i] === ".") {
+          if (amount[i] === ".") { // just for completed function, here isn't needed
             counter = 0;
             continue;
           }
@@ -66,9 +66,13 @@ export default {
             amount.splice(i, 0, ",");
           }
         }
+
         paymentPlans[plan.plan_id === "monthly" ? this.dacToken : this.nativeToken] = {
           quantityToShow: amount.join(""),
-          quantityToPay: plan.amount.quantity
+          toPay: {
+            planId: plan.plan_id,
+            quantityPlan: plan.amount.quantity,
+          }
         };
       });
       this.paymentPlans = paymentPlans;

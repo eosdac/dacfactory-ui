@@ -1,12 +1,15 @@
 <template>
-  <section :class="['card', hint ? 'first-card' : 'second-card']">
+  <section :class="['card', transparent ? 'first-card' : 'second-card']">
     <h3 class="card-header">{{ $t("step5.pay_in") }} {{ header }}</h3>
     <div class="card-body">
-      <p class="quantity">
+      <p class="quantity margin-top--5">
         {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
       </p>
-      <p class="time-info">{{ $t("step5.30_days") }}</p>
-      <p class="hint">{{ $t("step5.due_on") }}<span class="question">?</span></p>
+      <span class="time-info">(plan fee)</span>
+      <p class="quantity margin-top-5">{{ SETUP_QUANTITY }}<span>EOS</span></p>
+      <span class="time-info">(setup fee)</span>
+      <p class="time-info margin-top-15 ">{{ $t("step5.30_days") }}</p>
+      <p class="hint margin-top-15">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
     <div class="card-footer">
       <q-btn
@@ -26,7 +29,8 @@ export default {
   data() {
     return {
       DAC_TOKEN: process.env.DAC_TOKEN,
-      loggedInUser: this.$store.state.ual.accountName
+      loggedInUser: this.$store.state.ual.accountName,
+      SETUP_QUANTITY: process.env.SETUP_QUANTITY
     };
   },
   props: {
@@ -38,7 +42,7 @@ export default {
       type: Object,
       require: true
     },
-    hint: {
+    transparent: {
       type: Boolean,
       require: false
     },
@@ -117,6 +121,8 @@ p
   justify-content center
   align-items center
   height: 276px
+  & > div.quantity:last-child
+    margin-top 5px
 .quantity
   display flex
   flex-direction column
@@ -126,16 +132,13 @@ p
   & > span
     font-size 16px
 .time-info
-  margin-top 20px
   font-size 13px
   font-weight 500
   letter-spacing 0.29px
   line-height 15px
-  color #ffffff
 .hint
   position relative
   max-width 100px
-  margin-top 15px
   color #ffffff
   font-size 12px
   font-style italic
@@ -165,6 +168,12 @@ p
   height 104px
   & > button
     margin 0
+.margin-top-15
+  margin-top 15px
+.margin-top-5
+  margin-top 5px
+.margin-top--5
+  margin-top -5px
 @media (max-width 479px)
   .first-card
     margin 0
