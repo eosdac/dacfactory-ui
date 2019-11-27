@@ -22,6 +22,7 @@ export default {
     go_back: "go back",
     continue: "save & continue",
     step_of: "Step {active_step} of {max_steps}",
+    info_will_be_saved: "Info will be saved. You can finish filing up of the form later."
   },
   errors: {
     only_positive_integers_are_available: "Only positive integers are available.",

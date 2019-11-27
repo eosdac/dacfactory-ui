@@ -11,6 +11,7 @@
               {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
             </div>
             <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
+            <p class="info-text" v-if="getActiveStep < 5">* {{ $t("general.info_will_be_saved") }} *</p>
             <transition
               enter-active-class="animated fadeInUp"
               leave-active-class="animated fadeOut"
@@ -24,21 +25,21 @@
               <step5-form v-else-if="getActiveStep === 5" key="form-page-5" />
             </transition>
             <transition
+              appear
               enter-active-class="animated fadeInDown"
               leave-active-class="animated fadeOut"
               mode="out-in"
-              appear
             >
               <div class="continue-btn-wrapper">
                 <q-btn
                   v-if="getActiveStep < stepsNumber"
                   color="secondary"
                   class="full-width"
-                  :label="$t('general.continue')"
-                  :to="`/create/step${getActiveStep + 1}`"
+                  @click="onContinueButtonClick"
+                  :disable="!!checkStepErrors"
                   :key="`continue${getActiveStep}`"
-                />
-                <div class="btn-disable-holder" v-if="checkStepErrors" />
+                  >{{ $t("general.continue") }}</q-btn
+                >
               </div>
             </transition>
           </div>
@@ -138,6 +139,11 @@ export default {
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
     }
   },
+  methods: {
+    onContinueButtonClick() {
+      this.$router.push(`/create/step${this.getActiveStep + 1}`);
+    }
+  },
   beforeRouteUpdate(to, from, next) {
     if (this.checkStepErrors && to.params.step > from.params.step) {
       next(false);
@@ -166,8 +172,13 @@ h1
   font-size 16px
   color $light-violet
 .continue-btn-wrapper
-  position relative
   margin-top 24px
+.info-text
+  padding 0 10px
+  margin-bottom 24px
+  font-size 14px
+  text-align center
+  color $warning
 @media (max-width 1439px)
   .width-xl-screen
     height auto
