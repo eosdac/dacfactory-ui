@@ -11,6 +11,7 @@
               {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
             </div>
             <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
+            <p class="info-text">* Info will be save. You can finish filing up of the form later. *</p>
             <transition
               enter-active-class="animated fadeInUp"
               leave-active-class="animated fadeOut"
@@ -172,6 +173,12 @@ h1
   color $light-violet
 .continue-btn-wrapper
   margin-top 24px
+.info-text
+  padding 0 10px
+  margin-bottom 24px
+  font-size 14px
+  text-align center
+  color $warning
 @media (max-width 1439px)
   .width-xl-screen
     height auto
