@@ -132,7 +132,7 @@ export async function prepareDacTransact(storeProps, payload) {
     },
     custodian_config: {
       lockupasset: {
-        quantity: `0 ${DAC_TOKEN}`,
+        quantity: `0 ${tokenSymbol}`,
         contract: DAC_TOKEN_CONTRACT
       },
       maxvotes: parseInt(numberOfVotes),
