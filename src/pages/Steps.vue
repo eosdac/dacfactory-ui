@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-      <div :class="getActiveStep === 5 ? 'wrapper-right-step-5' : 'wrapper-right'" class="bg-primary">
+      <div class="wrapper-right bg-primary">
         <div class="q-pa-md">
           <div v-if="getActiveStep === 1" class="step-right-styles">
             <p>
@@ -164,10 +164,10 @@ h1
     flex-direction column
 .wrapper-right
   flex 1
-.wrapper-right-step-5
+/*.wrapper-right-step-5
   flex-basis 88px
   @media (min-width 1560px)
-    flex-grow 1
+    flex-grow 1*/
 .step-right-styles
   font-size 16px
   color $light-violet

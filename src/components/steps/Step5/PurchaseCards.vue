@@ -86,10 +86,10 @@ export default {
 <style scoped lang="stylus">
 .wrapper
   position absolute
-  right 110px
+  right 70px
   top 0
   display flex
-  @media (max-width 1059px)
+  @media (max-width 1439px)
     position static
     margin-top 30px
   @media (max-width 479px)

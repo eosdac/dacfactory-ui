@@ -96,8 +96,12 @@ p
   border-radius 4px
   font-weight 700
   color #ebdff9
+  @media (min-width 769px) and (max-width 909px)
+    width 180px
 .first-card
   margin-right 50px
+  @media (min-width 769px) and (max-width 909px)
+    margin-right 10px
 .second-card
   background-color $dark-violet
 .card-header
