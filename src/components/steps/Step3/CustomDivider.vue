@@ -1,9 +1,11 @@
 <template>
-  <hr />
+  <hr :class="['class']" />
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["class"]
+};
 </script>
 
 <style scoped>

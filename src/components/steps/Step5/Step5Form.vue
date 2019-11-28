@@ -74,7 +74,7 @@ p
   color $light-violet
 .table-wrapper
   position relative
-  width 924px
+  width 914px
   height 490px
   margin 30px 0 0 40px
   padding-top 76px
@@ -90,8 +90,10 @@ p
   border 1px solid $secondary
   border-radius 4px
   color $light-violet
-  @media (min-width 769px) and (max-width 909px)
-    padding 38px 30px
+  @media (max-width 1439px)
+    padding 8px 45px
+  /*@media (min-width 769px) and (max-width 909px)
+    padding 38px 30px*/
   @media (max-width 479px)
     padding 18px 35px
 .italic-text

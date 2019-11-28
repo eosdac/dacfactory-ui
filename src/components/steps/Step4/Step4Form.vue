@@ -2,7 +2,7 @@
   <div>
     <my-input
       color="secondary"
-      label="Website URL"
+      :label="$t('step4.website_url')"
       hint="example: https://eosdac.io"
       class="margin-add-bottom-8"
       :isSetFocus="focused === 'websiteURL'"
@@ -12,7 +12,7 @@
     />
     <my-input
       color="secondary"
-      label="Logo URL"
+      :label="$t('step4.logo_url')"
       hint="external link to a file"
       class="margin-add-bottom-8"
       :isSetFocus="focused === 'logoURL'"
@@ -22,7 +22,7 @@
     />
     <my-input
       color="secondary"
-      label="Logomark URL"
+      :label="$t('step4.logomark_url')"
       hint="external link to a file"
       :isSetFocus="focused === 'logoMarkURL'"
       :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import { findStepErrors } from "imports/utils";
+import { findStepErrors } from "imports/utils";
 
 import MyInput from "components/form/my-input";
 import Step4ColorPicker from "./Step4ColorPicker";
