@@ -132,7 +132,7 @@ export async function prepareDacTransact(storeProps, payload) {
     },
     custodian_config: {
       lockupasset: {
-        quantity: `0 ${tokenSymbol}`,
+        quantity: `${parseInt(0).toFixed(decimals)} ${tokenSymbol}`,
         contract: DAC_TOKEN_CONTRACT
       },
       maxvotes: parseInt(numberOfVotes),
@@ -157,7 +157,8 @@ export async function prepareDacTransact(storeProps, payload) {
       approval_expiry: 2592000
     }
   };
-
+console.log(dacData);
+return ;
   const actions = [
     {
       account: tokenToPay,
