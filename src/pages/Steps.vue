@@ -11,6 +11,7 @@
               {{ $t("general.step_of", { active_step: getActiveStep, max_steps: stepsNumber }) }}
             </div>
             <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
+            <div class="form-wrapper">
             <p class="info-text" v-if="getActiveStep < 5">* {{ $t("general.info_will_be_saved") }} *</p>
             <transition
               enter-active-class="animated fadeInUp"
@@ -42,10 +43,11 @@
                 >
               </div>
             </transition>
+            </div>
           </div>
         </div>
       </div>
-      <div :class="getActiveStep === 5 ? 'wrapper-right-step-5' : 'wrapper-right'" class="bg-primary">
+      <div class="wrapper-right bg-primary">
         <div class="q-pa-md">
           <div v-if="getActiveStep === 1" class="step-right-styles">
             <p>
@@ -78,6 +80,9 @@
           <div v-if="getActiveStep === 4">
             <step4-right />
           </div>
+          <div v-if="getActiveStep === 5">
+            <step5-right />
+          </div>
         </div>
       </div>
     </div>
@@ -98,6 +103,7 @@ import Step3Right from "components/steps/Step3/Step3Right";
 import Step4Form from "components/steps/Step4/Step4Form";
 import Step4Right from "components/steps/Step4/Step4Right";
 import Step5Form from "components/steps/Step5/Step5Form";
+import Step5Right from "components/steps/Step5/Step5Right";
 
 export default {
   data() {
@@ -129,7 +135,8 @@ export default {
     Step3Right,
     Step4Form,
     Step4Right,
-    Step5Form
+    Step5Form,
+    Step5Right
   },
   computed: {
     ...mapGetters({
@@ -160,14 +167,14 @@ h1
 .wrapper
   display flex
   flex-grow 1
-  @media (max-width 768px)
+  @media (max-width 899px)
     flex-direction column
 .wrapper-right
   flex 1
-.wrapper-right-step-5
+/*.wrapper-right-step-5
   flex-basis 88px
   @media (min-width 1560px)
-    flex-grow 1
+    flex-grow 1*/
 .step-right-styles
   font-size 16px
   color $light-violet
@@ -179,6 +186,10 @@ h1
   font-size 14px
   text-align center
   color $warning
+.form-wrapper
+  @media (max-width 899px)
+    max-width 430px
+    margin 0 auto
 @media (max-width 1439px)
   .width-xl-screen
     height auto

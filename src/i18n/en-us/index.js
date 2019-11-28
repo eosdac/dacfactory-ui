@@ -90,14 +90,14 @@ export default {
     ///// right part
     hint1: "The Why’s and How",
     title_right: "Adding Branding and setting colors",
+    website_url: "Website URL",
     subtitle1:
       "Your brand is an important part of your DAC, and makes a significant impact on a DAC’s public perception.",
-    hint2: "LOGO URL",
+    logo_url: "Logo URL",
     subtitle2: "Your logo is the logo and the word mark.",
-    hint3: "LOGOMARK URL",
+    logomark_url: "Logomark URL",
     subtitle3: "Your logomark is only the mark of the logo.",
     subtitle4: "We recommend using imgur.com to host your logos",
-    hint4: "COLOR PALETTE",
     subtitle5:
       "If you are having trouble picking out a good color pallete we recommend view coolors.co to find a color pallete to match your brand.",
     ///// left part
@@ -106,8 +106,8 @@ export default {
     colors_scheme: "Colors Scheme"
   },
   step5: {
-    title: "Pay & Create DAC",
-    info_line1: "TBD: Pay & Create DAC",
+    ///// right part
+    title_right: "Summary of DAC information",
     ///// left part
     pay_month: "Pay month to month.",
     creation_of_account: "Creation of Accounts",
@@ -119,6 +119,8 @@ export default {
     due_on: "due on the 1st of each month",
     pay: "pay",
     login_to_pay: "login to pay",
-    pay_in: "pay in"
+    pay_in: "pay in",
+    title: "Pay & Create DAC",
+    info_line1: "TBD: Pay & Create DAC"
   }
 };
