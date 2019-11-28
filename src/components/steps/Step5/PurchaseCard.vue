@@ -6,7 +6,7 @@
         {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
       </p>
       <span class="time-info">(plan fee)</span>
-      <p class="quantity margin-top-5">{{ SETUP_QUANTITY }}<span>EOS</span></p>
+      <p class="quantity margin-top-5">{{ quantity.setupFee.split('.')[0] }}<span>EOS</span></p>
       <span class="time-info">(setup fee)</span>
       <p class="time-info margin-top-15 ">{{ $t("step5.30_days") }}</p>
       <p class="hint margin-top-15">{{ $t("step5.due_on") }}<span class="question">?</span></p>
@@ -29,8 +29,7 @@ export default {
   data() {
     return {
       DAC_TOKEN: process.env.DAC_TOKEN,
-      loggedInUser: this.$store.state.ual.accountName,
-      SETUP_QUANTITY: +process.env.SETUP_QUANTITY
+      loggedInUser: this.$store.state.ual.accountName
     };
   },
   props: {
@@ -68,7 +67,7 @@ export default {
         return;
       }
 
-      this.$store.commit("ual/setPayTokenInfo", { isDacToken, tokenQuantity: this.quantity });
+      this.$store.commit("ual/setPaymentInfo", { isDacToken, tokenQuantity: this.quantity });
       this.$router.push("/dac-creation");
     },
     scrollPageToBottomIfNeeded() {

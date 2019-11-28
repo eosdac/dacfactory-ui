@@ -40,7 +40,7 @@ export default {
     this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
   },
   destroyed() {
-    this.$store.commit("ual/setPayTokenInfo", null);
+    this.$store.commit("ual/setPaymentInfo", null);
   },
   methods: {
     openWS(dacId) {

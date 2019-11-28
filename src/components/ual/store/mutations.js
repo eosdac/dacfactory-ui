@@ -23,6 +23,6 @@ export function setAccountName(state, payload) {
   state.accountName = payload;
 }
 
-export function setPayTokenInfo(state, payload) {
-  state.payTokenInfo = payload;
+export function setPaymentInfo(state, payload) {
+  state.paymentInfo = payload;
 }

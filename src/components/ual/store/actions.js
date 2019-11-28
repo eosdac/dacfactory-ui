@@ -81,7 +81,7 @@ export async function prepareDacTransact(storeProps, payload) {
       factory: { stepsData },
       ual: {
         accountName,
-        payTokenInfo: { isDacToken, tokenQuantity }
+        paymentInfo: { isDacToken, tokenQuantity }
       }
     },
     dispatch
@@ -97,8 +97,7 @@ export async function prepareDacTransact(storeProps, payload) {
     NATIVE_TOKEN,
     DAC_TOKEN_CONTRACT,
     NATIVE_TOKEN_CONTRACT,
-    DAC_FACTORY,
-    SETUP_QUANTITY
+    DAC_FACTORY
   } = process.env;
 
   const periodLengthSeconds =
@@ -108,7 +107,6 @@ export async function prepareDacTransact(storeProps, payload) {
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
   const toPayInfo = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].toPay;
   const dacId = processDacNameInId(dacName);
-  console.log(`dacId: ${dacId}`);
 
   const dacData = {
     id: dacId,
@@ -177,7 +175,7 @@ export async function prepareDacTransact(storeProps, payload) {
       data: {
         from: accountName,
         to: DAC_FACTORY,
-        quantity: `${SETUP_QUANTITY} ${NATIVE_TOKEN}`,
+        quantity: tokenQuantity.setupFee,
         memo: `${dacId}:_setup`
       }
     },
