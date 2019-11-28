@@ -1,10 +1,10 @@
 <template>
-  <hr :class="['class']" />
+  <hr :class="['compClass']" />
 </template>
 
 <script>
 export default {
-  props: ["class"]
+  props: ["compClass"]
 };
 </script>
 
