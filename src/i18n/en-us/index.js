@@ -8,7 +8,10 @@ export default {
     create_my_dac: "create my dac",
     help_why: "WHY LAUNCH A DAC?",
     help_line1: "The world of static hierarchies and centralized ownership will be disrupted",
-    help_learn_more: "Learn more"
+    help_learn_more: "Learn more",
+    upload_dac_json: "UPLOAD DAC JSON",
+    error_in_json: "ERROR IN JSON",
+    file_is_damaged: "FILE IS DAMAGED"
   },
   general: {
     and: "and",

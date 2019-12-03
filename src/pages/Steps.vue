@@ -111,7 +111,7 @@ export default {
   },
   created() {
     const stepNumber = Number(this.$route.params.step.replace("step", ""));
-    const { stepsData, customJSON } = this.$store.state.factory;
+    const { stepsData, customDacData } = this.$store.state.factory;
     const stepFromStore = stepsData.activeStep;
 
     switch (true) {
@@ -122,7 +122,7 @@ export default {
         this.$store.commit("factory/setActiveStep", stepNumber);
         break;
       case stepNumber > stepFromStore:
-        if (!customJSON) {
+        if (!customDacData) {
           this.$router.push(`/create/step${stepFromStore}`);
         }
         break;
@@ -141,7 +141,7 @@ export default {
   },
   computed: {
     getActiveStep() {
-      return this.$store.state.factory.customJSON ? 5 : this.$store.getters["factory/getActiveStep"];
+      return this.$store.state.factory.customDacData ? 5 : this.$store.getters["factory/getActiveStep"];
     },
     checkStepErrors() {
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
@@ -160,10 +160,10 @@ export default {
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (to.path === "/dac-creation" || !this.$store.state.factory.customJSON) {
+    if (to.path === "/dac-creation" || !this.$store.state.factory.customDacData) {
       next();
     } else {
-      this.$store.commit("factory/setCustomJSON", null);
+      this.$store.commit("factory/setCustomDacData", null);
       next();
     }
   }

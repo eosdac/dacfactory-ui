@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="title-step">{{ $t("step5.title_right") }}</h2>
-    <div v-if="!customJSON">
+    <div v-if="!customDacData">
       <p class="hint-step text-uppercase break-text-hyphens">{{ $t("step1.dac_name") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step1.dacName }}</p>
       <p class="hint-step text-uppercase">{{ $t("step1.token_symbol") }}</p>
@@ -31,7 +31,7 @@
       <p class="subtitle-step margin-bottom-15">{{ step4.colorsScheme }}</p>
     </div>
     <div v-else class="break-text">
-      <vue-json-pretty :data="JSON.parse(customJSON)"> </vue-json-pretty>
+      <vue-json-pretty :data="customDacData"></vue-json-pretty>
     </div>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
       step3: factoryData[3],
       step4: factoryData[4],
       step5: factoryData[5],
-      customJSON: this.$store.state.factory.customJSON
+      customDacData: this.$store.state.factory.customDacData
     };
   },
   components: {

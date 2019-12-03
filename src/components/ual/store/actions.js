@@ -78,7 +78,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 export async function prepareDacTransact(storeProps, payload) {
   const {
     rootState: {
-      factory: { stepsData, customJSON },
+      factory: { stepsData, customDacData },
       ual: {
         accountName,
         paymentInfo: { isDacToken, tokenQuantity }
@@ -100,7 +100,7 @@ export async function prepareDacTransact(storeProps, payload) {
   let dacDataJSON;
   let dacId;
   let dacSymbol;
-  if (!customJSON) {
+  if (!customDacData) {
     const periodLengthSeconds =
       periodLengthSelect === TIME_PERIOD_OPTIONS[0]
         ? periodLength * SECONDS_IN_HOUR
@@ -159,8 +159,8 @@ export async function prepareDacTransact(storeProps, payload) {
     };
     dacDataJSON = JSON.stringify(dacData);
   } else {
-    dacDataJSON = customJSON;
-    const { id, symbol } = JSON.parse(customJSON);
+    dacDataJSON = JSON.stringify(customDacData);
+    const { id, symbol } = customDacData;
     dacId = id;
     dacSymbol = symbol.symbol;
   }

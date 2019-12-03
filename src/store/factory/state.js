@@ -39,7 +39,7 @@ export function factoryInitialState() {
         isAgree: false
       }
     },
-    customJSON: null
+    customDacData: null
   };
 }
 

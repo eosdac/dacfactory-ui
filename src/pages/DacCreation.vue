@@ -48,7 +48,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("ual/setPaymentInfo", null);
-    this.$store.commit("factory/setCustomJSON", null);
+    this.$store.commit("factory/setCustomDacData", null);
   },
   methods: {
     openWS(dacId) {

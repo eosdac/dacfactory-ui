@@ -19,8 +19,13 @@
               :to="createMyDacCurrentURL"
             />
             <span class="text-body1">or</span>
-            <div class="position-relative">
-              <q-btn color="secondary" label="UPLOAD DAC JSON" icon="insert_drive_file" @click="chooseFile" />
+            <div class="upload-json-wrapper">
+              <q-btn
+                icon="insert_drive_file"
+                :class="['upload-json-button', { 'upload-json-button-error': customFileError }]"
+                :label="customFileError ? customFileError : $t('home.upload_dac_json')"
+                @click="chooseFile"
+              />
               <input
                 type="file"
                 id="file-input-id"
@@ -64,7 +69,7 @@
             icon="close"
             @click="
               showYouTubeVideo = false;
-              video_is_loaded = false;
+              videoIsLoaded = false;
             "
           >
             <q-tooltip content-class="bg-secondary ">{{ $t("general.close") }}</q-tooltip>
@@ -72,13 +77,13 @@
         </q-bar>
         <q-card-section>
           <div class="q-video" style="max-width:700px;max-height:350px;height: 56.25vw;">
-            <div v-if="!video_is_loaded" class="position-relative fit row items-center justify-center">
+            <div v-if="!videoIsLoaded" class="position-relative fit row items-center justify-center">
               <q-spinner size="50px" color="primary" />
             </div>
             <iframe
-              v-show="video_is_loaded"
+              v-show="videoIsLoaded"
               src="https://www.youtube.com/embed/PbQpAJOP6iA"
-              @load="video_is_loaded = true"
+              @load="videoIsLoaded = true"
               allowfullscreen
               style="border:0"
             />
@@ -97,7 +102,8 @@ export default {
   data() {
     return {
       showYouTubeVideo: false,
-      video_is_loaded: false
+      videoIsLoaded: false,
+      customFileError: null
     };
   },
   computed: {
@@ -118,11 +124,26 @@ export default {
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          this.$store.commit("factory/setCustomJSON", reader.result);
-          this.$router.push("/create/step5");
+          try {
+            this.$store.commit("factory/setCustomDacData", JSON.parse(reader.result));
+            this.$router.push("/create/step5");
+          } catch (error) {
+            this.customFileError = this.$t('home.error_in_json');
+            this.resetUploadFileError()
+          }
+        };
+        reader.onerror = () => {
+          this.customFileError = this.$t('home.file_is_damaged');
+          this.resetUploadFileError()
         };
         reader.readAsText(file);
       }
+    },
+    resetUploadFileError() {
+      setTimeout(() => {
+        this.customFileError = null;
+        this.$refs.file_input.value = ''
+      }, 3000)
     }
   }
 };
@@ -144,4 +165,12 @@ export default {
 .buttons-wrapper
   & > *
     margin-top 8px
+.upload-json-wrapper
+  position relative
+.upload-json-button
+  background-color #11b55b
+.upload-json-button-error
+  background-color $negative
+  animation shake 0.36s
+  pointer-events none
 </style>

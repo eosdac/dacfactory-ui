@@ -27,6 +27,6 @@ export function resetFactoryState(state) {
   });
 }
 
-export function setCustomJSON(state, payload) {
-  state.customJSON = payload
+export function setCustomDacData(state, payload) {
+  state.customDacData = payload
 }
