@@ -30,8 +30,8 @@
       type="textarea"
       outlined
       dark
-      maxlength="250"
       counter
+      maxlength="250"
       color="secondary"
       :value="dacDescription"
       @input="

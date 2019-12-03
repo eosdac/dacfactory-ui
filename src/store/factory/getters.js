@@ -1,5 +1,5 @@
 export function getActiveStep(state) {
-  return state.activeStep;
+  return state.stepsData.activeStep;
 }
 
 export function getStepsData(state) {

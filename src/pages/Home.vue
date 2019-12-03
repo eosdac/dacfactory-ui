@@ -10,7 +10,7 @@
             <div style="max-width:500px">{{ $t("home.line1") }}</div>
           </div>
           <div class="text-body1 q-mt-xl">{{ $t("home.line2") }}</div>
-          <div class="row justify-center q-mt-sm">
+          <div class="column items-center buttons-wrapper">
             <q-btn
               color="secondary"
               :label="$t('home.create_my_dac')"
@@ -18,6 +18,18 @@
               class="q-py-sm"
               :to="createMyDacCurrentURL"
             />
+            <span class="text-body1">or</span>
+            <div class="position-relative">
+              <q-btn color="secondary" label="UPLOAD DAC JSON" icon="insert_drive_file" @click="chooseFile" />
+              <input
+                type="file"
+                id="file-input-id"
+                class="visually-hidden"
+                accept="application/json"
+                ref="file_input"
+                @change="uploadFile"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -94,25 +106,43 @@ export default {
       getActiveStep: "factory/getActiveStep"
     }),
     createMyDacCurrentURL() {
-      return `/create/step${this.getActiveStep || 1}`
+      return `/create/step${this.getActiveStep || 1}`;
+    }
+  },
+  methods: {
+    chooseFile() {
+      this.$refs.file_input.click();
+    },
+    uploadFile(e) {
+      const file = e.target && e.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.$store.commit("factory/setCustomJSON", reader.result);
+          this.$router.push("/create/step5");
+        };
+        reader.readAsText(file);
+      }
     }
   }
 };
 </script>
 
-<style>
-.diagonal {
-  height: 400px;
-  background-image: url("../statics/images/diagonal.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: -30px;
-}
-.bottom-info-box {
-  width: 304px;
-  height: 177px;
-  border: 1px solid var(--q-color-secondary);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
+<style lang="stylus">
+.diagonal
+  height 400px
+  background-image url("../statics/images/diagonal.svg")
+  background-repeat no-repeat
+  background-size cover
+  margin-top -30px
+.bottom-info-box
+  width 304px
+  height 177px
+  border 1px solid var(--q-color-secondary)
+  border-radius 8px
+  box-sizing border-box
+.buttons-wrapper
+  & > *
+    margin-top 8px
 </style>

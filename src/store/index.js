@@ -24,8 +24,8 @@ export default function(/* { ssrContext } */) {
         paths: ["ual.SESSION"]
       }),
       createPersistedState({
-        key: "factory",
-        paths: ["factory"]
+        key: "stepsData",
+        paths: ["factory.stepsData"]
       })
     ],
 

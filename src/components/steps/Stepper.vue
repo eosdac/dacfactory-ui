@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!dacCustomJSON">
     <q-linear-progress dark :value="getProgressValue" size="5px" color="secondary" />
     <div class="wrapper">
       <transition
@@ -116,6 +116,9 @@ export default {
       }
 
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
+    },
+    dacCustomJSON() {
+      return this.$store.state.factory.customJSON
     }
   },
   methods: {
@@ -140,7 +143,9 @@ export default {
       const stepNumber = Number(r.params.step.replace("step", ""));
 
       if (stepNumber <= STEPS_NUMBER && stepNumber > 0) {
-        this.$store.commit("factory/setActiveStep", stepNumber);
+        if (!this.dacCustomJSON) {
+          this.$store.commit("factory/setActiveStep", stepNumber);
+        }
       } else {
         this.$store.commit("factory/setActiveStep", 0);
         this.$router.push("/");

@@ -122,5 +122,11 @@ export default {
     pay_in: "pay in",
     title: "Pay & Create DAC",
     info_line1: "TBD: Pay & Create DAC"
+  },
+  dac_creation: {
+    go_to_main_page: "GO TO MAIN PAGE",
+    wait_until_dac_created: "Please, wait until your DAC will be created.",
+    dac_was_created: "Your DAC was successfully created!",
+    ws_error: "WS error has occurred."
   }
 };
