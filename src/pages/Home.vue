@@ -102,7 +102,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getAccountName: "ual/getAccountName",
       getActiveStep: "factory/getActiveStep"
     }),
     createMyDacCurrentURL() {

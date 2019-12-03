@@ -216,7 +216,6 @@ export async function transact({ state, dispatch, commit }, payload) {
     await openWS(dacId);
     try {
       await user.signTransaction({ actions: copiedActions }, { broadcast: true });
-      console.log("transact finished");
       afterTransact();
     } catch (e) {
       afterTransact(parseUalError(e));
