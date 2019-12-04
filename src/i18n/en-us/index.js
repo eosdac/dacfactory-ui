@@ -8,7 +8,10 @@ export default {
     create_my_dac: "create my dac",
     help_why: "WHY LAUNCH A DAC?",
     help_line1: "The world of static hierarchies and centralized ownership will be disrupted",
-    help_learn_more: "Learn more"
+    help_learn_more: "Learn more",
+    upload_dac_json: "UPLOAD DAC JSON",
+    error_in_json: "ERROR IN JSON",
+    file_is_damaged: "FILE IS DAMAGED"
   },
   general: {
     and: "and",
@@ -122,5 +125,11 @@ export default {
     pay_in: "pay in",
     title: "Pay & Create DAC",
     info_line1: "TBD: Pay & Create DAC"
+  },
+  dac_creation: {
+    go_to_main_page: "GO TO MAIN PAGE",
+    wait_until_dac_created: "Please, wait until your DAC will be created.",
+    dac_was_created: "Your DAC was successfully created!",
+    ws_error: "WS error has occurred."
   }
 };

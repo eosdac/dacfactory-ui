@@ -8,13 +8,7 @@
         </router-link>
         <nav class="nav-wrapper">
           <q-btn class="btn-is-show" label="see pricing" unelevated :ripple="false" to="/pricing" />
-          <q-btn
-            class="btn-is-show"
-            label="how it works"
-            unelevated
-            :ripple="false"
-            to="/how-it-works"
-          />
+          <q-btn class="btn-is-show" label="how it works" unelevated :ripple="false" to="/how-it-works" />
           <q-btn
             v-if="!getAccountName"
             label="login"
@@ -154,4 +148,3 @@ export default {
   @media (max-width 639px)
     width 120px
 </style>
-

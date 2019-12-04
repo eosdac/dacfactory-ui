@@ -2,17 +2,24 @@
   <q-page class="bg-accent hack-height">
     <section class="content-wrapper" v-if="trxSuccess && !wsError">
       <p :class="['title', { 'creation-success': creationFinishedText }]">
-        {{ creationFinishedText ? creationFinishedText : "Please, wait while your DAC will be created" }}
+        {{ creationFinishedText ? creationFinishedText : $t('dac_creation.wait_until_dac_created') }}
       </p>
       <p class="status-text">{{ currentMessage }}</p>
       <progress-icons :currentNumber="currentNumber" />
-      <router-link to="/" :class="['go-to-main-link', { 'visibility-hidden': !creationFinishedText }]"
-        >GO TO MAIN PAGE</router-link
-      >
+      <q-btn
+        to="/"
+        color="secondary"
+        :label="$t('dac_creation.go_to_main_page')"
+        :class="{ 'visibility-hidden': !creationFinishedText }"
+      />
     </section>
     <section class="content-wrapper" v-else-if="trxError || wsError">
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
-      <router-link to="/" class="go-to-main-link">GO TO MAIN PAGE</router-link>
+      <q-btn
+        to="/"
+        color="secondary"
+        :label="$t('dac_creation.go_to_main_page')"
+      />
     </section>
   </q-page>
 </template>
@@ -41,6 +48,7 @@ export default {
   },
   destroyed() {
     this.$store.commit("ual/setPaymentInfo", null);
+    this.$store.commit("factory/setCustomDacData", null);
   },
   methods: {
     openWS(dacId) {
@@ -55,12 +63,12 @@ export default {
           this.currentMessage = JSON.parse(msg.data).data.status.replace(/_/g, " ");
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
-            this.creationFinishedText = "Your DAC was successfully created!";
+            this.creationFinishedText = this.$t('dac_creation.dac_was_created');
             this.$store.commit("factory/resetFactoryState");
           }
         };
         this.ws.onerror = error => {
-          this.wsError = "WS error occurred.";
+          this.wsError = this.$t('dac_creation.ws_error');
           this.ws.close();
           console.log(error, "error");
         };
@@ -130,19 +138,6 @@ export default {
   font-weight 500
 .hack-height
   height 1px
-.go-to-main-link
-  padding 6px 16px
-  font-size 14px
-  font-weight 500
-  text-decoration none
-  border-radius 4px
-  background-color $secondary
-  transition background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)
-  box-shadow 0 1px 5px rgba(0,0,0,0.2), 0 2px 2px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12)
-  color #ffffff
-  &:focus,
-  &:hover
-    background-color #8954c0
 .visibility-hidden
   visibility hidden
 </style>

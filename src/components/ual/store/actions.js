@@ -78,7 +78,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 export async function prepareDacTransact(storeProps, payload) {
   const {
     rootState: {
-      factory: { stepsData },
+      factory: { stepsData, customDacData },
       ual: {
         accountName,
         paymentInfo: { isDacToken, tokenQuantity }
@@ -92,71 +92,78 @@ export async function prepareDacTransact(storeProps, payload) {
   const { decimals, issuance } = stepsData[2];
   const { periodLength, periodLengthSelect, numberOfCustodians, numberOfVotes } = stepsData[3];
   const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
-  const {
-    DAC_TOKEN,
-    NATIVE_TOKEN,
-    DAC_TOKEN_CONTRACT,
-    NATIVE_TOKEN_CONTRACT,
-    DAC_FACTORY
-  } = process.env;
+  const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
 
-  const periodLengthSeconds =
-    periodLengthSelect === TIME_PERIOD_OPTIONS[0]
-      ? periodLength * SECONDS_IN_HOUR
-      : periodLength * 24 * SECONDS_IN_HOUR;
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
   const toPayInfo = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].toPay;
-  const dacId = processDacNameInId(dacName);
 
-  const dacData = {
-    id: dacId,
-    owner: accountName,
-    appointed_custodian: accountName,
-    authority: processFromDacId(dacId, "authority"),
-    treasury: processFromDacId(dacId, "treasury"),
-    symbol: {
-      contract: DAC_TOKEN_CONTRACT,
-      symbol: `${decimals},${tokenSymbol}`
-    },
-    max_supply: `${MAX_SUPPLY_VALUE} ${tokenSymbol}`,
-    issuance: `${parseInt(issuance).toFixed(decimals)} ${tokenSymbol}`,
-    name: dacName,
-    description: dacDescription,
-    homepage: websiteURL,
-    logo_url: logoURL,
-    logo_notext_url: logoMarkURL,
-    background_url: "",
-    theme: {
-      is_dark: true,
-      colors: createColorsScheme(colorsScheme)
-    },
-    custodian_config: {
-      lockupasset: {
-        quantity: `${parseInt(0).toFixed(decimals)} ${tokenSymbol}`,
-        contract: DAC_TOKEN_CONTRACT
+  let dacDataJSON;
+  let dacId;
+  let dacSymbol;
+  if (!customDacData) {
+    const periodLengthSeconds =
+      periodLengthSelect === TIME_PERIOD_OPTIONS[0]
+        ? periodLength * SECONDS_IN_HOUR
+        : periodLength * 24 * SECONDS_IN_HOUR;
+    dacId = processDacNameInId(dacName);
+    dacSymbol = `${decimals},${tokenSymbol}`;
+
+    const dacData = {
+      id: dacId,
+      owner: accountName,
+      appointed_custodian: accountName,
+      authority: processFromDacId(dacId, "authority"),
+      treasury: processFromDacId(dacId, "treasury"),
+      symbol: {
+        contract: DAC_TOKEN_CONTRACT,
+        symbol: dacSymbol
       },
-      maxvotes: parseInt(numberOfVotes),
-      numelected: parseInt(numberOfCustodians),
-      periodlength: periodLengthSeconds,
-      should_pay_via_service_provider: false,
-      initial_vote_quorum_percent: 1,
-      vote_quorum_percent: 1,
-      auth_threshold_high: processThresholdFromNoC(numberOfCustodians, THRESHOLD_HIGH),
-      auth_threshold_mid: processThresholdFromNoC(numberOfCustodians, THRESHOLD_MIDDLE),
-      auth_threshold_low: processThresholdFromNoC(numberOfCustodians, THRESHOLD_LOW),
-      lockup_release_time_delay: 0,
-      requested_pay_max: {
-        quantity: `0 ${NATIVE_TOKEN}`,
-        contract: NATIVE_TOKEN_CONTRACT
+      max_supply: `${MAX_SUPPLY_VALUE} ${tokenSymbol}`,
+      issuance: `${parseInt(issuance).toFixed(decimals)} ${tokenSymbol}`,
+      name: dacName,
+      description: dacDescription,
+      homepage: websiteURL,
+      logo_url: logoURL,
+      logo_notext_url: logoMarkURL,
+      background_url: "",
+      theme: {
+        is_dark: true,
+        colors: createColorsScheme(colorsScheme)
+      },
+      custodian_config: {
+        lockupasset: {
+          quantity: `${parseInt(0).toFixed(decimals)} ${tokenSymbol}`,
+          contract: DAC_TOKEN_CONTRACT
+        },
+        maxvotes: parseInt(numberOfVotes),
+        numelected: parseInt(numberOfCustodians),
+        periodlength: periodLengthSeconds,
+        should_pay_via_service_provider: false,
+        initial_vote_quorum_percent: 1,
+        vote_quorum_percent: 1,
+        auth_threshold_high: processThresholdFromNoC(numberOfCustodians, THRESHOLD_HIGH),
+        auth_threshold_mid: processThresholdFromNoC(numberOfCustodians, THRESHOLD_MIDDLE),
+        auth_threshold_low: processThresholdFromNoC(numberOfCustodians, THRESHOLD_LOW),
+        lockup_release_time_delay: 0,
+        requested_pay_max: {
+          quantity: `0 ${NATIVE_TOKEN}`,
+          contract: NATIVE_TOKEN_CONTRACT
+        }
+      },
+      proposals_config: {
+        proposal_threshold: 4,
+        finalize_threshold: 1,
+        escrow_expiry: 2592000,
+        approval_expiry: 2592000
       }
-    },
-    proposals_config: {
-      proposal_threshold: 4,
-      finalize_threshold: 1,
-      escrow_expiry: 2592000,
-      approval_expiry: 2592000
-    }
-  };
+    };
+    dacDataJSON = JSON.stringify(dacData);
+  } else {
+    dacDataJSON = JSON.stringify(customDacData);
+    const { id, symbol } = customDacData;
+    dacId = id;
+    dacSymbol = symbol.symbol;
+  }
 
   const actions = [
     {
@@ -186,9 +193,9 @@ export async function prepareDacTransact(storeProps, payload) {
         dac_id: dacId,
         dac_symbol: {
           contract: DAC_TOKEN_CONTRACT,
-          symbol: `${decimals},${tokenSymbol}`
+          symbol: dacSymbol
         },
-        json: JSON.stringify(dacData)
+        json: dacDataJSON
       }
     }
   ];
@@ -209,7 +216,6 @@ export async function transact({ state, dispatch, commit }, payload) {
     await openWS(dacId);
     try {
       await user.signTransaction({ actions: copiedActions }, { broadcast: true });
-      console.log("transact finished");
       afterTransact();
     } catch (e) {
       afterTransact(parseUalError(e));

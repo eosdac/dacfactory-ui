@@ -12,37 +12,37 @@
             </div>
             <h1 class="text-h5 q-mb-lg">{{ $t("step" + getActiveStep + ".title") }}</h1>
             <div class="form-wrapper">
-            <p class="info-text" v-if="getActiveStep < 5">* {{ $t("general.info_will_be_saved") }} *</p>
-            <transition
-              enter-active-class="animated fadeInUp"
-              leave-active-class="animated fadeOut"
-              mode="out-in"
-              appear
-            >
-              <step1-form v-if="getActiveStep === 1" key="form-page-1" />
-              <step2-form v-else-if="getActiveStep === 2" key="form-page-2" />
-              <step3-form v-else-if="getActiveStep === 3" key="form-page-3" />
-              <step4-form v-else-if="getActiveStep === 4" key="form-page-4" />
-              <step5-form v-else-if="getActiveStep === 5" key="form-page-5" />
-            </transition>
-            <transition
-              appear
-              enter-active-class="animated fadeInDown"
-              leave-active-class="animated fadeOut"
-              mode="out-in"
-            >
-              <div class="continue-btn-wrapper">
-                <q-btn
-                  v-if="getActiveStep < stepsNumber"
-                  color="secondary"
-                  class="full-width"
-                  @click="onContinueButtonClick"
-                  :disable="!!checkStepErrors"
-                  :key="`continue${getActiveStep}`"
-                  >{{ $t("general.continue") }}</q-btn
-                >
-              </div>
-            </transition>
+              <p class="info-text" v-if="getActiveStep < 5">* {{ $t("general.info_will_be_saved") }} *</p>
+              <transition
+                enter-active-class="animated fadeInUp"
+                leave-active-class="animated fadeOut"
+                mode="out-in"
+                appear
+              >
+                <step1-form v-if="getActiveStep === 1" key="form-page-1" />
+                <step2-form v-else-if="getActiveStep === 2" key="form-page-2" />
+                <step3-form v-else-if="getActiveStep === 3" key="form-page-3" />
+                <step4-form v-else-if="getActiveStep === 4" key="form-page-4" />
+                <step5-form v-else-if="getActiveStep === 5" key="form-page-5" />
+              </transition>
+              <transition
+                appear
+                enter-active-class="animated fadeInDown"
+                leave-active-class="animated fadeOut"
+                mode="out-in"
+              >
+                <div class="continue-btn-wrapper">
+                  <q-btn
+                    v-if="getActiveStep < stepsNumber"
+                    color="secondary"
+                    class="full-width"
+                    @click="onContinueButtonClick"
+                    :disable="!!checkStepErrors"
+                    :key="`continue${getActiveStep}`"
+                    >{{ $t("general.continue") }}</q-btn
+                  >
+                </div>
+              </transition>
             </div>
           </div>
         </div>
@@ -90,8 +90,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import { findStepErrors } from "imports/utils";
 
 import { STEPS_NUMBER } from "components/constants";
@@ -113,7 +111,8 @@ export default {
   },
   created() {
     const stepNumber = Number(this.$route.params.step.replace("step", ""));
-    const stepFromStore = this.$store.state.factory.activeStep;
+    const { stepsData, customDacData } = this.$store.state.factory;
+    const stepFromStore = stepsData.activeStep;
 
     switch (true) {
       case stepFromStore === 0:
@@ -123,7 +122,9 @@ export default {
         this.$store.commit("factory/setActiveStep", stepNumber);
         break;
       case stepNumber > stepFromStore:
-        this.$router.push(`/create/step${stepFromStore}`);
+        if (!customDacData) {
+          this.$router.push(`/create/step${stepFromStore}`);
+        }
         break;
       default:
     }
@@ -139,9 +140,9 @@ export default {
     Step5Right
   },
   computed: {
-    ...mapGetters({
-      getActiveStep: "factory/getActiveStep"
-    }),
+    getActiveStep() {
+      return this.$store.state.factory.customDacData ? 5 : this.$store.getters["factory/getActiveStep"];
+    },
     checkStepErrors() {
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
     }
@@ -155,6 +156,14 @@ export default {
     if (this.checkStepErrors && to.params.step > from.params.step) {
       next(false);
     } else {
+      next();
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.path === "/dac-creation" || !this.$store.state.factory.customDacData) {
+      next();
+    } else {
+      this.$store.commit("factory/setCustomDacData", null);
       next();
     }
   }
@@ -171,10 +180,6 @@ h1
     flex-direction column
 .wrapper-right
   flex 1
-/*.wrapper-right-step-5
-  flex-basis 88px
-  @media (min-width 1560px)
-    flex-grow 1*/
 .step-right-styles
   font-size 16px
   color $light-violet

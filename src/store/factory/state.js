@@ -3,8 +3,8 @@ export const TIME_PERIOD_OPTIONS = ["Hour(s)", "Day(s)"];
 
 export function factoryInitialState() {
   return {
-    activeStep: 0,
     stepsData: {
+      activeStep: 0,
       1: {
         dacName: "",
         dacNameError: true,
@@ -38,7 +38,8 @@ export function factoryInitialState() {
       5: {
         isAgree: false
       }
-    }
+    },
+    customDacData: null
   };
 }
 

@@ -9,8 +9,15 @@
       :quantity="paymentInfo"
       :isAgree="isAgree"
       :onCheckboxError="onCheckboxError"
+      :checkboxRef="checkboxRef"
     />
-    <purchase-card :header="dacToken" :quantity="paymentInfo" :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
+    <purchase-card
+      :header="dacToken"
+      :quantity="paymentInfo"
+      :isAgree="isAgree"
+      :onCheckboxError="onCheckboxError"
+      :checkboxRef="checkboxRef"
+    />
   </section>
   <section class="wrapper centered-wrapper" v-else-if="paymentInfoError">
     {{ paymentInfoError }}
@@ -23,7 +30,8 @@ import PurchaseCard from "./PurchaseCard";
 export default {
   props: {
     isAgree: Boolean,
-    onCheckboxError: Function
+    onCheckboxError: Function,
+    checkboxRef: Element
   },
   data() {
     return {

@@ -4,7 +4,7 @@ import { ERROR_MARK } from "components/constants";
 
 export function setActiveStep(state, payload) {
   payload = payload < 0 ? 0 : payload;
-  state.activeStep = payload;
+  state.stepsData.activeStep = payload;
 }
 
 export function setStepsData(state, payload) {
@@ -25,4 +25,8 @@ export function resetFactoryState(state) {
   Object.keys(initialedState).forEach(item => {
     state[item] = initialedState[item];
   });
+}
+
+export function setCustomDacData(state, payload) {
+  state.customDacData = payload
 }

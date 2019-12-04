@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <q-linear-progress dark :value="getProgressValue" size="5px" color="secondary" />
+  <div v-if="!customDacData">
+    <q-linear-progress dark :value="getProgressValue" class="linear-progress" />
     <div class="wrapper">
       <transition
         appear
@@ -116,6 +116,9 @@ export default {
       }
 
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
+    },
+    customDacData() {
+      return this.$store.state.factory.customDacData
     }
   },
   methods: {
@@ -140,7 +143,9 @@ export default {
       const stepNumber = Number(r.params.step.replace("step", ""));
 
       if (stepNumber <= STEPS_NUMBER && stepNumber > 0) {
-        this.$store.commit("factory/setActiveStep", stepNumber);
+        if (!this.customDacData) {
+          this.$store.commit("factory/setActiveStep", stepNumber);
+        }
       } else {
         this.$store.commit("factory/setActiveStep", 0);
         this.$router.push("/");
@@ -156,6 +161,9 @@ export default {
   justify-content space-between
   align-items center
   height 52px
+.linear-progress
+  height 5px
+  color $secondary
 .next-btn-wrapper
   display flex
   justify-content flex-end
