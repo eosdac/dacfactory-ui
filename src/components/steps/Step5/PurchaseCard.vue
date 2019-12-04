@@ -6,7 +6,7 @@
         {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
       </p>
       <span class="time-info">(plan fee)</span>
-      <p class="quantity margin-top-5">{{ quantity.setupFee.split('.')[0] }}<span>EOS</span></p>
+      <p class="quantity margin-top-5">{{ quantity.setupFee.split(".")[0] }}<span>EOS</span></p>
       <span class="time-info">(setup fee)</span>
       <p class="time-info margin-top-15 ">{{ $t("step5.30_days") }}</p>
       <p class="hint margin-top-15">{{ $t("step5.due_on") }}<span class="question">?</span></p>
@@ -24,6 +24,9 @@
 
 <script>
 import { mapGetters } from "vuex";
+
+const FOOTER_HEIGHT = 57;
+const CHECKBOX_MARGIN_TOP = 32;
 
 export default {
   data() {
@@ -52,7 +55,8 @@ export default {
     onCheckboxError: {
       type: Function,
       required: true
-    }
+    },
+    checkboxRef: Element
   },
   computed: {
     ...mapGetters({
@@ -61,8 +65,8 @@ export default {
   },
   methods: {
     transfer(isDacToken) {
-      this.scrollPageToBottomIfNeeded();
       if (!this.isAgree) {
+        this.scrollPageToBottomIfNeeded();
         this.onCheckboxError();
         return;
       }
@@ -74,9 +78,17 @@ export default {
       if (window.innerWidth > 1439) {
         return;
       }
-      window.scrollTo({
-        top: document.documentElement.offsetHeight - window.innerHeight
-      });
+
+      const docElemHeight = document.documentElement.clientHeight;
+      const checkboxOffsetTop =
+        this.checkboxRef.getBoundingClientRect().bottom + (this.$store.state.factory.customDacData
+          ? 0
+          : FOOTER_HEIGHT) + CHECKBOX_MARGIN_TOP;
+      if (docElemHeight < checkboxOffsetTop) {
+        window.scrollBy({
+          top: checkboxOffsetTop - docElemHeight
+        });
+      }
     }
   },
   watch: {

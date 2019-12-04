@@ -8,10 +8,22 @@
           {{ $t("step5.once_you") }}
         </p>
       </div>
-      <purchase-cards :isAgree="isAgree" :onCheckboxError="onCheckboxError" />
-      <div class="checkbox-wrapper">
-        <q-checkbox dark keep-color :value="isAgree" :color="checkboxError ? 'negative' : ''" @input="onInputCheckbox" />
-        <p :class="checkboxError ? 'checkbox-error terms-conditions-anim' : 'checkbox-normal'">
+      <purchase-cards
+        :isAgree="isAgree"
+        :onCheckboxError="onCheckboxError"
+        :checkboxRef="checkboxRef"
+      />
+      <div class="checkbox-wrapper" ref="checkbox_ref">
+        <q-checkbox
+          dark
+          keep-color
+          :value="isAgree"
+          :color="checkboxError ? 'negative' : ''"
+          @input="onInputCheckbox"
+        />
+        <p
+          :class="checkboxError ? 'checkbox-error terms-conditions-anim' : 'checkbox-normal'"
+        >
           {{ $t("step5.i_agree_with") }}
           <router-link to="/terms" :class="checkboxError ? 'terms-link-error' : 'terms-link'">{{
             $t("step5.terms_and_conditions")
@@ -30,7 +42,8 @@ export default {
     return {
       isAgree: this.$store.state.factory.stepsData[5].isAgree,
       checkboxError: false,
-      timeoutId: null
+      timeoutId: null,
+      checkboxRef: null
     };
   },
   components: {
@@ -39,6 +52,8 @@ export default {
   mounted() {
     this.setIsAgree(false);
     this.isAgree = false;
+
+    this.checkboxRef = this.$refs.checkbox_ref;
   },
   methods: {
     onInputCheckbox(value) {
