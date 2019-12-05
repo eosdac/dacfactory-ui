@@ -146,7 +146,7 @@ export async function prepareDacTransact(storeProps, payload) {
         auth_threshold_low: processThresholdFromNoC(numberOfCustodians, THRESHOLD_LOW),
         lockup_release_time_delay: 0,
         requested_pay_max: {
-          quantity: `0 ${NATIVE_TOKEN}`,
+          quantity: `${parseInt(0).toFixed(decimals)} ${NATIVE_TOKEN}`,
           contract: NATIVE_TOKEN_CONTRACT
         }
       },
