@@ -6,6 +6,7 @@ export default {
     line1: "Create a Decentralized Autonomous Community (DAC) to fit the needs of your organization and community.",
     line2: "Get started with these 5 steps.",
     create_my_dac: "create my dac",
+    continue_creation: "continue creation",
     help_why: "WHY LAUNCH A DAC?",
     help_line1: "The world of static hierarchies and centralized ownership will be disrupted",
     help_learn_more: "Learn more",

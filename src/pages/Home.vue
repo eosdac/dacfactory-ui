@@ -13,7 +13,7 @@
           <div class="column items-center buttons-wrapper">
             <q-btn
               color="secondary"
-              :label="$t('home.create_my_dac')"
+              :label="getActiveStep ? $t('home.continue_creation') : $t('home.create_my_dac')"
               style="width:180px"
               class="q-py-sm"
               :to="createMyDacCurrentURL"
@@ -22,7 +22,7 @@
             <div class="upload-json-wrapper">
               <q-btn
                 icon="insert_drive_file"
-                :class="['upload-json-button', { 'upload-json-button-error': customFileError }]"
+                :class="['q-py-sm', 'upload-json-button', { 'upload-json-button-error': customFileError }]"
                 :label="customFileError ? customFileError : $t('home.upload_dac_json')"
                 @click="chooseFile"
               />
@@ -162,6 +162,8 @@ export default {
   border 1px solid var(--q-color-secondary)
   border-radius 8px
   box-sizing border-box
+  @media (max-width 479px)
+    width 284px
 .buttons-wrapper
   & > *
     margin-top 8px

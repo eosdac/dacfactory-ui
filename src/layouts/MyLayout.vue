@@ -134,11 +134,10 @@ export default {
 .nav-wrapper
   & > *
     padding 4px 10px
-  @media (min-width 640px) {
+  @media (min-width 640px)
     display grid
     grid-template-columns auto auto auto
     grid-gap 8px
-  }
 .btn-is-show
   @media (max-width 639px)
     display none
