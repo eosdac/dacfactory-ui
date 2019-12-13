@@ -3,52 +3,57 @@
     <q-input
       autocomplete="off"
       ref="my_input"
-      :type="type"
       :dark="dark"
       :color="color"
+      :type="type"
       outlined
       noErrorIcon
       bottom-slots
       :value="value"
       :label="label"
-      :counter="counter"
+      :counter="false"
       :maxlength="maxlength"
       :dense="dense"
       @input="handleInput"
       @blur="onBlur"
-      :rules="[ ...rules ]"
+      :rules="[...rules]"
       :debounce="debounce"
       :hide-hint="false"
       :items-aligned="false"
       :mask="mask"
-
       class="q-mb-md overflow-hidden"
-
     >
-      <template v-if="iconLeft" v-slot:prepend>
-        <q-icon :name="iconLeft" @click="$emit('clicked_left_icon')"/>
-      </template>
-      <template  v-slot:append v-if="isMounted">
+      <template v-slot:append v-if="isMounted">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
-          <q-icon v-if="!!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess()" name="check" color="positive" key="ok" />
-          <q-icon v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError()" name="close" color="negative" key="error"/>
+          <q-icon
+            v-if="!!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess"
+            name="check"
+            color="positive"
+            key="ok"
+          />
+          <q-icon
+            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError"
+            name="close"
+            color="negative"
+            key="error"
+          />
         </transition>
       </template>
-
-      <template v-slot:hint><div v-if="showhint">{{hint}}</div></template>
-
-
+      <template v-slot:hint>
+        <div v-if="showhint">{{ hint }}</div>
+      </template>
+      <template v-slot:counter>
+        <div v-if="rightSideHint">{{ rightSideHint }}</div>
+      </template>
     </q-input>
-
   </div>
 </template>
 
 <script>
 export default {
-inheritAttrs: false,
-  // name: 'ComponentName',
+  inheritAttrs: false,
   props: {
-    value:'',
+    value: "",
     color: {
       type: String,
       default: "primary"
@@ -65,109 +70,93 @@ inheritAttrs: false,
       type: Boolean,
       default: true
     },
-    counter: {
-      type: Boolean,
-      default: true
-    },
-    maxlength:{
-      type:String,
-      default:''
-    },
-    hint:{
+    maxlength: {
       type: String,
-      default: "this is a input hint"  
+      default: ""
+    },
+    hint: {
+      type: String,
+      default: null
+    },
+    rightSideHint: {
+      type: String,
+      default: null
     },
     dense: {
       type: Boolean,
       default: false
     },
-    iconLeft: {
-      type: String,
-      default: ""
-    },
     iconRight: {
       type: String,
       default: ""
     },
-    rules:{
+    rules: {
       type: Array,
       default: () => []
     },
-    mask:{
+    mask: {
       type: String,
-      default:''
+      default: ""
     },
-    validateOnMounted:{
+    validateOnMounted: {
       type: Boolean,
       default: true
     },
-    debounce:{
+    debounce: {
       type: Number,
-      default: 500
+      default: 400
     },
-    // min: {
-    //   type: Number,
-    //   default: 0
-    // },
-    // step: {
-    //   type: Number,
-    //   default: 0
-    // },
+    isSetFocus: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
-     showhint:true,
-     isMounted:false
+      showhint: true,
+      isMounted: false
     };
   },
-  methods:{
-    handleInput(v){
+  mounted() {
+    if (this.value && this.validateOnMounted) {
+      this.$refs.my_input.validate();
+    }
+    this.isMounted = true;
+  },
+  computed: {
+    validationSuccess() {
+      this.showhint = false;
+      this.$emit("statusChange", { value: this.value, error: false });
+      return true;
+    },
+    validationError() {
+      this.showhint = true;
+      this.$emit("statusChange", { value: this.value, error: true });
+      return true;
+    }
+  },
+  methods: {
+    handleInput(v) {
       //todo only emit if validated
       // this.$refs.my_input.validate();
-      if(this.type =="number"){
-        v = Number(v);
-      }
-      console.log(this.$refs.my_input);
-      this.$emit('input', v);
-      
+      this.$emit("input", v);
     },
-
-    validationSuccess(){
-      this.showhint=false;
-      this.$emit('statusChange', {value: this.value, error: false});
-      return true;
-    },
-  
-    validationError(){
-      this.showhint=true;
-      this.$emit('statusChange', {value: this.value, error: true});
-      return true;
-    },
-
-    onBlur(){
-      if(this.value == '' ){
-        setTimeout(()=>{
-          this.$refs.my_input.resetValidation();
-        },2000)
+    onBlur() {
+      if (!this.value) {
+        setTimeout(() => {
+          if (this.$refs.my_input) {
+            this.$refs.my_input.resetValidation();
+          }
+        }, 2000);
       }
     }
-
   },
-  mounted(){
-    if(this.value !='' && this.validateOnMounted){
-      console.log('validation on mounted triggered')
-
-      this.$refs.my_input.validate();
-      
-      
-      
-
+  watch: {
+    isSetFocus(value) {
+      if (value) {
+        this.$refs.my_input.focus()
+      }
     }
-    this.isMounted=true;
   }
-
 };
 </script>
-
-<style>
-</style>

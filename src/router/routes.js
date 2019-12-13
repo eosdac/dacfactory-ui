@@ -1,25 +1,27 @@
 
 const routes = [
   {
-    path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    path: "/",
+    component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: '', component: () => import('pages/home.vue') },
-      { path: 'create/:step', component: () => import('pages/steps') },
-      { path: 'pricing', component: () => import('pages/pricing.vue') },
-      { path: 'how-it-works', component: () => import('pages/how-it-works.vue') },
-      { path: 'test', component: () => import('pages/test.vue') }
+      { path: "", component: () => import("pages/Home.vue") },
+      { path: "create/:step(step[1-5]+)", component: () => import("pages/Steps") },
+      { path: "create/", redirect: "create/step1" },
+      { path: "pricing", component: () => import("pages/Pricing.vue") },
+      { path: "how-it-works", component: () => import("pages/HowItWorks.vue") },
+      { path: "terms", component: () => import("pages/Terms.vue") },
+      { path: "dac-creation", component: () => import("pages/DacCreation.vue") },
+      { path: "test", component: () => import("pages/Test.vue") }
     ]
-  },
-  
-]
+  }
+];
 
 // Always leave this as last one
-if (process.env.MODE !== 'ssr') {
+if (process.env.MODE !== "ssr") {
   routes.push({
-    path: '*',
-    component: () => import('pages/Error404.vue')
-  })
+    path: "*",
+    component: () => import("pages/Error404.vue")
+  });
 }
 
-export default routes
+export default routes;

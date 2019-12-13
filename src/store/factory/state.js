@@ -1,56 +1,48 @@
-export default {
+export const TOKENS_OPTIONS = ["DAC Token", "System Token"];
+export const TIME_PERIOD_OPTIONS = ["Hour(s)", "Day(s)"];
 
-  activeStep: 0,
-  stepsConfig:{
-    1 :{
-      title: "DAC Profile"
+export function factoryInitialState() {
+  return {
+    stepsData: {
+      activeStep: 0,
+      1: {
+        dacName: "",
+        dacNameError: true,
+        tokenSymbol: "",
+        tokenSymbolError: true,
+        dacDescription: ""
+      },
+      2: {
+        issuance: "1000000",
+        issuanceError: false,
+        decimals: "4"
+      },
+      3: {
+        numberOfCustodians: "7",
+        numberOfCustodiansError: false,
+        numberOfVotes: "3",
+        numberOfVotesError: false,
+        periodLength: "7",
+        periodLengthError: false,
+        periodLengthSelect: TIME_PERIOD_OPTIONS[1]
+      },
+      4: {
+        websiteURL: "",
+        websiteURLError: true,
+        logoURL: "",
+        logoURLError: true,
+        logoMarkURL: "",
+        logoMarkURLError: true,
+        colorsScheme: "light"
+      },
+      5: {
+        isAgree: false
+      }
     },
-    2 :{
-      title: "Treasury & Authority accounts"
-    },
-    3 :{
-      title: "Tokenomics"
-    },
-
-    4 :{
-      title: "Custodian Configuration"
-    },
-    5 :{
-      title: "Pay & Create DAC"
-    }
-  },
-  stepsData:{
-    1:{
-      dacName: '',
-      dacDescription: '',
-      dacId: '',
-      tokenSymbol: '',
-      websiteUrl:''
-    },
-    2:{
-      treasuryAccount: '',
-      authorityAccount: ''
-    },
-    3:{
-      maxSupply: '',
-      decimals: '4',
-      issuance: '',
-    },
-
-    4:{
-      lockupAsset:'',
-      requestPayMax:'',
-      lockupReleaseTimeDelay:'',
-      periodLength:'',
-
-      numElected:'',
-      thresholdHigh:'',
-      thresholdMed:'',
-      thresholdLow:'',
-      maxVotes:'',
-
-      voteQuorumPercent:''
-
-    }
-  }
+    customDacData: null
+  };
 }
+
+export default {
+  ...factoryInitialState()
+};

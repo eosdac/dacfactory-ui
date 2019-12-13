@@ -24,6 +24,12 @@
   }
 }
 
+@keyframes shake
+  10%, 50%, 80%
+    margin-left 3px
+  30%, 70%, 100%
+    margin-left -3px
+
 .bounce {
   	animation: bounce 2s infinite;
 	-webkit-animation: bounce 2s infinite;
@@ -51,6 +57,40 @@
 .q-pr-xxl{
   padding-right:80px;
 }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.break-text
+  overflow-wrap break-word
+  word-wrap break-word
+  word-break break-word
+
+.break-text-hyphens
+  overflow-wrap break-word
+  word-wrap break-word
+  word-break break-word
+  hyphens auto
+
+.disable-holder
+  position absolute
+  left 0
+  top 0
+  width 100%
+  height 100%
+  background-color rgba(0, 0, 0, 0.3);
+  cursor not-allowed
+  border-radius 3px
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 

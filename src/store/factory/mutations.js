@@ -1,14 +1,32 @@
-export function setActiveStep (state, payload) {
-    payload = payload < 0 ? 0 : payload;
-    state.activeStep = payload;
+import { factoryInitialState } from "store/factory/state";
+
+import { ERROR_MARK } from "components/constants";
+
+export function setActiveStep(state, payload) {
+  payload = payload < 0 ? 0 : payload;
+  state.stepsData.activeStep = payload;
 }
 
-export function setStepsData (state, payload) {
-    //{step:1, key:'authorityAccount', data: $event}
-    let error = payload.data.error;
-    let value = error ? '' : payload.data.value;
-    let data={};
-    data[payload.key] = value;
+export function setStepsData(state, payload) {
+  const { data, key, step } = payload;
+  const { value, error } = data;
 
-    state.stepsData[payload.step] = Object.assign(state.stepsData[payload.step], data);
+  const newData = {
+    [key]: value
+  };
+  if (typeof error === "boolean") {
+    newData[`${key}${ERROR_MARK}`] = error;
+  }
+  state.stepsData[step] = Object.assign(state.stepsData[step], newData);
+}
+
+export function resetFactoryState(state) {
+  const initialedState = { ...factoryInitialState() };
+  Object.keys(initialedState).forEach(item => {
+    state[item] = initialedState[item];
+  });
+}
+
+export function setCustomDacData(state, payload) {
+  state.customDacData = payload
 }
