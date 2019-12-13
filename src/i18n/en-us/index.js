@@ -15,17 +15,18 @@ export default {
   },
   general: {
     and: "and",
-    required: "* Required",
-    welcome: "Welcome",
-    info: "info",
-    close: "Close",
-    go_to_step: "go to step {step}",
-    step: "STEP",
-    go_home: "Go home",
-    go_back: "go back",
-    continue: "save & continue",
-    step_of: "Step {active_step} of {max_steps}",
-    info_will_be_saved: "Info will be saved. You can finish filing up of the form later."
+    "required": "* Required",
+    "welcome": "Welcome",
+    "info": "info",
+    "close": "Close",
+    "go_to_step": "go to step {step}",
+    "step": "STEP",
+    "go_home": "Go home",
+    "go_back": "go back",
+    "continue": "continue",
+    info_will_be_saved: "Info will be saved. You can finish filing up of the form later.",
+    "step_of": "Step {active_step} of {max_steps}"
+  },
   "how": {
     "line1": "Maintaining the infrastructure for a Decentralized Autonomous Community is no easy task. There are multiple technical pieces involved which require ongoing maintenance and support. Though all of the components used for your DAC are <a href=\"https://github.com/eosdac/\">open source</a> and can be deployed and maintained yourself without any involvement from the eosDAC team, the DAC Factory offers a solution for non-technical users while still providing decentralized security for your DAC. All the information for you DAC is owned by your authority account and stored in tables within contracts secured and maintained by the elected 12-member eosDAC custodian board which requires a 10 of 12 multisignature agreement to change anything. The EOSDAC token holders who join eosDAC and vote for custodians help secure your DAC, so please join us also.",
     "line2": "Read on for a more technical understanding of all the pieces in making your DAC work.",
@@ -59,18 +60,6 @@ export default {
     "line13": "",
     "line14": "",
     "line15": "",
-  },
-  "general": {
-    "required": "* Required",
-    "welcome": "Welcome",
-    "info": "info",
-    "close": "Close",
-    "go_to_step": "go to step {step}",
-    "step": "STEP",
-    "go_home": "Go home",
-    "go_back": "go back",
-    "continue": "continue",
-    "step_of": "Step {active_step} of {max_steps}"
   },
   errors: {
     only_positive_integers_are_available: "Only positive integers are available.",
