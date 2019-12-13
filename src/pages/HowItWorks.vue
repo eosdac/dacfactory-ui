@@ -29,9 +29,6 @@
 </template>
 
 <script>
-    export default {
-        name: 'HowItWorks',
-    }
 </script>
 
 <style>
