@@ -33,11 +33,11 @@
       counter
       maxlength="250"
       color="secondary"
+      ref="textarea_ref"
       :value="dacDescription"
       @input="
         dacDescription = $event;
-        $store.commit('factory/setStepsData', { step: 1, key: 'dacDescription', data: { value: $event } });
-      "
+        $store.commit('factory/setStepsData', { step: 1, key: 'dacDescription', data: { value: $event } })"
       :label="$t('step1.description')"
       :hint="$t('step1.description_hint')"
       class="q-mb-md overflow-hidden"
@@ -56,15 +56,20 @@ export default {
     myInput
   },
   data() {
+    const { dacName, tokenSymbol, dacDescription } = this.$store.state.factory.stepsData[1];
+
     return {
-      dacName: this.$store.state.factory.stepsData[1].dacName,
-      tokenSymbol: this.$store.state.factory.stepsData[1].tokenSymbol,
-      dacDescription: this.$store.state.factory.stepsData[1].dacDescription,
+      dacName,
+      tokenSymbol,
+      dacDescription,
       focused: null
     };
   },
   mounted() {
     this.focused = findStepErrors(this.$store.state.factory.stepsData[1]);
+    if (!this.focused && !this.dacDescription) {
+      this.$refs.textarea_ref.focus()
+    }
   },
   methods: {
     isValidSymbol,

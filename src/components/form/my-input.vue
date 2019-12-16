@@ -27,18 +27,14 @@
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon
             v-if="
-              !!$refs.my_input &&
-                $refs.my_input.isDirty &&
-                !$refs.my_input.hasError &&
-                rules.length &&
-                validationSuccess
+              !!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess
             "
             name="check"
             color="positive"
             key="ok"
           />
           <q-icon
-            v-else-if="!!$refs.my_input && $refs.my_input.hasError && rules.length && validationError"
+            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError"
             name="close"
             color="negative"
             key="error"
@@ -113,6 +109,10 @@ export default {
       default: 400
     },
     isSetFocus: {
+      type: Boolean,
+      default: false
+    },
+    isNotRequired: {
       type: Boolean,
       default: false
     }

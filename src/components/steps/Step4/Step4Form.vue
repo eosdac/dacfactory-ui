@@ -2,56 +2,65 @@
   <div>
     <my-input
       color="secondary"
+      class="margin-add-bottom-8"
       :label="$t('step4.website_url')"
       :hint="`${$t('general.example')}: https://dacfactory.io`"
-      class="margin-add-bottom-8"
-      :isSetFocus="focused === 'websiteURL'"
-      v-model="websiteURL"
-      @statusChange="onStatusChange($event, 'websiteURL')"
+      :isSetFocus="focused === WEBSITE_URL_FIELD"
+      :rules="[val => isValidUrl(val)]"
+      v-model="websiteUrl"
+      @statusChange="onStatusChange($event, WEBSITE_URL_FIELD)"
     />
     <my-input
       color="secondary"
+      class="margin-add-bottom-8"
       :label="$t('step4.logo_url')"
       :hint="$t('step4.link_hint')"
-      class="margin-add-bottom-8"
-      :isSetFocus="focused === 'logoURL'"
-      v-model="logoURL"
-      @statusChange="onStatusChange($event, 'logoURL')"
+      :isSetFocus="focused === LOGO_URL_FIELD"
+      :rules="[val => isValidUrl(val)]"
+      v-model="logoUrl"
+      @statusChange="onStatusChange($event, LOGO_URL_FIELD)"
     />
     <my-input
       color="secondary"
       :label="$t('step4.logomark_url')"
       :hint="$t('step4.link_hint')"
-      :isSetFocus="focused === 'logoMarkURL'"
-      v-model="logoMarkURL"
-      @statusChange="onStatusChange($event, 'logoMarkURL')"
+      :isSetFocus="focused === LOGO_MARK_URL_FIELD"
+      :rules="[val => isValidUrl(val)]"
+      v-model="logoMarkUrl"
+      @statusChange="onStatusChange($event, LOGO_MARK_URL_FIELD)"
     />
     <step4-color-picker />
   </div>
 </template>
 
 <script>
-import { findStepErrors } from "imports/utils";
-
 import MyInput from "components/form/my-input";
 import Step4ColorPicker from "./Step4ColorPicker";
 
-import { URL_REG_EXP } from "components/constants";
+import { isValidUrl } from "imports/validators";
+import { findStepErrors } from "imports/utils";
+
+const WEBSITE_URL_FIELD = "websiteUrl";
+const LOGO_URL_FIELD = "logoUrl";
+const LOGO_MARK_URL_FIELD = "logoMarkUrl";
 
 export default {
   data() {
-    const { websiteURL, logoURL, logoMarkURL } = this.$store.state.factory.stepsData[4];
+    const { websiteUrl, logoUrl, logoMarkUrl } = this.$store.state.factory.stepsData[4];
 
     return {
-      websiteURL,
-      logoURL,
-      logoMarkURL,
-      urlRegExp: URL_REG_EXP,
+      websiteUrl,
+      logoUrl,
+      logoMarkUrl,
+      WEBSITE_URL_FIELD,
+      LOGO_URL_FIELD,
+      LOGO_MARK_URL_FIELD,
+      isValidUrl,
       focused: null
     };
   },
   mounted() {
-    this.focused = findStepErrors(this.$store.state.factory.stepsData[4]);
+    this.focused = findStepErrors(this.$store.state.factory.stepsData[4], true);
   },
   components: {
     MyInput,
