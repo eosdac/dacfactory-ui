@@ -4,6 +4,7 @@
       color="secondary"
       class="margin-add-bottom-8"
       :label="$t('step4.website_url')"
+      :hint="`${$t('general.example')}: ${CREATION_WEBSITE_URL}`"
       :isSetFocus="focused === WEBSITE_URL_FIELD"
       :isShowAppend="!!websiteUrl"
       :rules="[val => isValidUrl(val)]"
@@ -14,6 +15,7 @@
       color="secondary"
       class="margin-add-bottom-8"
       :label="$t('step4.logo_url')"
+      :hint="$t('step4.link_hint')"
       :isSetFocus="focused === LOGO_URL_FIELD"
       :isShowAppend="!!logoUrl"
       :rules="[val => isValidUrl(val)]"
@@ -23,6 +25,7 @@
     <my-input
       color="secondary"
       :label="$t('step4.logomark_url')"
+      :hint="$t('step4.link_hint')"
       :isSetFocus="focused === LOGO_MARK_URL_FIELD"
       :isShowAppend="!!logoMarkUrl"
       :rules="[val => isValidUrl(val)]"
@@ -55,6 +58,7 @@ export default {
       WEBSITE_URL_FIELD,
       LOGO_URL_FIELD,
       LOGO_MARK_URL_FIELD,
+      CREATION_WEBSITE_URL: process.env.CREATION_WEBSITE_URL,
       isValidUrl,
       focused: null
     };
