@@ -7,7 +7,7 @@
     <my-input
       v-model="issuance"
       color="secondary"
-      :label="$t('step2.issuance', { token_symbol: getTokenSymbol })"
+      :label="`${$t('step2.issuance', { token_symbol: getTokenSymbol })} *`"
       :hint="$t('step2.issuance_hint')"
       :rules="[
         val => !!val || $t('general.required'),

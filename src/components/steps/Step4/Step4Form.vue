@@ -3,29 +3,26 @@
     <my-input
       color="secondary"
       :label="$t('step4.website_url')"
-      hint="example: https://eosdac.io"
+      :hint="`${$t('general.example')}: https://dacfactory.io`"
       class="margin-add-bottom-8"
       :isSetFocus="focused === 'websiteURL'"
-      :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
       v-model="websiteURL"
       @statusChange="onStatusChange($event, 'websiteURL')"
     />
     <my-input
       color="secondary"
       :label="$t('step4.logo_url')"
-      hint="external link to a file"
+      :hint="$t('step4.link_hint')"
       class="margin-add-bottom-8"
       :isSetFocus="focused === 'logoURL'"
-      :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
       v-model="logoURL"
       @statusChange="onStatusChange($event, 'logoURL')"
     />
     <my-input
       color="secondary"
       :label="$t('step4.logomark_url')"
-      hint="external link to a file"
+      :hint="$t('step4.link_hint')"
       :isSetFocus="focused === 'logoMarkURL'"
-      :rules="[val => urlRegExp.test(val) || $t('step4.website_url_alt_hint')]"
       v-model="logoMarkURL"
       @statusChange="onStatusChange($event, 'logoMarkURL')"
     />
@@ -43,10 +40,12 @@ import { URL_REG_EXP } from "components/constants";
 
 export default {
   data() {
+    const { websiteURL, logoURL, logoMarkURL } = this.$store.state.factory.stepsData[4];
+
     return {
-      websiteURL: this.$store.state.factory.stepsData[4].websiteURL,
-      logoURL: this.$store.state.factory.stepsData[4].logoURL,
-      logoMarkURL: this.$store.state.factory.stepsData[4].logoMarkURL,
+      websiteURL,
+      logoURL,
+      logoMarkURL,
       urlRegExp: URL_REG_EXP,
       focused: null
     };

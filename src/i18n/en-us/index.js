@@ -26,7 +26,8 @@ export default {
     go_back: "go back",
     continue: "save & continue",
     step_of: "Step {active_step} of {max_steps}",
-    info_will_be_saved: "Info will be saved. You can finish filing up of the form later."
+    info_will_be_saved: "Info will be saved. You can finish filing up of the form later.",
+    example: "Example"
   },
   errors: {
     only_positive_integers_are_available: "Only positive integers are available.",
@@ -47,9 +48,8 @@ export default {
     token_symbol_hint: "Min 3 / Max 7 chars",
     token_symbol_rule_length_3: "Symbol must have a minimum of 3 chars.",
     description: "Description",
-    description_hint: "Optional info about your DAC",
+    description_hint: "Info about your DAC",
     website_url: "Website URL",
-    website_url_hint: "Optional link to your website",
     dac_id: "DAC ID",
     dac_id_hint: "Min 5 / Max 11 chars",
     dac_id_rule_length_5: "DAC ID must have a minimum of 5 chars.",
@@ -80,11 +80,11 @@ export default {
     subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
     subtitle_dolor_amet:
       "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
-    hint2: "NUMBER OF CUSTODIANS",
+    number_of_c: "Number of custodians",
     subtitle2: "How many custodians will be elected.",
-    hint3: "NUMBER OF VOTES PER TOKEN",
+    number_of_v_per_t: "Number of votes per token",
     subtitle3: "How many custodians will each account be allowed to vote for.",
-    hint4: "LENGTH OF CUSTODIAN TERM",
+    length_of_c_term: "Length of custodian term",
     subtitle4: "How long will custodians be elected for until the next election.",
     ///// left part
     title: "Custodian Configuration",
@@ -107,7 +107,8 @@ export default {
     ///// left part
     title: "DAC Brand & URL",
     website_url_alt_hint: "Valid URL is required",
-    colors_scheme: "Colors Scheme"
+    colors_scheme: "Colors Scheme",
+    link_hint: "External link to a file"
   },
   step5: {
     ///// right part

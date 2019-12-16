@@ -4,7 +4,7 @@
       :value="dacName"
       @input="dacName = $event.trim()"
       color="secondary"
-      :label="$t('step1.dac_name')"
+      :label="`${$t('step1.dac_name')} *`"
       :hint="$t('step1.dac_name_hint')"
       :isSetFocus="focused === 'dacName'"
       :rules="[val => !!val || $t('general.required'), val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
@@ -14,7 +14,7 @@
       :value="tokenSymbol"
       @input="tokenSymbol = $event.trim().toUpperCase()"
       color="secondary"
-      :label="$t('step1.token_symbol')"
+      :label="`${$t('step1.token_symbol')} *`"
       :hint="$t('step1.token_symbol_hint')"
       :isSetFocus="focused === 'tokenSymbol'"
       maxlength="7"
@@ -41,13 +41,7 @@
       :label="$t('step1.description')"
       :hint="$t('step1.description_hint')"
       class="q-mb-md overflow-hidden"
-    >
-      <template v-slot:append class="overflow-hidden">
-        <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
-          <q-icon v-if="dacDescription" name="check" color="positive" key="ok" />
-        </transition>
-      </template>
-    </q-input>
+    ></q-input>
   </div>
 </template>
 

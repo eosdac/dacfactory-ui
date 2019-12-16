@@ -26,13 +26,19 @@
       <template v-slot:append v-if="isMounted">
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon
-            v-if="!!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess"
+            v-if="
+              !!$refs.my_input &&
+                $refs.my_input.isDirty &&
+                !$refs.my_input.hasError &&
+                rules.length &&
+                validationSuccess
+            "
             name="check"
             color="positive"
             key="ok"
           />
           <q-icon
-            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError"
+            v-else-if="!!$refs.my_input && $refs.my_input.hasError && rules.length && validationError"
             name="close"
             color="negative"
             key="error"
@@ -109,7 +115,7 @@ export default {
     isSetFocus: {
       type: Boolean,
       default: false
-    },
+    }
   },
   data() {
     return {
@@ -154,7 +160,7 @@ export default {
   watch: {
     isSetFocus(value) {
       if (value) {
-        this.$refs.my_input.focus()
+        this.$refs.my_input.focus();
       }
     }
   }
