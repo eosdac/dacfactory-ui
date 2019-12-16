@@ -8,7 +8,6 @@
       v-model="issuance"
       color="secondary"
       :label="`${$t('step2.issuance', { token_symbol: getTokenSymbol })} *`"
-      :hint="$t('step2.issuance_hint')"
       :rules="[
         val => !!val || $t('general.required'),
         val => /^\d+$/.test(val) || $t('errors.only_positive_integers_are_available'),

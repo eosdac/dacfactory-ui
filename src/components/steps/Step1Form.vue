@@ -5,7 +5,6 @@
       @input="dacName = $event.trim()"
       color="secondary"
       :label="`${$t('step1.dac_name')} *`"
-      :hint="$t('step1.dac_name_hint')"
       :isSetFocus="focused === 'dacName'"
       :rules="[val => !!val || $t('general.required'), val => val.length >= 3 || $t('step1.dac_name_rule_length_3')]"
       @statusChange="$store.commit('factory/setStepsData', { step: 1, key: 'dacName', data: $event })"
@@ -15,7 +14,6 @@
       @input="tokenSymbol = $event.trim().toUpperCase()"
       color="secondary"
       :label="`${$t('step1.token_symbol')} *`"
-      :hint="$t('step1.token_symbol_hint')"
       :isSetFocus="focused === 'tokenSymbol'"
       maxlength="7"
       :rules="[
@@ -39,7 +37,6 @@
         dacDescription = $event;
         $store.commit('factory/setStepsData', { step: 1, key: 'dacDescription', data: { value: $event } })"
       :label="$t('step1.description')"
-      :hint="$t('step1.description_hint')"
       class="q-mb-md overflow-hidden"
     ></q-input>
   </div>

@@ -27,14 +27,18 @@
         <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight" mode="out-in">
           <q-icon
             v-if="
-              !!$refs.my_input && $refs.my_input.isDirty && !$refs.my_input.hasError && validationSuccess
+              !!$refs.my_input &&
+                $refs.my_input.isDirty &&
+                !$refs.my_input.hasError &&
+                validationSuccess &&
+                isShowAppend
             "
             name="check"
             color="positive"
             key="ok"
           />
           <q-icon
-            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError"
+            v-else-if="!!$refs.my_input && $refs.my_input.hasError && validationError && isShowAppend"
             name="close"
             color="negative"
             key="error"
@@ -42,7 +46,7 @@
         </transition>
       </template>
       <template v-slot:hint>
-        <div v-if="showhint">{{ hint }}</div>
+        {{ hint }}
       </template>
       <template v-slot:counter>
         <div v-if="rightSideHint">{{ rightSideHint }}</div>
@@ -115,11 +119,14 @@ export default {
     isNotRequired: {
       type: Boolean,
       default: false
+    },
+    isShowAppend: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      showhint: true,
       isMounted: false
     };
   },
@@ -131,12 +138,10 @@ export default {
   },
   computed: {
     validationSuccess() {
-      this.showhint = false;
       this.$emit("statusChange", { value: this.value, error: false });
       return true;
     },
     validationError() {
-      this.showhint = true;
       this.$emit("statusChange", { value: this.value, error: true });
       return true;
     }
