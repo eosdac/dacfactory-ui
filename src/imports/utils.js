@@ -15,54 +15,19 @@ export function processThresholdFromNoC(numberOfCustodians, type) {
   }
 }
 
-const lightColorsScheme = [
-  "#f2e285",
-  "#ba5f34",
-  "#1f130d",
-  "#574943",
-  "#ffffff",
-  "#c0c0c0",
-  "#4583ba",
-  "#21ba45",
-  "#db2828",
-  "#3d2d27"
-];
-const darkColorsScheme = [
-  "#a2aa85",
-  "#ba5f34",
-  "#1f130d",
-  "#574943",
-  "#ffffff",
-  "#c0c0c0",
-  "#4583ba",
-  "#21ba45",
-  "#ff2844",
-  "#3d2d27"
-];
-export function createColorsScheme(type) {
-  let currentColorsSet;
-  switch (type) {
-    case "light":
-      currentColorsSet = lightColorsScheme;
-      break;
-    case "dark":
-      currentColorsSet = darkColorsScheme;
-      break;
-    default:
-  }
-
+export function createColorsScheme(scheme) {
   const currentColorsScheme = {};
-  for (let i = 0; i < currentColorsSet.length; i++) {
-    currentColorsScheme.$warning = currentColorsSet[0];
-    currentColorsScheme.primary = currentColorsSet[1];
-    currentColorsScheme.bg1 = currentColorsSet[2];
-    currentColorsScheme.bg2 = currentColorsSet[3];
-    currentColorsScheme.text1 = currentColorsSet[4];
-    currentColorsScheme.text2 = currentColorsSet[5];
-    currentColorsScheme.info = currentColorsSet[6];
-    currentColorsScheme.positive = currentColorsSet[7];
-    currentColorsScheme.negative = currentColorsSet[8];
-    currentColorsScheme.dark = currentColorsSet[9];
+  for (let i = 0; i < scheme.length; i++) {
+    currentColorsScheme.$warning = `#${scheme[0]}`;
+    currentColorsScheme.primary = `#${scheme[1]}`;
+    currentColorsScheme.bg1 = `#${scheme[2]}`;
+    currentColorsScheme.bg2 = `#${scheme[3]}`;
+    currentColorsScheme.text1 = `#${scheme[4]}`;
+    currentColorsScheme.text2 = `#${scheme[5]}`;
+    currentColorsScheme.info = `#${scheme[6]}`;
+    currentColorsScheme.positive = `#${scheme[7]}`;
+    currentColorsScheme.negative = `#${scheme[8]}`;
+    currentColorsScheme.dark = `#${scheme[9]}`;
   }
   return currentColorsScheme;
 }
