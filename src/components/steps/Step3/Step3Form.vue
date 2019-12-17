@@ -2,8 +2,9 @@
   <div>
     <my-input
       color="secondary"
-      label="Number of Custodians"
+      :label="`${$t('step3.number_of_c')} *`"
       :rules="[
+        val => !!val || $t('general.required'),
         val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
         val => val > 0 || $t('errors.greater_then_null'),
         val => val >= 2 || $t('errors.not_less_than', { min_value: 2 })
@@ -14,9 +15,10 @@
     />
     <my-input
       color="secondary"
-      label="Number of votes per token"
+      :label="`${$t('step3.number_of_v_per_t')} *`"
       class="margin-bottom-14"
       :rules="[
+        val => !!val || $t('general.required'),
         val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
         val => val > 0 || $t('errors.greater_then_null')
       ]"
@@ -28,8 +30,9 @@
     <div class="input-select-wrapper">
       <my-input
         color="secondary"
-        label="Length of custodian term"
+        :label="`${$t('step3.length_of_c_term')} *`"
         :rules="[
+          val => !!val || $t('general.required'),
           val => (val && /^\d+$/.test(val)) || $t('errors.only_positive_integers_are_available'),
           val => val > 0 || $t('errors.greater_then_null')
         ]"
@@ -57,6 +60,7 @@ import MyInput from "components/form/my-input";
 import CustomDivider from "./CustomDivider";
 
 import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
+import { CHECK_ERROR_TIMEOUT } from "components/constants";
 
 export default {
   components: {
@@ -81,7 +85,9 @@ export default {
     };
   },
   mounted() {
-    this.focused = findStepErrors(this.$store.state.factory.stepsData[3]);
+    setTimeout(() => {
+      this.focused = findStepErrors(this.$store.state.factory.stepsData[3]);
+    }, CHECK_ERROR_TIMEOUT);
   },
   methods: {
     onStatusChange(data, key) {

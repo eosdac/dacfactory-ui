@@ -67,15 +67,20 @@ export function createColorsScheme(type) {
   return currentColorsScheme;
 }
 
-export function findStepErrors(stepData) {
+export function findStepErrors(stepData, isCheckEmpty) {
   let error = null;
+  let firstEmptyField = null;
   const stepKeys = Object.keys(stepData);
   for (let i = 0; i < stepKeys.length; i++) {
     const stepKey = stepKeys[i];
-    if (stepKey.endsWith(ERROR_MARK) && stepData[stepKey]) {
-      error = stepKey.replace(ERROR_MARK, '');
+    const dataByKey = stepData[stepKey];
+    if (isCheckEmpty && !firstEmptyField && !stepKey.endsWith(ERROR_MARK) && !dataByKey) {
+      firstEmptyField = stepKey;
+    }
+    if (stepKey.endsWith(ERROR_MARK) && dataByKey) {
+      error = stepKey.replace(ERROR_MARK, "");
       break;
     }
   }
-  return error
+  return error ? error : firstEmptyField;
 }

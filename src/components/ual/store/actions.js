@@ -91,8 +91,16 @@ export async function prepareDacTransact(storeProps, payload) {
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { decimals, issuance } = stepsData[2];
   const { periodLength, periodLengthSelect, numberOfCustodians, numberOfVotes } = stepsData[3];
-  const { websiteURL, logoURL, logoMarkURL, colorsScheme } = stepsData[4];
-  const { DAC_TOKEN, NATIVE_TOKEN, DAC_TOKEN_CONTRACT, NATIVE_TOKEN_CONTRACT, DAC_FACTORY } = process.env;
+  const { websiteUrl, logoUrl, logoMarkUrl, colorsScheme } = stepsData[4];
+  const {
+    DAC_TOKEN,
+    NATIVE_TOKEN,
+    DAC_TOKEN_CONTRACT,
+    NATIVE_TOKEN_CONTRACT,
+    DAC_FACTORY,
+    CREATION_WEBSITE_URL,
+    CREATION_LOGO_URL
+  } = process.env;
 
   const tokenToPay = isDacToken ? DAC_TOKEN_CONTRACT : NATIVE_TOKEN_CONTRACT;
   const toPayInfo = tokenQuantity[isDacToken ? DAC_TOKEN : NATIVE_TOKEN].toPay;
@@ -122,9 +130,9 @@ export async function prepareDacTransact(storeProps, payload) {
       issuance: `${parseInt(issuance).toFixed(decimals)} ${tokenSymbol}`,
       name: dacName,
       description: dacDescription,
-      homepage: websiteURL,
-      logo_url: logoURL,
-      logo_notext_url: logoMarkURL,
+      homepage: websiteUrl || CREATION_WEBSITE_URL,
+      logo_url: logoUrl || CREATION_LOGO_URL,
+      logo_notext_url: logoMarkUrl,
       background_url: "",
       theme: {
         is_dark: true,

@@ -17,7 +17,7 @@ export function isValidUrl(v) {
   if (re.test(v)) {
     return true;
   } else {
-    return "This is not a valid url";
+    return "URL is not valid";
   }
 }
 export function isValidSymbol(symbol) {

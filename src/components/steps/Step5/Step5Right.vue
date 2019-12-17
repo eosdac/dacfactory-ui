@@ -14,19 +14,19 @@
       <p class="hint-step text-uppercase">{{ $t("step2.decimals") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step2.decimals }}</p>
       <custom-divider compClass="divider" />
-      <p class="hint-step">{{ $t("step3.hint2") }}</p>
+      <p class="hint-step">{{ $t("step3.number_of_c") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step3.numberOfCustodians }}</p>
-      <p class="hint-step">{{ $t("step3.hint3") }}</p>
+      <p class="hint-step">{{ $t("step3.number_of_v_per_t") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step3.numberOfVotes }}</p>
-      <p class="hint-step">{{ $t("step3.hint4") }}</p>
+      <p class="hint-step">{{ $t("step3.length_of_c_term") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step3.periodLength }} {{ step3.periodLengthSelect }}</p>
       <custom-divider compClass="divider" />
       <p class="hint-step text-uppercase">{{ $t("step4.website_url") }}</p>
-      <p class="subtitle-step margin-bottom-15 break-text">{{ step4.websiteURL }}</p>
+      <p class="subtitle-step margin-bottom-15 break-text">{{ step4.websiteUrl }}</p>
       <p class="hint-step text-uppercase">{{ $t("step4.logo_url") }}</p>
-      <p class="subtitle-step margin-bottom-15 break-text">{{ step4.logoURL }}</p>
+      <p class="subtitle-step margin-bottom-15 break-text">{{ step4.logoUrl }}</p>
       <p class="hint-step text-uppercase">{{ $t("step4.logomark_url") }}</p>
-      <p class="subtitle-step margin-bottom-15 break-text">{{ step4.logoMarkURL }}</p>
+      <p class="subtitle-step margin-bottom-15 break-text">{{ step4.logoMarkUrl }}</p>
       <p class="hint-step text-uppercase">{{ $t("step4.colors_scheme") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step4.colorsScheme }}</p>
     </div>

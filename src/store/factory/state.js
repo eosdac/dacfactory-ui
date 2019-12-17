@@ -27,12 +27,12 @@ export function factoryInitialState() {
         periodLengthSelect: TIME_PERIOD_OPTIONS[1]
       },
       4: {
-        websiteURL: "",
-        websiteURLError: true,
-        logoURL: "",
-        logoURLError: true,
-        logoMarkURL: "",
-        logoMarkURLError: true,
+        websiteUrl: "",
+        websiteUrlError: false,
+        logoUrl: "",
+        logoUrlError: false,
+        logoMarkUrl: "",
+        logoMarkUrlError: false,
         colorsScheme: "light"
       },
       5: {
