@@ -60,6 +60,7 @@ import MyInput from "components/form/my-input";
 import CustomDivider from "./CustomDivider";
 
 import { TOKENS_OPTIONS, TIME_PERIOD_OPTIONS } from "store/factory/state";
+import { CHECK_ERROR_TIMEOUT } from "components/constants";
 
 export default {
   components: {
@@ -84,7 +85,9 @@ export default {
     };
   },
   mounted() {
-    this.focused = findStepErrors(this.$store.state.factory.stepsData[3]);
+    setTimeout(() => {
+      this.focused = findStepErrors(this.$store.state.factory.stepsData[3]);
+    }, CHECK_ERROR_TIMEOUT);
   },
   methods: {
     onStatusChange(data, key) {

@@ -23,15 +23,15 @@
       @statusChange="onStatusChange($event, LOGO_URL_FIELD)"
     />
     <my-input
-      color="secondary"
-      :label="$t('step4.logomark_url')"
-      :hint="$t('step4.link_hint')"
-      :isSetFocus="focused === LOGO_MARK_URL_FIELD"
-      :isShowAppend="!!logoMarkUrl"
-      :rules="[val => isValidUrl(val)]"
-      v-model="logoMarkUrl"
-      @statusChange="onStatusChange($event, LOGO_MARK_URL_FIELD)"
-    />
+       color="secondary"
+       :label="$t('step4.logomark_url')"
+       :hint="$t('step4.link_hint')"
+       :isSetFocus="focused === LOGO_MARK_URL_FIELD"
+       :isShowAppend="!!logoMarkUrl"
+       :rules="[val => isValidUrl(val)]"
+       v-model="logoMarkUrl"
+       @statusChange="onStatusChange($event, LOGO_MARK_URL_FIELD)"
+     />
     <step4-color-picker />
   </div>
 </template>
@@ -43,6 +43,7 @@ import Step4ColorPicker from "./Step4ColorPicker";
 import { isValidUrl } from "imports/validators";
 import { findStepErrors } from "imports/utils";
 
+import { CHECK_ERROR_TIMEOUT } from "components/constants";
 const WEBSITE_URL_FIELD = "websiteUrl";
 const LOGO_URL_FIELD = "logoUrl";
 const LOGO_MARK_URL_FIELD = "logoMarkUrl";
@@ -64,7 +65,9 @@ export default {
     };
   },
   mounted() {
-    this.focused = findStepErrors(this.$store.state.factory.stepsData[4], true);
+    setTimeout(() => {
+      this.focused = findStepErrors(this.$store.state.factory.stepsData[4], true);
+    }, CHECK_ERROR_TIMEOUT);
   },
   components: {
     MyInput,
@@ -78,8 +81,7 @@ export default {
 };
 </script>
 
-<style scoped>
-.margin-add-bottom-8 {
-  margin-bottom: 8px;
-}
+<style scoped lang="stylus">
+.margin-add-bottom-8
+  margin-bottom 8px
 </style>

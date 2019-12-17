@@ -51,6 +51,8 @@ import { isValidSymbol, isAvailableSymbol } from "imports/validators";
 
 import myInput from "components/form/my-input";
 
+import { CHECK_ERROR_TIMEOUT } from "components/constants";
+
 export default {
   components: {
     myInput
@@ -66,10 +68,12 @@ export default {
     };
   },
   mounted() {
-    this.focused = findStepErrors(this.$store.state.factory.stepsData[1]);
-    if (!this.focused && !this.dacDescription) {
-      this.$refs.textarea_ref.focus()
-    }
+    setTimeout(() => {
+      this.focused = findStepErrors(this.$store.state.factory.stepsData[1]);
+      if (!this.focused && !this.dacDescription) {
+        this.$refs.textarea_ref.focus()
+      }
+    }, CHECK_ERROR_TIMEOUT);
   },
   methods: {
     isValidSymbol,

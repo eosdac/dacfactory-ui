@@ -48,7 +48,7 @@ import { findStepErrors } from "imports/utils";
 
 import myInput from "components/form/my-input";
 
-import { MAX_SUPPLY_VALUE } from "components/constants";
+import { CHECK_ERROR_TIMEOUT, MAX_SUPPLY_VALUE } from "components/constants";
 
 export default {
   components: {
@@ -63,7 +63,9 @@ export default {
     };
   },
   mounted() {
-    this.focused = findStepErrors(this.$store.state.factory.stepsData[2]);
+    setTimeout(() => {
+      this.focused = findStepErrors(this.$store.state.factory.stepsData[2]);
+    }, CHECK_ERROR_TIMEOUT);
   },
   computed: {
     ...mapGetters({
