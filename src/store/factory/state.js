@@ -35,7 +35,8 @@ export function factoryInitialState() {
         logoMarkUrlError: false,
         colorsScheme: {
           scheme: [],
-          activeIndex: 0
+          activeIndex: 0,
+          activeColor: "#000000"
         }
       },
       5: {

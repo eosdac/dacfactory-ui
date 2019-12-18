@@ -28,7 +28,9 @@
       <p class="hint-step text-uppercase">{{ $t("step4.logomark_url") }}</p>
       <p class="subtitle-step margin-bottom-15 break-text">{{ step4.logoMarkUrl }}</p>
       <p class="hint-step text-uppercase">{{ $t("step4.colors_scheme") }}</p>
-      <p class="subtitle-step margin-bottom-15">{{ step4.colorsScheme }}</p>
+      <div class="subtitle-step margin-bottom-15 colors-scheme">
+        <div v-for="color in step4.colorsScheme.scheme " :style="{ backgroundColor: `#${color}` }"></div>
+      </div>
     </div>
     <div v-else class="break-text">
       <vue-json-pretty :data="customDacData"></vue-json-pretty>
@@ -64,4 +66,12 @@ export default {
 <style scoped lang="stylus">
 .divider
   margin 0 0 16px
+.colors-scheme
+  display grid
+  grid-template-columns repeat(auto-fill, 20px)
+  grid-auto-rows 20px
+  grid-gap 8px
+  & > div
+    border 1px solid $light-violet
+    border-radius 2px
 </style>
