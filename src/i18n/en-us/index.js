@@ -6,6 +6,7 @@ export default {
     line1: "Create a Decentralized Autonomous Community (DAC) to fit the needs of your organization and community.",
     line2: "Get started with these 5 steps.",
     create_my_dac: "create my dac",
+    continue_creation: "continue creation",
     help_why: "WHY LAUNCH A DAC?",
     help_line1: "The world of static hierarchies and centralized ownership will be disrupted",
     help_learn_more: "Learn more",
@@ -25,7 +26,8 @@ export default {
     "go_back": "go back",
     "continue": "continue",
     info_will_be_saved: "Info will be saved. You can finish filing up of the form later.",
-    "step_of": "Step {active_step} of {max_steps}"
+    "step_of": "Step {active_step} of {max_steps}",
+    example: "Example"
   },
   "how": {
     "line1": "Maintaining the infrastructure for a Decentralized Autonomous Community is no easy task. There are multiple technical pieces involved which require ongoing maintenance and support. Though all of the components used for your DAC are <a href=\"https://github.com/eosdac/\">open source</a> and can be deployed and maintained yourself without any involvement from the eosDAC team, the DAC Factory offers a solution for non-technical users while still providing decentralized security for your DAC. All the information for you DAC is owned by your authority account and stored in tables within contracts secured and maintained by the elected 12-member eosDAC custodian board which requires a 10 of 12 multisignature agreement to change anything. The EOSDAC token holders who join eosDAC and vote for custodians help secure your DAC, so please join us also.",
@@ -64,9 +66,8 @@ export default {
     token_symbol_hint: "Min 3 / Max 7 chars",
     token_symbol_rule_length_3: "Symbol must have a minimum of 3 chars.",
     description: "Description",
-    description_hint: "Optional info about your DAC",
+    description_hint: "Info about your DAC",
     website_url: "Website URL",
-    website_url_hint: "Optional link to your website",
     dac_id: "DAC ID",
     dac_id_hint: "Min 5 / Max 11 chars",
     dac_id_rule_length_5: "DAC ID must have a minimum of 5 chars.",
@@ -97,11 +98,11 @@ export default {
     subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
     subtitle_dolor_amet:
       "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
-    hint2: "NUMBER OF CUSTODIANS",
+    number_of_c: "Number of custodians",
     subtitle2: "How many custodians will be elected.",
-    hint3: "NUMBER OF VOTES PER TOKEN",
+    number_of_v_per_t: "Number of votes per token",
     subtitle3: "How many custodians will each account be allowed to vote for.",
-    hint4: "LENGTH OF CUSTODIAN TERM",
+    length_of_c_term: "Length of custodian term",
     subtitle4: "How long will custodians be elected for until the next election.",
     ///// left part
     title: "Custodian Configuration",
@@ -124,7 +125,8 @@ export default {
     ///// left part
     title: "DAC Brand & URL",
     website_url_alt_hint: "Valid URL is required",
-    colors_scheme: "Colors Scheme"
+    colors_scheme: "Colors Scheme",
+    link_hint: "External link to a file"
   },
   step5: {
     ///// right part

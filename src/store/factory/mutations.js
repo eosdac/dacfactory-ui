@@ -8,7 +8,7 @@ export function setActiveStep(state, payload) {
 }
 
 export function setStepsData(state, payload) {
-  const { data, key, step } = payload;
+  const { step, key, data } = payload;
   const { value, error } = data;
 
   const newData = {
