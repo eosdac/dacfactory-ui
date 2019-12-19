@@ -61,7 +61,8 @@ export default {
       LOGO_MARK_URL_FIELD,
       CREATION_WEBSITE_URL: process.env.CREATION_WEBSITE_URL,
       isValidUrl,
-      focused: null
+      focused: null,
+      testColors: []
     };
   },
   mounted() {

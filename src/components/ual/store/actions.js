@@ -136,7 +136,7 @@ export async function prepareDacTransact(storeProps, payload) {
       background_url: "",
       theme: {
         is_dark: true,
-        colors: createColorsScheme(colorsScheme)
+        colors: createColorsScheme(colorsScheme.scheme)
       },
       custodian_config: {
         lockupasset: {
