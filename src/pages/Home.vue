@@ -98,7 +98,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "PageIndex",
   data() {
     return {
       showYouTubeVideo: false,
@@ -150,16 +149,10 @@ export default {
 </script>
 
 <style lang="stylus">
-.diagonal
-  height 400px
-  background-image url("../statics/images/diagonal.svg")
-  background-repeat no-repeat
-  background-size cover
-  margin-top -30px
 .bottom-info-box
   width 304px
   height 177px
-  border 1px solid var(--q-color-secondary)
+  border 1px solid $secondary
   border-radius 8px
   box-sizing border-box
   @media (max-width 479px)
