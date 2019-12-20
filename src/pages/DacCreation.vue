@@ -13,7 +13,7 @@
         @click="setValidationStage"
       />
     </section>
-      <dac-validation v-else-if="isValidationStage" />
+      <dac-validation v-else-if="isValidationStage" :dacId="dacId" :setDacValidated="setDacValidated" />
     <section v-else-if="trxError || wsError">
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
       <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
@@ -40,7 +40,9 @@ export default {
       trxSuccess: null,
       trxError: null,
       creationFinishedText: "",
-      isValidationStage: true
+      isValidationStage: true,
+      isDacValidated: false,
+      dacId: 'supertestid'
     };
   },
   mounted() {
@@ -57,6 +59,7 @@ export default {
 
         this.ws.onopen = () => {
           this.ws.send(JSON.stringify({ type: "register", data: { dac_id: dacId } }));
+          this.dacId = dacId;
           resolve();
         };
         this.ws.onmessage = msg => {
@@ -64,7 +67,6 @@ export default {
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
             this.creationFinishedText = this.$t("dac_creation.dac_was_created");
-            this.$store.commit("factory/resetFactoryState");
           }
         };
         this.ws.onerror = error => {
@@ -87,6 +89,9 @@ export default {
     },
     setValidationStage() {
       this.isValidationStage = true
+    },
+    setDacValidated() {
+      this.isDacValidated = true
     }
   },
   /*beforeRouteEnter(to, from, next) {
@@ -103,7 +108,7 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     switch (true) {
-      case to.path === "/dac-validation" && this.creationFinishedText:
+      case this.isDacValidated:
       case this.trxError || this.wsError:
         next();
         break;

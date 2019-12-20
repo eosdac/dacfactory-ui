@@ -208,10 +208,26 @@ export async function prepareDacTransact(storeProps, payload) {
     }
   ];
 
-  dispatch("transact", { actions, dacId, openWS, afterTransact });
+  dispatch("dacTransact", { actions, dacId, openWS, afterTransact });
 }
 
-export async function transact({ state, dispatch, commit }, payload) {
+export async function validateDacTransact({ state, dispatch }, payload) {
+  const { dacId, hash, afterTransact } = payload;
+
+  const actions = [
+    {
+      account: process.env.DAC_FACTORY,
+      name: "validatedac",
+      data: {
+        dac_id: dacId,
+        hash
+      }
+    }
+  ];
+  dispatch("dacTransact", { actions, dacId, afterTransact });
+}
+
+export async function dacTransact({ state, dispatch, commit }, payload) {
   const { actions, dacId, openWS, afterTransact } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature", isShowCloseButton: false });
   const user = state.activeAuthenticator.users[0];
@@ -221,7 +237,9 @@ export async function transact({ state, dispatch, commit }, payload) {
   }));
 
   try {
-    await openWS(dacId);
+    if (openWS) {
+      await openWS(dacId);
+    }
     try {
       await user.signTransaction({ actions: copiedActions }, { broadcast: true });
       afterTransact();
@@ -230,6 +248,15 @@ export async function transact({ state, dispatch, commit }, payload) {
     }
   } catch {}
   commit("setSigningOverlay", { show: false, status: 0 });
+}
+
+export function hideSigningOverlay({ commit }, ms = 10000) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      commit("setSigningOverlay", { show: false, status: 0 });
+      resolve();
+    }, ms);
+  });
 }
 
 function parseUalError(error) {
@@ -241,13 +268,4 @@ function parseUalError(error) {
   }
   console.log(cause);
   return `${error}. ${cause} ${error_code}`;
-}
-
-export function hideSigningOverlay({ commit }, ms = 10000) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      commit("setSigningOverlay", { show: false, status: 0 });
-      resolve();
-    }, ms);
-  });
 }

@@ -163,9 +163,8 @@ export default {
     validate_dac: "validate dac",
     wait_until_dac_created: "Please, wait until your DAC will be created.",
     dac_was_created: "Your DAC was successfully created!",
-    ws_error: "WS error has occurred."
-  },
-  dac_validation: {
+    ws_error: "WS error has occurred.",
     i_have_read_and_agree: "I've read and agree",
-  }
+    dac_was_validated: "Your dac was successfully validated!"
+  },
 };
