@@ -10,7 +10,6 @@ const routes = [
       { path: "how-it-works", component: () => import("pages/HowItWorks") },
       { path: "terms", component: () => import("pages/Terms") },
       { path: "dac-creation", component: () => import("pages/DacCreation") },
-      { path: "dac-validation", component: () => import("pages/DacValidation") },
       { path: "test", component: () => import("pages/Test") }
     ]
   }
