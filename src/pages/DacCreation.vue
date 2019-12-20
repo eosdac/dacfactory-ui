@@ -1,25 +1,21 @@
 <template>
-  <q-page class="bg-accent hack-height">
-    <section class="content-wrapper" v-if="trxSuccess && !wsError">
+  <q-page class="bg-accent content-wrapper">
+    <section v-if="trxSuccess && !wsError">
       <p :class="['title', { 'creation-success': creationFinishedText }]">
-        {{ creationFinishedText ? creationFinishedText : $t('dac_creation.wait_until_dac_created') }}
+        {{ creationFinishedText ? creationFinishedText : $t("dac_creation.wait_until_dac_created") }}
       </p>
       <p class="status-text">{{ currentMessage }}</p>
       <progress-icons :currentNumber="currentNumber" />
       <q-btn
-        to="/"
+        to="/dac-validation"
         color="secondary"
-        :label="$t('dac_creation.go_to_main_page')"
+        :label="$t('dac_creation.validate_dac')"
         :class="{ 'visibility-hidden': !creationFinishedText }"
       />
     </section>
-    <section class="content-wrapper" v-else-if="trxError || wsError">
+    <section v-else-if="trxError || wsError">
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
-      <q-btn
-        to="/"
-        color="secondary"
-        :label="$t('dac_creation.go_to_main_page')"
-      />
+      <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
     </section>
   </q-page>
 </template>
@@ -63,12 +59,12 @@ export default {
           this.currentMessage = JSON.parse(msg.data).data.status.replace(/_/g, " ");
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
-            this.creationFinishedText = this.$t('dac_creation.dac_was_created');
+            this.creationFinishedText = this.$t("dac_creation.dac_was_created");
             this.$store.commit("factory/resetFactoryState");
           }
         };
         this.ws.onerror = error => {
-          this.wsError = this.$t('dac_creation.ws_error');
+          this.wsError = this.$t("dac_creation.ws_error");
           this.ws.close();
           console.log(error, "error");
         };
@@ -87,27 +83,25 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    if (from.path === "/create/step5") {
-      next();
-    } else {
-      if (from.path === "/") {
-        if (from.matched.length > 0) {
-          next(false);
-        } else {
-          next(from.path);
-        }
-      } else {
+    switch (true) {
+      case from.path === "/create/step5":
+        next();
+        break;
+      case !from.matched.length:
+        next(from.path);
+        break;
+      default:
         next(false);
-      }
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (to.path === "/create/step5") {
-      next(false);
-    } else if (this.creationFinishedText || this.trxError || this.wsError) {
-      next();
-    } else {
-      next(false);
+    switch (true) {
+      case to.path === "/dac-validation" && this.creationFinishedText:
+      case this.trxError || this.wsError:
+        next();
+        break;
+      default:
+        next(false);
     }
   }
 };
@@ -117,9 +111,7 @@ export default {
 .content-wrapper
   display flex
   flex-direction column
-  align-items center
   justify-content center
-  height 100%
   padding 0 16px
   text-align center
 .title
@@ -136,8 +128,6 @@ export default {
   margin-bottom 30px
   font-size 20px
   font-weight 500
-.hack-height
-  height 1px
 .visibility-hidden
   visibility hidden
 </style>

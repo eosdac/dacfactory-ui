@@ -159,9 +159,13 @@ export default {
     info_line1: "TBD: Pay & Create DAC"
   },
   dac_creation: {
-    go_to_main_page: "GO TO MAIN PAGE",
+    go_to_main_page: "go to main page",
+    validate_dac: "validate dac",
     wait_until_dac_created: "Please, wait until your DAC will be created.",
     dac_was_created: "Your DAC was successfully created!",
     ws_error: "WS error has occurred."
+  },
+  dac_validation: {
+    i_have_read_and_agree: "I've read and agree",
   }
 };
