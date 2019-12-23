@@ -40,13 +40,13 @@ export default {
       trxSuccess: null,
       trxError: null,
       creationFinishedText: "",
-      isValidationStage: true,
+      isValidationStage: false,
       isDacValidated: false,
-      dacId: 'supertestid'
+      dacId: null
     };
   },
   mounted() {
-    //this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+    this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
   },
   destroyed() {
     this.$store.commit("ual/setPaymentInfo", null);
@@ -88,13 +88,13 @@ export default {
       }
     },
     setValidationStage() {
-      this.isValidationStage = true
+      this.isValidationStage = true;
     },
     setDacValidated(isValidationFinished) {
       this.isDacValidated = isValidationFinished
     }
   },
-  /*beforeRouteEnter(to, from, next) {
+  beforeRouteEnter(to, from, next) {
     switch (true) {
       case from.path === "/create/step5":
         next();
@@ -115,7 +115,7 @@ export default {
       default:
         next(false);
     }
-  }*/
+  }
 };
 </script>
 
