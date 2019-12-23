@@ -1,4 +1,4 @@
-import { ERROR_MARK } from "components/constants";
+import { CONSTITUTION_TEXT, ERROR_MARK } from "components/constants";
 
 export const THRESHOLD_HIGH = "THRESHOLD_HIGH";
 export const THRESHOLD_MIDDLE = "THRESHOLD_MIDDLE";
@@ -48,4 +48,11 @@ export function findStepErrors(stepData, isCheckEmpty) {
     }
   }
   return error ? error : firstEmptyField;
+}
+
+export async function encodeInSHA1() {
+  const msgUint8 = new TextEncoder().encode(CONSTITUTION_TEXT);
+  const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 }

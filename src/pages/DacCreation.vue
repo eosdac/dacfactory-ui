@@ -1,37 +1,36 @@
 <template>
-  <q-page class="bg-accent hack-height">
-    <section class="content-wrapper" v-if="trxSuccess && !wsError">
+  <q-page class="bg-accent content-wrapper">
+    <section v-if="trxSuccess && !isValidationStage">
       <p :class="['title', { 'creation-success': creationFinishedText }]">
-        {{ creationFinishedText ? creationFinishedText : $t('dac_creation.wait_until_dac_created') }}
+        {{ creationFinishedText ? creationFinishedText : $t("dac_creation.wait_until_dac_created") }}
       </p>
       <p class="status-text">{{ currentMessage }}</p>
       <progress-icons :currentNumber="currentNumber" />
       <q-btn
-        to="/"
         color="secondary"
-        :label="$t('dac_creation.go_to_main_page')"
+        :label="$t('general.continue')"
         :class="{ 'visibility-hidden': !creationFinishedText }"
+        @click="setValidationStage"
       />
     </section>
-    <section class="content-wrapper" v-else-if="trxError || wsError">
+    <dac-validation v-else-if="isValidationStage" :setDacValidated="setDacValidated" />
+    <section v-else-if="trxError || wsError">
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
-      <q-btn
-        to="/"
-        color="secondary"
-        :label="$t('dac_creation.go_to_main_page')"
-      />
+      <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
     </section>
   </q-page>
 </template>
 
 <script>
-import ProgressIcons from "components/ProgressIcons";
+import ProgressIcons from "components/dacCreation/ProgressIcons";
+import DacValidation from "components/dacCreation/DacValidation";
 
 const CLIENT_BUILD_COMPLETE = "CLIENT BUILD COMPLETE";
 
 export default {
   components: {
-    ProgressIcons
+    ProgressIcons,
+    DacValidation
   },
   data() {
     return {
@@ -40,11 +39,17 @@ export default {
       wsError: null,
       trxSuccess: null,
       trxError: null,
-      creationFinishedText: ""
+      creationFinishedText: "",
+      isValidationStage: false,
+      isDacValidated: false
     };
   },
   mounted() {
-    this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+    if (this.$store.getters["factory/getDacId"]) {
+      this.setValidationStage();
+    } else {
+      this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+    }
   },
   destroyed() {
     this.$store.commit("ual/setPaymentInfo", null);
@@ -63,12 +68,12 @@ export default {
           this.currentMessage = JSON.parse(msg.data).data.status.replace(/_/g, " ");
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
-            this.creationFinishedText = this.$t('dac_creation.dac_was_created');
-            this.$store.commit("factory/resetFactoryState");
+            this.creationFinishedText = this.$t("dac_creation.dac_was_created");
+            this.$store.commit("factory/setDacId", dacId);
           }
         };
         this.ws.onerror = error => {
-          this.wsError = this.$t('dac_creation.ws_error');
+          this.wsError = this.$t("dac_creation.ws_error");
           this.ws.close();
           console.log(error, "error");
         };
@@ -84,30 +89,34 @@ export default {
         this.trxError = message;
         this.ws.close();
       }
+    },
+    setValidationStage() {
+      this.isValidationStage = true;
+    },
+    setDacValidated(isValidationFinished) {
+      this.isDacValidated = isValidationFinished;
     }
   },
   beforeRouteEnter(to, from, next) {
-    if (from.path === "/create/step5") {
-      next();
-    } else {
-      if (from.path === "/") {
-        if (from.matched.length > 0) {
-          next(false);
-        } else {
-          next(from.path);
-        }
-      } else {
+    switch (true) {
+      case from.path === "/create/step5":
+        next();
+        break;
+      case !from.matched.length:
+        next(from.path);
+        break;
+      default:
         next(false);
-      }
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (to.path === "/create/step5") {
-      next(false);
-    } else if (this.creationFinishedText || this.trxError || this.wsError) {
-      next();
-    } else {
-      next(false);
+    switch (true) {
+      case this.isDacValidated:
+      case this.trxError || this.wsError:
+        next();
+        break;
+      default:
+        next(false);
     }
   }
 };
@@ -117,9 +126,8 @@ export default {
 .content-wrapper
   display flex
   flex-direction column
-  align-items center
   justify-content center
-  height 100%
+  align-items center
   padding 0 16px
   text-align center
 .title
@@ -136,8 +144,6 @@ export default {
   margin-bottom 30px
   font-size 20px
   font-weight 500
-.hack-height
-  height 1px
 .visibility-hidden
   visibility hidden
 </style>

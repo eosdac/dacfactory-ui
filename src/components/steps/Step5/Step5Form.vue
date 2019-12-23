@@ -21,14 +21,12 @@
           :color="checkboxError ? 'negative' : ''"
           @input="onInputCheckbox"
         />
-        <p
-          :class="checkboxError ? 'checkbox-error terms-conditions-anim' : 'checkbox-normal'"
-        >
+        <span :class="checkboxError ? 'checkbox-error terms-conditions-anim' : ''">
           {{ $t("step5.i_agree_with") }}
           <router-link to="/terms" :class="checkboxError ? 'terms-link-error' : 'terms-link'">{{
             $t("step5.terms_and_conditions")
           }}</router-link>
-        </p>
+        </span>
       </div>
     </div>
   </div>
@@ -56,8 +54,8 @@ export default {
     this.checkboxRef = this.$refs.checkbox_ref;
   },
   methods: {
-    onInputCheckbox(value) {
-      this.isAgree = value;
+    onInputCheckbox(isAgree) {
+      this.isAgree = isAgree;
       this.setIsAgree(this.isAgree);
       this.checkboxError = false;
     },
@@ -119,7 +117,7 @@ p
   display flex
   align-items center
   margin 32px 0 0 45px
-  & > p
+  & > span
     margin-left 5px
     transition color 0.2s
     &.checkbox-error

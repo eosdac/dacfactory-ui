@@ -27,6 +27,10 @@ export function resetFactoryState(state) {
   });
 }
 
+export function setDacId(state, payload) {
+  state.stepsData.dacId = payload;
+}
+
 export function setCustomDacData(state, payload) {
   state.customDacData = payload
 }

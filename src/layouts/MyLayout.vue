@@ -91,7 +91,7 @@
     <q-page-container class="text-white bg-accent">
       <router-view />
     </q-page-container>
-    <q-footer class="bg-accent" v-if="exceptDacCreationPage">
+    <q-footer class="bg-accent" v-if="isShowFooter">
       <stepper />
     </q-footer>
   </q-layout>
@@ -116,8 +116,8 @@ export default {
       getAccountName: "ual/getAccountName",
       getShouldRenderLoginModal: "ual/getShouldRenderLoginModal"
     }),
-    exceptDacCreationPage() {
-      return this.$route.path !== "/dac-creation";
+    isShowFooter() {
+      return !/\/dac-(creation|validation)/.test(this.$route.path);
     }
   }
 };
