@@ -1,6 +1,6 @@
 <template>
-  <section v-if="!isValidated">
-    <article class="constitution">
+  <section v-if="!isValidated && !validationError">
+    <article class="constitution break-text-hyphens">
       {{ CONSTITUTION_TEXT }}
     </article>
     <label class="checkbox-wrapper">
@@ -9,22 +9,24 @@
         $t("dac_creation.i_have_read_and_agree")
       }}</span>
     </label>
-    <q-btn
-      color="secondary"
-      class="validate-btn"
-      :disable="isValidating"
-      :label="isValidating ? 'Validating...' : $t('dac_creation.validate_dac')"
-      @click="validateDac"
-    />
-    <!--TODO replace validation loading with animation-->
+    <q-btn color="secondary" class="validate-btn" :label="$t('dac_creation.validate_dac')" @click="validateDac" />
   </section>
-  <section v-else>
+  <section v-else-if="!validationError">
     <p class="validated-text">{{ $t("dac_creation.dac_was_validated") }}</p>
     <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
+  </section>
+  <section v-else>
+    <p class="validated-text validation-fail">{{ $t("dac_creation.dac_was_not_validated") }}</p>
+    <div class="error-buttons-wrapper">
+      <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
+      <q-btn color="secondary" :label="$t('dac_creation.try_again')" @click="tryAgain" />
+    </div>
   </section>
 </template>
 
 <script>
+import { encodeInSHA1 } from "imports/utils";
+
 import { CONSTITUTION_TEXT } from "components/constants";
 
 export default {
@@ -35,7 +37,6 @@ export default {
       timeoutId: null,
       isValidated: false,
       validationError: null,
-      isValidating: false,
       CONSTITUTION_TEXT
     };
   },
@@ -63,11 +64,10 @@ export default {
       if (!message) {
         this.isValidated = true;
         this.$store.commit("factory/resetFactoryState");
-        this.setDacValidated();
       } else {
         this.validationError = message;
       }
-      this.isValidating = false;
+      this.setDacValidated(true);
     },
     async validateDac() {
       if (!this.isAgree) {
@@ -75,17 +75,27 @@ export default {
         return;
       }
 
-      const msgUint8 = new TextEncoder().encode(CONSTITUTION_TEXT);
-      const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hash = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-      // TODO move to utils
-      this.isValidating = true;
-      this.$store.dispatch("ual/validateDacTransact", {
-        dacId: this.dacId,
-        hash,
-        afterTransact: this.afterTransact
+      this.$store.commit("ual/setSigningOverlay", {
+        show: true,
+        status: 0,
+        msg: this.$t("dac_creation.constitution_preparation"),
+        isShowCloseButton: false
       });
+      try {
+        const hash = await encodeInSHA1();
+        this.$store.dispatch("ual/validateDacTransact", {
+          dacId: this.dacId,
+          hash,
+          afterTransact: this.afterTransact
+        });
+      } catch (error) {
+        this.$store.commit("ual/setSigningOverlay", { show: false, status: 0 });
+        this.afterTransact(error);
+      }
+    },
+    tryAgain() {
+      this.validationError = null;
+      this.setDacValidated(false);
     }
   }
 };
@@ -113,7 +123,9 @@ export default {
       color $light-violet
 .constitution
   max-width 400px
-  text-align justify
+  max-height 400px
+  overflow-y auto
+  text-align left
 .validate-btn
   margin-top 14px
 .terms-conditions-anim
@@ -124,4 +136,12 @@ export default {
   font-weight 700
   line-height normal
   color $positive
+.validation-fail
+  color $negative
+.error-buttons-wrapper
+  display grid
+  grid-template-columns auto auto
+  grid-gap 30px
+  width fit-content
+  margin 0 auto
 </style>

@@ -90,8 +90,8 @@ export default {
     setValidationStage() {
       this.isValidationStage = true
     },
-    setDacValidated() {
-      this.isDacValidated = true
+    setDacValidated(isValidationFinished) {
+      this.isDacValidated = isValidationFinished
     }
   },
   /*beforeRouteEnter(to, from, next) {
