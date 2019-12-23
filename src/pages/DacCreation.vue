@@ -13,7 +13,7 @@
         @click="setValidationStage"
       />
     </section>
-      <dac-validation v-else-if="isValidationStage" :dacId="dacId" :setDacValidated="setDacValidated" />
+    <dac-validation v-else-if="isValidationStage" :setDacValidated="setDacValidated" />
     <section v-else-if="trxError || wsError">
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
       <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
@@ -41,12 +41,15 @@ export default {
       trxError: null,
       creationFinishedText: "",
       isValidationStage: false,
-      isDacValidated: false,
-      dacId: null
+      isDacValidated: false
     };
   },
   mounted() {
-    this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+    if (this.$store.getters["factory/getDacId"]) {
+      this.setValidationStage();
+    } else {
+      this.$store.dispatch("ual/prepareDacTransact", { openWS: this.openWS, afterTransact: this.afterTransact });
+    }
   },
   destroyed() {
     this.$store.commit("ual/setPaymentInfo", null);
@@ -59,7 +62,6 @@ export default {
 
         this.ws.onopen = () => {
           this.ws.send(JSON.stringify({ type: "register", data: { dac_id: dacId } }));
-          this.dacId = dacId;
           resolve();
         };
         this.ws.onmessage = msg => {
@@ -67,6 +69,7 @@ export default {
           this.currentNumber++;
           if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
             this.creationFinishedText = this.$t("dac_creation.dac_was_created");
+            this.$store.commit("factory/setDacId", dacId);
           }
         };
         this.ws.onerror = error => {
@@ -91,7 +94,7 @@ export default {
       this.isValidationStage = true;
     },
     setDacValidated(isValidationFinished) {
-      this.isDacValidated = isValidationFinished
+      this.isDacValidated = isValidationFinished;
     }
   },
   beforeRouteEnter(to, from, next) {

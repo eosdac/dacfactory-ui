@@ -1,19 +1,4 @@
 export default {
-  home: {
-    welcome_to: "Welcome To",
-    dac: "DAC",
-    factory: "FACTORY",
-    line1: "Create a Decentralized Autonomous Community (DAC) to fit the needs of your organization and community.",
-    line2: "Get started with these 5 steps.",
-    create_my_dac: "create my dac",
-    continue_creation: "continue creation",
-    help_why: "WHY LAUNCH A DAC?",
-    help_line1: "The world of static hierarchies and centralized ownership will be disrupted",
-    help_learn_more: "Learn more",
-    upload_dac_json: "UPLOAD DAC JSON",
-    error_in_json: "ERROR IN JSON",
-    file_is_damaged: "FILE IS DAMAGED"
-  },
   general: {
     and: "and",
     required: "* Required",
@@ -27,7 +12,25 @@ export default {
     continue: "continue",
     info_will_be_saved: "Info will be saved. You can finish filing up of the form later.",
     step_of: "Step {active_step} of {max_steps}",
-    example: "Example"
+    example: "Example",
+    cancel: "Cancel"
+  },
+  home: {
+    welcome_to: "Welcome To",
+    dac: "DAC",
+    factory: "FACTORY",
+    line1: "Create a Decentralized Autonomous Community (DAC) to fit the needs of your organization and community.",
+    line2: "Get started with these 5 steps.",
+    create_my_dac: "create my dac",
+    continue_creation: "continue creation",
+    help_why: "WHY LAUNCH A DAC?",
+    help_line1: "The world of static hierarchies and centralized ownership will be disrupted",
+    help_learn_more: "Learn more",
+    upload_dac_json: "UPLOAD DAC JSON",
+    error_in_json: "ERROR IN JSON",
+    file_is_damaged: "FILE IS DAMAGED",
+    reset_dac_data: "Reset DAC data",
+    all_data_will_be_deleted: "All data will be deleted! You won't be able to revert to the current state."
   },
   how: {
     line1:

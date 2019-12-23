@@ -5,6 +5,7 @@ export function factoryInitialState() {
   return {
     stepsData: {
       activeStep: 0,
+      dacId: null,
       1: {
         dacName: "",
         dacNameError: true,

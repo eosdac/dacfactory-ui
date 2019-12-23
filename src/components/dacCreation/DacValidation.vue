@@ -41,7 +41,6 @@ export default {
     };
   },
   props: {
-    dacId: String,
     setDacValidated: Function
   },
   methods: {
@@ -84,7 +83,6 @@ export default {
       try {
         const hash = await encodeInSHA1();
         this.$store.dispatch("ual/validateDacTransact", {
-          dacId: this.dacId,
           hash,
           afterTransact: this.afterTransact
         });

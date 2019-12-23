@@ -9,3 +9,7 @@ export function getStepsData(state) {
 export function getTokenSymbol(state) {
   return state.stepsData[1].tokenSymbol;
 }
+
+export function getDacId(state) {
+  return state.stepsData.dacId
+}

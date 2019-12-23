@@ -11,13 +11,16 @@
           </div>
           <div class="text-body1 q-mt-xl">{{ $t("home.line2") }}</div>
           <div class="column items-center buttons-wrapper">
-            <q-btn
-              color="secondary"
-              :label="getActiveStep ? $t('home.continue_creation') : $t('home.create_my_dac')"
-              style="width:180px"
-              class="q-py-sm"
-              :to="createMyDacCurrentURL"
-            />
+            <div class="continue-reset-button">
+              <q-btn
+                color="secondary"
+                :label="getActiveStep ? $t('home.continue_creation') : $t('home.create_my_dac')"
+                style="width:180px"
+                class="q-py-sm"
+                :to="createMyDacCurrentURL"
+              />
+              <reset-confirm-dialog v-if="getActiveStep" />
+            </div>
             <span class="text-body1">or</span>
             <div class="upload-json-wrapper">
               <q-btn
@@ -97,6 +100,8 @@
 <script>
 import { mapGetters } from "vuex";
 
+import ResetConfirmDialog from "components/home/ResetConfirmDialog";
+
 export default {
   data() {
     return {
@@ -104,6 +109,9 @@ export default {
       videoIsLoaded: false,
       customFileError: null
     };
+  },
+  components: {
+    ResetConfirmDialog
   },
   computed: {
     ...mapGetters({
@@ -160,6 +168,8 @@ export default {
 .buttons-wrapper
   & > *
     margin-top 8px
+.continue-reset-button
+  display flex
 .upload-json-wrapper
   position relative
 .upload-json-button
