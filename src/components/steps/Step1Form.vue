@@ -1,8 +1,7 @@
 <template>
   <div class="overflow-hidden">
     <my-input
-      :value="dacName"
-      @input="dacName = $event.trim()"
+      v-model="dacName"
       color="secondary"
       :label="`${$t('step1.dac_name')} *`"
       :hint="$t('step1.dac_name_hint')"

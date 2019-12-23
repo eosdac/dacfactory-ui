@@ -173,7 +173,7 @@ export default {
 .upload-json-wrapper
   position relative
 .upload-json-button
-  background-color #11b55b
+  background-color #0fa251
 .upload-json-button-error
   background-color $negative
   animation shake 0.36s

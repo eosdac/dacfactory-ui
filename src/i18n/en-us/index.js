@@ -171,6 +171,7 @@ export default {
     dac_was_validated: "Your dac was successfully validated!",
     dac_was_not_validated: "Your dac wasn't validated. You can try again or contact our support.",
     try_again: "try again",
-    constitution_preparation: "Constitution preparation"
+    constitution_preparation: "Constitution preparation",
+    go_to_your_dac: "go to your dac"
   },
 };

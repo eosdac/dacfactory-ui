@@ -13,7 +13,7 @@
   </section>
   <section v-else-if="!validationError">
     <p class="validated-text">{{ $t("dac_creation.dac_was_validated") }}</p>
-    <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
+    <a :href="`http://${dacId}.dacfactory.io`" class="dac-link">{{ $t("dac_creation.go_to_your_dac") }}</a>
   </section>
   <section v-else>
     <p class="validated-text validation-fail">{{ $t("dac_creation.dac_was_not_validated") }}</p>
@@ -37,7 +37,8 @@ export default {
       timeoutId: null,
       isValidated: false,
       validationError: null,
-      CONSTITUTION_TEXT
+      CONSTITUTION_TEXT,
+      dacId: this.$store.getters["factory/getDacId"]
     };
   },
   props: {
@@ -83,6 +84,7 @@ export default {
       try {
         const hash = await encodeInSHA1();
         this.$store.dispatch("ual/validateDacTransact", {
+          dacId: this.dacId,
           hash,
           afterTransact: this.afterTransact
         });
@@ -142,4 +144,26 @@ export default {
   grid-gap 30px
   width fit-content
   margin 0 auto
+.dac-link
+  display flex
+  justify-content center
+  align-items center
+  cursor pointer
+  font-size 14px
+  font-weight 500
+  border-radius 3px
+  text-decoration none
+  text-transform uppercase
+  color #ffffff
+  min-height 2.572em
+  width fit-content
+  padding 4px 16px
+  margin 0 auto
+  line-height normal
+  background-color $secondary
+  transition 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)
+  box-shadow 0 1px 5px rgba(0,0,0,0.2), 0 2px 2px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12)
+
+  &:hover, &:focus
+    background-color #8d61c0 // TODO replace with real component similar to quasar button
 </style>
