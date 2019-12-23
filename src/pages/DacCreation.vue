@@ -14,7 +14,7 @@
       />
     </section>
     <dac-validation v-else-if="isValidationStage" :setDacValidated="setDacValidated" />
-    <section v-else-if="trxError || wsError">
+    <section v-else>
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
       <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
     </section>
@@ -25,7 +25,7 @@
 import ProgressIcons from "components/dacCreation/ProgressIcons";
 import DacValidation from "components/dacCreation/DacValidation";
 
-const CLIENT_BUILD_COMPLETE = "CLIENT BUILD COMPLETE";
+const CLIENT_BUILD_COMPLETE_STEP = "CLIENT BUILD COMPLETE";
 
 export default {
   components: {
@@ -67,7 +67,7 @@ export default {
         this.ws.onmessage = msg => {
           this.currentMessage = JSON.parse(msg.data).data.status.replace(/_/g, " ");
           this.currentNumber++;
-          if (this.currentMessage === CLIENT_BUILD_COMPLETE) {
+          if (this.currentMessage === CLIENT_BUILD_COMPLETE_STEP) {
             this.creationFinishedText = this.$t("dac_creation.dac_was_created");
             this.$store.commit("factory/setDacId", dacId);
           }

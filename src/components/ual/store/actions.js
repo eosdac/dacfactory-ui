@@ -211,9 +211,8 @@ export async function prepareDacTransact(storeProps, payload) {
   dispatch("dacTransact", { actions, dacId, openWS, afterTransact });
 }
 
-export async function validateDacTransact({ rootState, dispatch }, payload) {
-  const { hash, afterTransact } = payload;
-  const { dacId } = rootState.factory.stepsData;
+export async function validateDacTransact({ dispatch }, payload) {
+  const { dacId, hash, afterTransact } = payload;
 
   const actions = [
     {
