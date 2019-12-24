@@ -78,10 +78,8 @@ import { STEPS_NUMBER } from "components/constants";
 import { Step1Form, Step1Right } from "components/steps/Step1";
 import { Step2Form, Step2Right } from "components/steps/Step2";
 import { Step3Form, Step3Right } from "components/steps/Step3";
-import Step4Form from "components/steps/Step4/Step4Form";
-import Step4Right from "components/steps/Step4/Step4Right";
-import Step5Form from "components/steps/Step5/Step5Form";
-import Step5Right from "components/steps/Step5/Step5Right";
+import { Step4Form, Step4Right } from "components/steps/Step4";
+import { Step5Form, Step5Right } from "components/steps/Step5";
 
 export default {
   data() {

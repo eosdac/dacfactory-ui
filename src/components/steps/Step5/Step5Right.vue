@@ -9,7 +9,7 @@
       <p class="hint-step text-uppercase">{{ $t("step1.description") }}</p>
       <p class="subtitle-step margin-bottom-15 break-text-hyphens">{{ step1.dacDescription }}</p>
       <custom-divider compClass="divider" />
-      <p class="hint-step text-uppercase">{{ $t("step2.issuance", { token_symbol: step1.tokenSymbol }) }}</p>
+      <p class="hint-step text-uppercase">{{ $t("step2.issuance") }} {{ step1.tokenSymbol }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step2.issuance }}</p>
       <p class="hint-step text-uppercase">{{ $t("step2.decimals") }}</p>
       <p class="subtitle-step margin-bottom-15">{{ step2.decimals }}</p>

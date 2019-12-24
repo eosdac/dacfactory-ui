@@ -76,6 +76,7 @@ export default {
   },
   step1: {
     title: "DAC Profile",
+    title_right: "Understanding of profile",
     dac_name: "DAC Name",
     dac_name_hint: "Enter a name for your DAC",
     dac_name_rule_length_3: "DAC name must be minimum 3 chars.",
@@ -94,14 +95,12 @@ export default {
     info_line3:
       "Your token symbol should contain capital letters only and is limited to 7 characters. Ideally, you’ll want to avoid using a token symbol which might be confused with existing EOS tokens. This token will be your governance token used by your members to elect custodians.",
     info_line4:
-      "A DAC is a group of people with a shared goal. Your DAC Description should let people know what your community goal is all about and why they might want to participate.",
-    info_line5:
-      "The DAC ID is a unique identifier for your DAC used by the system to keep your data organized together and will be generated from your DAC Name."
+      "A DAC is a group of people with a shared goal. Your DAC Description should let people know what your community goal is all about and why they might want to participate."
   },
   step2: {
     title: "Tokenomics",
     title_right: "Understanding of tokenomics",
-    issuance: "Issuance {token_symbol}",
+    issuance: "Issuance",
     issuance_hint: "Issuance for your token",
     decimals: "Decimals",
     info_line1:
