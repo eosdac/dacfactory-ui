@@ -32,5 +32,5 @@ export function setDacId(state, payload) {
 }
 
 export function setCustomDacData(state, payload) {
-  state.customDacData = payload
+  state.customDacData = payload;
 }

@@ -207,7 +207,6 @@ export async function prepareDacTransact(storeProps, payload) {
       }
     }
   ];
-
   dispatch("dacTransact", { actions, dacId, openWS, afterTransact });
 }
 

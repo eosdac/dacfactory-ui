@@ -8,11 +8,7 @@
           {{ $t("step5.once_you") }}
         </p>
       </div>
-      <purchase-cards
-        :isAgree="isAgree"
-        :onCheckboxError="onCheckboxError"
-        :checkboxRef="checkboxRef"
-      />
+      <purchase-cards :isAgree="isAgree" :onCheckboxError="onCheckboxError" :checkboxRef="checkboxRef" />
       <div class="checkbox-wrapper" ref="checkbox_ref">
         <q-checkbox
           dark

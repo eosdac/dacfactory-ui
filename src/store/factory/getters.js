@@ -11,5 +11,5 @@ export function getTokenSymbol(state) {
 }
 
 export function getDacId(state) {
-  return state.stepsData.dacId
+  return state.stepsData.dacId;
 }

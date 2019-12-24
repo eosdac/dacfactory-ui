@@ -29,7 +29,7 @@
       <p class="subtitle-step margin-bottom-15 break-text">{{ step4.logoMarkUrl }}</p>
       <p class="hint-step text-uppercase">{{ $t("step4.colors_scheme") }}</p>
       <div class="subtitle-step margin-bottom-15 colors-scheme">
-        <div v-for="color in step4.colorsScheme.scheme " :style="{ backgroundColor: `#${color}` }"></div>
+        <div v-for="color in step4.colorsScheme.scheme" :style="{ backgroundColor: `#${color}` }"></div>
       </div>
     </div>
     <div v-else class="break-text">

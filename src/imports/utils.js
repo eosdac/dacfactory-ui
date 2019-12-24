@@ -52,7 +52,7 @@ export function findStepErrors(stepData, isCheckEmpty) {
 
 export async function encodeInSHA1() {
   const msgUint8 = new TextEncoder().encode(CONSTITUTION_TEXT);
-  const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8);
+  const hashBuffer = await crypto.subtle.digest("SHA-1", msgUint8);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return hashArray.map(byte => byte.toString(16).padStart(2, "0")).join("");
 }

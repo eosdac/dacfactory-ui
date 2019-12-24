@@ -1,2 +1,2 @@
-export * from './common';
-export * from './constitution';
+export * from "./common";
+export * from "./constitution";

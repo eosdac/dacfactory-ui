@@ -23,15 +23,15 @@
       @statusChange="onStatusChange($event, LOGO_URL_FIELD)"
     />
     <my-input
-       color="secondary"
-       :label="$t('step4.logomark_url')"
-       :hint="$t('step4.link_hint')"
-       :isSetFocus="focused === LOGO_MARK_URL_FIELD"
-       :isShowAppend="!!logoMarkUrl"
-       :rules="[val => isValidUrl(val)]"
-       v-model="logoMarkUrl"
-       @statusChange="onStatusChange($event, LOGO_MARK_URL_FIELD)"
-     />
+      color="secondary"
+      :label="$t('step4.logomark_url')"
+      :hint="$t('step4.link_hint')"
+      :isSetFocus="focused === LOGO_MARK_URL_FIELD"
+      :isShowAppend="!!logoMarkUrl"
+      :rules="[val => isValidUrl(val)]"
+      v-model="logoMarkUrl"
+      @statusChange="onStatusChange($event, LOGO_MARK_URL_FIELD)"
+    />
     <step4-color-picker />
   </div>
 </template>
