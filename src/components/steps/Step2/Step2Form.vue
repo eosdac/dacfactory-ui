@@ -7,7 +7,7 @@
     <my-input
       v-model="issuance"
       color="secondary"
-      :label="`${$t('step2.issuance', { token_symbol: getTokenSymbol })} *`"
+      :label="`${$t('step2.issuance')} ${getTokenSymbol} *`"
       :hint="$t('step2.issuance_hint')"
       :rules="[
         val => !!val || $t('general.required'),
@@ -26,10 +26,7 @@
       <q-slider
         dark
         :value="parseInt(decimals)"
-        @input="
-          decimals = $event;
-          $store.commit('factory/setStepsData', { step: 2, key: 'decimals', data: { value: $event } });
-        "
+        @input="onInputSlider"
         markers
         label
         :min="0"
@@ -88,6 +85,10 @@ export default {
         return "";
       }
       return parseInt(v).toLocaleString();
+    },
+    onInputSlider(event) {
+      this.decimals = event;
+      this.$store.commit("factory/setStepsData", { step: 2, key: "decimals", data: { value: event } });
     }
   }
 };

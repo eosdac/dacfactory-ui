@@ -49,30 +49,11 @@
       </div>
       <div class="wrapper-right bg-primary">
         <div class="q-pa-md">
-          <div v-if="getActiveStep === 1" class="step-right-styles">
-            <p>
-              {{ $t("step1.info_line1") }}
-            </p>
-            <p>
-              {{ $t("step1.info_line2") }}
-            </p>
-            <p>
-              {{ $t("step1.info_line3") }}
-            </p>
-            <p>
-              {{ $t("step1.info_line4") }}
-            </p>
-            <p>
-              {{ $t("step1.info_line5") }}
-            </p>
+          <div v-if="getActiveStep === 1">
+            <step1-right />
           </div>
-          <div v-if="getActiveStep === 2" class="step-right-styles">
-            <p>
-              {{ $t("step2.info_line1") }}
-            </p>
-            <p>
-              {{ $t("step2.info_line2") }}
-            </p>
+          <div v-if="getActiveStep === 2">
+            <step2-right />
           </div>
           <div v-if="getActiveStep === 3">
             <step3-right />
@@ -94,14 +75,11 @@ import { findStepErrors } from "imports/utils";
 
 import { STEPS_NUMBER } from "components/constants";
 
-import Step1Form from "components/steps/Step1Form";
-import Step2Form from "components/steps/Step2Form";
-import Step3Form from "components/steps/Step3/Step3Form";
-import Step3Right from "components/steps/Step3/Step3Right";
-import Step4Form from "components/steps/Step4/Step4Form";
-import Step4Right from "components/steps/Step4/Step4Right";
-import Step5Form from "components/steps/Step5/Step5Form";
-import Step5Right from "components/steps/Step5/Step5Right";
+import { Step1Form, Step1Right } from "components/steps/Step1";
+import { Step2Form, Step2Right } from "components/steps/Step2";
+import { Step3Form, Step3Right } from "components/steps/Step3";
+import { Step4Form, Step4Right } from "components/steps/Step4";
+import { Step5Form, Step5Right } from "components/steps/Step5";
 
 export default {
   data() {
@@ -131,7 +109,9 @@ export default {
   },
   components: {
     Step1Form,
+    Step1Right,
     Step2Form,
+    Step2Right,
     Step3Form,
     Step3Right,
     Step4Form,
@@ -180,9 +160,6 @@ h1
     flex-direction column
 .wrapper-right
   flex 1
-.step-right-styles
-  font-size 16px
-  color $light-violet
 .continue-btn-wrapper
   margin-top 24px
 .info-text

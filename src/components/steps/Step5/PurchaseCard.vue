@@ -81,9 +81,9 @@ export default {
 
       const docElemHeight = document.documentElement.clientHeight;
       const checkboxOffsetTop =
-        this.checkboxRef.getBoundingClientRect().bottom + (this.$store.state.factory.customDacData
-          ? 0
-          : FOOTER_HEIGHT) + CHECKBOX_MARGIN_TOP;
+        this.checkboxRef.getBoundingClientRect().bottom +
+        (this.$store.state.factory.customDacData ? 0 : FOOTER_HEIGHT) +
+        CHECKBOX_MARGIN_TOP;
       if (docElemHeight < checkboxOffsetTop) {
         window.scrollBy({
           top: checkboxOffsetTop - docElemHeight

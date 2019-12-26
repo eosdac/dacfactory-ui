@@ -83,7 +83,7 @@ export default {
       });
       try {
         const hash = await encodeInSHA1();
-        this.$store.dispatch("ual/validateDacTransact", {
+        await this.$store.dispatch("ual/validateDacTransact", {
           dacId: this.dacId,
           hash,
           afterTransact: this.afterTransact

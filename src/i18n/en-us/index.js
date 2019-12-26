@@ -13,7 +13,8 @@ export default {
     info_will_be_saved: "Info will be saved. You can finish filing up of the form later.",
     step_of: "Step {active_step} of {max_steps}",
     example: "Example",
-    cancel: "Cancel"
+    cancel: "Cancel",
+    why_and_how: "The Why’s and How"
   },
   home: {
     welcome_to: "Welcome To",
@@ -75,6 +76,7 @@ export default {
   },
   step1: {
     title: "DAC Profile",
+    title_right: "Understanding of profile",
     dac_name: "DAC Name",
     dac_name_hint: "Enter a name for your DAC",
     dac_name_rule_length_3: "DAC name must be minimum 3 chars.",
@@ -93,22 +95,20 @@ export default {
     info_line3:
       "Your token symbol should contain capital letters only and is limited to 7 characters. Ideally, you’ll want to avoid using a token symbol which might be confused with existing EOS tokens. This token will be your governance token used by your members to elect custodians.",
     info_line4:
-      "A DAC is a group of people with a shared goal. Your DAC Description should let people know what your community goal is all about and why they might want to participate.",
-    info_line5:
-      "The DAC ID is a unique identifier for your DAC used by the system to keep your data organized together and will be generated from your DAC Name."
+      "A DAC is a group of people with a shared goal. Your DAC Description should let people know what your community goal is all about and why they might want to participate."
   },
   step2: {
     title: "Tokenomics",
-    issuance: "Issuance {token_symbol}",
+    title_right: "Understanding of tokenomics",
+    issuance: "Issuance",
     issuance_hint: "Issuance for your token",
     decimals: "Decimals",
-    info_line1: "Your DAC does not have to issue all the tokens initially created.",
-    info_line2: "Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
+    info_line1:
+      "Your DAC does not have to issue all the tokens initially created. Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
     less_than_supply: "Issuance should be less than {max_supply}."
   },
   step3: {
     ///// right part
-    hint1: "The Why’s and How",
     title_right: "Understanding the configurations",
     subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
     subtitle_dolor_amet:
@@ -125,7 +125,6 @@ export default {
   },
   step4: {
     ///// right part
-    hint1: "The Why’s and How",
     title_right: "Adding Branding and setting colors",
     website_url: "Website URL",
     subtitle1:
@@ -173,5 +172,5 @@ export default {
     try_again: "try again",
     constitution_preparation: "Constitution preparation",
     go_to_your_dac: "go to your dac"
-  },
+  }
 };

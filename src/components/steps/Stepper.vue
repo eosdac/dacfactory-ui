@@ -118,7 +118,7 @@ export default {
       return findStepErrors(this.$store.state.factory.stepsData[this.getActiveStep]);
     },
     customDacData() {
-      return this.$store.state.factory.customDacData
+      return this.$store.state.factory.customDacData;
     }
   },
   methods: {
