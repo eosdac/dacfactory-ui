@@ -163,12 +163,12 @@ export default {
   dac_creation: {
     go_to_main_page: "go to main page",
     validate_dac: "validate dac",
-    wait_until_dac_created: "Please, wait until your DAC will be created.",
+    wait_until_dac_created: "Please, wait while your DAC is being created.",
     dac_was_created: "Your DAC was successfully created!",
     ws_error: "WS error has occurred.",
     i_have_read_and_agree: "I've read and agree",
-    dac_was_validated: "Your dac was successfully validated!",
-    dac_was_not_validated: "Your dac wasn't validated. You can try again or contact our support.",
+    dac_was_validated: "Your DAC was successfully validated!",
+    dac_was_not_validated: "Your DAC wasn't validated. You can try again or contact our support.",
     try_again: "try again",
     constitution_preparation: "Constitution preparation",
     go_to_your_dac: "go to your dac"
