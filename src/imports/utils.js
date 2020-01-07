@@ -15,21 +15,33 @@ export function processThresholdFromNoC(numberOfCustodians, type) {
   }
 }
 
-export function createColorsScheme(scheme) {
-  const currentColorsScheme = {};
-  for (let i = 0; i < scheme.length; i++) {
-    currentColorsScheme.$warning = `#${scheme[0]}`;
-    currentColorsScheme.primary = `#${scheme[1]}`;
-    currentColorsScheme.bg1 = `#${scheme[2]}`;
-    currentColorsScheme.bg2 = `#${scheme[3]}`;
-    currentColorsScheme.text1 = `#${scheme[4]}`;
-    currentColorsScheme.text2 = `#${scheme[5]}`;
-    currentColorsScheme.info = `#${scheme[6]}`;
-    currentColorsScheme.positive = `#${scheme[7]}`;
-    currentColorsScheme.negative = `#${scheme[8]}`;
-    currentColorsScheme.dark = `#${scheme[9]}`;
+export function createColorScheme(scheme) {
+  const currentColorScheme = {
+    primary: scheme.primary,
+    secondary: scheme.secondary,
+  };
+
+  currentColorScheme.warning = '#f2c037'
+  currentColorScheme.info = '#31ccec'
+  currentColorScheme.positive = '#21ba45'
+  currentColorScheme.negative = '#cb2739'
+
+  if (scheme.isDark) {
+    currentColorScheme.bg1 = `#000000`;
+    currentColorScheme.bg2 = `#111111`;
+    currentColorScheme.text1 = `#ffffff`;
+    currentColorScheme.text2 = `#cccccc`;
+    currentColorScheme.dark = `#1f1f1f`;
   }
-  return currentColorsScheme;
+  else {
+    currentColorScheme.bg1 = `#ffffff`;
+    currentColorScheme.bg2 = `#dddddd`;
+    currentColorScheme.text1 = `#000000`;
+    currentColorScheme.text2 = `#333333`;
+    currentColorScheme.dark = `#1f1f1f`;
+  }
+
+  return currentColorScheme;
 }
 
 export function findStepErrors(stepData, isCheckEmpty) {

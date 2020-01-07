@@ -135,11 +135,13 @@ export default {
     subtitle3: "Your logomark is only the mark of the logo.",
     subtitle4: "We recommend using imgur.com to host your logos",
     subtitle5:
-      "If you are having trouble picking out a good color pallete we recommend view coolors.co to find a color pallete to match your brand.",
+      "Choose a primary color for your DAC and whether you want a dark theme.  You can change this later.",
     ///// left part
     title: "DAC Brand & URL",
     website_url_alt_hint: "Valid URL is required",
-    colors_scheme: "Colors Scheme",
+    color_scheme: "Color Scheme",
+    primary_color: "Primary Color",
+    dark_theme: "Dark Theme",
     link_hint: "External link to a file"
   },
   step5: {

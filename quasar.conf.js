@@ -27,45 +27,9 @@ module.exports = function(ctx) {
       // lang: 'de', // Quasar language
 
       // all: true, // --- includes everything; for dev only!
+      all: 'auto',
 
-      components: [
-        "QColor",
-        "QCheckbox",
-        "QLayout",
-        "QHeader",
-        "QFooter",
-        "QDrawer",
-        "QPageContainer",
-        "QPage",
-        "QToolbar",
-        "QToolbarTitle",
-        "QBtn",
-        "QIcon",
-        "QList",
-        "QItem",
-        "QItemSection",
-        "QItemLabel",
-        "QDialog",
-        "QCard",
-        "QBar",
-        "QTooltip",
-        "QSpace",
-        "QCardSection",
-        "QCardActions",
-        "QSpinner",
-        "QSpinnerDots",
-        "QInput",
-        "QCarousel",
-        "QCarouselControl",
-        "QCarouselSlide",
-        "QBtnDropdown",
-        "QRadio",
-        "QVideo",
-        "QLinearProgress",
-        "QSlider",
-        "QBadge",
-        "QSelect"
-      ],
+      components: [],
 
       directives: ["Ripple", "ClosePopup", "TouchHold", "TouchSwipe"],
 

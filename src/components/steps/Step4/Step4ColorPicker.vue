@@ -1,20 +1,18 @@
 <template>
   <section>
     <div class="header">
-      <h3>{{ $t("step4.colors_scheme") }}</h3>
+      <h3>{{ $t("step4.color_scheme") }}</h3>
     </div>
     <div class="color-picker-wrapper">
-      <q-color dark no-header no-footer class="color-picker-left" @input="onQColorInput" :value="activeColor" />
-      <div class="color-picker-right">
-        <div v-for="(scheme, index) in schemes" class="schemes-wrapper">
-          <label class="scheme-text">
-            <q-radio dark keep-color v-model="activeIndex" :val="index" />Scheme {{ index + 1 }}
-          </label>
-          <div class="colors-scheme">
-            <div class="color-square" v-for="color in scheme" :style="{ backgroundColor: `#${color}` }"></div>
-          </div>
-        </div>
-      </div>
+      {{primary}} {{secondary}}
+      <q-btn push :style="`background: ${primary}`" class="q-pa-md" :label="$t('step4.primary_color')">
+        <q-popup-proxy>
+          <q-color dark no-footer class="color-picker-left" @input="onQColorInput" :value="primary" />
+        </q-popup-proxy>
+      </q-btn>
+    </div>
+    <div>
+      <q-toggle :label="$t('step4.dark_theme')" v-model="isDark" />
     </div>
   </section>
 </template>
@@ -23,59 +21,58 @@
 import ColorScheme from "color-scheme";
 import debounce from "lodash.debounce";
 
-import { SCHEME_VARIATIONS } from "components/constants";
-
 export default {
   data() {
-    const { activeColor, activeIndex } = this.$store.state.factory.stepsData[4].colorsScheme;
+    let { primary } = this.$store.state.factory.stepsData[4].colorScheme;
+    if (!primary) {
+      primary = '#7c41ba';
+    }
 
     return {
       schemes: [],
-      activeColor,
-      activeIndex
+      primary,
+      secondary: null,
+      isDark: true
     };
   },
   created() {
-    this.generateColorsSchemes();
+    this.generateColorSchemes();
   },
   methods: {
     onQColorInput: debounce(function(color) {
-      this.activeColor = color;
+      this.primary = color;
     }, 100),
-    generateColorsSchemes() {
-      const scheme = new ColorScheme()
-        .from_hex(this.activeColor.replace("#", ""))
-        .scheme("triade")
-        .distance(0.1)
-        .web_safe(true);
-      this.schemes = SCHEME_VARIATIONS.map(currentVariation =>
-        scheme
-          .variation(currentVariation)
-          .colors()
-          .slice(0, 10)
-      );
-      this.setColorsScheme();
+    generateColorSchemes() {
+      const secondary = new ColorScheme()
+              .from_hex(this.primary.replace("#", ""))
+              .scheme("mono")
+              .variation('hard')
+              .colors()[1];
+
+      this.secondary = `#${secondary}`
+
+      this.setColorScheme();
     },
-    setColorsScheme() {
+    setColorScheme() {
       this.$store.commit("factory/setStepsData", {
         step: 4,
-        key: "colorsScheme",
+        key: "colorScheme",
         data: {
           value: {
-            scheme: this.schemes[this.activeIndex],
-            activeIndex: this.activeIndex,
-            activeColor: this.activeColor
+            primary: this.primary,
+            secondary: this.secondary,
+            isDark: this.isDark
           }
         }
       });
     }
   },
   watch: {
-    activeColor() {
-      this.generateColorsSchemes();
+    primary() {
+      this.generateColorSchemes();
     },
-    activeIndex() {
-      this.setColorsScheme();
+    isDark() {
+      this.setColorScheme();
     }
   }
 };

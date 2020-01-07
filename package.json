@@ -16,7 +16,7 @@
     "eosjs": "^20.0.0",
     "eosjs2": "^1.0.0",
     "lodash.debounce": "^4.0.8",
-    "quasar": "^1.0.0",
+    "quasar": "^1.4.0",
     "ual-eosio-reference-authenticator": "^0.1.2",
     "ual-ledger": "^0.1.2",
     "ual-lynx": "^0.2.1",
@@ -29,7 +29,7 @@
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
+    "@quasar/app": "^1.4.0",
     "@quasar/quasar-app-extension-dotenv": "^1.0.0-beta.11",
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
