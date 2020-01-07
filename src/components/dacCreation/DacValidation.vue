@@ -13,7 +13,7 @@
   </section>
   <section v-else-if="!validationError">
     <p class="validated-text">{{ $t("dac_creation.dac_was_validated") }}</p>
-    <a :href="`http://${dacId}.dacfactory.io`" class="dac-link">{{ $t("dac_creation.go_to_your_dac") }}</a>
+    <a :href="`http://${dacId}.dev.dacfactory.io`" class="dac-link">{{ $t("dac_creation.go_to_your_dac") }}</a>
   </section>
   <section v-else>
     <p class="validated-text validation-fail">{{ $t("dac_creation.dac_was_not_validated") }}</p>
