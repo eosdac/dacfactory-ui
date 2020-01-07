@@ -10,7 +10,7 @@
     <p class="subtitle-step margin-bottom-15">{{ $t("step4.subtitle3") }}</p>
     <img src="../../../statics/images/eosdac-logo-notext.svg" alt="eosDAC logo without text" class="margin-bottom-15" />
     <p class="small-title">{{ $t("step4.subtitle4") }}</p>
-    <p class="hint-step text-uppercase">{{ $t("step4.colors_scheme") }}</p>
+    <p class="hint-step text-uppercase">{{ $t("step4.color_scheme") }}</p>
     <p class="subtitle-step">{{ $t("step4.subtitle5") }}</p>
   </div>
 </template>

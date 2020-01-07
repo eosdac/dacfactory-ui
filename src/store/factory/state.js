@@ -34,10 +34,10 @@ export function factoryInitialState() {
         logoUrlError: false,
         logoMarkUrl: "",
         logoMarkUrlError: false,
-        colorsScheme: {
-          scheme: [],
-          activeIndex: 0,
-          activeColor: "#000000"
+        colorScheme: {
+          primary: null,
+          secondary: null,
+          isDark: true
         }
       },
       5: {

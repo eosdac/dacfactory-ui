@@ -3,7 +3,7 @@ import {
   THRESHOLD_HIGH,
   THRESHOLD_MIDDLE,
   THRESHOLD_LOW,
-  createColorsScheme
+  createColorScheme
 } from "imports/utils";
 import { processDacNameInId, processFromDacId } from "imports/validators";
 
@@ -91,7 +91,8 @@ export async function prepareDacTransact(storeProps, payload) {
   const { dacName, dacDescription, tokenSymbol } = stepsData[1];
   const { decimals, issuance } = stepsData[2];
   const { periodLength, periodLengthSelect, numberOfCustodians, numberOfVotes } = stepsData[3];
-  const { websiteUrl, logoUrl, logoMarkUrl, colorsScheme } = stepsData[4];
+  const { websiteUrl, logoUrl, logoMarkUrl, colorScheme } = stepsData[4];
+  console.log('colorScheme', colorScheme)
   const {
     DAC_TOKEN,
     NATIVE_TOKEN,
@@ -135,8 +136,8 @@ export async function prepareDacTransact(storeProps, payload) {
       logo_notext_url: logoMarkUrl,
       background_url: "",
       theme: {
-        is_dark: true,
-        colors: createColorsScheme(colorsScheme.scheme)
+        is_dark: colorScheme.isDark,
+        colors: createColorScheme(colorScheme)
       },
       custodian_config: {
         lockupasset: {
