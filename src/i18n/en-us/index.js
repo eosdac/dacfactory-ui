@@ -151,7 +151,7 @@ export default {
     pay_month: "Pay month to month.",
     creation_of_account: "Creation of Accounts",
     once_you: "Once you purchase, the DAC will be initially under the control of the account which set it up",
-    i_agree_with: "I agree with",
+    i_agree_with: "I agree with the",
     terms_and_conditions: "terms and conditions",
     /////
     "30_days": "30 days",

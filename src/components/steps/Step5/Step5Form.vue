@@ -19,17 +19,24 @@
         />
         <span :class="checkboxError ? 'checkbox-error terms-conditions-anim' : ''">
           {{ $t("step5.i_agree_with") }}
-          <router-link to="/terms" :class="checkboxError ? 'terms-link-error' : 'terms-link'">{{
+          <q-btn flat @click="showTerms = true" :class="checkboxError ? 'terms-link-error' : 'terms-link'">{{
             $t("step5.terms_and_conditions")
-          }}</router-link>
+          }}</q-btn>
         </span>
       </div>
     </div>
+    <q-dialog v-model="showTerms">
+      <div class="bg-black text-white q-pa-md">
+        <q-markdown :src="terms" :no-container="true"></q-markdown>
+      </div>
+    </q-dialog>
   </div>
+
 </template>
 
 <script>
 import PurchaseCards from "components/steps/Step5/PurchaseCards";
+import { QMarkdown } from '@quasar/quasar-ui-qmarkdown';
 
 export default {
   data() {
@@ -37,17 +44,24 @@ export default {
       isAgree: this.$store.state.factory.stepsData[5].isAgree,
       checkboxError: false,
       timeoutId: null,
-      checkboxRef: null
+      checkboxRef: null,
+      terms: null,
+      showTerms: false
     };
   },
   components: {
-    PurchaseCards
+    PurchaseCards,
+    QMarkdown
   },
-  mounted() {
+  async mounted() {
     this.setIsAgree(false);
     this.isAgree = false;
 
     this.checkboxRef = this.$refs.checkbox_ref;
+
+    const res = await this.$axios.get('https://raw.githubusercontent.com/eosdac/dacfactory-docs/master/EULA.md');
+    // console.log(res.data);
+    this.terms = res.data;
   },
   methods: {
     onInputCheckbox(isAgree) {
@@ -142,4 +156,6 @@ p
   max-width 260px
 .max-width-300
   max-width 300px
+.terms-wrapper
+  margin: 0px 40px
 </style>
