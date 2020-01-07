@@ -37,6 +37,7 @@
 <script>
 import PurchaseCards from "components/steps/Step5/PurchaseCards";
 import { QMarkdown } from '@quasar/quasar-ui-qmarkdown';
+const { EULA_PRE } = process.env;
 
 export default {
   data() {
@@ -59,7 +60,7 @@ export default {
 
     this.checkboxRef = this.$refs.checkbox_ref;
 
-    const res = await this.$axios.get('https://raw.githubusercontent.com/eosdac/dacfactory-docs/master/EULA.md');
+    const res = await this.$axios.get(EULA_PRE);
     // console.log(res.data);
     this.terms = res.data;
   },

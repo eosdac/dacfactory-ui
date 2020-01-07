@@ -10,6 +10,7 @@
 
 <script>
   import { QMarkdown } from '@quasar/quasar-ui-qmarkdown';
+  const { EULA_PRE } = process.env;
 
   export default {
     data() {
@@ -21,7 +22,8 @@
       QMarkdown
     },
     async mounted() {
-      const res = await this.$axios.get('https://raw.githubusercontent.com/eosdac/dacfactory-docs/master/EULA.md');
+      console.log(process.env);
+      const res = await this.$axios.get(EULA_PRE);
       this.terms = res.data;
     }
   };
