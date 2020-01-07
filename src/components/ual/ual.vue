@@ -9,10 +9,7 @@
             dense
             flat
             icon="close"
-            @click="
-              $store.commit('ual/setShouldRenderLoginModal', false);
-              resetUI();
-            "
+            @click="closeModal"
           >
             <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
           </q-btn>
@@ -157,6 +154,10 @@ export default {
     resetUI() {
       this.bar_msg = this.error_msg = this.accountname = "";
       this.slide = "wallet_selection";
+    },
+    closeModal() {
+      this.$store.commit('ual/setShouldRenderLoginModal', false);
+      this.resetUI();
     }
   },
   mounted() {
