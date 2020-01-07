@@ -13,7 +13,7 @@
   </section>
   <section v-else-if="!validationError">
     <p class="validated-text">{{ $t("dac_creation.dac_was_validated") }}</p>
-    <a :href="`http://${dacId}.dev.dacfactory.io`" class="dac-link">{{ $t("dac_creation.go_to_your_dac") }}</a>
+    <a :href="require('util').format(clientTargetUrl, dacId)" class="dac-link">{{ $t("dac_creation.go_to_your_dac") }}</a>
   </section>
   <section v-else>
     <p class="validated-text validation-fail">{{ $t("dac_creation.dac_was_not_validated") }}</p>
@@ -28,6 +28,7 @@
 import { encodeInSHA1 } from "imports/utils";
 
 import { CONSTITUTION_TEXT } from "components/constants";
+const { CLIENT_TARGET_URL } = process.env;
 
 export default {
   data() {
@@ -38,7 +39,8 @@ export default {
       isValidated: false,
       validationError: null,
       CONSTITUTION_TEXT,
-      dacId: this.$store.getters["factory/getDacId"]
+      dacId: this.$store.getters["factory/getDacId"],
+      clientTargetUrl: CLIENT_TARGET_URL
     };
   },
   props: {
