@@ -101,5 +101,9 @@ export function processDacNameInId(dacName) {
 }
 
 export function processFromDacId(dacId, type) {
-  return dacId.replace(/\./g, "").padEnd(12, type.charAt(0));
+  let str = dacId.replace(/\./g, "");
+  while (str.length < 12) {
+    str += type;
+  }
+  return str.substr(0,12);
 }
