@@ -28,6 +28,7 @@
 import { encodeInSHA1 } from "imports/utils";
 
 import { CONSTITUTION_TEXT } from "components/constants";
+import { processFromDacId } from "imports/validators";
 const { CLIENT_TARGET_URL } = process.env;
 
 export default {
@@ -85,9 +86,11 @@ export default {
       });
       try {
         const hash = await encodeInSHA1();
+        const authAccount = processFromDacId(this.dacId, "authority");
         await this.$store.dispatch("ual/validateDacTransact", {
           dacId: this.dacId,
           hash,
+          authAccount,
           afterTransact: this.afterTransact
         });
       } catch (error) {
