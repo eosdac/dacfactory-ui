@@ -90,7 +90,11 @@ export async function isAvailableDacId(v) {
 }
 
 export function processDacNameInId(dacName) {
-  let dacId = dacName.toLowerCase().replace(/[^a-z1-5]+/g, "");
+  const nameParts = dacName.toLowerCase().replace(/[^a-z1-5\ ]+/g, "").split(' ');
+  let dacId = '';
+  while (dacId.length < 5 && nameParts.length) {
+    dacId += nameParts.shift();
+  }
   if (dacId.length > 11) {
     dacId = dacId.substring(0, 11);
   }
