@@ -1,7 +1,10 @@
 <template>
-  <section v-if="!isValidated && !validationError">
+  <section v-if="!isValidated && !validationError" class="q-ma-xl">
+    <article class="intro-text q-pa-md text-h6 bg-info rounded-borders q-mb-md">
+      {{$t('dac_creation.validation_message', { account })}}
+    </article>
     <article class="constitution break-text-hyphens">
-      {{ CONSTITUTION_TEXT }}
+      <q-markdown v-if="terms" :src="terms" :no-container="true"></q-markdown>
     </article>
     <label class="checkbox-wrapper">
       <q-checkbox dark keep-color :value="isAgree" :color="checkboxError ? 'negative' : ''" @input="onInputCheckbox" />
@@ -27,9 +30,8 @@
 <script>
 import { encodeInSHA1 } from "imports/utils";
 
-import { CONSTITUTION_TEXT } from "components/constants";
 import { processFromDacId } from "imports/validators";
-const { CLIENT_TARGET_URL } = process.env;
+const { CLIENT_TARGET_URL, EULA_POST } = process.env;
 
 export default {
   data() {
@@ -39,7 +41,8 @@ export default {
       timeoutId: null,
       isValidated: false,
       validationError: null,
-      CONSTITUTION_TEXT,
+      terms: null,
+      account: this.$store.getters["ual/getAccountName"],
       dacId: this.$store.getters["factory/getDacId"],
       clientTargetUrl: CLIENT_TARGET_URL
     };
@@ -102,6 +105,10 @@ export default {
       this.validationError = null;
       this.setDacValidated(false);
     }
+  },
+  async mounted() {
+    const res = await this.$axios.get(EULA_POST);
+    this.terms = res.data;
   }
 };
 </script>
@@ -127,8 +134,7 @@ export default {
     &.checkbox-normal
       color $light-violet
 .constitution
-  max-width 400px
-  max-height 400px
+  max-height 300px
   overflow-y auto
   text-align left
 .validate-btn

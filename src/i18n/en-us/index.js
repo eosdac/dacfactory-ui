@@ -173,6 +173,7 @@ export default {
     dac_was_not_validated: "Your DAC wasn't validated. You can try again or contact our support.",
     try_again: "try again",
     constitution_preparation: "Constitution preparation",
-    go_to_your_dac: "go to your dac"
+    go_to_your_dac: "go to your dac",
+    validation_message: "Your DAC setup is now complete, the account {account} has been set as the genesis custodian and you can now approve actions of the DAC using that account.  Please agree to the terms and conditions as the DAC to proceed."
   }
 };
