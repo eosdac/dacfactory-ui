@@ -211,11 +211,16 @@ export async function prepareDacTransact(storeProps, payload) {
   dispatch("dacTransact", { actions, dacId, openWS, afterTransact });
 }
 
-export async function validateDacTransact({ dispatch }, payload) {
-  const { dacId, hash, afterTransact } = payload;
+export async function validateDacTransact({ state, dispatch }, payload) {
+  const { dacId, hash, afterTransact, authAccount } = payload;
+  const user = state.activeAuthenticator.users[0];
 
   const actions = [
     {
+      authorization: [
+        { actor: user.accountName, permission: 'active' },
+        { actor: authAccount, permission: 'active' }
+      ],
       account: process.env.DAC_FACTORY,
       name: "validatedac",
       data: {
@@ -231,11 +236,12 @@ export async function dacTransact({ state, dispatch, commit }, payload) {
   const { actions, dacId, openWS, afterTransact } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature", isShowCloseButton: false });
   const user = state.activeAuthenticator.users[0];
-  const copiedActions = actions.map((action, index) => ({
-    ...actions[index],
-    authorization: [{ actor: user.accountName, permission: "active" }]
-  }));
-
+  const copiedActions = actions.map((action, index) => {
+    if (!action.authorization) {
+      action.authorization = [{ actor: user.accountName, permission: "active" }];
+    }
+    return action;
+  });
   try {
     if (openWS) {
       await openWS(dacId);
