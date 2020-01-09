@@ -22,7 +22,7 @@ export function createColorScheme(scheme) {
   };
 
   currentColorScheme.warning = '#f2c037';
-  currentColorScheme.info = '#31ccec';
+  currentColorScheme.info = '#ace6ff';
   currentColorScheme.positive = '#21ba45';
   currentColorScheme.negative = '#cb2739';
   currentColorScheme.dark = `#1f1f1f`;
