@@ -4,7 +4,6 @@
       <h3>{{ $t("step4.color_scheme") }}</h3>
     </div>
     <div class="color-picker-wrapper">
-      {{primary}} {{secondary}}
       <q-btn push :style="`background: ${primary}`" class="q-pa-md" :label="$t('step4.primary_color')">
         <q-popup-proxy>
           <q-color dark no-footer class="color-picker-left" @input="onQColorInput" :value="primary" />
