@@ -15,10 +15,6 @@ export default {
         is_dark: true,
         colors: {
           $primary: "#7ead44",
-          $bg1: "#476128",
-          $bg2: "#222e14",
-          $text1: "#f5f5f5",
-          $text2: "#c2c2c2",
           $info: "#31ccec",
           $positive: "#21ba45",
           $negative: "#db2828",

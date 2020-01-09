@@ -21,25 +21,11 @@ export function createColorScheme(scheme) {
     secondary: scheme.secondary,
   };
 
-  currentColorScheme.warning = '#f2c037'
-  currentColorScheme.info = '#31ccec'
-  currentColorScheme.positive = '#21ba45'
-  currentColorScheme.negative = '#cb2739'
-
-  if (scheme.isDark) {
-    currentColorScheme.bg1 = `#000000`;
-    currentColorScheme.bg2 = `#111111`;
-    currentColorScheme.text1 = `#ffffff`;
-    currentColorScheme.text2 = `#cccccc`;
-    currentColorScheme.dark = `#1f1f1f`;
-  }
-  else {
-    currentColorScheme.bg1 = `#ffffff`;
-    currentColorScheme.bg2 = `#dddddd`;
-    currentColorScheme.text1 = `#000000`;
-    currentColorScheme.text2 = `#333333`;
-    currentColorScheme.dark = `#1f1f1f`;
-  }
+  currentColorScheme.warning = '#f2c037';
+  currentColorScheme.info = '#31ccec';
+  currentColorScheme.positive = '#21ba45';
+  currentColorScheme.negative = '#cb2739';
+  currentColorScheme.dark = `#1f1f1f`;
 
   return currentColorScheme;
 }
