@@ -93,32 +93,30 @@ export default {
     info_line1: "Welcome to the first step in creating your own Decentralized Autonomous Community!",
     info_line2: "To start, specify the name of your DAC as you'd like it displayed.",
     info_line3:
-      "Your token symbol should contain capital letters only and is limited to 7 characters. Ideally, you’ll want to avoid using a token symbol which might be confused with existing EOS tokens. This token will be your governance token used by your members to elect custodians.",
+      "Your token symbol should contain capital letters only and is limited to 7 characters. Ideally, you’ll want to avoid using a token symbol which might be confused with existing EOS tokens. This token will be your governance token used by your members to elect custodians. If you already have an existing EOS token, please contact us to modify your token contract and use the DAC JSON creation method.",
     info_line4:
       "A DAC is a group of people with a shared goal. Your DAC Description should let people know what your community goal is all about and why they might want to participate."
   },
   step2: {
     title: "Tokenomics",
     title_right: "Understanding of tokenomics",
-    issuance: "Issuance",
-    issuance_hint: "Issuance for your token",
+    issuance: "Tokens",
+    issuance_hint: "Number of tokens to create",
     decimals: "Decimals",
     info_line1:
-      "Your DAC does not have to issue all the tokens initially created. Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
+      "Your DAC does not have to distribute all the tokens initially created. The account you are logged in with will become the genesis custodian for your DAC and will initially control all the tokens. You can later transfer them to your DAC treasury account. Most EOS tokens use 4 decimal places so if you’re unsure about this, just leave it as 4.",
     less_than_supply: "Issuance should be less than {max_supply}."
   },
   step3: {
     ///// right part
     title_right: "Understanding the configurations",
-    subtitle1: "You’re configurations bacon ipsum dolor amet leberkas doner kevin pork belly spare ribs biltong.",
-    subtitle_dolor_amet:
-      "Dolor amet strip steak sirloin beef t-bone brisket, drumstick bacon kevin kielbasa pork loin. Beef ribs rump landjaeger.",
+    subtitle1: "Custodians are the elected members of your DAC who will control DAC funds via multi-signature permissions and vote on proposals on behalf of the members who elected them. You should increase or decrease the number of custodians based on the amount of value your DAC will contain. For example, if you want a larger group making decisions for the DAC, you could increase this number to 12 so that a 9 of 12 agreement would be needed for any DAC token transfers.",
     number_of_c: "Number of custodians",
     subtitle2: "How many custodians will be elected.",
     number_of_v_per_t: "Number of votes per token",
     subtitle3: "How many custodians will each account be allowed to vote for.",
     length_of_c_term: "Length of custodian term",
-    subtitle4: "How long will custodians be elected for until the next election.",
+    subtitle4: "How long will custodians be elected for until the next election. This also determines how of then the custodians will be paid, if you choose to make this a paid position in your DAC.",
     ///// left part
     title: "Custodian Configuration",
     percent_error: "Value should be between 0 and 100"
@@ -128,7 +126,7 @@ export default {
     title_right: "Adding Branding and setting colors",
     website_url: "Website URL",
     subtitle1:
-      "Your brand is an important part of your DAC, and makes a significant impact on a DAC’s public perception.",
+      "Your brand is an important part of your DAC and makes a significant impact on a DAC’s public perception.",
     logo_url: "Logo URL",
     subtitle2: "Your logo is the logo and the word mark.",
     logomark_url: "Logomark URL",
