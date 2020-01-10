@@ -92,7 +92,7 @@
       <router-view />
     </q-page-container>
     <q-footer class="bg-accent" v-if="isShowFooter">
-      <stepper />
+
     </q-footer>
   </q-layout>
 </template>

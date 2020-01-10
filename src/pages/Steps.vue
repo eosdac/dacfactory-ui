@@ -32,7 +32,8 @@
                 mode="out-in"
               >
                 <div class="continue-btn-wrapper">
-                  <q-btn
+                  <stepper />
+                  <!--<q-btn
                     v-if="getActiveStep < stepsNumber"
                     color="secondary"
                     class="full-width"
@@ -40,7 +41,7 @@
                     :disable="!!checkStepErrors"
                     :key="`continue${getActiveStep}`"
                     >{{ $t("general.continue") }}</q-btn
-                  >
+                  >-->
                 </div>
               </transition>
             </div>
@@ -75,6 +76,7 @@ import { findStepErrors } from "imports/utils";
 
 import { STEPS_NUMBER } from "components/constants";
 
+import Stepper from "components/steps/Stepper";
 import { Step1Form, Step1Right } from "components/steps/Step1";
 import { Step2Form, Step2Right } from "components/steps/Step2";
 import { Step3Form, Step3Right } from "components/steps/Step3";
@@ -108,6 +110,7 @@ export default {
     }
   },
   components: {
+    Stepper,
     Step1Form,
     Step1Right,
     Step2Form,

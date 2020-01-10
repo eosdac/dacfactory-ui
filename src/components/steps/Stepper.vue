@@ -11,23 +11,22 @@
         <div class="prev-btn-wrapper">
           <q-btn v-if="shouldDisplayPrevStepBtn" color="secondary" @click="prevStep">
             <q-icon name="ion-arrow-back" />
-            <div v-if="$q.screen.gt.xs" class="on-right text-weight-light">{{ $t("general.go_back") }}</div>
           </q-btn>
           <q-btn v-if="shouldDisplayHomeButton" key="home" flat to="/">
             <q-icon name="home" style="color:#54565c" />
           </q-btn>
         </div>
       </transition>
-      <transition appear enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown" mode="out-in">
+      <!--<transition appear enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown" mode="out-in">
         <q-btn flat v-if="getActiveStep > 0" class="center-btn" :key="`${getActiveStep}`" @click="showstepsmenu = true">
           <span class="center-btn-text">{{ $t("step" + getActiveStep + ".title") }}</span>
           <q-icon name="arrow_drop_up" :class="{ 'opened-menu-arrow': showstepsmenu }" />
         </q-btn>
         <div v-else class="text-h5">{{ $t("general.welcome") }}</div>
-      </transition>
+      </transition>-->
       <transition appear enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
         <div class="next-btn-wrapper">
-          <q-btn color="secondary" :disable="!!checkStepErrors" @click="nextStep" v-if="shouldDisplayNextStepBtn">
+          <q-btn color="secondary" :disable="!!checkStepErrors" @click="nextStep" v-if="shouldDisplayNextStepBtn" class="full-width">
             <div v-if="$q.screen.gt.xs" class="on-left text-weight-light">
               {{ $t("general.go_to_step", { step: nextButtonNumber }) }}
             </div>
@@ -167,12 +166,11 @@ export default {
 .next-btn-wrapper
   display flex
   justify-content flex-end
-  width 56px
-  margin-right 12px
+  flex-grow: 1
   @media (min-width 600px)
     width 160px
 .prev-btn-wrapper
-  margin-left 12px
+  flex-grow: 0
   @media (min-width 600px)
     width 160px
 .center-btn
