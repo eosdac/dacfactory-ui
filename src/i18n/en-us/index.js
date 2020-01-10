@@ -16,6 +16,14 @@ export default {
     cancel: "Cancel",
     why_and_how: "The Why’s and How"
   },
+  ual: {
+    close: "Close",
+    no_authenticators: "No authenticators are available for your current browser and/or device.",
+    input_account: "Input your account name",
+    back: "back",
+    connecting_to: "Connecting to {name} ...",
+    service_unavailable: "Service unavailable"
+  },
   home: {
     welcome_to: "Welcome To",
     dac: "DAC",

@@ -11,7 +11,7 @@
             icon="close"
             @click="closeModal"
           >
-            <q-tooltip content-class="bg-secondary text-white">Close</q-tooltip>
+            <q-tooltip content-class="bg-secondary text-white">{{$t('ual.close')}}</q-tooltip>
           </q-btn>
         </q-bar>
         <q-card-section>
@@ -33,17 +33,18 @@
                 />
               </div>
               <div v-else class="text-black">
-                No authenticators are available for your current browser and/or device.
+                {{$t('ual.no_authenticators')}}
               </div>
             </q-carousel-slide>
             <q-carousel-slide name="accountname_input" class="column no-wrap justify-between">
-              <div class="text-black">Input your accountname</div>
+              <div class="text-black">{{$t('ual.input_account')}}</div>
               <q-input
                 type="text"
                 v-model="accountname"
                 autofocus
                 @keyup.enter.native="connectAuthenticator(authenticator)"
               />
+
               <div class="column">
                 <q-btn
                   label="continue"
@@ -57,7 +58,7 @@
             <q-carousel-slide name="error" class="column no-wrap justify-between">
               <div class="text-red">{{ error_msg }}</div>
               <div class="column">
-                <q-btn label="back" flat color="primary" class="q-mt-sm" @click="resetUI" />
+                <q-btn :label="$t('ual.back')" flat color="primary" class="q-mt-sm" @click="resetUI" />
               </div>
             </q-carousel-slide>
           </q-carousel>
@@ -115,7 +116,7 @@ export default {
 
     async connectAuthenticator(authenticator) {
       let authenticator_name = authenticator.getStyle().text;
-      this.bar_msg = `Connecting to ${authenticator_name} ...`;
+      this.bar_msg = this.$t('ual.connecting_to', { name: authenticator_name });
 
       let users;
       try {
@@ -141,7 +142,7 @@ export default {
       } catch (err) {
         this.bar_msg = "";
         console.log(err.cause ? err.cause : err);
-        let m = "Service unavailable";
+        let m = this.$t('ual.service_unavailable');
         if (authenticator) {
           m = authenticator.getError() || err;
           m += ` ${authenticator.getStyle().text}`;
