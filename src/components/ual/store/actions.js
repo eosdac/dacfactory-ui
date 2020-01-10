@@ -160,7 +160,7 @@ export async function prepareDacTransact(storeProps, payload) {
         }
       },
       proposals_config: {
-        proposal_threshold: 4,
+        proposal_threshold: processThresholdFromNoC(numberOfCustodians, THRESHOLD_LOW),
         finalize_threshold: 1,
         escrow_expiry: 2592000,
         approval_expiry: 2592000
