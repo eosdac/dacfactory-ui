@@ -12,12 +12,13 @@ export function getActiveAuthenticator(state) {
 
 export function getAuthenticators(state) {
     if(state.UAL){
+        console.log(state.UAL.getAuthenticators())
         return state.UAL.getAuthenticators().availableAuthenticators;
         // return state.UAL.authenticators;
     }
     else{
         return [];
-    }  
+    }
 }
 
 export function getSESSION(state) {

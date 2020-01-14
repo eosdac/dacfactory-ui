@@ -6,7 +6,7 @@
         {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
       </p>
       <span class="time-info">(plan fee)</span>
-      <p class="quantity margin-top-5">{{ quantity.setupFee.split(".")[0] }}<span>EOS</span></p>
+      <p class="quantity margin-top-5">{{ quantity.setupFee.split(".")[0] }}<span>{{NATIVE_TOKEN}}</span></p>
       <span class="time-info">(setup fee)</span>
       <p class="time-info margin-top-15 ">{{ $t("step5.30_days") }}</p>
       <p class="hint margin-top-15">{{ $t("step5.due_on") }}<span class="question">?</span></p>
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       DAC_TOKEN: process.env.DAC_TOKEN,
+      NATIVE_TOKEN: process.env.NATIVE_TOKEN,
       loggedInUser: this.$store.state.ual.accountName
     };
   },

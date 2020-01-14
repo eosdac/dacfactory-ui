@@ -236,6 +236,7 @@ export async function dacTransact({ state, dispatch, commit }, payload) {
   const { actions, dacId, openWS, afterTransact } = payload;
   commit("setSigningOverlay", { show: true, status: 0, msg: "Waiting for Signature", isShowCloseButton: false });
   const user = state.activeAuthenticator.users[0];
+  console.log(`Users`, user, state.activeAuthenticator.users)
   const copiedActions = actions.map((action, index) => {
     if (!action.authorization) {
       action.authorization = [{ actor: user.accountName, permission: "active" }];
@@ -269,7 +270,7 @@ function parseUalError(error) {
   let cause = "unknown cause";
   let error_code = "";
   if (error.cause) {
-    cause = error.cause.reason || error.cause.message || "Report this error to the eosdac devs to enhance the UX";
+    cause = error.cause.reason || error.cause.message || "Report this error to the eosDAC devs to enhance the UX";
     error_code = error.cause.code || error.cause.errorCode;
   }
   console.log(cause);

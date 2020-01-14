@@ -12,6 +12,7 @@
       :checkboxRef="checkboxRef"
     />
     <purchase-card
+      v-if="dacToken"
       :header="dacToken"
       :quantity="paymentInfo"
       :isAgree="isAgree"
@@ -51,6 +52,7 @@ export default {
       };
       result[0].rows.forEach(plan => {
         const amount = plan.amount.quantity.split(".")[0].split("");
+        const [,sym] = plan.amount.quantity.split(' ')
         let counter = 0;
         for (let i = amount.length - 1; i >= 0; i--) {
           counter++;
@@ -65,7 +67,7 @@ export default {
           }
         }
 
-        paymentInfo[plan.plan_id === "monthly" ? this.dacToken : this.nativeToken] = {
+        paymentInfo[sym] = {
           quantityToShow: amount.join(""),
           toPay: {
             planId: plan.plan_id,

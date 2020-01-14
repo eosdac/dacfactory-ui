@@ -1212,6 +1212,13 @@
   resolved "https://registry.yarnpkg.com/@vue/preload-webpack-plugin/-/preload-webpack-plugin-1.1.1.tgz#18723530d304f443021da2292d6ec9502826104a"
   integrity sha512-8VCoJeeH8tCkzhkpfOkt+abALQkS11OIHhte5MBzYaKMTqK0A3ZAKEUVAffsOklhEv7t0yrQt696Opnu9oAx+w==
 
+"@waxio/waxjs@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@waxio/waxjs/-/waxjs-0.0.11.tgz#046d77306c90534d26c8618aa3c9227de969f883"
+  integrity sha512-YnQxJ1PnE5Vhb98EsBQhjj28VJEIOm1IT0Ff4xTcA8S26IoTi0Vll1Tq9HglkjLA3WZU6BeIKWYqRzALAGHubA==
+  dependencies:
+    eosjs "^20.0.0"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -1445,6 +1452,11 @@ ansi-escapes@^4.2.1:
   integrity sha512-Cg3ymMAdN10wOk/VYfLV7KCQyv7EDirJ64500sU7n9UlmioEtDuU5Gd+hj73hXSU/ex7tHJSssmyftDdkMLO8Q==
   dependencies:
     type-fest "^0.5.2"
+
+ansi-font@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/ansi-font/-/ansi-font-0.0.2.tgz#890301bd5841462fd39c0b7709afd1f525143331"
+  integrity sha1-iQMBvVhBRi/TnAt3Ca/R9SUUMzE=
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -2531,6 +2543,14 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
+
+commonjs@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/commonjs/-/commonjs-0.0.1.tgz#65c531dcff6565ca7c95ddfc96622b89cc0294d5"
+  integrity sha1-ZcUx3P9lZcp8ld38lmIricwClNU=
+  dependencies:
+    system ">=0.0.1"
+    test ">=0.0.5"
 
 component-emitter@^1.2.1:
   version "1.3.0"
@@ -8432,6 +8452,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+system@>=0.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/system/-/system-2.0.1.tgz#d26a85135ee7f36e054e7f0eec4467f3b1dd9742"
+  integrity sha512-BwSUSa8LMHZouGadZ34ck3TsrH5s3oMmTKPK+xHdbBnTCZOZMJ38fHGKLAHkBl0PXru1Z4BsymQU4qqvTxWzdQ==
+
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
@@ -8505,6 +8530,13 @@ terser@^4.4.3:
     commander "^2.20.0"
     source-map "~0.6.1"
     source-map-support "~0.5.12"
+
+test@>=0.0.5:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/test/-/test-0.6.0.tgz#5986ac445ec17754322512d104ba32c8a63e938e"
+  integrity sha1-WYasRF7Bd1QyJRLRBLoyyKY+k44=
+  dependencies:
+    ansi-font "0.0.2"
 
 text-encoding@0.7.0, text-encoding@^0.7.0:
   version "0.7.0"
@@ -8692,6 +8724,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typescript@^3.7.4:
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.4.tgz#1743a5ec5fef6a1fa9f3e4708e33c81c73876c19"
+  integrity sha512-A25xv5XCtarLwXpcDNZzCGvW2D1S3/bACratYBx2sax8PefsFhlYmkQicKHvpYflFS8if4zne5zT5kpJ7pzuvw==
+
 u2f-api@0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/u2f-api/-/u2f-api-0.2.7.tgz#17bf196b242f6bf72353d9858e6a7566cc192720"
@@ -8747,6 +8784,16 @@ ual-token-pocket@^0.1.1:
   dependencies:
     tp-eosjs "^1.5.2"
     universal-authenticator-library "0.1.0"
+
+"ual-wax@file:/home/mike/Projects/EOS/ual-wax":
+  version "1.0.1"
+  dependencies:
+    "@waxio/waxjs" "^0.0.11"
+    commonjs "^0.0.1"
+    eosjs "20.0.0"
+    text-encoding "0.7.0"
+    typescript "^3.7.4"
+    universal-authenticator-library "0.1.4"
 
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.6"
@@ -8835,6 +8882,11 @@ universal-authenticator-library@0.1.2, universal-authenticator-library@^0.1.0, u
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/universal-authenticator-library/-/universal-authenticator-library-0.1.2.tgz#bc1afa61a1f61837f48bfbd7efa08183a2136b97"
   integrity sha512-vtvw+wfwGcdfRRT/Bzr+f5YZnhaWVf+U1nSmDonGsxXThLU07ec8zPorXd15v7x9t9mMYbs985ZScYVohHB/9w==
+
+universal-authenticator-library@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/universal-authenticator-library/-/universal-authenticator-library-0.1.4.tgz#e3f31d743780077184475089a8a9b57300316161"
+  integrity sha512-1nU8W7yAc+ZQ+MlJA1gGKnGylSNyyaA2wC4Zy1RqtJo+asDYcNTc4gAySYp19TYhfdF0WwQXeve7SVuodbMHJA==
 
 universalify@^0.1.0:
   version "0.1.2"
