@@ -6,9 +6,8 @@ const routes = [
       { path: "", component: () => import("pages/Home.vue") },
       { path: "create/:step(step[1-5]+)", component: () => import("pages/Steps") },
       { path: "create/", redirect: "create/step1" },
-      { path: "how-it-works", component: () => import("pages/HowItWorks") },
-      { path: "terms", component: () => import("pages/Terms") },
       { path: "dac-creation", component: () => import("pages/DacCreation") },
+      { path: "terms", component: () => import("pages/Terms") },
       { path: "test", component: () => import("pages/Test") }
     ]
   },
@@ -16,6 +15,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/ContentLayout"),
     children: [
+      { path: "how-it-works", component: () => import("pages/HowItWorks") },
       { path: "pricing", component: () => import("pages/Pricing") }
     ]
   }
