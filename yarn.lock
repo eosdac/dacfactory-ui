@@ -8785,8 +8785,10 @@ ual-token-pocket@^0.1.1:
     tp-eosjs "^1.5.2"
     universal-authenticator-library "0.1.0"
 
-"ual-wax@file:/home/mike/Projects/EOS/ual-wax":
+ual-wax@^1.0.1:
   version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ual-wax/-/ual-wax-1.0.1.tgz#bd60049589bf5a9d554ee912fb34cad7581039e3"
+  integrity sha512-yzMRh4Fg9nurCiMpmbCjdebkG/0CZVcGfzIw+iZqi77jDq6dlfUiULES7U8mGgt/p6teNCQStt093MbOiikNxw==
   dependencies:
     "@waxio/waxjs" "^0.0.11"
     commonjs "^0.0.1"
