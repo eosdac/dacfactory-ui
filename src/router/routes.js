@@ -7,7 +7,6 @@ const routes = [
       { path: "create/:step(step[1-5]+)", component: () => import("pages/Steps") },
       { path: "create/", redirect: "create/step1" },
       { path: "dac-creation", component: () => import("pages/DacCreation") },
-      { path: "terms", component: () => import("pages/Terms") },
       { path: "test", component: () => import("pages/Test") }
     ]
   },
@@ -16,6 +15,7 @@ const routes = [
     component: () => import("layouts/ContentLayout"),
     children: [
       { path: "how-it-works", component: () => import("pages/HowItWorks") },
+      { path: "terms", component: () => import("pages/Terms") },
       { path: "pricing", component: () => import("pages/Pricing") }
     ]
   }
