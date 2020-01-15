@@ -114,7 +114,7 @@ export async function prepareDacTransact(storeProps, payload) {
       periodLengthSelect === TIME_PERIOD_OPTIONS[0]
         ? periodLength * SECONDS_IN_HOUR
         : periodLength * 24 * SECONDS_IN_HOUR;
-    dacId = processDacNameInId(dacName);
+    dacId = await processDacNameInId(dacName);
     dacSymbol = `${decimals},${tokenSymbol}`;
 
     const dacData = {

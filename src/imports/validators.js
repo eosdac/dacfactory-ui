@@ -20,12 +20,13 @@ export function isValidUrl(v) {
     return "URL is not valid";
   }
 }
-export function isValidSymbol(symbol) {
-  if (/^[A-Z]{1,7}$/.test(symbol)) {
-    return true;
-  } else {
+
+export async function isValidSymbol(symbol) {
+  if (!/^[A-Z]{1,7}$/.test(symbol)) {
     return this.$t("errors.step1.can_only_have_letters");
   }
+
+  return true;
 }
 
 export async function isAvailableAccountName(name) {
@@ -51,12 +52,22 @@ export async function isAvailableSymbol(symbol) {
     });
     if (res && res.rows.length && res.rows[0].supply.split(" ")[1] === scope) {
       return this.$t("errors.step1.token_already_exists");
-    } else {
-      return true;
+    } else if (process.env.DAC_API) {
+      const axios = await Vue.prototype.$axios;
+      const params = {symbol_contract: process.env.DAC_TOKEN_CONTRACT, symbol_code: scope};
+      const res = await axios.get(`${process.env.DAC_API}/v1/eosdac/dac_info`, {
+        params
+      });
+
+      if (res.data.count){
+        return this.$t("errors.step1.token_already_exists");
+      }
     }
   } catch (error) {
     return this.$t("errors.step1.token_verification_error");
   }
+
+  return true;
 }
 
 export function isValidDacId(v) {
@@ -83,13 +94,14 @@ export async function isAvailableDacId(v) {
     })
     .catch(e => console.log(e));
   if (res && res.rows.length === 1 && res.rows[0].dac_id === v) {
-    return "DAC ID already exists.";
+    return false;
   } else {
     return true;
   }
 }
 
-export function processDacNameInId(dacName) {
+export async function processDacNameInId(dacName) {
+  console.log(dacName)
   const nameParts = dacName.toLowerCase().replace(/[^a-z1-5\ ]+/g, "").split(' ');
   let dacId = '';
   while (dacId.length < 5 && nameParts.length) {
@@ -100,6 +112,20 @@ export function processDacNameInId(dacName) {
   }
   if (dacId.length < 5) {
     dacId = dacId.padEnd(5, "1");
+  }
+
+  let available = await isAvailableDacId(dacId);
+  let bailout = false;
+  const original = dacId;
+  let i = 1;
+  while (!available && !bailout){
+    if (original.length < 11){
+      dacId = `${original.substr(0, 10)}${i}`
+      available = await isAvailableDacId(dacId);
+      if (i >= 5){
+        bailout = true
+      }
+    }
   }
   return dacId;
 }
