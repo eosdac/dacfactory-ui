@@ -11,12 +11,20 @@
       <p class="time-info margin-top-15 ">{{ $t("step5.30_days") }}</p>
       <p class="hint margin-top-15">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" v-if="payButton">
       <q-btn
         :label="$t(`step5.${loggedInUser ? 'pay' : 'login_to_pay'}`)"
         color="secondary"
         class="q-mt-md"
         @click="loggedInUser ? transfer(header === DAC_TOKEN) : $store.dispatch('ual/renderLoginModal')"
+      />
+    </div>
+    <div class="card-footer" v-else>
+      <q-btn
+        to="/create/step1"
+        :label="$t(`pricing.start`)"
+        color="secondary"
+        class="q-mt-md"
       />
     </div>
   </section>
@@ -56,6 +64,10 @@ export default {
     onCheckboxError: {
       type: Function,
       required: true
+    },
+    payButton: {
+      type: Boolean,
+      default: true
     },
     checkboxRef: Element
   },

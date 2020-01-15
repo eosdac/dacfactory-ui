@@ -10,6 +10,7 @@
       :isAgree="isAgree"
       :onCheckboxError="onCheckboxError"
       :checkboxRef="checkboxRef"
+      :payButton="payButtons"
     />
     <purchase-card
       v-if="dacToken"
@@ -18,6 +19,7 @@
       :isAgree="isAgree"
       :onCheckboxError="onCheckboxError"
       :checkboxRef="checkboxRef"
+      :payButton="payButtons"
     />
   </section>
   <section class="wrapper centered-wrapper" v-else-if="paymentInfoError">
@@ -32,7 +34,8 @@ export default {
   props: {
     isAgree: Boolean,
     onCheckboxError: Function,
-    checkboxRef: Element
+    checkboxRef: Element,
+    payButtons: { type: Boolean, default: true }
   },
   data() {
     return {

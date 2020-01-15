@@ -65,6 +65,8 @@ export default {
       "If you have any questions, please reach out to us in the #5-tech-and-development, dac-factory or support channels in the <a href='https://discord.io/eosdac' target='_blank'>eosDAC Discord</a>."
   },
   pricing: {
+    title: 'Pricing',
+    start: 'Start Now!',
     line1:
       "Getting your DAC started includes a setup fee to pay for the RAM needed to create accounts for your DAC and store information for your DAC on chain.",
     line2:
