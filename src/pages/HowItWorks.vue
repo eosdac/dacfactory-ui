@@ -1,24 +1,28 @@
 <template>
-  <q-page class="bg-accent full-height">
+  <q-page class="full-height">
     <div class="bg-primary">
       <div class="q-pa-md">
-        <p v-html="$t('how.line1')"></p>
-        <p v-html="$t('how.line2')"></p>
+        <div class="text-h1">Creating your own DAC is now easy!</div>
+        <p v-html="$t('how.intro')"></p>
         <hr />
-        <p v-html="$t('how.line3')"></p>
-        <blockquote>
-          <p v-html="$t('how.line4')"></p>
-          <p v-html="$t('how.line5')"></p>
-          <p v-html="$t('how.line6')"></p>
-        </blockquote>
-        <p v-html="$t('how.line7')"></p>
-        <p v-html="$t('how.line8')"></p>
-        <p v-html="$t('how.line9')"></p>
-        <p v-html="$t('how.line10')"></p>
-        <p v-html="$t('how.line11')"></p>
+        <div class="text-h2">How to start</div>
+        <p v-html="$t('how.how_start1')"></p>
+        <p v-html="$t('how.how_start2')"></p>
+        <hr />
+        <div class="text-h2">I already have an existing EOS token</div>
+        <p v-html="$t('how.existing1')"></p>
+        <div class="text-h2">What happens after the DAC is created?</div>
+        <p v-html="$t('how.what_happens1')"></p>
+        <p v-html="$t('how.what_happens2')"></p>
+        <p v-html="$t('how.what_happens3')"></p>
+        <p v-html="$t('how.what_happens4')"></p>
+        <div class="text-h2">Modifications</div>
+        <p v-html="$t('how.modifications1')"></p>
+        <p v-html="$t('how.modifications2')"></p>
+        <hr />
+        <p v-html="$t('how.footer')"></p>
       </div>
     </div>
-    <div class="diagonal"></div>
   </q-page>
 </template>
 

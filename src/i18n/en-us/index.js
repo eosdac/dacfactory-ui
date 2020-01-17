@@ -42,27 +42,17 @@ export default {
     all_data_will_be_deleted: "All data will be deleted! You won't be able to revert to the current state."
   },
   how: {
-    line1:
-      "Maintaining the infrastructure for a Decentralized Autonomous Community is no easy task. There are multiple technical pieces involved which require ongoing maintenance and support. Though all of the components used for your DAC are <a href='https://github.com/eosdac' target='_blank'>open source</a> and can be deployed and maintained yourself without any involvement from the eosDAC team, the DAC Factory offers a solution for non-technical users while still providing decentralized security for your DAC. All the information for you DAC is owned by your authority account and stored in tables within contracts secured and maintained by the elected 12-member eosDAC custodian board which requires a 10 of 12 multisignature agreement to change anything. The EOSDAC token holders who join eosDAC and vote for custodians help secure your DAC, so please join us also.",
-    line2: "Read on for a more technical understanding of all the pieces in making your DAC work.",
-    line3:
-      "The eosDAC technical team maintains the following contracts for you secured by the <a href='https://bloks.io/account/dacauthority#keys' target='_blank'>dacauthority</a> multisig account:",
-    line4:
-      "<strong>daccustodian</strong>: This is where your community votes, custodian election information, and other data is stored.",
-    line5:
-      "<strong>eosdactokens</strong>: Unless you are using your own custom token contract, this is where your token symbol and balance information is maintained.",
-    line6:
-      "<strong>eosdacmulti</strong>: This is where information about your multisignature proposals (title, description, voting status, etc) are maintained.",
-    line7:
-      "When creating your DAC, an authority account will be created for you which your elected custodians will control via multisig which controls all the data for your DAC. The treasury / owner account will also be owned and controlled by your DAC.",
-    line8:
-      "In addition, an API filler will take information from a state history node and store it in MongoDB. RabbitMQ is used along with an API processor to format that data and put it back into MongoDB so it can be used by the Client API. The <a href='https://github.com/eosdac/eosdac-client' target='_blank'>client</a> is the front end your members will interact with which is also hosted by eosDAC and can be customized by you via the <a href='https://github.com/eosdac/eosdac-client-extension' target='_blank'>eosdac-client-extension</a> which you can fork and update your DAC configuration to use. You can also host this yourself and point it to the Client API or run your own <a href='https://github.com/eosdac/eosdac-api' target='_blank'>Client API</a> as well.",
-    line9:
-      "The eosDAC team will work to ensure reliable uptime and ongoing support for the various components which keep your DAC running. Your monthly fees will go towards server infrastructure, technical team worker proposals to maintain the software, and to benefit the eosDAC community. Our goal is to keep the costs to you lower than if you had to maintain the infrastructure yourself. In order to keep your member client active, please make your monthly payments promptly.",
-    line10:
-      "Please read the terms carefully when creating your DAC. They are between you and Dacoco, the current service provider company for eosDAC. After your DAC is created, you'll have another set of terms to agree to as the DAC itself which will then transfer ownership of the DAC to you.",
-    line11:
-      "If you have any questions, please reach out to us in the #5-tech-and-development, dac-factory or support channels in the <a href='https://discord.io/eosdac' target='_blank'>eosDAC Discord</a>."
+    intro: "Creating a DAC used to be only for the most technically literate.  With DAC Factory from eosDAC it is now as easy as completing a few details and we will create and maintain it for you.",
+    how_start1: "Once you complete the form, our systems will prepare and build the DAC for you.  Just enter the name of your DAC and the name and amount of tokens you want to issue and then choose a color scheme.",
+    how_start2: "Please be careful choosing the token symbol as this cannot be changed later (anything else can be)",
+    modifications1: "We understand that the needs of each DAC is different (token economics, voting schemes etc), so have designed our DACs to be customizable.  This will require installing extra contracts if the functionality you require is not available.  Please contact us for more information.",
+    modifications2: "The default system already includes the ability to choose different voting schemes and the ability to customize the look-and-feel of your DAC.",
+    existing1: "No problem, the default setup will create a new token on our contract for simplicity.  If you have an existing token then you can contact us for a DAC creation file and you can upload that instead of completing the form",
+    what_happens1: "Once your DAC has been created, the account used originally will be elected as the 'Genesis Custodian'.  This account will be the single elected custodian and will be sent all of the issued tokens and therefore has full control of the DAC.",
+    what_happens2: "You should now take some time to familiarize yourself with the DAC interface.  At this point, you can change any settings by proposing them and then approving them.",
+    what_happens3: "Once you are ready, you can then start to distribute your DAC tokens (you may want to transfer them to the DAC treasury account first) and then start asking people to register as candidates and start voting!",
+    what_happens4: "After voting reaches the required threshold (expressed as a percentage of voting tokens), and the required number of candidates are available the DAC will be ready to be unlocked.  Once it is unlocked, all permissions will be resigned to the elected ",
+    footer: ""
   },
   pricing: {
     title: 'Pricing',
