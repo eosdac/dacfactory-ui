@@ -12,6 +12,7 @@ import { Ledger } from 'ual-ledger';
 import { Lynx } from 'ual-lynx';
 import { Wax } from 'ual-wax';
 import { TokenPocket } from 'ual-token-pocket';
+import { Anchor } from 'ual-anchor';
 // import { EOSIOAuth } from 'ual-eosio-reference-authenticator'
 
 const appName = process.env.APP_NAME;
@@ -29,7 +30,8 @@ const authenticators = [
   new Ledger(chains),
   new Lynx(chains, { appName: appName }),
   new TokenPocket(chains),
-  new Wax(chains, { appName: appName })/*,
+  new Anchor(chains, { appName: appName })/*,
+  new Wax(chains, { appName: appName }),
         new EOSIOAuth(chains, { appName, protocol: 'eosio' })*/
 ]
 
