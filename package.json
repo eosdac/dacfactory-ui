@@ -17,7 +17,7 @@
     "eosjs2": "^1.0.0",
     "lodash.debounce": "^4.0.8",
     "quasar": "^1.4.0",
-    "ual-anchor": "^0.4.1",
+    "ual-anchor": "^0.4.2",
     "ual-eosio-reference-authenticator": "^0.1.2",
     "ual-ledger": "^0.1.2",
     "ual-lynx": "^0.2.1",
