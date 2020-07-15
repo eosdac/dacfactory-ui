@@ -47,6 +47,7 @@ export default {
     how_start_title: "How to start",
     how_start1: "Once you complete the form, our systems will prepare and build the DAC for you.  Just enter the name of your DAC and the name and amount of tokens you want to issue and then choose a color scheme.",
     how_start2: "Please be careful choosing the token symbol as this cannot be changed later (anything else can be)",
+    modifications_title: 'Modifications',
     modifications1: "We understand that the needs of each DAC is different (token economics, voting schemes etc), so have designed our DACs to be customizable.  This will require installing extra contracts if the functionality you require is not available.  Please contact us for more information.",
     modifications2: "The default system already includes the ability to choose different voting schemes and the ability to customize the look-and-feel of your DAC.",
     existing_title: "I already have an existing EOS token",
