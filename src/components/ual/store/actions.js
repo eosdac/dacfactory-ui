@@ -244,16 +244,19 @@ export async function dacTransact({ state, dispatch, commit }, payload) {
     return action;
   });
   try {
-    if (openWS) {
-      await openWS(dacId);
-    }
     try {
       await user.signTransaction({ actions: copiedActions }, { broadcast: true });
       afterTransact();
     } catch (e) {
       afterTransact(parseUalError(e));
     }
-  } catch {}
+
+    if (openWS) {
+      await openWS(dacId);
+    }
+  } catch (e) {
+    console.error(`Error running transact`, e)
+  }
   commit("setSigningOverlay", { show: false, status: 0 });
 }
 
