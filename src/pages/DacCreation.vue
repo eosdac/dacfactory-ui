@@ -16,7 +16,7 @@
     <dac-validation v-else-if="isValidationStage" :setDacValidated="setDacValidated" />
     <section v-else-if="trxError || wsError">
       <p class="title creation-fail break-text">{{ trxError || wsError }}</p>
-      <q-btn to="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
+      <q-btn type="a" href="/" color="secondary" :label="$t('dac_creation.go_to_main_page')" />
     </section>
   </q-page>
 </template>
