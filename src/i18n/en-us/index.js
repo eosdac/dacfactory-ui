@@ -151,14 +151,14 @@ export default {
     ///// right part
     title_right: "Summary of DAC information",
     ///// left part
-    pay_month: "Pay month to month.",
+    pay_explain: "As a special introductory offer, the DAC Factory fee will be FREE FOR 6 MONTHS.  You only need to pay the setup fee now, the monthly fee after the initial free period is over is displayed below.  Please click \"pay\" to pay the fee and setup your DAC now!",
     creation_of_account: "Creation of Accounts",
     once_you: "Once you purchase, the DAC will be initially under the control of the account which set it up",
     i_agree_with: "I agree with the",
     terms_and_conditions: "terms and conditions",
     /////
     "30_days": "30 days",
-    due_on: "due on the 1st of each month",
+    due_on: "due on the 6 month aniversary of starting the DAC, and every 30 days after that",
     pay: "pay",
     login_to_pay: "login to pay",
     pay_in: "pay in",

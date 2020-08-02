@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="info-text max-width-260">{{ $t("step5.pay_month") }}</p>
+    <p class="info-text">{{ $t("step5.pay_explain") }}</p>
     <div class="table-wrapper">
       <div class="table">
         <p class="info-text text1">{{ $t("step5.creation_of_account") }}</p>
@@ -110,7 +110,7 @@ p
 .table
   position relative
   z-index 1
-  padding 38px 55px
+  padding 70px 55px
   border 1px solid $secondary
   border-radius 4px
   color $light-violet

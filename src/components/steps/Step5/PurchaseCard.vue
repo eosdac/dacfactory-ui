@@ -2,12 +2,15 @@
   <section :class="['card', transparent ? 'first-card' : 'second-card']">
     <h3 class="card-header">{{ $t("step5.pay_in") }} {{ header }}</h3>
     <div class="card-body">
-      <p class="quantity margin-top--5">
+      <p class="quantity margin-top-5">{{ quantity.setupFee.split(".")[0] }}<span>{{NATIVE_TOKEN}}</span></p>
+      <span class="time-info">(setup fee)</span>
+      <p>
+        FREE for 6 months, after that pay
+      </p>
+      <p class="quantity margin-top--15">
         {{ quantity[header].quantityToShow }}<span>{{ header }}</span>
       </p>
       <span class="time-info">(plan fee)</span>
-      <p class="quantity margin-top-5">{{ quantity.setupFee.split(".")[0] }}<span>{{NATIVE_TOKEN}}</span></p>
-      <span class="time-info">(setup fee)</span>
       <p class="time-info margin-top-15 ">{{ $t("step5.30_days") }}</p>
       <p class="hint margin-top-15">{{ $t("step5.due_on") }}<span class="question">?</span></p>
     </div>
@@ -119,7 +122,7 @@ p
   display flex
   flex-direction column
   align-items center
-  width 190px
+  width 290px
   height 100%
   border-radius 4px
   font-weight 700
@@ -144,7 +147,7 @@ p
   flex-direction column
   justify-content center
   align-items center
-  height: 276px
+  height: 326px
   & > div.quantity:last-child
     margin-top 5px
 .quantity
@@ -162,7 +165,7 @@ p
   line-height 15px
 .hint
   position relative
-  max-width 100px
+  max-width 200px
   color #ffffff
   font-size 12px
   font-style italic

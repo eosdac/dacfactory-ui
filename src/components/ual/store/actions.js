@@ -175,7 +175,7 @@ export async function prepareDacTransact(storeProps, payload) {
   }
 
   const actions = [
-    {
+    /*{
       account: tokenToPay,
       name: "transfer",
       data: {
@@ -184,7 +184,7 @@ export async function prepareDacTransact(storeProps, payload) {
         quantity: toPayInfo.quantityPlan,
         memo: `${dacId}:${toPayInfo.planId}`
       }
-    },
+    },*/
     {
       account: tokenToPay,
       name: "transfer",
