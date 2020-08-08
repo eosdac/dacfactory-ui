@@ -34,3 +34,9 @@ export function setDacId(state, payload) {
 export function setCustomDacData(state, payload) {
   state.customDacData = payload;
 }
+
+export function setReferrer(state, payload) {
+  if (/^[a-z1-5]{1,12}$/.exec(payload)){
+    state.referrer = payload;
+  }
+}

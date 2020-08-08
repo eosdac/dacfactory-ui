@@ -152,6 +152,20 @@ export default {
         this.$refs.file_input.value = ''
       }, 3000)
     }
+  },
+  mounted: function() {
+    console.log(`mounted`);
+    const [, query] = document.URL.split('?')
+    if (typeof query !== 'undefined'){
+      const queryParts = query.split('&')
+      queryParts.forEach(qp => {
+        if (qp.substr(0,2) === 'r='){
+          const referrer = qp.substr(2)
+          console.log(`referrer: ${referrer}`)
+          this.$store.commit("factory/setReferrer", referrer);
+        }
+      })
+    }
   }
 };
 </script>

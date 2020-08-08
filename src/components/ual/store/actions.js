@@ -78,7 +78,7 @@ export async function attemptAutoLogin({ state, commit, dispatch }) {
 export async function prepareDacTransact(storeProps, payload) {
   const {
     rootState: {
-      factory: { stepsData, customDacData },
+      factory: { stepsData, customDacData, referrer },
       ual: {
         accountName,
         paymentInfo: { isDacToken, tokenQuantity }
@@ -174,6 +174,12 @@ export async function prepareDacTransact(storeProps, payload) {
     dacSymbol = symbol.symbol;
   }
 
+  let memo = `${dacId}:_setup`;
+  if (referrer){
+    memo += `:${referrer}`
+  }
+
+
   const actions = [
     /*{
       account: tokenToPay,
@@ -192,7 +198,7 @@ export async function prepareDacTransact(storeProps, payload) {
         from: accountName,
         to: DAC_FACTORY,
         quantity: tokenQuantity.setupFee,
-        memo: `${dacId}:_setup`
+        memo
       }
     },
     {

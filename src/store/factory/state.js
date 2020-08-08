@@ -44,7 +44,8 @@ export function factoryInitialState() {
         isAgree: false
       }
     },
-    customDacData: null
+    customDacData: null,
+    referrer: null
   };
 }
 
