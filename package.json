@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "color-scheme": "^1.0.1",
     "eosjs": "^20.0.0",
     "eosjs2": "^1.0.0",
